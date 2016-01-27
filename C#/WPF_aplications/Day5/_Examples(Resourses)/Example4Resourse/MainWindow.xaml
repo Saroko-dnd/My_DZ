@@ -1,0 +1,41 @@
+﻿<Window x:Class="Example4Resourse.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+
+    <!--ДЕМОНСТРАЦИЯ ОБЪЯВЛЕНИЯ РЕСУРСОВ-->
+
+    <!--Объявление ресурса на уровне всего окна-->
+    <Window.Resources>
+        <LinearGradientBrush x:Key="buttomGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="GreenYellow" Offset="0.0" />
+            <GradientStop Color="Green" Offset="1.0" />
+        </LinearGradientBrush>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="spMain" Grid.Row="0">
+            <!--Объявление ресурса на уровне StackPanel -->
+            <StackPanel.Resources>
+                <LinearGradientBrush x:Key="buttomGradient" StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="RosyBrown" Offset="0.0" />
+                    <GradientStop Color="Red" Offset="1.0" />
+                </LinearGradientBrush>
+            </StackPanel.Resources>
+            <!--Использование ресурса  StackPanel -->
+            <Button Margin="20" Padding="5" Background="{StaticResource buttomGradient}" 
+                    FontWeight="Bold" Click="Button_Click">Кнопка 1</Button>
+        </StackPanel>
+
+        <!--Использование ресурса  Window -->
+        <Button Margin="20"  Grid.Row="1" Padding="5" Background="{StaticResource buttomGradient}" 
+                FontWeight="Bold" Click="Button_Click">Кнопка 1</Button>
+
+
+    </Grid>
+</Window>

@@ -1,0 +1,56 @@
+﻿<Window x:Class="Example5TemplateBinding.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <!--Шаблоны-->
+        <ControlTemplate x:Key="buttonTemplateNo" TargetType="Button">
+            <Grid>
+                <Ellipse Height="42" Width="180" Fill="LightBlue"></Ellipse>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+            </Grid>
+            
+        </ControlTemplate>
+        <ControlTemplate x:Key="buttonTemplateYes" TargetType="Button">
+            <Grid>
+                <!-- TemplateBinding позволяет изменять свойство вне стиля -->
+                <Ellipse Height="42" Width="180" Fill="{TemplateBinding Background }"></Ellipse>
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"></ContentPresenter>
+            </Grid>
+        </ControlTemplate>
+       
+        <!--Стиль, который будет изменять шаблон-->
+        <Style x:Key="styleButton" TargetType="Button">
+            <Setter Property="Template" Value="{StaticResource buttonTemplateYes}"></Setter>
+            <Setter Property="FontSize" Value="17"></Setter>
+            <Setter Property="Foreground" Value="Red"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Foreground" Value="Green" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="LightYellow" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>            </Style.Triggers>
+
+
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+        <Button Margin="5">Кнопка без шаблона</Button>
+        <Button Margin="5" Template="{StaticResource buttonTemplateNo}">Кнопка c шаблоном </Button>
+        <!--Применение цвета к Background не влияет на шаблон кнопки-->
+        <Button Template="{StaticResource buttonTemplateNo}" Background="LightGreen" Margin="5">Кнопка со шаблоном </Button>
+        <!--Применение цвета к Background влияет на шаблон кнопки -->
+        <Button Template="{StaticResource buttonTemplateYes}" Background="LightGreen" Margin="5">Кнопка со шаблоном</Button>
+
+        <!--Применение ститя, в котором указан шаблон -->
+        <Button Style="{StaticResource styleButton}" Margin="5">Кнопка со стилем</Button>
+        <!--Применение цвета к Background влияет на шаблон кнопки -->
+        <Button Style="{StaticResource styleButton}" Background="LightGreen" Margin="5">Кнопка со стилем</Button>
+    </StackPanel>
+</Window>

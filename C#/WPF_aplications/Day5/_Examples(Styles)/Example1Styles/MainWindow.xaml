@@ -1,0 +1,29 @@
+﻿<Window x:Class="Example1Styles.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+
+    <!--Демонстрация создания и применения стиля-->
+    
+    <!--Стиль для всех элементов управления (Control) -->
+    <Window.Resources>
+        <Style x:Key="RedColorStyle">
+            <Setter Property="Control.Background" Value="Red"  />
+            <Setter Property="Control.BorderBrush" Value="Red" />
+            <Setter Property="Control.Foreground" Value="White"/>
+        </Style>
+    </Window.Resources>
+    
+    <StackPanel>
+        <!-- Для установки стиля в коде-->
+        <Label x:Name="lbFirst" Margin="10,5"> Первый элемент - Label</Label>
+        
+        <!--Установка стиля в разметке-->
+        <TextBlock  Margin="10,5" Style="{StaticResource RedColorStyle}">Второй элемент - TextBlock</TextBlock>
+        <Button  Margin="10,5" Style="{StaticResource RedColorStyle}">Третий элемент - Button</Button>
+       
+        <!--Каждый элемент управления WPF может использовать один стиль.
+        (Свойство Style определено в базовом классе FrameworlElement)-->
+
+    </StackPanel>
+</Window>

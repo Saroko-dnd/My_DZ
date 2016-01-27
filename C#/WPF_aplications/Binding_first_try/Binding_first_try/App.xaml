@@ -1,0 +1,70 @@
+﻿<Application x:Class="Binding_first_try.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <collections:ArrayList x:Key="all_fonts">
+            <Style>
+                <Setter Property="TextElement.FontFamily"
+            Value="./fonts/#GoodDog" />
+            </Style>
+            <Style>
+                <Setter Property="TextElement.FontFamily" 
+            Value="./fonts/#Caviar Dreams" />
+            </Style>
+            <Style>
+                <Setter Property="TextElement.FontFamily" 
+            Value="./fonts/#Ostrich Sans" />
+            </Style>
+            <Style>
+                <Setter Property="TextElement.FontFamily" 
+            Value="./fonts/#Pacifico" />
+            </Style>
+        </collections:ArrayList>
+        <collections:ArrayList x:Key="all_decor">
+            <sys:String>Baseline</sys:String>
+            <sys:String>OverLine</sys:String>
+            <sys:String>Strikethrough</sys:String>
+            <sys:String>Underline</sys:String>
+        </collections:ArrayList>
+        <collections:ArrayList x:Key="all_font_weights">
+            <sys:String>Black</sys:String>
+            <sys:String>Bold</sys:String>
+            <sys:String>DemiBold</sys:String>
+            <sys:String>ExtraBlack</sys:String>
+            <sys:String>ExtraBold</sys:String>
+            <sys:String>ExtraLight</sys:String>
+            <sys:String>Heavy</sys:String>
+            <sys:String>Light</sys:String>
+            <sys:String>Medium</sys:String>
+            <sys:String>Normal</sys:String>
+            <sys:String>Regular</sys:String>
+            <sys:String>SemiBold</sys:String>
+            <sys:String>Thin</sys:String>
+            <sys:String>UltraBlack</sys:String>
+            <sys:String>UltraBold</sys:String>
+            <sys:String>UltraLight</sys:String>
+        </collections:ArrayList>
+        <collections:ArrayList x:Key="all_font_styles">
+            <sys:String>Normal</sys:String>
+            <sys:String>Italic</sys:String>
+            <sys:String>Oblique</sys:String>
+        </collections:ArrayList>
+        <x:Array x:Key="all_decor_2" Type="{x:Type TextDecorationCollection}">
+            <TextDecorationCollection>
+                <TextDecoration Location="Baseline"></TextDecoration>
+            </TextDecorationCollection>
+            <TextDecorationCollection>
+                <TextDecoration Location="OverLine"></TextDecoration>
+            </TextDecorationCollection>
+            <TextDecorationCollection>
+                <TextDecoration Location="Strikethrough"></TextDecoration>
+            </TextDecorationCollection>
+            <TextDecorationCollection>
+                <TextDecoration Location="Underline"></TextDecoration>
+            </TextDecorationCollection>
+        </x:Array>
+    </Application.Resources>
+</Application>

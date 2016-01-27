@@ -1,0 +1,55 @@
+﻿<Window Name="our_main_window" x:Class="first_try_wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="487" Width="1052" MouseMove="our_main_window_MouseMove" MouseLeftButtonDown="our_main_window_MouseLeftButtonDown" MouseLeftButtonUp="our_main_window_MouseLeftButtonUp">
+    <DockPanel Name="main_dock_panel">
+        <!--  Name="current_primitives" -->
+        <TabControl Name="our_tab_control" SelectionChanged="TabControl_SelectionChanged" Width="218">
+            <TabItem Name="first_tab_item" Header="Примитивы" >
+                <Grid Name="tools_panel">
+                    <Button Content="Добавить прямоугольник" HorizontalAlignment="Left" Height="21" Margin="10,10,0,0" VerticalAlignment="Top" Width="157" RenderTransformOrigin="3.115,0.238" Click="Button_Click_2"/>
+                    <Button Content="Добавить эллипс" HorizontalAlignment="Left" Height="20" Margin="10,49,0,0" VerticalAlignment="Top" Width="157" Click="Button_Click_3"/>
+                    <Label Name="my_label" Content="Label" HorizontalAlignment="Left" Height="38" Margin="21,414,0,0" VerticalAlignment="Top" Width="101"/>
+                    <CheckBox Name="CheckBox_remove_object" Content="" HorizontalAlignment="Left" Height="21" Margin="10,265,0,0" VerticalAlignment="Top" Width="15"/>
+                    <Label Content="удаление объектов&#xD;&#xA;" HorizontalAlignment="Left" Height="30" Margin="21,256,0,0" VerticalAlignment="Top" Width="131"/>
+                    <TextBox Name="width_text_box" HorizontalAlignment="Left" Height="24" Margin="12,199,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="55"/>
+                    <Label Content="ширина" HorizontalAlignment="Left" Height="24" Margin="72,204,0,0" VerticalAlignment="Top" Width="62"/>
+                    <TextBox Name="height_text_box" HorizontalAlignment="Left" Height="23" Margin="10,228,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="55"/>
+                    <Label Content="высота" HorizontalAlignment="Left" Height="23" Margin="70,228,0,0" VerticalAlignment="Top" Width="62" RenderTransformOrigin="0.629,3.043"/>
+                    <ComboBox Name="color_combo_box" HorizontalAlignment="Left" Height="26" Margin="12,318,0,0" VerticalAlignment="Top" Width="134">
+                        <TextBlock Foreground="Red">Red</TextBlock>
+                        <TextBlock Foreground="Green">Green</TextBlock>
+                        <TextBlock Foreground="Blue">Blue</TextBlock>
+                    </ComboBox>
+                    <Label Content="цвета:" HorizontalAlignment="Left" Height="27" Margin="12,286,0,0" VerticalAlignment="Top" Width="110"/>
+                </Grid>
+            </TabItem>
+            <TabItem Name="second_tab_item" Header="Линии" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="57" Margin="-2,-2,-2,0" >
+                <Grid>
+                    <TextBox Name="width_of_line" Margin="10,20,148,372" TextWrapping="Wrap" Width="50" Text="&#xD;&#xA;" SpellCheck.IsEnabled="True" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Content="Толщина" Margin="59,10,13,372"/>
+                    <ComboBox Name="color_combo_box_2" HorizontalAlignment="Left" Height="26" Margin="0,178,0,0" VerticalAlignment="Top" Width="134">
+                        <TextBlock Foreground="Red">Red</TextBlock>
+                        <TextBlock Foreground="Green">Green</TextBlock>
+                        <TextBlock Foreground="Blue">Blue</TextBlock>
+                    </ComboBox>
+                    <CheckBox Name="delete_line_check_box" Content="Удаление линий" HorizontalAlignment="Left" Height="16" Margin="12,82,0,0" VerticalAlignment="Top" Width="115"/>
+                    <Label Content="цвета:" HorizontalAlignment="Left" Height="24" Margin="12,149,0,0" VerticalAlignment="Top" Width="82"/>
+                    <CheckBox Name="change_color_check_box" Content="Перекрашивание" HorizontalAlignment="Left" Height="18" Margin="12,103,0,0" VerticalAlignment="Top" Width="115"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Сохрание" HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="74" Margin="-2,-2,-8,0">
+                <Grid>
+                    <Button Name="save_button" Content="сохранить" HorizontalAlignment="Left" Height="26" Margin="50,25,0,0" VerticalAlignment="Top" Width="101" Click="save_button_Click"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+
+        <Grid Name="work_field" MouseLeftButtonDown="work_field_MouseLeftButtonDown" MouseLeftButtonUp="our_main_window_MouseLeftButtonUp"  >
+            <Border MouseLeftButtonUp="our_main_window_MouseLeftButtonUp" BorderBrush="#FF179AC8" BorderThickness="2" MouseLeftButtonDown="Border_MouseLeftButtonDown" />
+        </Grid>
+
+
+    </DockPanel>
+</Window>

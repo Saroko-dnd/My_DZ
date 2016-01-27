@@ -1,0 +1,27 @@
+﻿<Window x:Class="Example3Skins.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skin1.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <DockPanel>
+        <Border Background="Gray" CornerRadius="0,10,10,0">
+            <StackPanel Margin="5">
+                <Button Margin="5" Width="70" Click="Button_Click_1">Скин 1</Button>
+                <Button Margin="5" Width="70" Click="Button_Click_2">Скин 2</Button>
+            </StackPanel>
+        </Border>
+        <Border>
+            <StackPanel Margin="5">
+                <Label Name="LabelSkin">Скин по умолчанию</Label>
+                <Button Width="100">Кнопка</Button>
+            </StackPanel>
+        </Border>
+    </DockPanel>
+</Window>

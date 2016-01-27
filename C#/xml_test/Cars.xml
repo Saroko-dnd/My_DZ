@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<Cars>
+  <Car Image="MyCar.jpeg" color="black,metallic">
+    <Manufactured>Pinsk</Manufactured>
+    <Model>Alfonso</Model>
+    <Year>1912</Year>
+    <Color>Black</Color>
+    <Speed>130</Speed>
+  </Car>
+  <Car Image="s.jpeg">
+    <Model>Friday</Model>
+    <Inside>
+      <Car Image="MyCar.jpeg" Year="3546" hash="947fa7db35">
+        <Manufactured>123</Manufactured>
+        <Model>inner</Model>
+        
+        <Color metallic="true">Black</Color>
+        <Speed>130</Speed>
+      </Car>
+    </Inside>
+    <Color>Black</Color>
+    <Speed>130</Speed>
+  </Car>
+  <Car Image="MyCar.jpeg" Year="3546" hash="947fa7db35">
+    <Manufactured>Geely</Manufactured>
+    <Model>9</Model>
+
+    <Color>Black</Color>
+    <Speed>130</Speed>
+  </Car>
+  <Car Image="MyCar.jpeg" Year="3546" hash="947fa7db35">
+    <Manufactured>Ferrari</Manufactured>
+    <Model >red</Model>
+
+    <Color metallic="yes">Black</Color>
+    <Speed>130</Speed>
+  </Car>
+
+</Cars>
+

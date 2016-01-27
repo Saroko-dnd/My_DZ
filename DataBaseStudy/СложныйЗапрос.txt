@@ -1,0 +1,10 @@
+﻿
+Запрос на получение информации о покупателях, у которых средняя стоимость заказа превышает 100 и был заказан хотя бы один товар из категории 6.
+
+SELECT * FROM 
+(SELECT * FROM Shopper WHERE 
+(Shopper.IdShopper IN 
+(SELECT IdShopper FROM 
+((OrderInfo INNER JOIN [Order] ON OrderInfo.IdOrderInfo=Order.IdOrderInfo ) 
+INNER JOIN Product ON (Product.IdProduct=Order.IdProduct AND Product.IdCategory=6) ) 
+GROUP BY IdShopper HAVING AVG(Coast)>100)))

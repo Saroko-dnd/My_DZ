@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Ресурс определен для всего приложения -->
+    <LinearGradientBrush x:Key="buttomGradient" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="Brown" Offset="0.0" />
+        <GradientStop Color="Blue" Offset="1.0" />
+    </LinearGradientBrush>
+</ResourceDictionary>

@@ -1,0 +1,34 @@
+﻿<Window x:Class="Example1.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Window1" Height="300" Width="300">
+    <StackPanel>
+        <!--Использование ресурса из App.xaml-->
+        <Button Content="Кнопка в новом окне" Margin="10" MinHeight="40" Background="{StaticResource buttomGradient}"></Button>
+        
+        <!--Использование ресурса, обявленного в кнопке -->
+        <!--Внимание! Ресурс берется из  App.xaml-->
+        <Button Content="Кнопка в новом окне" Margin="10" MinHeight="40" Background="{StaticResource buttomGradient}">
+            <Button.Resources>
+                <LinearGradientBrush x:Key="buttomGradient" StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="SteelBlue" Offset="0.0" />
+                    <GradientStop Color="SpringGreen" Offset="1.0" />
+                </LinearGradientBrush>
+            </Button.Resources>
+        </Button>
+       
+        <!-- Ресурс берется из кнопки -->
+        <Button Content="Кнопка в новом окне" Margin="10" MinHeight="40">
+                <Button.Resources>
+                    <LinearGradientBrush x:Key="buttomGradient" StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="SteelBlue" Offset="0.0" />
+                        <GradientStop Color="SpringGreen" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Button.Resources>
+            <Button.Background>
+                <StaticResource ResourceKey="buttomGradient"/>
+            </Button.Background>
+        </Button>
+
+    </StackPanel>
+</Window>

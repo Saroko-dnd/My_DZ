@@ -1,0 +1,28 @@
+﻿<Window x:Class="Example3Resource.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525" x:Name="MainWin">
+
+    <!--ДЕМОНСТРАЦИЯ ДИНАМИЧЕСКИХ РЕСУРСОВ-->
+
+    <!--Объявление ресурса на уровне всего окна-->
+    <Window.Resources>
+        <LinearGradientBrush x:Key="buttomGradient" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="GreenYellow" Offset="0.0" />
+            <GradientStop Color="Green" Offset="1.0" />
+        </LinearGradientBrush>
+    </Window.Resources>
+
+    <StackPanel>
+        
+
+        <Label Margin="10">Кнопка StaticResourse</Label>
+        <Button Margin="20" Padding="5" Background="{StaticResource buttomGradient}" 
+                FontWeight="Bold" Click="btnStatic_Click">Кнопка 1</Button>
+       
+        <Label  Margin="10">Кнопка StaticResourse</Label>
+        <Button Margin="20" Padding="5" Background="{DynamicResource buttomGradient}"  
+                FontWeight="Bold"  Click="btnDynamic_Click">Кнопка 2</Button>
+
+    </StackPanel>
+</Window>

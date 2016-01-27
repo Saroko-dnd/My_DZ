@@ -1,0 +1,22 @@
+﻿<Window x:Class="Example6DictionaryRes.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Title="MainWindow" Height="350" Width="525">
+
+    <!--ДЕМОНСТРАЦИЯ ИСПОЛЬЗОВАНИЯ СЛОВАРЕЙ РЕСУРСОВ-->
+
+    <StackPanel x:Name="spMain">
+        <Label Margin="10">Кнопка StaticResourse</Label>
+        <Button Margin="20" Padding="5" Background="{StaticResource buttomGradient}" 
+                FontWeight="Bold" BorderThickness="5">Кнопка 1</Button>
+        <Label  Margin="10">Кнопка StaticResourse</Label>
+        <Button Margin="20" Padding="5" Background="{StaticResource buttomGradient}"  
+                FontWeight="Bold" BorderThickness="5"
+                BorderBrush="{StaticResource buttomBorder}"  
+                >Кнопка 2</Button>
+
+
+    </StackPanel>
+</Window>
+

@@ -1,0 +1,45 @@
+﻿<Window x:Class="Example3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    
+    <!--Демонстрация создания и применения триггеров в стилях--> 
+    
+    <Window.Resources>
+       
+        <Style x:Key="styleButton" TargetType="Button">
+           
+            <Setter Property="FontSize" Value="17"></Setter>
+            <!-- Установка триггеров -->
+            <Style.Triggers>
+                <!--Если навели курсор на кнопку-->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="LightYellow" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="false">
+                    <Setter Property="Foreground" Value="Black" />
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+
+
+                <!--Если нажади на кнопку-->
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Foreground" Value="Red" />
+                    <Setter Property="Width" Value="50" />
+                </Trigger>
+              
+
+            </Style.Triggers>
+
+
+        </Style>
+    </Window.Resources>
+
+    <StackPanel>
+        <!-- Указан шаблон -->
+        <Button Name="button1"  Style="{StaticResource styleButton}" Margin="20">Кнопка 1</Button>
+        <Button Name="button2"  Margin="20" FontWeight="Bold">Кнопка 2</Button>
+
+    </StackPanel>
+</Window>

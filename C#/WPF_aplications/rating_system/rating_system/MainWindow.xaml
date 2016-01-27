@@ -1,0 +1,138 @@
+﻿<Window
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my_res="clr-namespace:rating_system.my_resourses"
+        xmlns:my="clr-namespace:rating_system"
+        mc:Ignorable="d" x:Class="rating_system.MainWindow"
+        xmlns:datavis="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:wpf_toolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        Title="MainWindow" Height="350" Width="989" MinHeight="200" MinWidth="380" Name="main_window">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="my_resourses/visualization.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <my:list_box_item_to_ratings_data x:Key="simple_converter_for_list_box_item"></my:list_box_item_to_ratings_data>
+            <my:list_box_height_converter x:Key="height_converter_for_list_box"></my:list_box_height_converter>
+            <my:list_box_item_to_diagram x:Key="item_to_circle_diagram"></my:list_box_item_to_diagram>
+            <my:list_box_item_to_5_years_diagram x:Key="linear_diagram_converter"></my:list_box_item_to_5_years_diagram>
+            <my:list_box_item_to_items_control x:Key="items_control_converter"></my:list_box_item_to_items_control>
+            <my:list_box_operations_converter x:Key="operations_converter"></my:list_box_operations_converter>
+            <my:list_box_operations_height_converter x:Key="operations_height_converter"></my:list_box_operations_height_converter>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Name="test_grid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Style="{DynamicResource main_border_style}" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch">
+            <TextBlock Style="{DynamicResource main_textBlock_style}" HorizontalAlignment="Center" Text="{x:Static my_res:texts.fame_board}"></TextBlock>
+        </Border>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Vertical" Grid.Column="0" Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontWeight="Bold" FontSize="16" Text="{x:Static my_res:texts.list_of_styles}"></TextBlock>
+                <ComboBox SelectionChanged="styles_combo_box_SelectionChanged" Name="styles_combo_box" Style="{DynamicResource trigger_for_combo_box}" FontWeight="Bold" ItemsSource="{StaticResource array_of_styles}" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top"></ComboBox>
+            </StackPanel>
+            <ListBox Style="{DynamicResource list_box_for_assassins_style}" MaxHeight="{Binding ElementName=main_window, Path=ActualHeight, Converter={StaticResource height_converter_for_list_box}}" Name="fame_board_list_box" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <StackPanel Margin="0,0,5,0" Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
+                <Button Name="change_image_button" Content="{x:Static my_res:texts.edit}" Height="25" VerticalAlignment="Top" Width="90" HorizontalAlignment="Left" Click="change_image_button_Click">
+                </Button>
+                <Button Name="add_new_assasin_button" Content="{x:Static my_res:texts.add_new}" Height="25" VerticalAlignment="Top" Width="90" HorizontalAlignment="Left" Click="add_new_assasin_button_Click">
+                </Button>
+                <Button Name="delete_assasin_button" Content="{x:Static my_res:texts.delete}" Height="25" VerticalAlignment="Top" Width="90" HorizontalAlignment="Left" Click="delete_assasin_button_Click">
+                </Button>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+            <StackPanel Orientation="Vertical">
+                <wpf_toolkit:Chart FontSize="16" DataContext="{Binding Mode=TwoWay,  ElementName=fame_board_list_box, Path=SelectedItem, Converter={StaticResource item_to_circle_diagram}}" x:Name="circle_diagram" FontFamily="my_resourses/fonts/#Lobster 1.3"  Title="different ratings" Grid.Row="0" Grid.Column="1" Width="400" Height="250">
+                    <wpf_toolkit:PieSeries 
+                                DependentValuePath="Value" 
+		                        IndependentValuePath="Key" ItemsSource="{Binding ElementName=circle_diagram, Path=DataContext}" 
+		                        IsSelectionEnabled="True" Margin="10,10,9,10" />
+                </wpf_toolkit:Chart>
+                <Expander FontSize="16"  FontFamily="my_resourses/fonts/#Lobster 1.3" Header="{x:Static my_res:texts.edit_ratings}">
+                    <StackPanel Orientation="Vertical">
+                        <Grid DataContext="{Binding UpdateSourceTrigger=PropertyChanged, ElementName=fame_board_list_box, Path=SelectedItem}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock HorizontalAlignment="Right" Text="{x:Static my_res:texts.kill_many_guards}" Grid.Row="0" Grid.Column="0"></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" Text="{x:Static my_res:texts.stealth_orders}" Grid.Row="1" Grid.Column="0"></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" Text="{x:Static my_res:texts.work_in_team}" Grid.Row="2" Grid.Column="0"></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" Text="{x:Static my_res:texts.kill_target_with_trap}" Grid.Row="3" Grid.Column="0"></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" Text="{x:Static my_res:texts.kill_target_with_poison}" Grid.Row="4" Grid.Column="0"></TextBlock>
+                            <TextBox Style="{DynamicResource rating_text_box}" Grid.Row="0" Grid.Column="1" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=DefeatedManyGuards_string}"></TextBox>
+                            <TextBox Style="{DynamicResource rating_text_box}" Grid.Row="1" Grid.Column="1" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=StealthOrders_string}"></TextBox>
+                            <TextBox Style="{DynamicResource rating_text_box}" Grid.Row="2" Grid.Column="1" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=TeamWork_string}"></TextBox>
+                            <TextBox Style="{DynamicResource rating_text_box}" Grid.Row="3" Grid.Column="1" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=KilledWithTraps_string}"></TextBox>
+                            <TextBox Style="{DynamicResource rating_text_box}" Grid.Row="4" Grid.Column="1" Text="{Binding UpdateSourceTrigger=PropertyChanged, Path=KilledWithPoison_string}"></TextBox>
+                        </Grid>
+                    </StackPanel>
+                </Expander>
+                <Label FontSize="16" FontFamily="my_resourses/fonts/#ChunkFive Roman" HorizontalAlignment="Stretch" VerticalAlignment="Top" Name="assassin_data_label" Style="{DynamicResource assassin_data_style}" Content="{Binding ElementName=fame_board_list_box, Path=SelectedItem}"></Label>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Vertical">
+            <wpf_toolkit:Chart Height="{Binding ElementName=circle_diagram, Path=ActualHeight}" DataContext="{Binding Mode=TwoWay,  ElementName=fame_board_list_box, Path=SelectedItem, Converter={StaticResource linear_diagram_converter}}" FontSize="16" FontFamily="my_resourses/fonts/#Lobster 1.3" x:Name="Linear_diagram" Title="{x:Static my_res:texts.last_5_yers_graph}" Grid.Row="1" Grid.Column="0" Width="361">
+                <wpf_toolkit:Chart.LegendStyle>
+                    <Style TargetType="datavis:Legend">
+                        <Setter Property="Width" Value="0" />
+                    </Style>
+                </wpf_toolkit:Chart.LegendStyle>
+                <wpf_toolkit:AreaSeries   
+                                    DependentValuePath="Rating" 
+		                            IndependentValuePath="Year" 
+                                    ItemsSource="{Binding ElementName=Linear_diagram, Path=DataContext}" 
+		                            IsSelectionEnabled="True">
+                </wpf_toolkit:AreaSeries>
+            </wpf_toolkit:Chart>
+            <StackPanel Orientation="Vertical">
+                <Expander FontSize="16"  FontFamily="my_resourses/fonts/#Lobster 1.3" Header="{x:Static my_res:texts.ratings_data_last_years}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid AutoGenerateColumns="False" ColumnHeaderStyle="{DynamicResource data_grid_column_header_style}" CellStyle="{DynamicResource data_grid_cell_style}" HorizontalAlignment="Left" ColumnWidth="Auto"  IsReadOnly="False" Grid.Row="0" ItemsSource="{Binding ElementName=fame_board_list_box, Path=SelectedItem, Converter={StaticResource items_control_converter}}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn IsReadOnly="True" Binding="{Binding UpdateSourceTrigger=PropertyChanged, Path=Year}" Header="{x:Static my_res:texts.year}">
+                                </DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding UpdateSourceTrigger=PropertyChanged, Path=Rating_string}" Header="{x:Static my_res:texts.rating}">
+                                </DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Expander>
+                <TextBlock HorizontalAlignment="Left" FontSize="16" FontFamily="my_resourses/fonts/#ChunkFive Roman" Text="{x:Static my_res:texts.list_of_operations}"></TextBlock>
+                <ListBox MaxWidth="400" MaxHeight="{Binding ElementName=main_window, Path=ActualHeight, Converter={StaticResource operations_height_converter}}" Style="{DynamicResource list_box_for_operations_style}" ItemsSource="{Binding ElementName=fame_board_list_box, Path=SelectedItem, Converter={StaticResource operations_converter}}" Name="operations_list_box" HorizontalAlignment="Left" VerticalAlignment="Top">
+                </ListBox>
+                <StackPanel Orientation="Horizontal">
+                    <Button Click="delete_operation_button_Click" Content="{x:Static my_res:texts.delete}" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
+                    <Button Click="add_operation_button_Click" Content="{x:Static my_res:texts.add_new}" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+
+</Window>

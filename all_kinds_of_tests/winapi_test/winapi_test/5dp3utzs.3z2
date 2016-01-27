@@ -1,0 +1,435 @@
+﻿// winapi_test.cpp : Defines the entry point for the application.
+//
+
+#include "stdafx.h"
+#include "winapi_test.h"
+#include <mmsystem.h>
+#include <process.h>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <windowsx.h>
+#include <locale>
+#include <locale.h>
+#include <assert.h>
+#include <codecvt>
+
+using namespace std;
+
+#define MAX_LOADSTRING 100
+
+// Global Variables:
+HINSTANCE hInst;								// current instance
+TCHAR szTitle[MAX_LOADSTRING]=TEXT("llllll");					// The title bar text
+TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
+bool create_win = true;
+BOOL checked, checked_2;
+int x, y;
+// Forward declarations of functions included in this code module:
+ATOM				MyRegisterClass(HINSTANCE hInstance);
+BOOL				InitInstance(HINSTANCE, int);
+LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
+INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
+bool play_music=false;
+bool end_thread=false;
+int counter_global = 0;
+wstring buf_main, buf_main_2;
+int first_time = 0, sec_time = 0;
+vector <int> main_buf_for_file, main_buf_for_file_copy;
+vector <int> main_buf_for_file_2, main_buf_for_file_2_copy;
+vector <int> single_thread_buf;
+bool thread_1_swi = true;
+bool thread_2_swi = true;
+bool swi_counter_2 = false;
+bool swi_counter_1 = false;
+HWND window_for_progress_bar, progress_bar, erase_button;
+bool progress_test = false;
+COLORREF NewColor = RGB(255, 125, 255);
+
+void test(void *);
+
+DWORD WINAPI Thread_for_file_copy(LPVOID lp)
+{
+	wifstream fin("first_file.txt", std::ios::binary);
+	fin.imbue(std::locale(fin.getloc(), new std::codecvt_utf16<wchar_t, 0x10ffff, std::consume_header>));
+	int size = 0;
+	fin.seekg(0, std::ios::end);
+	size = fin.tellg();//размер в байтах
+	wofstream fout("second.txt");
+	for (int c = 3; c < 5000000; c += 4)
+	{
+		bool f = true;
+		for (int d = 3; d*d <= c; d += 2)
+		{
+			if (c % d == 0)
+			{
+				f = false;
+				break;
+			}
+		}
+		if (f)
+		{
+			main_buf_for_file.push_back(c);
+		}
+	}
+	thread_1_swi = false;
+	fin.close();
+	fout.close();
+	return 0;
+}
+
+
+DWORD WINAPI Thread3(LPVOID lp)
+{
+
+	for (int c = 3; c < 5000000; c += 4)
+	{
+		bool f = true;
+		for (int d = 3; d*d <= c; d += 2)
+		{
+			if (c % d == 0)
+			{
+				f = false;
+				break;
+			}
+		}
+		if (f)
+		{
+			main_buf_for_file.push_back(c);
+		}
+	}
+	thread_1_swi = false;
+	return 0;
+}
+
+DWORD WINAPI Thread4(LPVOID lp)
+{
+	for (int c = 5; c < 5000000; c += 4)
+	{
+		bool f = true;
+		for (int d = 3; d*d <= c; d += 2)
+		{
+			if (c % d == 0)
+			{
+				f = false;
+				break;
+			}
+		}
+		if (f)
+		{
+			main_buf_for_file_2.push_back(c);
+		}
+	}
+	thread_2_swi = false;
+	return 0;
+}
+
+DWORD WINAPI Thread_file(LPVOID lp)
+{
+	int counter = 0, counter_2 = 0;
+	while (true)
+	{
+		if (!thread_1_swi && counter == main_buf_for_file.size())
+			swi_counter_1 = true;
+		if (!thread_2_swi && counter_2 == main_buf_for_file_2.size())
+			swi_counter_2 = true;
+		if (thread_2_swi && thread_1_swi && main_buf_for_file_2.size() > counter_2 + 1 &&
+			main_buf_for_file.size() > counter + 1)
+		{
+			if (main_buf_for_file[counter] > main_buf_for_file_2[counter_2])
+			{
+				fout << main_buf_for_file_2[counter_2] << "\n";
+				++counter_2;
+			}
+			else
+			{
+				fout << main_buf_for_file[counter] << "\n";
+				++counter;
+			}
+		}
+		else if (!thread_2_swi && !thread_1_swi)
+		{
+			while (counter_2 < main_buf_for_file_2.size() || counter < main_buf_for_file.size())
+			{
+				if (counter_2 < main_buf_for_file_2.size() && counter < main_buf_for_file.size())
+				{
+					if (main_buf_for_file[counter] > main_buf_for_file_2[counter_2])
+					{
+						fout << main_buf_for_file_2[counter_2] << "\n";
+						++counter_2;
+					}
+					else
+					{
+						fout << main_buf_for_file[counter] << "\n";
+						++counter;
+					}
+				}
+				else if (counter_2 < main_buf_for_file_2.size())
+				{
+					fout << main_buf_for_file_2[counter_2] << "\n";
+					++counter_2;
+				}
+				else if (counter < main_buf_for_file.size())
+				{
+					fout << main_buf_for_file[counter] << "\n";
+					++counter;
+				}
+			}
+		}
+		if (swi_counter_2 && swi_counter_1)
+		{
+			fout.close();
+			break;
+		}
+	}
+	return 0;
+}
+
+void test(void *param)
+{
+	while (1)
+	{
+		if (play_music)
+		{
+			play_music = false;
+			PlaySound(
+				TEXT("voice_set_thaos_0008.WAV"),
+				NULL,
+				SND_FILENAME
+				);
+		}
+		if (end_thread)
+			_endthread();
+	}
+}
+
+int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
+                     _In_opt_ HINSTANCE hPrevInstance,
+                     _In_ LPTSTR    lpCmdLine,
+                     _In_ int       nCmdShow)
+{
+	InitCommonControls();
+
+	//HANDLE th1 = CreateThread(NULL, 0, Thread3, (LPVOID)0, 0, NULL);
+	//HANDLE th2 = CreateThread(NULL, 0, Thread4, (LPVOID)1, 0, NULL);
+	//HANDLE th3 = CreateThread(NULL, 0, Thread_file, (LPVOID)1, 0, NULL);
+
+	//WaitForSingleObject(th1, INFINITE);
+	//WaitForSingleObject(th2, INFINITE);
+	//WaitForSingleObject(th3, INFINITE);
+
+	UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(lpCmdLine);
+	_beginthread(test, 0, NULL);
+ 	// TODO: Place code here.
+	MSG msg;
+	HACCEL hAccelTable;
+
+	// Initialize global strings
+	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+	LoadString(hInstance, IDC_WINAPI_TEST, szWindowClass, MAX_LOADSTRING);
+	MyRegisterClass(hInstance);
+
+	// Perform application initialization:
+	if (!InitInstance (hInstance, nCmdShow))
+	{
+		return FALSE;
+	}
+
+	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINAPI_TEST));
+
+	// Main message loop:
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
+		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+
+	return (int) msg.wParam;
+}
+
+
+
+//
+//  FUNCTION: MyRegisterClass()
+//
+//  PURPOSE: Registers the window class.
+//
+ATOM MyRegisterClass(HINSTANCE hInstance)
+{
+	WNDCLASSEX wcex, wcex_2;
+
+	wcex.cbSize = sizeof(WNDCLASSEX);
+
+	wcex.style			= CS_HREDRAW | CS_VREDRAW;
+	wcex.lpfnWndProc	= WndProc;
+	wcex.cbClsExtra		= 0;
+	wcex.cbWndExtra		= 0;
+	wcex.hInstance		= hInstance;
+	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WINAPI_TEST));
+	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
+	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
+	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_WINAPI_TEST);
+	wcex.lpszClassName	= szWindowClass;
+	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+
+	return RegisterClassEx(&wcex);
+}
+
+//
+//   FUNCTION: InitInstance(HINSTANCE, int)
+//
+//   PURPOSE: Saves instance handle and creates main window
+//
+//   COMMENTS:
+//
+//        In this function, we save the instance handle in a global variable and
+//        create and display the main program window.
+//
+BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
+{
+   HWND hWnd;
+
+   hInst = hInstance; // Store instance handle in our global variable
+
+   hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+
+   if (!hWnd)
+   {
+	   return FALSE;
+   }
+
+   HWND new_window_1, new_window_2;
+		new_window_1 = CreateWindow(TEXT("BUTTON"), szTitle, WS_CHILD | WS_BORDER | WS_VISIBLE | BS_CHECKBOX,
+	   0, 0, 100, 50, hWnd, (HMENU) 1, hInst, NULL);
+		new_window_2 = CreateWindow(TEXT("BUTTON"), szTitle, WS_CHILD | WS_BORDER | WS_VISIBLE | BS_CHECKBOX,
+	   150, 5, 100, 50, hWnd, (HMENU)2, hInst, NULL); 
+		progress_bar = CreateWindowEx(0, PROGRESS_CLASS, NULL, WS_CHILD | WS_VISIBLE | WS_BORDER,
+			100, 200, 200, 100, hWnd, (HMENU)3, hInst, NULL);
+
+   CheckDlgButton(hWnd, 1, BST_UNCHECKED /*BST_CHECKED*/);
+   CheckDlgButton(hWnd, 2, /*BST_UNCHECKED*/ BST_CHECKED);
+
+   ShowWindow(hWnd, nCmdShow);
+   UpdateWindow(hWnd);
+
+   return TRUE;
+}
+
+//
+//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
+//
+//  PURPOSE:  Processes messages for the main window.
+//
+//  WM_COMMAND	- process the application menu
+//  WM_PAINT	- Paint the main window
+//  WM_DESTROY	- post a quit message and return
+//
+//
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	int wmId, wmEvent;
+	PAINTSTRUCT ps;
+	HDC hdc;
+	if (!progress_test)
+	{
+		SendMessage(progress_bar,PBM_SETPOS,50,0);
+		SendMessage(progress_bar, PBM_SETBARCOLOR, 0, NewColor);
+		progress_test = true;
+	}
+
+	//обработка кнопок управления...............
+	if (message == WM_COMMAND && wParam == 1)
+	{
+			checked = IsDlgButtonChecked(hWnd, 1);
+			if (checked) {
+				CheckDlgButton(hWnd, 1, BST_UNCHECKED);
+				SetWindowText(hWnd, TEXT("NO YOU DONT"));
+			}
+			else {
+				CheckDlgButton(hWnd, 1, BST_CHECKED);
+				SetWindowText(hWnd, TEXT("YOU DID THIS"));
+			}
+	}
+	if (message == WM_COMMAND && wParam == 2)
+	{
+			checked_2 = IsDlgButtonChecked(hWnd, 2);
+			if (checked_2) {
+				CheckDlgButton(hWnd, 2, BST_UNCHECKED);
+				SetWindowText(hWnd, TEXT("NO YOU DONT"));
+			}
+			else {
+				CheckDlgButton(hWnd, 2, BST_CHECKED);
+				SetWindowText(hWnd, TEXT("YOU DID THIS"));
+			}
+	}
+	//...........................................
+
+	switch (message)
+	{
+	case WM_KEYDOWN:
+		if (wParam == VK_DOWN)
+		{
+			play_music = true;
+		}
+		break;
+	case WM_COMMAND:
+		wmId    = LOWORD(wParam);
+		wmEvent = HIWORD(wParam);
+		// Parse the menu selections:
+		switch (wmId)
+		{
+		case IDM_ABOUT:
+			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+			end_thread = true;
+			break;
+		case IDM_EXIT:
+			DestroyWindow(hWnd);
+			break;
+		default:
+			return DefWindowProc(hWnd, message, wParam, lParam);
+		}
+		break;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+		// TODO: Add any drawing code here...
+		EndPaint(hWnd, &ps);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+	return 0;
+}
+
+// Message handler for about box.
+INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	UNREFERENCED_PARAMETER(lParam);
+	switch (message)
+	{
+	case WM_INITDIALOG:
+		return (INT_PTR)TRUE;
+
+	case WM_COMMAND:
+		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+		{
+			MessageBox(hDlg,
+				(LPCWSTR)L"Resource not available\nDo you want to try again?",
+				(LPCWSTR)L"Account Details",
+				MB_ICONWARNING | MB_OK
+				);
+			EndDialog(hDlg, LOWORD(wParam));
+			return (INT_PTR)TRUE;
+		}
+		break;
+	}
+	return (INT_PTR)FALSE;
+}
+

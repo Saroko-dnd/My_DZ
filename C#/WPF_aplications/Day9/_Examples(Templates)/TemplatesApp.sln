@@ -1,0 +1,82 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1ControlTemplate", "Example1ControlTemplate\Example1ControlTemplate.csproj", "{500542E5-5C6B-4658-8895-FFC29F72EBA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example2ControlTemplate", "Example2ControlTemplate\Example2ControlTemplate.csproj", "{413A6647-212F-4B0D-978B-A481A1A0AE0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example6HierarchicalDataTemplate", "Example5HierarchicalDataTemplate\Example6HierarchicalDataTemplate.csproj", "{97197C51-81A9-44D6-8C86-95B155D6CFA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example3TemplateBinding", "Example3TemplateBinding\Example3TemplateBinding.csproj", "{3D6E430B-8218-47D2-A45B-F132C727AC55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example5.1DataTemplate", "Example4.1DataTemplate\Example5.1DataTemplate.csproj", "{9E45AFB8-E47A-42ED-8B7B-1D62C31B0DA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example5.2DataTemplate", "Example4.2DataTemplate\Example5.2DataTemplate.csproj", "{5A1B986B-D3F4-43B3-A13C-5777F210EB29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example3ControlTemplate", "Example3ControlTemplate\Example3ControlTemplate.csproj", "{3C49109A-107A-4EB6-B7A2-2B3B8015ABA8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example4ControlTemplate", "Example4ControlTemplate\Example4ControlTemplate.csproj", "{BE319064-D10E-4443-BDB8-D6D1B51ED26D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example7.1DataGrid", "Example7.1DataGrid\Example7.1DataGrid.csproj", "{4239E38E-3055-4D7B-B343-6B4B753E0C09}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example7.2DataGrid", "Example7.2DataGrid\Example7.2DataGrid.csproj", "{6803D736-D3BB-4DEA-8C7A-D43A330B328A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example7.3DataGrid", "Example7.3DataGrid\Example7.3DataGrid.csproj", "{846705F3-29A5-4230-B3C9-A00F0704B7E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{500542E5-5C6B-4658-8895-FFC29F72EBA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{500542E5-5C6B-4658-8895-FFC29F72EBA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{500542E5-5C6B-4658-8895-FFC29F72EBA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{500542E5-5C6B-4658-8895-FFC29F72EBA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{413A6647-212F-4B0D-978B-A481A1A0AE0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{413A6647-212F-4B0D-978B-A481A1A0AE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{413A6647-212F-4B0D-978B-A481A1A0AE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{413A6647-212F-4B0D-978B-A481A1A0AE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97197C51-81A9-44D6-8C86-95B155D6CFA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97197C51-81A9-44D6-8C86-95B155D6CFA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97197C51-81A9-44D6-8C86-95B155D6CFA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97197C51-81A9-44D6-8C86-95B155D6CFA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D6E430B-8218-47D2-A45B-F132C727AC55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D6E430B-8218-47D2-A45B-F132C727AC55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D6E430B-8218-47D2-A45B-F132C727AC55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D6E430B-8218-47D2-A45B-F132C727AC55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E45AFB8-E47A-42ED-8B7B-1D62C31B0DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E45AFB8-E47A-42ED-8B7B-1D62C31B0DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E45AFB8-E47A-42ED-8B7B-1D62C31B0DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E45AFB8-E47A-42ED-8B7B-1D62C31B0DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A1B986B-D3F4-43B3-A13C-5777F210EB29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A1B986B-D3F4-43B3-A13C-5777F210EB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A1B986B-D3F4-43B3-A13C-5777F210EB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A1B986B-D3F4-43B3-A13C-5777F210EB29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C49109A-107A-4EB6-B7A2-2B3B8015ABA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C49109A-107A-4EB6-B7A2-2B3B8015ABA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C49109A-107A-4EB6-B7A2-2B3B8015ABA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C49109A-107A-4EB6-B7A2-2B3B8015ABA8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE319064-D10E-4443-BDB8-D6D1B51ED26D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE319064-D10E-4443-BDB8-D6D1B51ED26D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE319064-D10E-4443-BDB8-D6D1B51ED26D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE319064-D10E-4443-BDB8-D6D1B51ED26D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4239E38E-3055-4D7B-B343-6B4B753E0C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4239E38E-3055-4D7B-B343-6B4B753E0C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4239E38E-3055-4D7B-B343-6B4B753E0C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4239E38E-3055-4D7B-B343-6B4B753E0C09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6803D736-D3BB-4DEA-8C7A-D43A330B328A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6803D736-D3BB-4DEA-8C7A-D43A330B328A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6803D736-D3BB-4DEA-8C7A-D43A330B328A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6803D736-D3BB-4DEA-8C7A-D43A330B328A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{846705F3-29A5-4230-B3C9-A00F0704B7E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{846705F3-29A5-4230-B3C9-A00F0704B7E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{846705F3-29A5-4230-B3C9-A00F0704B7E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{846705F3-29A5-4230-B3C9-A00F0704B7E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

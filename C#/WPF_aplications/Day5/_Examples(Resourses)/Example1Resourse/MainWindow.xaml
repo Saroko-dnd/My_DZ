@@ -1,0 +1,55 @@
+﻿<Window
+    x:Class="Example1.MainWindow"
+    Title="MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    Height="350"
+    Width="525">
+
+    <!-- ДЕМОНСТРАЦИЯ ИСПОЛЬЗОВАНИЯ РЕСУРСОВ -->
+
+    <StackPanel x:Name="spMain">
+        <!-- Определение ресусов -->
+        <!-- Свойство x:Key иказывает на имя ресурса -->
+        <StackPanel.Resources>
+            <!-- Определение ресуса   LinearGradientBrush -->
+            <LinearGradientBrush
+                x:Key="buttomGradient"
+                EndPoint="1,0"
+                StartPoint="0,0">
+                <GradientStop
+                    Color="RosyBrown"
+                    Offset="0.0" />
+                <GradientStop
+                    Color="Red"
+                    Offset="1.0" />
+            </LinearGradientBrush>
+            <!-- Определение ресуса  FontFamily -->
+            <FontFamily x:Key="buttonFont">Times New Roman</FontFamily>
+            <!-- Определение ресусов System:Double -->
+            <System:Double x:Key="buttonFontSize">18</System:Double>
+
+        </StackPanel.Resources>
+
+        <Label Margin="10">Кнопка StaticResourse</Label>
+        <Button
+            Margin="20"
+            Padding="5"
+            Background="{StaticResource buttomGradient}"
+            FontWeight="Bold">
+            Кнопка 1
+        </Button>
+        <Label Margin="10">Кнопка StaticResourse</Label>
+        <Button
+            Margin="20"
+            Padding="5"
+            Background="{StaticResource buttomGradient}"
+            FontFamily="{StaticResource buttonFont}"
+            FontSize="{StaticResource buttonFontSize}"
+            FontWeight="Bold">
+            Кнопка 2
+        </Button>
+
+    </StackPanel>
+</Window>

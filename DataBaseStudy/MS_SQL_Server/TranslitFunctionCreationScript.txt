@@ -1,0 +1,35 @@
+﻿USE [Internet_Shop]
+GO
+
+/****** Object:  UserDefinedFunction [dbo].[Translit]    Script Date: 22.12.2015 10:21:10 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date, ,>
+-- Description:	<Description, ,>
+-- =============================================
+CREATE FUNCTION [dbo].[Translit]
+(
+	-- Add the parameters for the function here
+	@EnterValue nvarchar(MAX)
+)
+RETURNS nvarchar(MAX)
+AS
+BEGIN
+	-- Declare the return variable here
+
+	-- Add the T-SQL statements to compute the return value here
+	SELECT @EnterValue=REPLACE(@EnterValue,Ru,En) 
+	FROM TransliterationTable 
+
+	-- Return the result of the function
+	RETURN @EnterValue
+
+END
+
+GO

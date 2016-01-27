@@ -1,0 +1,14 @@
+﻿<Window x:Class="generator_of_values.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+
+        <Button Content="Добавить записи в БД" HorizontalAlignment="Left" Height="32" Margin="178,110,0,0" VerticalAlignment="Top" Width="163" Click="Button_Click"/>
+        <TextBlock x:Name="number_of_added_rows"  HorizontalAlignment="Left" Height="28" Margin="255,147,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="106"></TextBlock>
+        <Label Content="Количество добавленных строк:" HorizontalAlignment="Left" Height="26" Margin="60,147,0,0" VerticalAlignment="Top" Width="190"/>
+        <TextBox Name="amount_of_rows_to_add_TextBox" HorizontalAlignment="Left" Height="25" Margin="275,69,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="86"/>
+        <Label Content="Сколько записей добавить:" HorizontalAlignment="Left" Height="25" Margin="107,69,0,0" VerticalAlignment="Top" Width="163"/>
+
+    </Grid>
+</Window>

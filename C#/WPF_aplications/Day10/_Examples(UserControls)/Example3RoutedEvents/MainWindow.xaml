@@ -1,0 +1,38 @@
+﻿<Window x:Class="Example3RoutedEvents.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:extra="clr-namespace:Example3RoutedEvents"
+        Title="MainWindow" Height="380" Width="520">
+    <StackPanel>
+        <Label>Событие от вложенной кнопки вверх</Label>
+        <extra:ExtraButton x:Name="OutButton1" Margin="30,0"
+                           MyButtonClick="ExtraButton_MyButtonClick">
+            <StackPanel>
+                <extra:ExtraButton x:Name="InButton1" Padding="30"  
+                                   Content="Вложенная кнопка">
+                </extra:ExtraButton>
+            </StackPanel>
+        </extra:ExtraButton>
+
+        <Label>Событие </Label>
+        <extra:ExtraButton x:Name="OutButton2" Margin="30,0">
+            <StackPanel>
+                <extra:ExtraButton x:Name="InButton2" Padding="30"  
+                                    MyButtonClick="ExtraButton_MyButtonClick" Content="Вложенная кнопка">
+                </extra:ExtraButton>
+            </StackPanel>
+        </extra:ExtraButton>
+
+        <Label>Наследование</Label>
+        <extra:SuperExtraButton x:Name="OutButton3" Margin="30,0"
+                                MyButtonClick="ExtraButton_MyButtonClick">
+            <StackPanel>
+                <extra:ExtraButton x:Name="InButton3" Padding="30"  
+                                   Content="Вложенная кнопка">
+                </extra:ExtraButton>
+            </StackPanel>
+        </extra:SuperExtraButton>
+
+
+    </StackPanel>
+</Window>

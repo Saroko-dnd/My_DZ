@@ -1,0 +1,49 @@
+﻿
+http://www.sql-ex.ru/
+
+Упражнение 10:
+
+SELECT model,price FROM Printer WHERE price = (SELECT MAX(price) FROM Printer)
+
+Упражнение 17:
+
+SELECT DISTINCT type,Laptop.model,speed 
+FROM (Product INNER JOIN Laptop ON Product.model=Laptop.model) 
+WHERE speed<(SELECT MIN(speed) FROM PC)
+
+Упражнение 18:
+
+SELECT DISTINCT maker,price 
+FROM (Product INNER JOIN (SELECT * FROM Printer WHERE (color LIKE 'y' AND price=(SELECT MIN(price) 
+FROM Printer WHERE color LIKE 'y'))) AS ColorPrinters ON Product.model=ColorPrinters.model)
+
+Упражнение 19:
+
+SELECT maker,AVG(screen) 
+FROM Product INNER JOIN Laptop ON Product.model=Laptop.model 
+GROUP BY maker
+
+##################################################################################################################
+ЗАПРОСЫ К НАШЕЙ БАЗЕ ДАННЫХ ИНТЕРНЕТ-МАГАЗИН:
+
+ЗАДАЧА: вывести всех производителей, для которых нет ни одного продукта в таблице товаров. Написать 3 варианта запроса.
+Формат вывода: Название производителя.
+
+1 ВАРИАНТ:
+
+SELECT ProducerName 
+FROM Producer  LEFT JOIN Product ON Producer.IdProducer=Product.IdProducer 
+WHERE IdProduct IS NULL
+
+2 ВАРИАНТ:
+
+SELECT ProducerName 
+FROM Producer  
+WHERE IdProducer NOT  IN (SELECT IdProducer FROM Product)
+
+3 ВАРИАНТ:
+
+SELECT ProducerName 
+FROM Producer WHERE IdProducer<>ALL (SELECT IdProducer FROM Product)
+
+

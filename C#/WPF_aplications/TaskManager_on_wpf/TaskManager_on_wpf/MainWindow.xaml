@@ -1,0 +1,106 @@
+﻿<Window Name="main_window" x:Class="TaskManager_on_wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:TaskManager_on_wpf"
+        xmlns:my_res="clr-namespace:TaskManager_on_wpf.my_resourses"
+        xmlns:my_2="clr-namespace:System.Diagnostics;assembly=System"
+        xmlns:hgh="clr-namespace:System.Diagnostics;assembly=System.Core" 
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+        Title="MainWindow" Height="350" Width="710" MinWidth="700" MinHeight="300">
+    <Window.Resources>
+        <Style TargetType="TextBlock" x:Key="help_text_style">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="Blue" Offset="0.0"></GradientStop>
+                        <GradientStop Color="Red" Offset="0.5"></GradientStop>
+                        <GradientStop Color="Green" Offset="1.0"></GradientStop>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="help_panel_style">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="Green" Offset="0.0"></GradientStop>
+                        <GradientStop Color="Red" Offset="0.5"></GradientStop>
+                        <GradientStop Color="Blue" Offset="1.0"></GradientStop>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <my:info_about_task_converter x:Key="info_converter"></my:info_about_task_converter>
+        <my:width_converter x:Key="width_half_converter"></my:width_converter>
+        <my:storage_for_tasks x:Key="tasks_data_provider"></my:storage_for_tasks>
+        <my:height_converter x:Key="height_converter"></my:height_converter>
+        <my:my_collections x:Key="process_collection"></my:my_collections>
+        <my:list_of_tasks_converter x:Key="task_converter"></my:list_of_tasks_converter>
+        <my:height_converter_for_run_task_image x:Key="new_task_image_converter"></my:height_converter_for_run_task_image>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical"  Name="main_panel">
+        <TabControl Height="112" VerticalAlignment="Top">
+            <TabItem Header="{x:Static my_res:texts.main}">
+                <Grid>
+                    <Button Name="new_task_button" Margin="-5,0,0,0" Height="75" HorizontalAlignment="Left" Click="new_task_button_Click">
+                        <StackPanel>
+                            <Image Height="{Binding ElementName=new_task_button, Path=ActualHeight, Converter={StaticResource new_task_image_converter}}"  Source="my_resourses/images/new_task_image.jpg" />
+                            <TextBlock Text="{x:Static my_res:texts.new_task}" TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Center" ></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <CheckBox Name="auto_refresh_check_box" Margin="92,4,0,0" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top">
+                        <Label Content="{x:Static my_res:texts.auto_refresh}"></Label>
+                    </CheckBox>
+                    <TextBox Name="task_name_text_box" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="224,4,0,0" Width="101" Height="22" ></TextBox>
+                    <Button Content="{x:Static my_res:texts.find_task}" Click="find_button_click" Name="find_button" Margin="224,55,120,2" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                    </Button>
+                    <Button Name="end_task_button" Margin="100,0,0,1" HorizontalAlignment="Right" Click="end_task_button_Click">
+                        <StackPanel>
+                            <Image Height="{Binding ElementName=end_task_button, Path=ActualHeight, Converter={StaticResource new_task_image_converter}}"  Source="my_resourses/images/end_task_image.jpg" />
+                            <TextBlock Text="{x:Static my_res:texts.kill_task}" TextWrapping="Wrap" VerticalAlignment="Bottom" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <Image Source="my_resourses/images/search_task_image.jpg" HorizontalAlignment="Left" Height="51" Margin="271,28,0,0" VerticalAlignment="Top" Width="59"/>
+                    <Label FontSize="14" Content="{x:Static my_res:texts.filter}" HorizontalAlignment="Left" Height="29" Margin="356,2,0,0" VerticalAlignment="Top" Width="99"/>
+                    <Label Content="ID" HorizontalAlignment="Left" Height="23" Margin="356,31,0,0" VerticalAlignment="Top" Width="24"/>
+                    <Label Content="{x:Static my_res:texts.task_name}" HorizontalAlignment="Left" Height="23" Margin="405,31,0,0" VerticalAlignment="Top" Width="70"/>
+                    <Label Content="{x:Static my_res:texts.user_name}" HorizontalAlignment="Left" Height="23" Margin="475,32,0,0" VerticalAlignment="Top" Width="90"/>
+                    <TextBox PreviewTextInput="text_box_only_digits_PreviewTextInput" TextChanged="filter_id_text_box_TextChanged" Name="filter_id_text_box" HorizontalAlignment="Left" Height="21" Margin="344,60,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="47"/>
+                    <TextBox Name="filter_name_text_box" HorizontalAlignment="Left" Height="22" Margin="405,59,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70" TextChanged="filter_name_text_box_TextChanged"/>
+                    <TextBox Name="filter_user_name_text_box" HorizontalAlignment="Left" Height="22" Margin="480,59,0,-1" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="73" TextChanged="filter_user_name_text_box_TextChanged"/>
+                    <Label HorizontalAlignment="Left" Height="26" Margin="92,28,0,0" Content="{x:Static my_res:texts.auto_refresh_per_value}" VerticalAlignment="Top" Width="104"></Label>
+                    <TextBox Name="auto_seconds_text_box" MaxLength="2" HorizontalAlignment="Left" Height="20" Margin="92,50,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="29" PreviewTextInput="text_box_only_digits_PreviewTextInput" TextChanged="auto_seconds_text_box_TextChanged">
+                    </TextBox>
+                    <Label HorizontalAlignment="Left" Height="28" Margin="126,50,0,0" Content="{x:Static my_res:texts.seconds}" VerticalAlignment="Top" Width="60"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static my_res:texts.view}">
+                <Grid Name="second_tab_grid">
+                    <Button Name="green_theme_button" Width="81" Content="{x:Static my_res:texts.green}" HorizontalAlignment="Left" Click="green_theme_button_Click" Margin="0,53,0,0" />
+                    <Rectangle Fill="Blue"  HorizontalAlignment="Left" Height="53" Stroke="Black" VerticalAlignment="Top" Width="81" Margin="86,0,0,0"/>
+                    <Rectangle Fill="Green"  HorizontalAlignment="Left" Height="53" Stroke="Black" VerticalAlignment="Top" Width="81"/>
+                    <Rectangle Fill="Red"  HorizontalAlignment="Left" Height="53" Stroke="Black" VerticalAlignment="Top" Width="81" Margin="172,0,0,0"/>
+                    <Rectangle Fill="LightGray"  HorizontalAlignment="Left" Height="53" Stroke="Black" VerticalAlignment="Top" Width="81" Margin="258,0,0,0"/>
+                    <Button  Name="blue_theme_button" Content="{x:Static my_res:texts.blue}" HorizontalAlignment="Left" Height="27" Margin="86,53,0,0" VerticalAlignment="Top" Width="81" Click="blue_theme_button_Click"/>
+                    <Button Name="red_theme_button" Content="{x:Static my_res:texts.red}" HorizontalAlignment="Left" Height="27" Margin="172,53,0,0" VerticalAlignment="Top" Width="81" Click="red_theme_button_Click"/>
+                    <Button Name="gray_theme_button" Content="{x:Static my_res:texts.default_scene}" HorizontalAlignment="Left" Height="27" Margin="258,53,0,0" VerticalAlignment="Top" Width="81" Click="gray_theme_button_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{x:Static my_res:texts.help}">
+                <Grid>
+                    <StackPanel Style="{StaticResource help_panel_style}" Orientation="Vertical">
+                        <TextBlock FontSize="13" FontWeight="Bold"  Foreground="Yellow" Text="{x:Static my_res:texts.help_itself}" TextWrapping="Wrap"></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StackPanel Orientation="Horizontal" Height="{Binding ElementName=main_window, Path=ActualHeight,Converter={StaticResource height_converter}}" Name="list_of_system_tasks" VerticalAlignment="Top">
+            <DataGrid SelectionMode="Single" Width="{Binding Mode=OneWay, ElementName=main_window, Path=ActualWidth, Converter={StaticResource width_half_converter}}" SelectedIndex="-1" ColumnWidth="*" ItemsSource="{Binding UpdateSourceTrigger=PropertyChanged, Mode=OneWay, Source={StaticResource tasks_data_provider}, Path=get_all_tasks}" Name="main_data_grid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,20">
+            </DataGrid>
+            <DockPanel Width="{Binding Mode=OneWay, ElementName=main_window, Path=ActualWidth, Converter={StaticResource width_half_converter}}" Name="additional_information_stack_panel">
+                <TextBlock Text="{Binding Mode=OneWay, ElementName=main_data_grid, Path=SelectedItem, Converter={StaticResource info_converter}}"></TextBlock>
+            </DockPanel>
+        </StackPanel>
+    </StackPanel>
+</Window>

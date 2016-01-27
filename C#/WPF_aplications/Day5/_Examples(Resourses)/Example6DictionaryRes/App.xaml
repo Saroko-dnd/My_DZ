@@ -1,0 +1,21 @@
+﻿<Application x:Class="Example6DictionaryRes.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <!--Здесь запрещено использовать ресурсы с одинаковыми именами-->
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="BrushesForButtons.xaml"/>
+            </ResourceDictionary.MergedDictionaries> 
+        
+            <!--Стиль для границы кнопки-->
+        <LinearGradientBrush x:Key="buttomBorder" StartPoint="0,0" EndPoint="1,0">
+            <GradientStop Color="Red" Offset="0.0" />
+            <GradientStop Color="Black" Offset="1.0" />
+        </LinearGradientBrush>
+       
+        
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

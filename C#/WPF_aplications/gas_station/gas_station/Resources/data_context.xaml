@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:collections="clr-namespace:System.Collections;assembly=mscorlib">
+    
+    <collections:ArrayList x:Key="test_of_dictionary" x:Name="list_of_styles_">
+        <sys:String>Pink style</sys:String>
+        <sys:String>Blue style</sys:String>
+    </collections:ArrayList>
+    
+</ResourceDictionary>

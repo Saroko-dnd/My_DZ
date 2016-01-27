@@ -1,0 +1,43 @@
+﻿<Application x:Class="generator_of_values.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <Application.Resources>
+        <x:Array Type="{x:Type sys:String}" x:Key="array_of_TV">
+            <sys:String>19PFL3507T/60</sys:String>
+            <sys:String>TX-PR65VT50</sys:String>
+            <sys:String>TX-LR42DT50</sys:String>
+            <sys:String>40PFL7007T/12</sys:String>
+            <sys:String>42PFL4307T</sys:String>
+            <sys:String>42PFL6007T/60</sys:String>
+            <sys:String>46PFL9707T</sys:String>
+            <sys:String>47PFL6007T/60</sys:String>
+            <sys:String>UE32ES5507K</sys:String>
+            <sys:String>UE40EH5307</sys:String>
+            <sys:String>UE46EH6037K</sys:String>
+            <sys:String>UE55ES6907U</sys:String>
+            <sys:String>32LS340T</sys:String>
+            <sys:String>37LS560T</sys:String>
+            <sys:String>42LM660T</sys:String>
+            <sys:String>55LM670T</sys:String>
+            <sys:String>KDL-22EX553</sys:String>
+            <sys:String>KDL-40EX720</sys:String>
+            <sys:String>KDL-40HX853</sys:String>
+            <sys:String>40VL748R Slim LED TV</sys:String>
+            <sys:String>46WL768R 3D LED TV</sys:String>
+            <sys:String>55WL768R 3D LED TV</sys:String>
+            <sys:String>40LE830</sys:String>
+            <sys:String>60LE830</sys:String>
+            <sys:String>32LE530</sys:String>
+            <sys:String>47LM860V</sys:String>
+            <sys:String>55LM960V</sys:String>
+            <sys:String>84LM960V</sys:String>
+            <sys:String>32LS350T</sys:String>
+            <sys:String>32LM620T</sys:String>
+            <sys:String>55LM660T</sys:String>
+            <sys:String>42LS560T</sys:String>
+            <sys:String>37LS511T</sys:String>
+        </x:Array>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,54 @@
+﻿<Window x:Class="MVVM_Sample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:MVVM_Sample.ViewModel"
+        Title="MVVM. Главное окно" Height="293" Width="525">
+
+    <!--Установка DataContext для всего окна -->
+    <!--В качестве DataContext выступает MainWindowViewModel-->
+    <Window.DataContext>
+        <local:MainWindowViewModel></local:MainWindowViewModel>
+    </Window.DataContext>
+    
+    <StackPanel>
+        <ListBox Name="ListBoxPersons" Height="100" ItemsSource="{Binding Path=Clients}">
+            
+        </ListBox>
+        <Border BorderBrush="Black" CornerRadius="5" Margin="15,15,15,162" Padding="15" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="77"></ColumnDefinition>
+                    <ColumnDefinition Width="131"></ColumnDefinition>
+                    <ColumnDefinition Width="211*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Height="24" Grid.ColumnSpan="2" Margin="0,5">
+                    First Name
+                </TextBlock>
+                
+                <TextBox Grid.Column="1" Name="TextBoxFirstName" Height="24" 
+                         Text="{Binding Path=CurrentClient.FirstName, UpdateSourceTrigger=PropertyChanged}">
+                </TextBox>
+                
+                <TextBlock Grid.Row="1" Height="24" Grid.ColumnSpan="2" Margin="0,5">
+                    Last Name
+                </TextBlock>
+                
+                <TextBox Grid.Row="1" Grid.Column="1" Name="TextBoxLastName" Height="24"
+                         Text="{Binding Path=CurrentClient.LastName, UpdateSourceTrigger=PropertyChanged}">
+                </TextBox>
+                
+                <!--Действия на элементах реализуются посредством команд -->
+                <Button Grid.Row="2" Grid.ColumnSpan="2" Height="24" 
+                        Command="{Binding AddClient}">
+                    Add
+                </Button>
+            </Grid>
+        </Border>
+    </StackPanel>
+</Window>

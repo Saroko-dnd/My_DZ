@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<apprentice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <things_in_schoolbag>
+    <string>pen</string>
+    <string>notebook</string>
+    <string>trap</string>
+  </things_in_schoolbag>
+  <name>apprentice6</name>
+  <age>10</age>
+  <GPA>6</GPA>
+</apprentice>

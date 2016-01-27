@@ -1,0 +1,40 @@
+﻿<Window x:Class="ExamplesTheme.MainWindow"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+
+    <DockPanel LastChildFill="True" Background="Gray">
+        <!--Главное меню-->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Открыть" InputGestureText="Ctrl+O"></MenuItem>
+                <MenuItem Header="Сохранить" InputGestureText="Ctrl+S"></MenuItem>
+            </MenuItem>
+        </Menu>
+
+        <!--Панель инструментов-->
+        <ToolBarTray DockPanel.Dock="Top" Background="Gray">
+            <ToolBar >
+                <ToggleButton Content="Open">
+                </ToggleButton>
+                <ToggleButton  Content="Save">
+                </ToggleButton>
+            </ToolBar>
+            <ToolBar >
+                <Button Content="Copy" ></Button>
+                <Button  Content="Cut" ></Button>
+                <Button  Content="Paste" ></Button>
+            </ToolBar>
+        </ToolBarTray>
+
+        <Slider DockPanel.Dock="Bottom"  Margin="10"></Slider>
+
+        <TextBox Margin="5,5,5,15" x:Name="tbMainText" FontSize="15" TextWrapping="Wrap" TextAlignment="Justify" VerticalAlignment="Top" Height="Auto">
+            C# (произносится «си шарп») — объектно-ориентированный язык программирования. Разработан в 1998—2001 годах группой инженеров под руководством Андерса Хейлсберга в компании Microsoft как язык разработки приложений для платформы Microsoft . NET Framework
+        </TextBox>
+
+
+
+    </DockPanel>
+
+</Window>

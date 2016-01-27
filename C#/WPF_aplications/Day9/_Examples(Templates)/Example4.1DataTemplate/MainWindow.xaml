@@ -1,0 +1,53 @@
+﻿<Window x:Class="Example5DataTemplate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="480" Width="650">
+
+    <Window.Resources>
+        <!--Создание шаблона для item List Box-->
+        <DataTemplate x:Key="ItemUser" >
+            <Border CornerRadius="10" BorderThickness="2" BorderBrush="BlueViolet" Margin="3" >
+                <Grid Margin="5" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" ></ColumnDefinition>
+                        <ColumnDefinition Width="*" ></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <!--Указываем через привязку данных какие данные будут отображаться в элементах упарвления-->
+                    <TextBlock Text="{Binding Path=Topic}" Grid.Column="0" Grid.Row="0"></TextBlock>
+                    <TextBlock Text="{Binding Path=Content}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" 
+                               TextWrapping="Wrap" TextAlignment="Justify" ></TextBlock>
+                    <Label Content="{Binding Path=Author}" Grid.Column="0" Grid.Row="2"></Label>
+                    <Label Content="{Binding Path=GetDate}" Grid.Column="1" Grid.Row="2"></Label>
+                    <Button Content="Ответить" Grid.Column="2" Grid.Row="2" Click="Button_Click"></Button>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--Использование шаблона для item ListBox-->
+        <ListBox  x:Name="lbxMessages" Grid.Column="1" ItemTemplate="{StaticResource ItemUser}"
+                  HorizontalContentAlignment="Stretch" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  SelectionChanged="lbxMessages_SelectionChanged" 
+                  ></ListBox>
+        
+        <TextBlock x:Name="tbInfo" Grid.Row="1" Grid.ColumnSpan="2" FontWeight="Bold" Margin="5" Padding="10"></TextBlock>
+    </Grid>
+</Window>

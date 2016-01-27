@@ -1,0 +1,22 @@
+﻿<Application x:Class="rating_system.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <x:Array Type="sys:String" x:Key="array_of_ranks">
+            <sys:String>apprentice</sys:String>
+            <sys:String>1 rank assassin</sys:String>
+            <sys:String>2 rank assassin</sys:String>
+            <sys:String>3 rank assassin</sys:String>
+            <sys:String>master</sys:String>
+            <sys:String>grandmaster</sys:String>
+        </x:Array>
+        
+        <x:Array Type="sys:String" x:Key="array_of_styles">
+            <sys:String>default(Blue)</sys:String>
+            <sys:String>PinkStyle</sys:String>
+            <sys:String>GreenStyle</sys:String>
+        </x:Array>
+    </Application.Resources>
+</Application>

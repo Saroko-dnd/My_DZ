@@ -1,0 +1,19 @@
+﻿1 упражнение:
+
+SELECT model,speed,hd FROM PC WHERE price<500
+
+2 упражнение:
+
+SELECT DISTINCT maker FROM Product WHERE type LIKE 'Printer'
+
+3 упражнение:
+
+SELECT model,ram,screen FROM Laptop WHERE price>1000
+
+4 упражнение:
+
+SELECT * FROM Printer WHERE color LIKE 'y'
+
+5 упражнение:
+
+SELECT model,speed,hd FROM PC WHERE (cd LIKE '12x' OR cd LIKE '24x') AND price<600

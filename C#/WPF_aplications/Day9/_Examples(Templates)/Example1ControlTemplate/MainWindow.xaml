@@ -1,0 +1,28 @@
+﻿<Window x:Class="ExampleControlTemplate.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+   
+    <Window.Resources>
+        <!--Шаблон для кнопок-->
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <!--В стандартном шаблоне кнопки вместо Border используется ButtonChrome-->
+            <Border  BorderBrush="Orange" BorderThickness="3" CornerRadius="8"  TextBlock.Foreground="Black" TextBlock.FontWeight="Bold" TextBlock.FontSize="19">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Offset="0" Color="LimeGreen"></GradientStop>
+                            <GradientStop Offset="1" Color="LightBlue"></GradientStop>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <!-- ContentPresenter обеспечсивает возможность вставки в кнопку текста или картинки -->
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"> </ContentPresenter>
+            </Border>
+        </ControlTemplate>
+    </Window.Resources>
+    
+    <StackPanel>
+        <Button  Template="{StaticResource ButtonTemplate}" Margin="150,10"  Click="Button_Click" Height="50"> Кнопка </Button>
+    </StackPanel>
+</Window>

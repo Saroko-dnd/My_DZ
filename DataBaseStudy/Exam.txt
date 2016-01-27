@@ -1,0 +1,16 @@
+﻿
+Вариант запроса с IdOrder:
+
+SELECT IdOrder,MainTable.IdShopper,MainTable.DateTime
+ FROM 
+( SELECT IdOrder,IdShopper,DateTime FROM [Order] INNER JOIN OrderInfo ON Order.IdOrderInfo=OrderInfo.IdOrderInfo) AS MainTable
+ INNER JOIN   (SELECT IdShopper,DateTime FROM OrderInfo GROUP BY IdShopper,DateTime HAVING COUNT(IdOrderInfo)>1)  AS SecondTable 
+ON (MainTable.IdShopper=SecondTable.IdShopper AND MainTable.DateTime=SecondTable.DateTime) 
+
+Вариант запроса с IdOrderInfo:
+
+SELECT IdOrderInfo,MainTable.IdShopper,MainTable.DateTime
+ FROM 
+( SELECT IdOrderInfo,IdShopper,DateTime  FROM OrderInfo) AS MainTable
+ INNER JOIN   (SELECT IdShopper,DateTime FROM OrderInfo GROUP BY IdShopper,DateTime HAVING COUNT(IdOrderInfo)>1)  AS SecondTable 
+ON (MainTable.IdShopper=SecondTable.IdShopper AND MainTable.DateTime=SecondTable.DateTime)   

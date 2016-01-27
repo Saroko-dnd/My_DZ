@@ -1,0 +1,64 @@
+﻿
+
+ВАЖНО: МНОЮ БЫЛИ ИСПРАВЛЕНы ЗАПРОСЫ К НАШЕЙ БАЗЕ ДАННЫХ ИНТЕРНЕТ-МАГАЗИНА!
+
+Упражнение 6:
+
+SELECT DISTINCT maker,speed FROM Laptop INNER JOIN Product ON (Product.model=Laptop.model
+AND Laptop.hd>=10)
+
+Упражнение 9:
+
+SELECT DISTINCT maker FROM Product INNER JOIN PC ON (Product.model=PC.model AND 
+PC.speed>=450)
+
+Упражнение 11:
+
+SELECT AVG(speed) FROM PC
+
+Упражнение 12:
+
+SELECT AVG(Speed) FROM Laptop WHERE price>1000
+
+Упражнение 13:
+
+SELECT AVG(speed) FROM Product INNER JOIN PC ON (Product.model=PC.model AND Product.maker LIKE 'A')
+
+Упражнение 14:
+
+SELECT maker,MAX(type) FROM Product GROUP BY maker HAVING (MAX(type)=MIN(type) AND COUNT(model)>1)
+
+Упражнение 15:
+
+SELECT hd FROM PC GROUP BY hd HAVING COUNT(code)>1
+
+##############################################################################################################
+
+ЗАПРОСЫ К БАЗЕ ДАННЫХ ИНТЕРНЕТ-МАГАЗИНА:
+
+Запрос 1. (Возвращает среднюю стоимость продуктов для каждого производителя.
+Формат вывода: Название производителя, Средняя стоимость)
+
+SELECT  MAX(ProducerName),AVG(Price) FROM Producer INNER JOIN Product ON Producer.IdProducer=Product.IdProducer GROUP BY Producer.IdProducer
+
+Запрос 2.(Возвращает самый дорогой товар для каждого производителя.
+Формат вывода: Название производителя, Стоимость самого дорогого товара)
+
+SELECT  MAX(ProducerName),MAX(Price) FROM Producer INNER JOIN Product ON Producer.IdProducer=Product.IdProducer GROUP BY Producer.IdProducer
+
+Запрос 3.(Возвращает количество продуктов в каждой из категорий для каждого цвета.
+Формат вывода: Название продукта, название цвета, количество продуктов.)
+
+ВАЖНО: ПРИ СОСТАВЛЕНИИ ЭТОГО ЗАПРОСА Я ОРИЕНТИРОВАЛСЯ НА "Возвращает количество продуктов в каждой из категорий для каждого цвета",
+ ТАК КАК ИМЕЕТСЯ ПРОТИВОРЕЧИЕ МЕЖДУ ФОРМАТОМ ВЫВОДА И УСЛОВИЕМ (название продукта против названия категории)
+
+SELECT Category1Name,ColorName,SUM(Amount) FROM Color INNER JOIN (SELECT * FROM Product INNER JOIN Category1 ON Product.IdCategory=Category1.IdCategory1) 
+ AS CategoryPlusProduct ON Color.IdColor=CategoryPlusProduct.IdColor GROUP BY Category1Name,ColorName
+
+Запрос 4.(Возвращает информацию о самом легком телевизоре.
+Формат вывода: Название продукта, Стоимость, Вес)
+
+SELECT ProductName,Price,Weight FROM 
+((Product INNER JOIN Category1 ON (Product.IdCategory=Category1.IdCategory1 AND Category1.Category1Name LIKE 'TV')) 
+INNER JOIN  (SELECT MIN(Price) AS MinPrice FROM (Product INNER JOIN Category1 ON (Product.IdCategory=Category1.IdCategory1 AND
+ Category1.Category1Name LIKE 'TV'))) AS CheckTable ON Product.Price=CheckTable.MinPrice)

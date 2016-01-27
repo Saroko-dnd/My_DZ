@@ -1,0 +1,14 @@
+﻿CREATE VIEW [dbo].[SalesReport]
+AS
+SELECT        
+	dbo.CategoryLast.CategoryName, dbo.Producer.ProducerName, 
+	dbo.Producer.ProducingCountry, dbo.Product.ProductName, 
+        dbo.Shopper.LastName + ' ' + dbo.Shopper.FirstName + ' ' + dbo.Shopper.Patronymic AS ФИО, 
+	dbo.OrderInfo.DateTime, dbo.[Order].Amount
+FROM            
+	dbo.Product INNER JOIN
+        dbo.Producer ON dbo.Product.IdProducer = dbo.Producer.IdProducer INNER JOIN
+      	dbo.[Order] ON dbo.Product.IdProduct = dbo.[Order].IdProduct INNER JOIN
+        dbo.OrderInfo ON dbo.[Order].IdOrderInfo = dbo.OrderInfo.IdOrderInfo INNER JOIN
+        dbo.CategoryLast ON dbo.Product.IdCategory = dbo.CategoryLast.IdCategory INNER JOIN
+        dbo.Shopper ON dbo.OrderInfo.IdShopper = dbo.Shopper.IdShopper

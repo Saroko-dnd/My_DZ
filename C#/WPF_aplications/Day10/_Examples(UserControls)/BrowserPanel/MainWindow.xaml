@@ -1,0 +1,24 @@
+﻿<Window x:Class="BrowserPanel.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:BrowserPanel"
+        Title="Демонстрация User Control" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <my:BrowsePanelControl x:Name="brsMain" FileName="{Binding ElementName=tbSetFileName, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Grid.Row="0"> </my:BrowsePanelControl>
+        
+        <!--Ошибка использования Binding-->
+        <!--<my:BrowsePanelControlNo x:Name="brsMainNo" FileName="{Binding ElementName=tbSetFileName, Path=Text, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"></my:BrowsePanelControlNo>-->
+        <my:BrowsePanelControlNo x:Name="brsMainNo" FileName="пусто" Grid.Row="1"></my:BrowsePanelControlNo>
+
+        <Label Content="Введите имя файла" Grid.Row="2"></Label>
+        <TextBox x:Name="tbSetFileName" BorderBrush="Black"  Margin="5" Grid.Row="3" ></TextBox>
+        <Button Click="Button_Click" Grid.Row="4" Width="150" HorizontalAlignment="Left" Margin="5">Просмотр значения</Button>
+    </Grid>
+</Window>

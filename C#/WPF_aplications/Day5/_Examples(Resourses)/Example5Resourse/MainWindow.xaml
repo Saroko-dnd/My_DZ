@@ -1,0 +1,29 @@
+﻿<Window x:Class="Example5Resourse.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <!--ДЕМОНСТРАЦИЯ ИСПОЛЬЗОВАНИЯ СИСТЕМНЫХ РЕСУРСОВ-->
+    <StackPanel>
+        <!--Использование системных ресурсов через статические свойства-->
+        <Label Content="Текст для примера"
+            Foreground="{x:Static SystemColors.WindowTextBrush}"
+            FontFamily="{x:Static SystemFonts.CaptionFontSize}"/>
+
+        <Button  Content="Кнопка 1" Margin="50,5"
+            Foreground="{x:Static SystemColors.HighlightColor}"
+            Background="{x:Static SystemColors.GradientInactiveCaptionBrush}"
+            Width="{x:Static SystemParameters.CaptionWidth}"
+                 />
+
+        <!--Использование системных ресурсов через коллекцию ресурсов-->
+        <Button  Content="Кнопка 1" Margin="50,5"
+                 Background="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"
+                 Foreground="White"/>
+
+        <Button  Content="Кнопка 1" Margin="50,5"
+                 Background="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"
+                 Foreground="White"/>
+
+
+    </StackPanel>
+</Window>

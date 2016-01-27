@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="auto_refresh" xml:space="preserve">
+    <value>Автообновление</value>
+  </data>
+  <data name="auto_refresh_per_value" xml:space="preserve">
+    <value>Обновлять раз в</value>
+  </data>
+  <data name="bad_selected_index" xml:space="preserve">
+    <value>Вы не выбрали процесс для завершения!</value>
+  </data>
+  <data name="blue" xml:space="preserve">
+    <value>Синий</value>
+  </data>
+  <data name="default_scene" xml:space="preserve">
+    <value>Обычный</value>
+  </data>
+  <data name="do_you_wish_end_task" xml:space="preserve">
+    <value>Вы действительно хотите завершить процесс</value>
+  </data>
+  <data name="filter" xml:space="preserve">
+    <value>Фильтры:</value>
+  </data>
+  <data name="find_task" xml:space="preserve">
+    <value>Найти</value>
+  </data>
+  <data name="green" xml:space="preserve">
+    <value>Зеленый</value>
+  </data>
+  <data name="help" xml:space="preserve">
+    <value>Справка</value>
+  </data>
+  <data name="help_itself" xml:space="preserve">
+    <value>Данная программа представляет собой простой менеджер процессов, запущенных ОС или пользователем. С помощью этой программы вы можете получить основную информацию о запущенных процессах и их характеристиках. Кроме того вы можете завершать работу текущих процессов и запускать новые.</value>
+  </data>
+  <data name="kbyte" xml:space="preserve">
+    <value>Kb</value>
+  </data>
+  <data name="kill_task" xml:space="preserve">
+    <value>Завершить процесс</value>
+  </data>
+  <data name="main" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="max_physical_memory" xml:space="preserve">
+    <value>Макс. обьем физической памяти:</value>
+  </data>
+  <data name="memory" xml:space="preserve">
+    <value>Memory</value>
+  </data>
+  <data name="new_task" xml:space="preserve">
+    <value>Новый процесс</value>
+  </data>
+  <data name="nonpaged_memory" xml:space="preserve">
+    <value>Невыгружаемая память:</value>
+  </data>
+  <data name="not_responding" xml:space="preserve">
+    <value>не отвечает</value>
+  </data>
+  <data name="paged_memory" xml:space="preserve">
+    <value>Выгружаемая память:</value>
+  </data>
+  <data name="peak_virtual_memory" xml:space="preserve">
+    <value>Макс. объем виртуальной памяти:</value>
+  </data>
+  <data name="priority" xml:space="preserve">
+    <value>Приоритет:</value>
+  </data>
+  <data name="red" xml:space="preserve">
+    <value>Красный</value>
+  </data>
+  <data name="responding" xml:space="preserve">
+    <value>работает</value>
+  </data>
+  <data name="seconds" xml:space="preserve">
+    <value>секунд</value>
+  </data>
+  <data name="start_time" xml:space="preserve">
+    <value>Время создания процесса:</value>
+  </data>
+  <data name="state" xml:space="preserve">
+    <value>Состояние:</value>
+  </data>
+  <data name="task_dont_exist" xml:space="preserve">
+    <value>Процесса с таким именем не существует</value>
+  </data>
+  <data name="task_name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="total_processor_time" xml:space="preserve">
+    <value>Полное время процессора:</value>
+  </data>
+  <data name="user_name" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="user_processor_time" xml:space="preserve">
+    <value>Пользовательское время процессора:</value>
+  </data>
+  <data name="view" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="warning" xml:space="preserve">
+    <value>Предупреждение!</value>
+  </data>
+</root>
