@@ -81,11 +81,14 @@ namespace Authorization
         private void btnIn_Click(object sender, EventArgs e)
         {
             SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = @"Data Source=(localdb)\v11.0;AttachDbFilename=C:\Users\admin\Authorization_DB.mdf;Integrated Security=True";
+            connection.ConnectionString = @"Data Source=(localdb)\v11.0;Initial Catalog=Authorization_DB;Integrated Security=True;Pooling=False";
             connection.Open();
 
-            string SelectNamePasswordString = @"SELECT ";
-
+            string CommandString = @"INSERT INTO [Users] ([Name],[Password],[Email]) VALUES ('Fox','1111','Fox@mail.by')";
+            SqlCommand command_test = new SqlCommand(CommandString, connection);
+            command_test.CommandText = @"SELECT TOP 1 Name FROM Users";
+            MessageBox.Show(command_test.ExecuteScalar().ToString());
+            connection.Close();
         }
     }
 
