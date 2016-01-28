@@ -12,9 +12,10 @@ namespace Authorization
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm(string FirstName,string LastName)
         {
             InitializeComponent();
+            textBox1.Text = FirstName + " " + LastName;
         }
     }
 }

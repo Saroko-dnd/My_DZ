@@ -80,16 +80,54 @@ namespace Authorization
 
         private void btnIn_Click(object sender, EventArgs e)
         {
+            bool access_denied_1 = true;
+            bool access_denied_2 = true;
             SqlConnection connection = new SqlConnection();
             connection.ConnectionString = @"Data Source=(localdb)\v11.0;Initial Catalog=Authorization_DB;Integrated Security=True;Pooling=False";
             connection.Open();
 
-            string CommandString = @"INSERT INTO [Users] ([Name],[Password],[Email]) VALUES ('Fox','1111','Fox@mail.by')";
+            string CommandString = @"SELECT Name,Password,Info_id FROM Users";
             SqlCommand command_test = new SqlCommand(CommandString, connection);
-            command_test.CommandText = @"SELECT TOP 1 Name FROM Users";
-            MessageBox.Show(command_test.ExecuteScalar().ToString());
+
+            SqlDataReader reader = command_test.ExecuteReader();
+
+            while (reader.Read()!=false)
+            {
+               string NameTemp = reader.GetString(0).Replace(" ","");
+               string PasswordTemp = reader.GetString(1).Replace(" ","");
+               if (tbName.Text == NameTemp)
+               {
+                   access_denied_1 = false;
+               }
+               if (tbPassword.Text == PasswordTemp)
+               {
+                   access_denied_2 = false;
+               }
+               if (!access_denied_1 && !access_denied_2)
+               {
+                   MessageBox.Show("Welcome to program user " + NameTemp + "!");
+                   command_test.CommandText = @"SELECT FirstName,LastName FROM UsersInfo WHERE Id="
+                        + reader[2].ToString();
+                   reader.Close();
+                   SqlDataReader reader_2 = command_test.ExecuteReader();
+                   reader_2.Read();
+                   string FirstNameBuf = reader_2.GetString(0).Replace(" ","");
+                   string LastNameBuf = reader_2.GetString(1).Replace(" ","");
+                   MainForm NewMainForm = new MainForm(FirstNameBuf, LastNameBuf);
+                   NewMainForm.ShowDialog();
+                   break;
+               }
+               else
+               {
+                   access_denied_1 = true;
+                   access_denied_2 = true;
+               }
+            }
+            if (access_denied_1 && access_denied_2)
+            {
+                MessageBox.Show("Access denied!");
+            }
             connection.Close();
         }
     }
-
 }
