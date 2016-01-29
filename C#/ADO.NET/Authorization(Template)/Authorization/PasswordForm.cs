@@ -25,6 +25,7 @@ namespace Authorization
         {
             bool access_denied = false;
             bool PasswordsSame = false;
+            bool PasswordTooShort = false;
             SqlConnection connection = new SqlConnection();
             connection.ConnectionString = @"Data Source=(localdb)\v11.0;Initial Catalog=Authorization_DB;Integrated Security=True;Pooling=False";
             connection.Open();
@@ -34,7 +35,11 @@ namespace Authorization
             SqlCommand CommandExtractEmail = new SqlCommand(CommandString, connection);
 
             SqlDataReader EmailReader = CommandExtractEmail.ExecuteReader();
-            if (tbNewPas.Text == tbNewPas2.Text)
+            if (tbNewPas.Text.Length < 6)
+            {
+                PasswordTooShort = true;
+            }
+            else if (tbNewPas.Text == tbNewPas2.Text)
             {
                 PasswordsSame = true;
                 while (EmailReader.Read() != false)
@@ -55,11 +60,15 @@ namespace Authorization
                     }
                 }
             }
-            if (!PasswordsSame)
+            else if (PasswordTooShort)
+            {
+                MessageBox.Show("Password too short!");
+            }
+            else if (!PasswordsSame)
             {
                 MessageBox.Show("Check entered passwords!");
             }
-            if (!access_denied)
+            else if (!access_denied)
             {
                 MessageBox.Show("Check entered email!");
             }

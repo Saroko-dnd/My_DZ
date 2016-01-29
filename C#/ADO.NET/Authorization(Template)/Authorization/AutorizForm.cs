@@ -80,7 +80,14 @@ namespace Authorization
 
         private void btnIn_Click(object sender, EventArgs e)
         {
-            bool access_denied_1 = true;
+            SqlConnection connection = new SqlConnection();
+            string CommandString_1 = @"CREATE TABLE [UsersInfo] ([Id] BIGINT IDENTITY (1,1) NOT NULL,[LastName] NCHAR (20) NOT NULL,[FirstName] NCHAR (50) NOT NULL,[Adres] NCHAR (150) NULL,[Phone] NCHAR (40) NULL,[Code] INT NOT NULL, PRIMARY KEY CLUSTERED ([Id] ASC))";
+            connection.ConnectionString = @"Data Source=(localdb)\v11.0;Initial Catalog=Authorization_DB;Integrated Security=True;Pooling=False";
+            connection.Open();
+            SqlCommand command_test = new SqlCommand(CommandString_1, connection);
+            command_test.ExecuteNonQuery();
+            connection.Close();
+            /*bool access_denied_1 = true;
             bool access_denied_2 = true;
             SqlConnection connection = new SqlConnection();
             connection.ConnectionString = @"Data Source=(localdb)\v11.0;Initial Catalog=Authorization_DB;Integrated Security=True;Pooling=False";
@@ -127,7 +134,7 @@ namespace Authorization
             {
                 MessageBox.Show("Access denied!");
             }
-            connection.Close();
+            connection.Close();*/
         }
     }
 }
