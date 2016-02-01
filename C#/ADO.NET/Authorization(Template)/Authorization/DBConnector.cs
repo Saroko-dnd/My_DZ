@@ -7,6 +7,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Windows.Forms;
+using System.Data;
 
 namespace Authorization
 {
@@ -161,49 +162,54 @@ namespace Authorization
                     ConnectionToDB.Open();
 
                     bool AccessDenied = false;
-                    string CommandString = @"SELECT Name FROM Users";
-                    SqlCommand NewCommand = new SqlCommand(CommandString, ConnectionToDB);
-                    SqlDataReader UsersReader = NewCommand.ExecuteReader();
-
-                    while (UsersReader.Read() != false)
+                    SqlCommand NewCommand = new SqlCommand();
+                    NewCommand.Connection = ConnectionToDB;
+                    NewCommand.CommandType = CommandType.StoredProcedure;
+                    NewCommand.CommandText = "CheckLogin";
+                    SqlParameter ReturnValue = new SqlParameter(@"ReturnValue", SqlDbType.Int);
+                    ReturnValue.Direction = ParameterDirection.Output;
+                    SqlParameter InputParam = new SqlParameter(@"CurrentLogin", SqlDbType.NChar,20);
+                    InputParam.Direction = ParameterDirection.Input;
+                    InputParam.Value = NewLogin;
+                    NewCommand.Parameters.Add(InputParam);
+                    NewCommand.Parameters.Add(ReturnValue);
+                    NewCommand.ExecuteNonQuery();
+                    if (Int32.Parse(NewCommand.Parameters[1].Value.ToString()) == 0)
                     {
-                        if (NewLogin == UsersReader.GetString(0).Replace(" ", ""))
-                        {
-                            AccessDenied = true;
-                            MessageBox.Show("Your login already exists!", @"Error.", MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-                            break;
-                        }
+                        AccessDenied = true;
+                        MessageBox.Show("Your login already exists!", @"Error.", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
                     }
-                    UsersReader.Close();
 
                     if (!AccessDenied)
                     {
                         SqlTransaction CreateUserTransaction = ConnectionToDB.BeginTransaction();
                         try
                         {
+                            SqlCommand NewCommand_2 = new SqlCommand();
+                            NewCommand_2.Connection = ConnectionToDB;
                             NewCommand.Transaction = CreateUserTransaction;
-                            NewCommand.CommandText = @"INSERT INTO UsersInfo (LastName, FirstName, Code) VALUES (@NewLastName, @NewFirstName, @ZeroValue)";
+                            NewCommand_2.CommandText = @"INSERT INTO UsersInfo (LastName, FirstName, Code) VALUES (@NewLastName, @NewFirstName, @ZeroValue)";
 
                             if (NewFirstName.Length == 0)
-                                NewCommand.Parameters.AddWithValue("@NewLastName", "-");
+                                NewCommand_2.Parameters.AddWithValue("@NewLastName", "-");
                             else
-                                NewCommand.Parameters.AddWithValue("@NewLastName", NewFirstName);
+                                NewCommand_2.Parameters.AddWithValue("@NewLastName", NewFirstName);
                             if (NewSecondName.Length == 0)
-                                NewCommand.Parameters.AddWithValue("@NewFirstName", "-");
+                                NewCommand_2.Parameters.AddWithValue("@NewFirstName", "-");
                             else
-                                NewCommand.Parameters.AddWithValue("@NewFirstName", NewSecondName);
-                            NewCommand.Parameters.AddWithValue("@ZeroValue", 0);
-                            NewCommand.ExecuteNonQuery();
-                            NewCommand.CommandText = @"SELECT MAX(Id) FROM UsersInfo";
+                                NewCommand_2.Parameters.AddWithValue("@NewFirstName", NewSecondName);
+                            NewCommand_2.Parameters.AddWithValue("@ZeroValue", 0);
+                            NewCommand_2.ExecuteNonQuery();
+                            NewCommand_2.CommandText = @"SELECT MAX(Id) FROM UsersInfo";
                             int InfoIdBuf = Int32.Parse(NewCommand.ExecuteScalar().ToString());
-                            NewCommand.CommandText = @"INSERT INTO Users VALUES (@NewName, @NewPassword, @NewEmail, @NewInfoId)";
-                            NewCommand.Parameters.Clear();
-                            NewCommand.Parameters.AddWithValue("@NewName", NewLogin);
-                            NewCommand.Parameters.AddWithValue("@NewPassword", NewPassword);
-                            NewCommand.Parameters.AddWithValue("@NewEmail", NewEmail);
-                            NewCommand.Parameters.AddWithValue("@NewInfoId", InfoIdBuf);
-                            NewCommand.ExecuteNonQuery();
+                            NewCommand_2.CommandText = @"INSERT INTO Users VALUES (@NewName, @NewPassword, @NewEmail, @NewInfoId)";
+                            NewCommand_2.Parameters.Clear();
+                            NewCommand_2.Parameters.AddWithValue("@NewName", NewLogin);
+                            NewCommand_2.Parameters.AddWithValue("@NewPassword", NewPassword);
+                            NewCommand_2.Parameters.AddWithValue("@NewEmail", NewEmail);
+                            NewCommand_2.Parameters.AddWithValue("@NewInfoId", InfoIdBuf);
+                            NewCommand_2.ExecuteNonQuery();
                             CreateUserTransaction.Commit();
                             MessageBox.Show("New user successfully added to database.");
                         }
@@ -224,8 +230,9 @@ namespace Authorization
 
                     }
                     }
-                catch
+                catch (Exception exep)
                 {
+                    MessageBox.Show(exep.Message);
                     MessageBox.Show(@"Не удалось получить доступ к базе данных! Наиболее вероятная причина - неверная строка подключения или отсутствие таковой в конфигурационном файле приложения.",
                         @"Ошибка.", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -236,3 +243,11 @@ namespace Authorization
         }
     }
 }
+
+/*CREATE PROCEDURE [dbo].[CheckLogin]
+	@CurrentLogin NCHAR(20), @ReturnValue int OUTPUT
+AS
+	IF (EXISTS (SELECT Name FROM Users WHERE Name = @CurrentLogin))
+		SET @ReturnValue = 0
+	ELSE
+		SET @ReturnValue = 1*/

@@ -2,31 +2,33 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
-    <TabControl>
-        <TabItem Header="первый запрос">
-            <StackPanel>
-                <TextBlock Name="FirstTextBlock" Text="testtesttes"></TextBlock>
-            </StackPanel>
-        </TabItem>
-        <TabItem Header="второй запрос">
-            <StackPanel>
-                <TextBlock Name="SecondTextBlock" Text="testtesttest"></TextBlock>
-            </StackPanel>
-        </TabItem>
-        <TabItem Header="третий запрос">
-            <StackPanel>
-                <TextBlock Name="ThirdTextBlock" Text="testtesttest"></TextBlock>
-            </StackPanel>
-        </TabItem>
-        <TabItem Header="четвертый запрос">
-            <StackPanel>
-                <TextBlock Name="FourthTextBlock" Text="testtesttest"></TextBlock>
-            </StackPanel>
-        </TabItem>
-        <TabItem Header="пятый запрос">
-            <StackPanel>
-                <TextBlock Name="FifthTextBlock" Text="testtesttest"></TextBlock>
-            </StackPanel>
-        </TabItem>
-    </TabControl>
+    <StackPanel>
+        <TabControl>
+            <TabItem Header="первый запрос">
+                <DataGrid>
+
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="второй запрос">
+                <StackPanel>
+                    <TextBlock Name="SecondTextBlock" Text="testtesttest"></TextBlock>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="третий запрос">
+                <StackPanel>
+                    <TextBlock Name="ThirdTextBlock" Text="testtesttest"></TextBlock>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="четвертый запрос">
+                <StackPanel>
+                    <TextBlock Name="FourthTextBlock" Text="testtesttest"></TextBlock>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="пятый запрос">
+                <StackPanel>
+                    <TextBlock Name="FifthTextBlock" Text="testtesttest"></TextBlock>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </StackPanel>
 </Window>
