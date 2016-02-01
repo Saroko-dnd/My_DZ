@@ -72,6 +72,7 @@
     <Compile Include="RegistrForm.Designer.cs">
       <DependentUpon>RegistrForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SpaceBarKiller.cs" />
     <EmbeddedResource Include="AutorizForm.resx">
       <DependentUpon>AutorizForm.cs</DependentUpon>
     </EmbeddedResource>

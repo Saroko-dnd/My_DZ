@@ -20,6 +20,11 @@ namespace Authorization
         public AutorizForm()
         {
             InitializeComponent();
+
+            tbName.TextChanged += SpaceBarKiller.TextBoxTextChanged;
+            tbName.KeyPress += SpaceBarKiller.TextBoxKeyPress;
+            tbPassword.TextChanged += SpaceBarKiller.TextBoxTextChanged;
+            tbPassword.KeyPress += SpaceBarKiller.TextBoxKeyPress;
         }
 
 
@@ -83,5 +88,7 @@ namespace Authorization
         {
             DBConnector.CheckLoginPassword(tbName.Text, tbPassword.Text);
         }
+
+    
     }
 }
