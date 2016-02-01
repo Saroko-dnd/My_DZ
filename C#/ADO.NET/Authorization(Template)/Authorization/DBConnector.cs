@@ -116,6 +116,7 @@ namespace Authorization
 
         public static bool CreateNewPassword(string NewPassword, string CurrentEmail)
         {
+            bool result = false;
             try
             {
                 ConnectionToDB.Open();
@@ -134,7 +135,8 @@ namespace Authorization
                         CommandUpdate.Parameters.AddWithValue("@email", EmailTemp);
                         CommandUpdate.ExecuteNonQuery();
                         MessageBox.Show("Your password cnanged!");
-                        return true;
+                        result = true;
+                        break;
                     }
                 }
             }
@@ -147,7 +149,90 @@ namespace Authorization
             {
                 ConnectionToDB.Close();
             }
-            return false;
+            return result;
+        }
+
+        public static void CreateNewUser(string NewLogin, string NewPassword, string NewEmail, 
+            string NewFirstName, string NewSecondName)
+        {
+
+                try
+                {
+                    ConnectionToDB.Open();
+
+                    bool AccessDenied = false;
+                    string CommandString = @"SELECT Name FROM Users";
+                    SqlCommand NewCommand = new SqlCommand(CommandString, ConnectionToDB);
+                    SqlDataReader UsersReader = NewCommand.ExecuteReader();
+
+                    while (UsersReader.Read() != false)
+                    {
+                        if (NewLogin == UsersReader.GetString(0).Replace(" ", ""))
+                        {
+                            AccessDenied = true;
+                            MessageBox.Show("Your login already exists!", @"Error.", MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+                            break;
+                        }
+                    }
+                    UsersReader.Close();
+
+                    if (!AccessDenied)
+                    {
+                        SqlTransaction CreateUserTransaction = ConnectionToDB.BeginTransaction();
+                        try
+                        {
+                            NewCommand.Transaction = CreateUserTransaction;
+                            NewCommand.CommandText = @"INSERT INTO UsersInfo (LastName, FirstName, Code) VALUES (@NewLastName, @NewFirstName, @ZeroValue)";
+
+                            if (NewFirstName.Length == 0)
+                                NewCommand.Parameters.AddWithValue("@NewLastName", "-");
+                            else
+                                NewCommand.Parameters.AddWithValue("@NewLastName", NewFirstName);
+                            if (NewSecondName.Length == 0)
+                                NewCommand.Parameters.AddWithValue("@NewFirstName", "-");
+                            else
+                                NewCommand.Parameters.AddWithValue("@NewFirstName", NewSecondName);
+                            NewCommand.Parameters.AddWithValue("@ZeroValue", 0);
+                            NewCommand.ExecuteNonQuery();
+                            NewCommand.CommandText = @"SELECT MAX(Id) FROM UsersInfo";
+                            int InfoIdBuf = Int32.Parse(NewCommand.ExecuteScalar().ToString());
+                            NewCommand.CommandText = @"INSERT INTO Users VALUES (@NewName, @NewPassword, @NewEmail, @NewInfoId)";
+                            NewCommand.Parameters.Clear();
+                            NewCommand.Parameters.AddWithValue("@NewName", NewLogin);
+                            NewCommand.Parameters.AddWithValue("@NewPassword", NewPassword);
+                            NewCommand.Parameters.AddWithValue("@NewEmail", NewEmail);
+                            NewCommand.Parameters.AddWithValue("@NewInfoId", InfoIdBuf);
+                            NewCommand.ExecuteNonQuery();
+                            CreateUserTransaction.Commit();
+                            MessageBox.Show("New user successfully added to database.");
+                        }
+                        catch
+                        {
+                            try
+                            {
+                                CreateUserTransaction.Rollback();
+                            }
+                            catch (Exception RollbackException)
+                            {
+                                MessageBox.Show(RollbackException.Message,
+                                    @"Ошибка.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            MessageBox.Show(@"Не удалось создать нового пользователя!",
+                                @"Ошибка.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                    }
+                    }
+                catch
+                {
+                    MessageBox.Show(@"Не удалось получить доступ к базе данных! Наиболее вероятная причина - неверная строка подключения или отсутствие таковой в конфигурационном файле приложения.",
+                        @"Ошибка.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                finally
+                {
+                    ConnectionToDB.Close();
+                }       
         }
     }
 }

@@ -19,68 +19,46 @@ namespace Authorization
         public RegistrForm()
         {
             InitializeComponent();
-         
+
+            tbEmail.KeyPress += SpaceBarKiller.TextBoxKeyPress;
+            tbEmail.TextChanged += SpaceBarKiller.TextBoxTextChanged;
+            tbLogin.KeyPress += SpaceBarKiller.TextBoxKeyPress;
+            tbLogin.TextChanged += SpaceBarKiller.TextBoxTextChanged;
+            tbName.KeyPress += SpaceBarKiller.TextBoxKeyPress;
+            tbName.TextChanged += SpaceBarKiller.TextBoxTextChanged;
+            tbPas.KeyPress += SpaceBarKiller.TextBoxKeyPress;
+            tbPas.TextChanged += SpaceBarKiller.TextBoxTextChanged;
+            tbPas2.KeyPress += SpaceBarKiller.TextBoxKeyPress;
+            tbPas2.TextChanged += SpaceBarKiller.TextBoxTextChanged;
+            tbSurName.KeyPress += SpaceBarKiller.TextBoxKeyPress;
+            tbSurName.TextChanged += SpaceBarKiller.TextBoxTextChanged;
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            bool access_denied = false;
-            bool PasswordsSame = false;
-            SqlConnection connection = new SqlConnection();
-            connection.ConnectionString = @"Data Source=(localdb)\v11.0;Initial Catalog=Authorization_DB;Integrated Security=True;Pooling=False";
-            connection.Open();
-
-            string CommandString = @"SELECT Name FROM Users";
-
-            SqlCommand NewCommand = new SqlCommand(CommandString, connection);
-
-            SqlDataReader UsersReader = NewCommand.ExecuteReader();
-            if (tbPas.Text != tbPas2.Text)
+            if (tbEmail.Text.Length == 0)
             {
-                access_denied = true;
-                MessageBox.Show("Passwords which you entered are not the same!");
+                MessageBox.Show(@"Вы не указали свой Email!",
+                    @"Отказано в создании учетной записи.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (tbPas.Text.Length < 6)
+            else if (tbLogin.Text.Length == 0)
             {
-                access_denied = true;
-                MessageBox.Show("Your password too short!");
+                MessageBox.Show(@"Вы не указали свой Логин!",
+                    @"Отказано в создании учетной записи.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (!access_denied)
+            else if (tbPas.Text != tbPas2.Text)
             {
-                while (UsersReader.Read() != false)
-                {
-                    if (tbLogin.Text == UsersReader.GetString(0).Replace(" ",""))
-                    {
-                        access_denied = true;
-                        MessageBox.Show("Your login already exists!");
-                    }
-                }
-                UsersReader.Close();
-                if (!access_denied)
-                {
-                    NewCommand.CommandText = @"INSERT INTO UsersInfo (LastName, FirstName, Code) VALUES (@NewLastName, @NewFirstName, @ZeroValue)";
-
-                    if (tbName.Text.Length == 0)
-                        NewCommand.Parameters.AddWithValue("@NewFirstName", "-");
-                    else
-                        NewCommand.Parameters.AddWithValue("@NewFirstName", tbName.Text);
-                    if (tbSurName.Text.Length == 0)
-                        NewCommand.Parameters.AddWithValue("@NewLastName", "-");
-                    else
-                        NewCommand.Parameters.AddWithValue("@NewLastName", tbSurName.Text);
-                    NewCommand.Parameters.AddWithValue("@ZeroValue",0);
-                    NewCommand.ExecuteNonQuery();
-                    NewCommand.CommandText = @"SELECT MAX(Id) FROM UsersInfo";
-                    int InfoIdBuf = Int32.Parse(NewCommand.ExecuteScalar().ToString());
-                    NewCommand.CommandText = @"INSERT INTO Users VALUES (@NewName, @NewPassword, @NewEmail, @NewInfoId)";
-                    NewCommand.Parameters.Clear();
-                    NewCommand.Parameters.AddWithValue("@NewName", tbLogin.Text);
-                    NewCommand.Parameters.AddWithValue("@NewPassword", tbPas.Text);
-                    NewCommand.Parameters.AddWithValue("@NewEmail", tbEmail.Text);
-                    NewCommand.Parameters.AddWithValue("@NewInfoId", InfoIdBuf);
-                    NewCommand.ExecuteNonQuery();
-                    MessageBox.Show("New data added to database...");
-                }
+                MessageBox.Show(@"Неверно введен во второй раз пароль!",
+                    @"Отказано в создании учетной записи.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (tbPas.Text.Length < 6 || tbPas2.Text.Length < 6)
+            {
+                MessageBox.Show(@"Пароль должен содержать не менее 6 символов!",
+                    @"Отказано в создании учетной записи.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                DBConnector.CreateNewUser(tbLogin.Text,tbPas.Text,tbEmail.Text,tbName.Text,tbSurName.Text);
             }
             this.Close();
         }
