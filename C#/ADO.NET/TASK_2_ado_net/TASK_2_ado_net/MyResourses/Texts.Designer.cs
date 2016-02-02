@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TASK_2_ado_net.Properties {
+namespace TASK_2_ado_net.MyResourses {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace TASK_2_ado_net.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class Texts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Texts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace TASK_2_ado_net.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TASK_2_ado_net.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TASK_2_ado_net.MyResourses.Texts", typeof(Texts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,33 @@ namespace TASK_2_ado_net.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не удалось создать подключение к базе данных!.
+        /// </summary>
+        public static string ConnectionError {
+            get {
+                return ResourceManager.GetString("ConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка!.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выполнить запрос.
+        /// </summary>
+        public static string ExecuteQuery {
+            get {
+                return ResourceManager.GetString("ExecuteQuery", resourceCulture);
             }
         }
     }

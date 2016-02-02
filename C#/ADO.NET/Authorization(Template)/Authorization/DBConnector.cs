@@ -183,12 +183,12 @@ namespace Authorization
 
                     if (!AccessDenied)
                     {
-                        SqlTransaction CreateUserTransaction = ConnectionToDB.BeginTransaction();
+                        SqlTransaction CreateUserTransaction = ConnectionToDB.BeginTransaction("CreateUserTransaction");
                         try
                         {
                             SqlCommand NewCommand_2 = new SqlCommand();
                             NewCommand_2.Connection = ConnectionToDB;
-                            NewCommand.Transaction = CreateUserTransaction;
+                            NewCommand_2.Transaction = CreateUserTransaction;
                             NewCommand_2.CommandText = @"INSERT INTO UsersInfo (LastName, FirstName, Code) VALUES (@NewLastName, @NewFirstName, @ZeroValue)";
 
                             if (NewFirstName.Length == 0)
@@ -202,7 +202,7 @@ namespace Authorization
                             NewCommand_2.Parameters.AddWithValue("@ZeroValue", 0);
                             NewCommand_2.ExecuteNonQuery();
                             NewCommand_2.CommandText = @"SELECT MAX(Id) FROM UsersInfo";
-                            int InfoIdBuf = Int32.Parse(NewCommand.ExecuteScalar().ToString());
+                            int InfoIdBuf = Int32.Parse(NewCommand_2.ExecuteScalar().ToString());
                             NewCommand_2.CommandText = @"INSERT INTO Users VALUES (@NewName, @NewPassword, @NewEmail, @NewInfoId)";
                             NewCommand_2.Parameters.Clear();
                             NewCommand_2.Parameters.AddWithValue("@NewName", NewLogin);
@@ -213,8 +213,9 @@ namespace Authorization
                             CreateUserTransaction.Commit();
                             MessageBox.Show("New user successfully added to database.");
                         }
-                        catch
+                        catch (Exception CurExc)
                         {
+                            MessageBox.Show(CurExc.Message);
                             try
                             {
                                 CreateUserTransaction.Rollback();
@@ -244,10 +245,3 @@ namespace Authorization
     }
 }
 
-/*CREATE PROCEDURE [dbo].[CheckLogin]
-	@CurrentLogin NCHAR(20), @ReturnValue int OUTPUT
-AS
-	IF (EXISTS (SELECT Name FROM Users WHERE Name = @CurrentLogin))
-		SET @ReturnValue = 0
-	ELSE
-		SET @ReturnValue = 1*/
