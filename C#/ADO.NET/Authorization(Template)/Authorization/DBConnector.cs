@@ -111,7 +111,8 @@ namespace Authorization
             }
             finally
             {
-                ConnectionToDB.Close();
+                if (ConnectionToDB.State == ConnectionState.Open)
+                    ConnectionToDB.Close();
             }
         }
 
@@ -148,7 +149,8 @@ namespace Authorization
             }
             finally
             {
-                ConnectionToDB.Close();
+                if (ConnectionToDB.State == ConnectionState.Open)
+                    ConnectionToDB.Close();
             }
             return result;
         }
@@ -239,7 +241,8 @@ namespace Authorization
                 }
                 finally
                 {
-                    ConnectionToDB.Close();
+                    if (ConnectionToDB.State == ConnectionState.Open)
+                        ConnectionToDB.Close();
                 }       
         }
     }

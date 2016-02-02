@@ -1,31 +1,34 @@
-﻿<Window x:Class="TASK_2_ado_net.MainWindow"
+﻿<Window Name="MainForm" x:Class="TASK_2_ado_net.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:TextResourses="clr-namespace:TASK_2_ado_net.MyResourses"
+        xmlns:ThisProgram="clr-namespace:TASK_2_ado_net"
         Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <ThisProgram:grid_height_converter x:Key="converter_for_grid_height"></ThisProgram:grid_height_converter>
+    </Window.Resources>
     <StackPanel>
-        <TabControl>
-            <TabItem Header="первый запрос">
-                <DataGrid>
-
+        <TabControl Name="MainTabControl">
+            <TabItem Name="TabItem_1" Header="первый запрос">
+                <DataGrid Height="{Binding ElementName=MainForm, Path=ActualHeight, Converter={StaticResource converter_for_grid_height}, Mode=OneWay}">
                 </DataGrid>
             </TabItem>
-            <TabItem Header="второй запрос">
+            <TabItem Name="TabItem_2" Header="второй запрос">
                 <StackPanel>
                     <TextBlock Name="SecondTextBlock" Text="testtesttest"></TextBlock>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="третий запрос">
+            <TabItem Name="TabItem_3" Header="третий запрос">
                 <StackPanel>
                     <TextBlock Name="ThirdTextBlock" Text="testtesttest"></TextBlock>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="четвертый запрос">
+            <TabItem Name="TabItem_4" Header="четвертый запрос">
                 <StackPanel>
                     <TextBlock Name="FourthTextBlock" Text="testtesttest"></TextBlock>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="пятый запрос">
+            <TabItem Name="TabItem_5" Header="пятый запрос">
                 <StackPanel>
                     <TextBlock Name="FifthTextBlock" Text="testtesttest"></TextBlock>
                 </StackPanel>
