@@ -48,6 +48,7 @@
             System.Windows.Forms.Label countryLabel;
             System.Windows.Forms.Label dateLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.tAutoBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet = new ShopAuto._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet();
             this.iСРАБОЧЕГОPCУЧЕБНОЕИСОЗИ43443643820132014МАТЕРИАЛЫИСОЗИISOZIGZ18DBAUTOMDFDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tAutoBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -69,7 +70,6 @@
             this.tOwnerTableAdapter = new ShopAuto._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSetTableAdapters.TOwnerTableAdapter();
             this.tableAdapterManager = new ShopAuto._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSetTableAdapters.TableAdapterManager();
             this.tMotorTableAdapter = new ShopAuto._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSetTableAdapters.TMotorTableAdapter();
-            this.tAutoBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             this.tMotorBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tOwnerBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.iDOTextBox1 = new System.Windows.Forms.TextBox();
@@ -116,6 +116,7 @@
             mLabel = new System.Windows.Forms.Label();
             countryLabel = new System.Windows.Forms.Label();
             dateLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.tAutoBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.iСРАБОЧЕГОPCУЧЕБНОЕИСОЗИ43443643820132014МАТЕРИАЛЫИСОЗИISOZIGZ18DBAUTOMDFDataSetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tAutoBindingSource)).BeginInit();
@@ -123,7 +124,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
             this.bindingNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tOwnerBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tAutoBindingSource2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tMotorBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tOwnerBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tAutoDataGridView)).BeginInit();
@@ -256,6 +256,17 @@
             iDDLabel.TabIndex = 49;
             iDDLabel.Text = "IDD:";
             // 
+            // tAutoBindingSource2
+            // 
+            this.tAutoBindingSource2.DataMember = "TAuto";
+            this.tAutoBindingSource2.DataSource = this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet;
+            // 
+            // _I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet
+            // 
+            this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.DataSetName = "_I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ" +
+    "_18_DBAUTO_MDFDataSet";
+            this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
             // markaLabel
             // 
             markaLabel.AutoSize = true;
@@ -295,12 +306,6 @@
             dateLabel.Size = new System.Drawing.Size(33, 13);
             dateLabel.TabIndex = 57;
             dateLabel.Text = "Date:";
-            // 
-            // _I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet
-            // 
-            this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.DataSetName = "_I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ" +
-    "_18_DBAUTO_MDFDataSet";
-            this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // iСРАБОЧЕГОPCУЧЕБНОЕИСОЗИ43443643820132014МАТЕРИАЛЫИСОЗИISOZIGZ18DBAUTOMDFDataSetBindingSource
             // 
@@ -455,11 +460,6 @@
             // tMotorTableAdapter
             // 
             this.tMotorTableAdapter.ClearBeforeFill = true;
-            // 
-            // tAutoBindingSource2
-            // 
-            this.tAutoBindingSource2.DataMember = "TAuto";
-            this.tAutoBindingSource2.DataSource = this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet;
             // 
             // tMotorBindingSource
             // 
@@ -726,6 +726,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.tAutoBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.iСРАБОЧЕГОPCУЧЕБНОЕИСОЗИ43443643820132014МАТЕРИАЛЫИСОЗИISOZIGZ18DBAUTOMDFDataSetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tAutoBindingSource)).EndInit();
@@ -734,7 +735,6 @@
             this.bindingNavigator1.ResumeLayout(false);
             this.bindingNavigator1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tOwnerBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tAutoBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tMotorBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tOwnerBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tAutoDataGridView)).EndInit();

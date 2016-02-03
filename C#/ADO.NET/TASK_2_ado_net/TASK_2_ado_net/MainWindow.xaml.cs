@@ -23,6 +23,12 @@ namespace TASK_2_ado_net
         public MainWindow()
         {
             InitializeComponent();
+            DataGridFirstQuery.DataContext = DBConnector.FirstQueryDataCollection;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DBConnector.ExecuteFirstQuery();
         }
     }
 }

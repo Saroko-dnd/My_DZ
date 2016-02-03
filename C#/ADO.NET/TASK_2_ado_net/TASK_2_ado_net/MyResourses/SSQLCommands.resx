@@ -117,16 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CantAccessDB" xml:space="preserve">
-    <value>Не удалось получить доступ к базе данных! Наиболее вероятная причина - неверная строка подключения или отсутствие таковой в конфигурационном файле приложения.</value>
-  </data>
-  <data name="ConnectionError" xml:space="preserve">
-    <value>Не удалось создать подключение к базе данных!</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Ошибка!</value>
-  </data>
-  <data name="ExecuteQuery" xml:space="preserve">
-    <value>Выполнить запрос</value>
+  <data name="FirstQuery" xml:space="preserve">
+    <value>SELECT TOP  100   CompanyName,ContactName,Address,City,Country,Phone,RequiredDate,ShippedDate,Freight,ShipCity,ShipRegion,ShipCountry,Quantity,UnitPrice,Discount  FROM Customers INNER JOIN [Orders] ON Customers.CustomerID=[Orders].CustomerID INNER JOIN [Order Details] ON [Orders].[OrderID]=[Order Details].[OrderID]</value>
   </data>
 </root>

@@ -10,7 +10,7 @@
     <StackPanel>
         <TabControl Name="MainTabControl">
             <TabItem Name="TabItem_1" Header="первый запрос">
-                <DataGrid Height="{Binding ElementName=MainForm, Path=ActualHeight, Converter={StaticResource converter_for_grid_height}, Mode=OneWay}">
+                <DataGrid Name="DataGridFirstQuery"  ItemsSource="{Binding}" CanUserAddRows="False" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True" Height="{Binding ElementName=MainForm, Path=ActualHeight, Converter={StaticResource converter_for_grid_height}, Mode=OneWay}">
                 </DataGrid>
             </TabItem>
             <TabItem Name="TabItem_2" Header="второй запрос">
@@ -40,7 +40,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Content="{x:Static TextResourses:Texts.ExecuteQuery}">
+            <Button Content="{x:Static TextResourses:Texts.ExecuteQuery}" Click="Button_Click">
             </Button>
             <ProgressBar Name="QueryProgressBar" Visibility="Hidden" Grid.Column="1" IsIndeterminate="True"></ProgressBar>
             <Label Grid.Column="2"></Label>

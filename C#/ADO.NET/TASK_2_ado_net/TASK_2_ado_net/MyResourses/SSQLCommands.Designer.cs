@@ -22,24 +22,24 @@ namespace TASK_2_ado_net.MyResourses {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Texts {
+    internal class SSQLCommands {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Texts() {
+        internal SSQLCommands() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TASK_2_ado_net.MyResourses.Texts", typeof(Texts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("TASK_2_ado_net.MyResourses.SSQLCommands", typeof(SSQLCommands).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace TASK_2_ado_net.MyResourses {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,38 +61,11 @@ namespace TASK_2_ado_net.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не удалось получить доступ к базе данных! Наиболее вероятная причина - неверная строка подключения или отсутствие таковой в конфигурационном файле приложения..
+        ///   Looks up a localized string similar to SELECT TOP  100   CompanyName,ContactName,Address,City,Country,Phone,RequiredDate,ShippedDate,Freight,ShipCity,ShipRegion,ShipCountry,Quantity,UnitPrice,Discount  FROM Customers INNER JOIN [Orders] ON Customers.CustomerID=[Orders].CustomerID INNER JOIN [Order Details] ON [Orders].[OrderID]=[Order Details].[OrderID].
         /// </summary>
-        public static string CantAccessDB {
+        internal static string FirstQuery {
             get {
-                return ResourceManager.GetString("CantAccessDB", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Не удалось создать подключение к базе данных!.
-        /// </summary>
-        public static string ConnectionError {
-            get {
-                return ResourceManager.GetString("ConnectionError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ошибка!.
-        /// </summary>
-        public static string Error {
-            get {
-                return ResourceManager.GetString("Error", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Выполнить запрос.
-        /// </summary>
-        public static string ExecuteQuery {
-            get {
-                return ResourceManager.GetString("ExecuteQuery", resourceCulture);
+                return ResourceManager.GetString("FirstQuery", resourceCulture);
             }
         }
     }

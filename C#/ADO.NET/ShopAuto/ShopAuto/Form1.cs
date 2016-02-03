@@ -18,8 +18,11 @@ namespace ShopAuto
         public void DataGridView1_SelectionChanged(object sender, EventArgs CurArgs)
         {
             // Update the labels to reflect changes to the selection.
-            DataSet TempDataSet = this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TMotor.DataSet;
+            tMotorTableAdapter.Adapter.SelectCommand = new SqlCommand(@"SELECT * FROM tMotor WHERE IDD = 3");
+            this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TMotor.Clear();
+            tMotorTableAdapter.Fill(this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TMotor);
         }
+
         public Form1()
         {
             InitializeComponent();
@@ -36,6 +39,7 @@ namespace ShopAuto
             this.tOwnerTableAdapter.Fill(this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TOwner);
             // TODO: This line of code loads data into the '_I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TAuto' table. You can move, or remove it, as needed.
             this.tAutoTableAdapter.Fill(this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TAuto);
+            
         }
 
     }
