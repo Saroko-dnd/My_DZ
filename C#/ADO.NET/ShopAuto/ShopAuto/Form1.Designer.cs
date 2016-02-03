@@ -592,6 +592,7 @@
             this.tAutoDataGridView.Name = "tAutoDataGridView";
             this.tAutoDataGridView.Size = new System.Drawing.Size(744, 220);
             this.tAutoDataGridView.TabIndex = 49;
+            this.tAutoDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tAutoDataGridView_CellContentClick);
             // 
             // dataGridViewTextBoxColumn1
             // 

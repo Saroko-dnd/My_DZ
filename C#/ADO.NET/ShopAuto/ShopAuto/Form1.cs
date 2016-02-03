@@ -15,12 +15,15 @@ namespace ShopAuto
 {
     public partial class Form1 : Form
     {
+        public static int TestInt = 10101;
+
+        public static DataRow MotorRow = new DataRow();
         public void DataGridView1_SelectionChanged(object sender, EventArgs CurArgs)
         {
+            DataRow TestRow = _I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.
+                TMotor.FindByIDD(TestInt);
             // Update the labels to reflect changes to the selection.
-            tMotorTableAdapter.Adapter.SelectCommand = new SqlCommand(@"SELECT * FROM tMotor WHERE IDD = 3");
-            this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TMotor.Clear();
-            tMotorTableAdapter.Fill(this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TMotor);
+            ++TestInt;
         }
 
         public Form1()
@@ -40,6 +43,11 @@ namespace ShopAuto
             // TODO: This line of code loads data into the '_I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TAuto' table. You can move, or remove it, as needed.
             this.tAutoTableAdapter.Fill(this._I__С_РАБОЧЕГО_PC__УЧЕБНОЕ__ИСОЗИ_434_436_438_2013_2014__МАТЕРИАЛЫ_ИСОЗИ_ISOZI_GZ_18_DBAUTO_MDFDataSet.TAuto);
             
+        }
+
+        private void tAutoDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
     }
