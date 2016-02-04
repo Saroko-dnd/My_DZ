@@ -117,16 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error" xml:space="preserve">
-    <value>Ошибка!</value>
+  <data name="Eighth" xml:space="preserve">
+    <value>Восьмой запрос</value>
   </data>
-  <data name="Queries" xml:space="preserve">
-    <value>Запросы:</value>
+  <data name="Fifth" xml:space="preserve">
+    <value>Пятый запрос</value>
   </data>
-  <data name="XmlCdFileName" xml:space="preserve">
-    <value>cd_catalog _1.xml</value>
+  <data name="First" xml:space="preserve">
+    <value>Первый запрос</value>
   </data>
-  <data name="XmlProducersFileName" xml:space="preserve">
-    <value>cd_catalog _2.xml</value>
+  <data name="Fourth" xml:space="preserve">
+    <value>Четвертый запрос</value>
+  </data>
+  <data name="Ninth" xml:space="preserve">
+    <value>Девятый запрос</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>Второй запрос</value>
+  </data>
+  <data name="Seventh" xml:space="preserve">
+    <value>Седьмой запрос</value>
+  </data>
+  <data name="Sixth" xml:space="preserve">
+    <value>Шестой запрос</value>
+  </data>
+  <data name="Tenth" xml:space="preserve">
+    <value>Десятый запрос</value>
+  </data>
+  <data name="Third" xml:space="preserve">
+    <value>Третий запрос</value>
   </data>
 </root>

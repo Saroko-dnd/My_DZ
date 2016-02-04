@@ -22,14 +22,14 @@ namespace LinqForXml.MyResourses {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Texts {
+    public class AllQueries {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Texts() {
+        internal AllQueries() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace LinqForXml.MyResourses {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LinqForXml.MyResourses.Texts", typeof(Texts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("LinqForXml.MyResourses.AllQueries", typeof(AllQueries).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,92 @@ namespace LinqForXml.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ошибка!.
+        ///   Looks up a localized string similar to Восьмой запрос.
         /// </summary>
-        public static string Error {
+        public static string Eighth {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("Eighth", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Запросы:.
+        ///   Looks up a localized string similar to Пятый запрос.
         /// </summary>
-        public static string Queries {
+        public static string Fifth {
             get {
-                return ResourceManager.GetString("Queries", resourceCulture);
+                return ResourceManager.GetString("Fifth", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to cd_catalog _1.xml.
+        ///   Looks up a localized string similar to Первый запрос.
         /// </summary>
-        public static string XmlCdFileName {
+        public static string First {
             get {
-                return ResourceManager.GetString("XmlCdFileName", resourceCulture);
+                return ResourceManager.GetString("First", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to cd_catalog _2.xml.
+        ///   Looks up a localized string similar to Четвертый запрос.
         /// </summary>
-        public static string XmlProducersFileName {
+        public static string Fourth {
             get {
-                return ResourceManager.GetString("XmlProducersFileName", resourceCulture);
+                return ResourceManager.GetString("Fourth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Девятый запрос.
+        /// </summary>
+        public static string Ninth {
+            get {
+                return ResourceManager.GetString("Ninth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Второй запрос.
+        /// </summary>
+        public static string Second {
+            get {
+                return ResourceManager.GetString("Second", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Седьмой запрос.
+        /// </summary>
+        public static string Seventh {
+            get {
+                return ResourceManager.GetString("Seventh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Шестой запрос.
+        /// </summary>
+        public static string Sixth {
+            get {
+                return ResourceManager.GetString("Sixth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Десятый запрос.
+        /// </summary>
+        public static string Tenth {
+            get {
+                return ResourceManager.GetString("Tenth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Третий запрос.
+        /// </summary>
+        public static string Third {
+            get {
+                return ResourceManager.GetString("Third", resourceCulture);
             }
         }
     }

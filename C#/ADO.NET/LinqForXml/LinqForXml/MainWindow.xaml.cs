@@ -12,9 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Xml.Serialization;
 using System.Xml.Linq;
-using System.IO;
 using System.Xml;
 using System.Collections.ObjectModel;
 
@@ -24,39 +22,42 @@ namespace LinqForXml
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+
     public partial class MainWindow : Window
     {
-        public static List<CD> CdList = new List<CD>();
-        public static List<PRODUCER> ProducerList = new List<PRODUCER>();
+
+
         public MainWindow()
         {
             InitializeComponent();
-            try
-            {
-                XmlSerializer SerializerForCd = new XmlSerializer(typeof(List<CD>));
-                FileStream FilestreamForCDXml = new FileStream(MyResourses.Texts.XmlCdFileName, FileMode.Open);
-                XmlReader ReaderForCdXml = XmlReader.Create(FilestreamForCDXml);
-                CdList = (List<CD>)SerializerForCd.Deserialize(ReaderForCdXml);
-            }
-            catch (Exception CurExc)
-            {
-                MessageBox.Show(CurExc.Message,MyResourses.Texts.Error,MessageBoxButton.OK,MessageBoxImage.Error);
-            }
 
-            try
+            CdDataGrid.ItemsSource = XmlDataLoader.CdList;
+            ProducerDataGrid.ItemsSource = XmlDataLoader.ProducerList;
+
+        }
+
+        private void QueryListComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch ((sender as ComboBox).SelectedIndex)
             {
-                XmlSerializer SerializerForProducers = new XmlSerializer(typeof(List<PRODUCER>));
-                FileStream FilestreamForProducersXml = new FileStream(MyResourses.Texts.XmlProducersFileName, FileMode.Open);
-                XmlReader ReaderForProducersXml = XmlReader.Create(FilestreamForProducersXml);
-                ProducerList = (List<PRODUCER>)SerializerForProducers.Deserialize(ReaderForProducersXml);
+                case 0:
+                    XmlDataLoader.ExecuteFirstQuery(QueryDataGrid);
+                    break;
+                case 1:
+                    XmlDataLoader.ExecuteSecondQuery(QueryDataGrid);
+                    break;
+                case 2:
+                    XmlDataLoader.ExecuteThirdQuery(QueryDataGrid);
+                    break;
+                case 3:
+                    XmlDataLoader.ExecuteFourthQuery(QueryDataGrid);
+                    break;
+                case 4:
+                    XmlDataLoader.ExecuteFifthQuery(QueryDataGrid);
+                    break;
+                default:
+                    break;
             }
-            catch (Exception CurExc)
-            {
-                MessageBox.Show(CurExc.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            //MessageBox.Show(CdList[0].YEAR.ToString(), MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            List<CD> BufForFirstQuery = (from ourcdlist in CdList where ourcdlist.YEAR.Year > 1991 select ourcdlist.PRODUCER).ToList();
-            FirstQueryDataGrid.DataContext = ProducersAfterCCCP;
         }
     }
 }

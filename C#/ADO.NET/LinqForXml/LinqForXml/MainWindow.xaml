@@ -1,8 +1,22 @@
 ﻿<Window x:Class="LinqForXml.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:My="clr-namespace:LinqForXml"
+        xmlns:MyRes="clr-namespace:LinqForXml.MyResourses"
         Title="MainWindow" Height="350" Width="525">
     <StackPanel>
-        <DataGrid Name="FirstQueryDataGrid" MaxHeight="200" ItemsSource="{Binding}"></DataGrid>
+        <WrapPanel Height="50">
+            <Label FontSize="16" Content="{x:Static MyRes:Texts.Queries}"></Label>
+            <ComboBox Name="QueryListComboBox" Width="150" SelectionChanged="QueryListComboBox_SelectionChanged">
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.First}"></ComboBoxItem>
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.Second}"></ComboBoxItem>
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.Third}"></ComboBoxItem>
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.Fourth}"></ComboBoxItem>
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.Fifth}"></ComboBoxItem>
+            </ComboBox>
+        </WrapPanel>
+        <DataGrid Name="CdDataGrid" CanUserAddRows="false" ColumnWidth="*" MaxHeight="200"></DataGrid>
+        <DataGrid Name="ProducerDataGrid" CanUserAddRows="false" ColumnWidth="*" MaxHeight="200"></DataGrid>
+        <DataGrid Name="QueryDataGrid" CanUserAddRows="false" ColumnWidth="*" MaxHeight="200"></DataGrid>
     </StackPanel>
 </Window>
