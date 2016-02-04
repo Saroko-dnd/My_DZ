@@ -9,9 +9,27 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Windows;
 using System.Windows.Controls;
+using System.Reflection;
+using System.ComponentModel;
 
 namespace LinqForXml
 {
+
+    public class ColumnNameAttribute : System.Attribute
+    {
+        public ColumnNameAttribute(string Name) { this.Name = Name; }
+        public string Name { get; set; }
+
+        public static void dgPrimaryGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            var desc = e.PropertyDescriptor as PropertyDescriptor;
+            var att = desc.Attributes[typeof(ColumnNameAttribute)] as ColumnNameAttribute;
+            if (att != null)
+            {
+                e.Column.Header = att.Name;
+            }
+        }
+    }
     public static class XmlDataLoader
     {
         public static List<CD> CdList = new List<CD>();
@@ -21,21 +39,29 @@ namespace LinqForXml
         {
             ResultDataGrid.ItemsSource = (from ourcdlist in XmlDataLoader.CdList
                                               where ourcdlist.YEAR.Year > 1991
-                                              select new { PRODUCER = ourcdlist.PRODUCER }).ToList();
+                                              select new { ourcdlist.ARTIST }).ToList();
+            ResultDataGrid.ItemsSource = XmlDataLoader.CdList.Where(ResYear => ResYear.YEAR.Year > 1991).
+                Select(res => new { ARTIST = res.ARTIST }).ToList();
         }
+        
 
         public static void ExecuteSecondQuery(DataGrid ResultDataGrid)
         {
             ResultDataGrid.ItemsSource = (from ourcdlist in XmlDataLoader.CdList
                                           select new { COUNTRY = ourcdlist.COUNTRY }).Distinct().ToList();
+            ResultDataGrid.ItemsSource = XmlDataLoader.CdList.Select(res => new { COUNTRY = res.COUNTRY }).Distinct().ToList();
         }
 
         public static void ExecuteThirdQuery(DataGrid ResultDataGrid)
         {
             ResultDataGrid.ItemsSource = (from ourcdlist in XmlDataLoader.CdList.OrderBy(res => res.YEAR)
                                           where ourcdlist.COUNTRY == "USA"
-                                          select new { TITLE = ourcdlist.TITLE }).
+                                          select new { TITLE = ourcdlist.TITLE, YEAR = ourcdlist.YEAR.Year}).
                                           ToList();
+            ResultDataGrid.ItemsSource = XmlDataLoader.CdList.OrderBy(ResYear => ResYear.YEAR.Year).
+                Where(CountryName => CountryName.COUNTRY == "USA").Select(Result => new { TITLE = Result.TITLE,
+                                                                                          YEAR = Result.YEAR.Year
+                                                                                        }).ToList();
         }
 
         public static void ExecuteFourthQuery(DataGrid ResultDataGrid)
@@ -63,20 +89,59 @@ namespace LinqForXml
 
         public static void ExecuteSixthQuery(DataGrid ResultDataGrid)
         {
-            var RowWithMaxFee = XmlDataLoader.ProducerList.OrderByDescending(x => x.FEE).First();
-            ResultDataGrid.ItemsSource = (from ourcdlist in XmlDataLoader.CdList
-                                          join OurProducerList in XmlDataLoader.ProducerList on 
-                                          ourcdlist.PRODUCER equals OurProducerList.ID
-                                          group ourcdlist by
-                                             OurProducerList into GroupByResult
+            ResultDataGrid.ItemsSource = (from OurProducerList in XmlDataLoader.ProducerList.OrderByDescending(r => r.FEE).Take(1)    
+                                          join ourcdlist in XmlDataLoader.CdList  on
+                                          OurProducerList.ID equals ourcdlist.PRODUCER
                                           select new
                                           {
-                                              ProducerName = GroupByResult.Key.NAME,
-                                              TITLE = GroupByResult.Key.COMPANY,
-                                              AmountOfAlbums = GroupByResult.OrderByDescending(r => r.)
-                                          }).
-                                          ToList();
+                                              ProducerName = OurProducerList.NAME,
+                                              TITLE = ourcdlist.TITLE
+                                          }).ToList();
         }
+
+        public static void ExecuteSeventhQuery(DataGrid ResultDataGrid)
+        {
+            ResultDataGrid.ItemsSource = (from OurProducerList in XmlDataLoader.ProducerList
+                                          join ourcdlist in XmlDataLoader.CdList on
+                                          OurProducerList.ID equals ourcdlist.PRODUCER
+                                          where (ourcdlist.YEAR.Year >= 1988 && ourcdlist.YEAR.Year <= 1990)
+                                          group ourcdlist.TITLE by OurProducerList.NAME into ResultGroupBy
+                                          select new
+                                          {
+                                              ProducerName = ResultGroupBy.Key,
+                                              AmountOfAlbums = ResultGroupBy.Count()
+                                          }).ToList();
+        }
+
+        public static void ExecuteEighthQuery(DataGrid ResultDataGrid)
+        {
+            ResultDataGrid.ItemsSource = (from OurProducerList in XmlDataLoader.ProducerList.OrderByDescending(x => x.DATE.Year).Take(1)
+                                          select new
+                                          {
+                                              ProducerName = OurProducerList.NAME,
+                                          }).ToList();
+        }
+
+        public static void ExecuteNinthQuery(DataGrid ResultDataGrid)
+        {
+            ResultDataGrid.ItemsSource = (from ourcdlist in XmlDataLoader.CdList.OrderBy(x => x.PRICE).Take(1)
+                                          join OurProducerList in XmlDataLoader.ProducerList
+                                          on ourcdlist.PRODUCER equals OurProducerList.ID
+                                          select new
+                                          {
+                                              ProducerName = OurProducerList.NAME,
+                                              ARTIST = ourcdlist.ARTIST,
+                                              TITLE = ourcdlist.TITLE
+                                          }).Take(1);
+        }
+
+        public static void ExecuteTenthQuery(DataGrid ResultDataGrid)
+        {
+            ResultDataGrid.ItemsSource = (from ourcdlist in XmlDataLoader.CdList.OrderBy(x => x.YEAR.Year).
+                                              ThenBy(y => y.PRICE).ThenBy(z => z.TITLE)
+                                          select ourcdlist).ToList();
+        }
+
 
         static XmlDataLoader()
         {
@@ -114,7 +179,7 @@ namespace LinqForXml
         public float PRICE;
         public DateTime YEAR;
         public int PRODUCER;
-
+        [ColumnNameAttribute("Название")]
         public string TITLE_
         {
             get
@@ -126,6 +191,7 @@ namespace LinqForXml
                 TITLE = value;
             }
         }
+        [ColumnName("Исполнитель")]
         public string ARTIST_
         {
             get
@@ -137,7 +203,7 @@ namespace LinqForXml
                 ARTIST = value;
             }
         }
-
+        [ColumnName("Страна")]
         public string COUNTRY_
         {
             get
@@ -149,6 +215,7 @@ namespace LinqForXml
                 COUNTRY = value;
             }
         }
+        [ColumnName("Компания")]
         public string COMPANY_
         {
             get
@@ -160,7 +227,7 @@ namespace LinqForXml
                 COMPANY = value;
             }
         }
-
+        [ColumnName("Цена")]
         public float PRICE_
         {
             get
@@ -172,7 +239,7 @@ namespace LinqForXml
                 PRICE = value;
             }
         }
-
+        [ColumnName("Год")]
         public DateTime YEAR_
         {
             get
@@ -184,6 +251,7 @@ namespace LinqForXml
                 YEAR = value;
             }
         }
+        [ColumnName("ID продъюсера")]
         public int PRODUCER_
         {
             get
@@ -208,6 +276,7 @@ namespace LinqForXml
         public DateTime DATE;
         public int FEE;
 
+        [ColumnName("ID продъюсера")]
         public int ID_
         {
             get
@@ -219,7 +288,7 @@ namespace LinqForXml
                 ID = value;
             }
         }
-
+        [ColumnName("Имя")]
         public string NAME_
         {
             get
@@ -231,7 +300,7 @@ namespace LinqForXml
                 NAME = value;
             }
         }
-
+        [ColumnName("Дата награждения")]
         public DateTime DATE_
         {
             get
@@ -243,6 +312,7 @@ namespace LinqForXml
                 DATE = value;
             }
         }
+        [ColumnName("Сумма награды")]
         public int FEE_
         {
             get

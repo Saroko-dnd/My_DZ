@@ -31,6 +31,8 @@ namespace LinqForXml
         {
             InitializeComponent();
 
+            CdDataGrid.AutoGeneratingColumn += ColumnNameAttribute.dgPrimaryGrid_AutoGeneratingColumn;
+            ProducerDataGrid.AutoGeneratingColumn += ColumnNameAttribute.dgPrimaryGrid_AutoGeneratingColumn;
             CdDataGrid.ItemsSource = XmlDataLoader.CdList;
             ProducerDataGrid.ItemsSource = XmlDataLoader.ProducerList;
 
@@ -54,6 +56,21 @@ namespace LinqForXml
                     break;
                 case 4:
                     XmlDataLoader.ExecuteFifthQuery(QueryDataGrid);
+                    break;
+                case 5:
+                    XmlDataLoader.ExecuteSixthQuery(QueryDataGrid);
+                    break;
+                case 6:
+                    XmlDataLoader.ExecuteSeventhQuery(QueryDataGrid);
+                    break;
+                case 7:
+                    XmlDataLoader.ExecuteEighthQuery(QueryDataGrid);
+                    break;
+                case 8:
+                    XmlDataLoader.ExecuteNinthQuery(QueryDataGrid);
+                    break;
+                case 9:
+                    XmlDataLoader.ExecuteTenthQuery(QueryDataGrid);
                     break;
                 default:
                     break;

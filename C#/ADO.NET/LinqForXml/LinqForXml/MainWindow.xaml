@@ -13,6 +13,11 @@
                 <ComboBoxItem Content="{x:Static MyRes:AllQueries.Third}"></ComboBoxItem>
                 <ComboBoxItem Content="{x:Static MyRes:AllQueries.Fourth}"></ComboBoxItem>
                 <ComboBoxItem Content="{x:Static MyRes:AllQueries.Fifth}"></ComboBoxItem>
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.Sixth}"></ComboBoxItem>
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.Seventh}"></ComboBoxItem>
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.Eighth}"></ComboBoxItem>
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.Ninth}"></ComboBoxItem>
+                <ComboBoxItem Content="{x:Static MyRes:AllQueries.Tenth}"></ComboBoxItem>
             </ComboBox>
         </WrapPanel>
         <DataGrid Name="CdDataGrid" CanUserAddRows="false" ColumnWidth="*" MaxHeight="200"></DataGrid>
