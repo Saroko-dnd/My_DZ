@@ -61,11 +61,37 @@ namespace TASK_2_ado_net.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT TOP  100   CompanyName,ContactName,Address,City,Country,Phone,RequiredDate,ShippedDate,Freight,ShipCity,ShipRegion,ShipCountry,Quantity,UnitPrice,Discount  FROM Customers INNER JOIN [Orders] ON Customers.CustomerID=[Orders].CustomerID INNER JOIN [Order Details] ON [Orders].[OrderID]=[Order Details].[OrderID].
+        ///   Looks up a localized string similar to SELECT   CompanyName,ContactName,Address,City,Country,Phone,RequiredDate,ShippedDate,Freight,ShipCity,ShipRegion,ShipCountry,Quantity,UnitPrice,Discount  FROM Customers INNER JOIN [Orders] ON Customers.CustomerID=[Orders].CustomerID INNER JOIN [Order Details] ON [Orders].[OrderID]=[Order Details].[OrderID].
         /// </summary>
         internal static string FirstQuery {
             get {
                 return ResourceManager.GetString("FirstQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT  LastName,FirstName,BirthDate,Address,HomePhone,Photo FROM Employees.
+        /// </summary>
+        internal static string SecondQuery {
+            get {
+                return ResourceManager.GetString("SecondQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT 
+        ///      ProductName
+        ///      ,UnitPrice
+        ///	  ,Discontinued
+        ///      ,QuantityPerUnit
+        ///	  ,CategoryName
+        ///  FROM Products INNER JOIN Categories 
+        ///  ON (Products.CategoryID = Categories.CategoryID AND Products.UnitPrice &gt;= 10 AND 
+        ///  Products.UnitPrice &lt;= 60).
+        /// </summary>
+        internal static string ThirdQuery {
+            get {
+                return ResourceManager.GetString("ThirdQuery", resourceCulture);
             }
         }
     }

@@ -8,6 +8,17 @@ using System.Configuration;
 using System.Windows;
 using System.Data;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using System.Linq;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.IO;
+using System.Data.Linq;
 
 namespace TASK_2_ado_net
 {
@@ -15,8 +26,6 @@ namespace TASK_2_ado_net
     {
 
         public static SqlConnection ConnectionToDB;
-
-        public static ObservableCollection<DataClassFirstQuery> FirstQueryDataCollection = new ObservableCollection<DataClassFirstQuery>();
 
         static DBConnector()
         {
@@ -34,23 +43,21 @@ namespace TASK_2_ado_net
             }
         }
 
-        public static async void ExecuteFirstQuery()
+        public static async void ExecuteFirstQuery(DataGrid DataGridForResult ,ProgressBar indicator,Label TextIndicator)
         {
+            bool success = true;
             try
             {
-                ConnectionToDB.Open();
+                TextIndicator.Content = MyResourses.Texts.ProgramBusy;
+                indicator.Visibility = Visibility.Visible;
+                await ConnectionToDB.OpenAsync();
                 SqlCommand CommandFirstQuery = new SqlCommand(MyResourses.SSQLCommands.FirstQuery, 
                     ConnectionToDB);
-                IAsyncResult OperationResult = CommandFirstQuery.BeginExecuteReader();
-                while (!OperationResult.IsCompleted)
+                List<OurDataClass> BufForData = new List<OurDataClass>();
+                SqlDataReader FirstQueryReader = await CommandFirstQuery.ExecuteReaderAsync();
+                while (await FirstQueryReader.ReadAsync())
                 {
-                    await Task.Delay(100);
-                }
-                FirstQueryDataCollection.Clear();
-                SqlDataReader FirstQueryReader = CommandFirstQuery.EndExecuteReader(OperationResult);
-                while (FirstQueryReader.Read() != false)
-                {
-                    FirstQueryDataCollection.Add(new DataClassFirstQuery()
+                    BufForData.Add(new OurDataClass()
                     {
                         CompanyName = FirstQueryReader[0].ToString(),
                         ContactName = FirstQueryReader[1].ToString(),
@@ -70,17 +77,139 @@ namespace TASK_2_ado_net
                     });
                 }
                 FirstQueryReader.Close();
+                DataGridForResult.ItemsSource = BufForData.Select(res => new
+                {
+                    res.CompanyName,
+                    res.ContactName,
+                    res.Address,
+                    res.City,
+                    res.Country,
+                    res.Phone,
+                    res.RequiredDate,
+                    res.ShippedDate,
+                    res.Freight,
+                    res.ShipCity,
+                    res.ShipRegion,
+                    res.ShipCountry,
+                    res.Quantity,
+                    res.UnitPrice,
+                    res.Discount
+                }).ToList();
             }
             catch(Exception excep)
             {
 
                 MessageBox.Show(MyResourses.Texts.CantAccessDB + excep.Message,
                     MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                success = false;
             }
             finally
             {
                 if (ConnectionToDB.State == ConnectionState.Open)
                     ConnectionToDB.Close();
+                indicator.Visibility = Visibility.Hidden;
+                if (success)
+                    TextIndicator.Content = MyResourses.Texts.ProgramReady;
+                else
+                    TextIndicator.Content = MyResourses.Texts.ProgramException;
+            }
+        }
+
+        public static async void ExecuteSecondQuery(DataGrid DataGridForResult, ProgressBar indicator, Label TextIndicator)
+        {
+            bool success = true;
+            try
+            {
+                List<OurDataClass> BufForDataWithPhoto = new List<OurDataClass>();
+                int offset = 78;
+                TextIndicator.Content = MyResourses.Texts.ProgramBusy;
+                indicator.Visibility = Visibility.Visible;
+                await ConnectionToDB.OpenAsync();
+                SqlCommand CommandSecondQuery = new SqlCommand(MyResourses.SSQLCommands.SecondQuery,
+                    ConnectionToDB);
+                SqlDataReader SecondQueryReader = await CommandSecondQuery.ExecuteReaderAsync();
+                while (await SecondQueryReader.ReadAsync())
+                {
+                    Stream StreamForPhoto = new MemoryStream();
+                    StreamForPhoto.Write((byte [])SecondQueryReader[5], offset, 
+                        ((byte[])SecondQueryReader[5]).Length - offset);
+                    BitmapImage CurrentPhoto = new BitmapImage();
+                    CurrentPhoto.BeginInit();
+                    CurrentPhoto.StreamSource = StreamForPhoto;
+                    CurrentPhoto.EndInit();
+                    BufForDataWithPhoto.Add(new OurDataClass() { Photo = CurrentPhoto,
+                        LastName = SecondQueryReader[0].ToString(),
+                        FirstName = SecondQueryReader[1].ToString(),
+                        BirthDate = SecondQueryReader[2].ToString(),
+                        Address = SecondQueryReader[3].ToString(),
+                        HomePhone = SecondQueryReader[4].ToString()
+                    });
+                }
+                SecondQueryReader.Close();
+                DataGridForResult.ItemsSource = BufForDataWithPhoto;
+            }
+            catch (Exception excep)
+            {
+
+                MessageBox.Show(MyResourses.Texts.CantAccessDB + excep.Message,
+                    MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                success = false;
+            }
+            finally
+            {
+                if (ConnectionToDB.State == ConnectionState.Open)
+                    ConnectionToDB.Close();
+                indicator.Visibility = Visibility.Hidden;
+                if (success)
+                    TextIndicator.Content = MyResourses.Texts.ProgramReady;
+                else
+                    TextIndicator.Content = MyResourses.Texts.ProgramException;
+            }
+        }
+
+        public static async void ExecuteThirdQuery(DataGrid DataGridForResult, ProgressBar indicator, Label TextIndicator)
+        {
+            bool success = true;
+            try
+            {
+                List<OurDataClass> BufForData = new List<OurDataClass>();
+                TextIndicator.Content = MyResourses.Texts.ProgramBusy;
+                indicator.Visibility = Visibility.Visible;
+                await ConnectionToDB.OpenAsync();
+                SqlCommand CommandSecondQuery = new SqlCommand(MyResourses.SSQLCommands.ThirdQuery,
+                    ConnectionToDB);
+                SqlDataReader SecondQueryReader = await CommandSecondQuery.ExecuteReaderAsync();
+                while (await SecondQueryReader.ReadAsync())
+                {
+                    BufForData.Add(new OurDataClass()
+                    {
+                        ProductName = SecondQueryReader[0].ToString(),
+                        UnitPrice = SecondQueryReader[1].ToString(),
+                        Discontinued = SecondQueryReader[2].ToString(),
+                        QuantityPerUnit = SecondQueryReader[3].ToString(),
+                        CategoryName = SecondQueryReader[4].ToString()
+                    });
+                }
+                SecondQueryReader.Close();
+                DataGridForResult.ItemsSource = BufForData.Select(res => new { res.ProductName,
+                    res.UnitPrice,res.Discontinued,res.QuantityPerUnit,res.CategoryName}).ToList();
+            }
+            catch (Exception excep)
+            {
+
+                MessageBox.Show(MyResourses.Texts.CantAccessDB + excep.Message,
+                    MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                success = false;
+            }
+            finally
+            {
+                if (ConnectionToDB.State == ConnectionState.Open)
+                    ConnectionToDB.Close();
+                indicator.Visibility = Visibility.Hidden;
+                if (success)
+                    TextIndicator.Content = MyResourses.Texts.ProgramReady;
+                else
+                    TextIndicator.Content = MyResourses.Texts.ProgramException;
             }
         }
     }

@@ -118,6 +118,20 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FirstQuery" xml:space="preserve">
-    <value>SELECT TOP  100   CompanyName,ContactName,Address,City,Country,Phone,RequiredDate,ShippedDate,Freight,ShipCity,ShipRegion,ShipCountry,Quantity,UnitPrice,Discount  FROM Customers INNER JOIN [Orders] ON Customers.CustomerID=[Orders].CustomerID INNER JOIN [Order Details] ON [Orders].[OrderID]=[Order Details].[OrderID]</value>
+    <value>SELECT   CompanyName,ContactName,Address,City,Country,Phone,RequiredDate,ShippedDate,Freight,ShipCity,ShipRegion,ShipCountry,Quantity,UnitPrice,Discount  FROM Customers INNER JOIN [Orders] ON Customers.CustomerID=[Orders].CustomerID INNER JOIN [Order Details] ON [Orders].[OrderID]=[Order Details].[OrderID]</value>
+  </data>
+  <data name="SecondQuery" xml:space="preserve">
+    <value>SELECT  LastName,FirstName,BirthDate,Address,HomePhone,Photo FROM Employees</value>
+  </data>
+  <data name="ThirdQuery" xml:space="preserve">
+    <value>SELECT 
+      ProductName
+      ,UnitPrice
+	  ,Discontinued
+      ,QuantityPerUnit
+	  ,CategoryName
+  FROM Products INNER JOIN Categories 
+  ON (Products.CategoryID = Categories.CategoryID AND Products.UnitPrice &gt;= 10 AND 
+  Products.UnitPrice &lt;= 60)</value>
   </data>
 </root>

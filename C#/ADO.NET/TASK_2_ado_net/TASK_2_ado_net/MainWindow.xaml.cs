@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Linq;
 
 namespace TASK_2_ado_net
 {
@@ -23,12 +24,24 @@ namespace TASK_2_ado_net
         public MainWindow()
         {
             InitializeComponent();
-            DataGridFirstQuery.DataContext = DBConnector.FirstQueryDataCollection;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DBConnector.ExecuteFirstQuery();
+            switch (MainTabControl.SelectedIndex)
+            {
+                case 0:
+                    DBConnector.ExecuteFirstQuery(DataGridFirstQuery,QueryProgressBar, ProgramStateLabel);
+                    break;
+                case 1:
+                    DBConnector.ExecuteSecondQuery(DataGridSecondQuery, QueryProgressBar, ProgramStateLabel);
+                    break;
+                case 2:
+                    DBConnector.ExecuteThirdQuery(DataGridThirdQuery, QueryProgressBar, ProgramStateLabel);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

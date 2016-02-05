@@ -13,7 +13,7 @@ namespace TASK_2_ado_net
 
         object IValueConverter.Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return ((double)value * 0.75);
+            return ((double)value * 0.73);
         }
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

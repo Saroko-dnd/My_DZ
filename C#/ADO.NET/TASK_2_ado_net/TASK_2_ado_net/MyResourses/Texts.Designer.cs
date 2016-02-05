@@ -61,11 +61,29 @@ namespace TASK_2_ado_net.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Количество клиентов:.
+        /// </summary>
+        public static string AmountOfClients {
+            get {
+                return ResourceManager.GetString("AmountOfClients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не удалось получить доступ к базе данных! Наиболее вероятная причина - неверная строка подключения или отсутствие таковой в конфигурационном файле приложения..
         /// </summary>
         public static string CantAccessDB {
             get {
                 return ResourceManager.GetString("CantAccessDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Название города:.
+        /// </summary>
+        public static string CityName {
+            get {
+                return ResourceManager.GetString("CityName", resourceCulture);
             }
         }
         
@@ -93,6 +111,60 @@ namespace TASK_2_ado_net.MyResourses {
         public static string ExecuteQuery {
             get {
                 return ResourceManager.GetString("ExecuteQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -.
+        /// </summary>
+        public static string NothingHere {
+            get {
+                return ResourceManager.GetString("NothingHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ваш запрос выполняется....
+        /// </summary>
+        public static string ProgramBusy {
+            get {
+                return ResourceManager.GetString("ProgramBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не удалось выполнить операцию!.
+        /// </summary>
+        public static string ProgramException {
+            get {
+                return ResourceManager.GetString("ProgramException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Операция завершена!.
+        /// </summary>
+        public static string ProgramReady {
+            get {
+                return ResourceManager.GetString("ProgramReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

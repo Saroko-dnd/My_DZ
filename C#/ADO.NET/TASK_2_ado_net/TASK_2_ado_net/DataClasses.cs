@@ -3,11 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Linq;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.IO;
+using System.Data.Linq;
 
 namespace TASK_2_ado_net
 {
-    class DataClassFirstQuery
+    class OurDataClass
     {
+        private string ProductName_;
+        private string LastName_;
+        private string FirstName_;
+        private string BirthDate_;
+        private string HomePhone_;
         private string CompanyName_;
         private string ContactName_;
         private string Address_;
@@ -23,6 +39,122 @@ namespace TASK_2_ado_net
         private string Quantity_;
         private string UnitPrice_;
         private string Discount_;
+        private BitmapImage Photo_;
+        private string Discontinued_;
+        private string QuantityPerUnit_;
+        private string CategoryName_;
+
+        public string CategoryName
+        {
+            get
+            {
+                return CategoryName_;
+            }
+            set
+            {
+                CategoryName_ = value;
+            }
+        }
+
+        public string QuantityPerUnit
+        {
+            get
+            {
+                return QuantityPerUnit_;
+            }
+            set
+            {
+                QuantityPerUnit_ = value;
+            }
+        }
+
+        public string Discontinued
+        {
+            get
+            {
+                if (Discontinued_ == "False")
+                    return MyResourses.Texts.No;
+                else
+                    return MyResourses.Texts.Yes;
+
+            }
+            set
+            {
+                Discontinued_ = value;
+            }
+        }
+
+        public string ProductName
+        {
+            get
+            {
+                return ProductName_;
+            }
+            set
+            {
+                ProductName_ = value;
+            }
+        }
+
+        public string LastName
+        {
+            get
+            {
+                return LastName_;
+            }
+            set
+            {
+                LastName_ = value;
+            }
+        }
+
+        public string FirstName
+        {
+            get
+            {
+                return FirstName_;
+            }
+            set
+            {
+                FirstName_ = value;
+            }
+        }
+
+        public string BirthDate
+        {
+            get
+            {
+                return BirthDate_;
+            }
+            set
+            {
+                BirthDate_ = value;
+            }
+        }
+
+        public string HomePhone
+        {
+            get
+            {
+                return HomePhone_;
+            }
+            set
+            {
+                HomePhone_ = value;
+            }
+        }
+
+        public BitmapImage Photo
+        {
+            get
+            {
+                return Photo_;
+            }
+            set
+            {
+                Photo_ = value;
+            }
+        }
 
         public string CompanyName
         {

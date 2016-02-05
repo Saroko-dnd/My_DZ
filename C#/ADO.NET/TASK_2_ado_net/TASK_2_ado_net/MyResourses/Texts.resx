@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AmountOfClients" xml:space="preserve">
+    <value>Количество клиентов:</value>
+  </data>
   <data name="CantAccessDB" xml:space="preserve">
     <value>Не удалось получить доступ к базе данных! Наиболее вероятная причина - неверная строка подключения или отсутствие таковой в конфигурационном файле приложения.</value>
+  </data>
+  <data name="CityName" xml:space="preserve">
+    <value>Название города:</value>
   </data>
   <data name="ConnectionError" xml:space="preserve">
     <value>Не удалось создать подключение к базе данных!</value>
@@ -128,5 +134,23 @@
   </data>
   <data name="ExecuteQuery" xml:space="preserve">
     <value>Выполнить запрос</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NothingHere" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="ProgramBusy" xml:space="preserve">
+    <value>Ваш запрос выполняется...</value>
+  </data>
+  <data name="ProgramException" xml:space="preserve">
+    <value>Не удалось выполнить операцию!</value>
+  </data>
+  <data name="ProgramReady" xml:space="preserve">
+    <value>Операция завершена!</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>
