@@ -80,6 +80,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CharsKiller.cs" />
     <Compile Include="Converters.cs" />
     <Compile Include="DataClasses.cs" />
     <Compile Include="MyResourses\SSQLCommands.Designer.cs">

@@ -70,6 +70,15 @@ namespace TASK_2_ado_net.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to по.
+        /// </summary>
+        public static string And {
+            get {
+                return ResourceManager.GetString("And", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не удалось получить доступ к базе данных! Наиболее вероятная причина - неверная строка подключения или отсутствие таковой в конфигурационном файле приложения..
         /// </summary>
         public static string CantAccessDB {
@@ -93,6 +102,15 @@ namespace TASK_2_ado_net.MyResourses {
         public static string ConnectionError {
             get {
                 return ResourceManager.GetString("ConnectionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [Формат ввода: день,месяц,год.].
+        /// </summary>
+        public static string EnterFormat {
+            get {
+                return ResourceManager.GetString("EnterFormat", resourceCulture);
             }
         }
         
@@ -133,6 +151,15 @@ namespace TASK_2_ado_net.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Период с.
+        /// </summary>
+        public static string Period {
+            get {
+                return ResourceManager.GetString("Period", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ваш запрос выполняется....
         /// </summary>
         public static string ProgramBusy {
@@ -156,6 +183,15 @@ namespace TASK_2_ado_net.MyResourses {
         public static string ProgramReady {
             get {
                 return ResourceManager.GetString("ProgramReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to год.
+        /// </summary>
+        public static string Year {
+            get {
+                return ResourceManager.GetString("Year", resourceCulture);
             }
         }
         

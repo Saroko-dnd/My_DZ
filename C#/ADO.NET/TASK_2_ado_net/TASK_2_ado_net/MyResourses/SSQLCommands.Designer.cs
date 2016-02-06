@@ -61,11 +61,30 @@ namespace TASK_2_ado_net.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT   CompanyName,ContactName,Address,City,Country,Phone,RequiredDate,ShippedDate,Freight,ShipCity,ShipRegion,ShipCountry,Quantity,UnitPrice,Discount  FROM Customers INNER JOIN [Orders] ON Customers.CustomerID=[Orders].CustomerID INNER JOIN [Order Details] ON [Orders].[OrderID]=[Order Details].[OrderID].
+        ///   Looks up a localized string similar to SELECT ***.
+        /// </summary>
+        internal static string FifthQuery {
+            get {
+                return ResourceManager.GetString("FifthQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT   CompanyName,ContactName,Address,City,Country,Phone,OrderDate,ShippedDate,Freight,ShipCity,ShipRegion,ShipCountry,Quantity,UnitPrice,Discount  FROM Customers INNER JOIN [Orders] ON Customers.CustomerID=[Orders].CustomerID INNER JOIN [Order Details] ON [Orders].[OrderID]=[Order Details].[OrderID].
         /// </summary>
         internal static string FirstQuery {
             get {
                 return ResourceManager.GetString("FirstQuery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SELECT COUNT(*)
+        ///  FROM Customers WHERE City =.
+        /// </summary>
+        internal static string FourthQuery {
+            get {
+                return ResourceManager.GetString("FourthQuery", resourceCulture);
             }
         }
         

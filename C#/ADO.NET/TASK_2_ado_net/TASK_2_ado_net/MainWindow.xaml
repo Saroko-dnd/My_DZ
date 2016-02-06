@@ -7,6 +7,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Window.Resources>
         <ThisProgram:grid_height_converter x:Key="converter_for_grid_height"></ThisProgram:grid_height_converter>
+        <ThisProgram:grid_small_height_converter x:Key="converter_for_grid_height_small"></ThisProgram:grid_small_height_converter>
     </Window.Resources>
     <StackPanel>
         <TabControl Name="MainTabControl">
@@ -71,12 +72,25 @@
                     <Label Content="{x:Static TextResourses:Texts.CityName}"></Label>
                     <TextBox Name="CityNameTextBox" Width="100"></TextBox>
                     <Label Content="{x:Static TextResourses:Texts.AmountOfClients}"></Label>
-                    <Label Content="{x:Static TextResourses:Texts.NothingHere}"></Label>
+                    <Label Name="AmountOfCustomersLabel" Content="{x:Static TextResourses:Texts.NothingHere}"></Label>
                 </WrapPanel>
             </TabItem>
             <TabItem Name="TabItem_5" Header="пятый запрос">
                 <StackPanel>
-                    <TextBlock Name="FifthTextBlock" Text="testtesttest"></TextBlock>
+                    <DataGrid MaxHeight="600" Name="DataGridFifthQuery" CanUserAddRows="False" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True" Height="{Binding ElementName=MainForm, Path=ActualHeight, Converter={StaticResource converter_for_grid_height_small}, Mode=OneWay}">
+                    </DataGrid>
+                    <WrapPanel>
+                        <Label Content="{x:Static TextResourses:Texts.Period}"></Label>
+                        <TextBox BorderBrush="Black" Name="FirstDayTextBox" Width="20"></TextBox>
+                        <TextBox BorderBrush="Black" Name="FirstMonthTextBox" Width="20"></TextBox>
+                        <TextBox BorderBrush="Black" Name="FirstYearTextBox" Width="40"></TextBox>
+                        <Label Content="{x:Static TextResourses:Texts.And}"></Label>
+                        <TextBox BorderBrush="Black" Name="SecondDayTextBox" Width="20"></TextBox>
+                        <TextBox BorderBrush="Black" Name="SecondMonthTextBox" Width="20"></TextBox>
+                        <TextBox BorderBrush="Black" Name="SecondYearTextBox" Width="40"></TextBox>
+                        <Label Content="{x:Static TextResourses:Texts.Year}"></Label>
+                        <Label Content="{x:Static TextResourses:Texts.EnterFormat}"></Label>
+                    </WrapPanel>
                 </StackPanel>
             </TabItem>
         </TabControl>

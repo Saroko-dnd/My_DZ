@@ -30,7 +30,7 @@ namespace TASK_2_ado_net
         private string City_;
         private string Country_;
         private string Phone_;
-        private string RequiredDate_;
+        private string OrderDate_;
         private string ShippedDate_;
         private string Freight_;
         private string ShipCity_;
@@ -228,15 +228,15 @@ namespace TASK_2_ado_net
             }
         }
 
-        public string RequiredDate
+        public string OrderDate
         {
             get
             {
-                return RequiredDate_;
+                return OrderDate_;
             }
             set
             {
-                RequiredDate_ = value;
+                OrderDate_ = value;
             }
         }
 

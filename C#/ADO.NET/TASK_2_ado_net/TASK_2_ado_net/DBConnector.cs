@@ -9,7 +9,6 @@ using System.Windows;
 using System.Data;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Linq;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -26,6 +25,17 @@ namespace TASK_2_ado_net
     {
 
         public static SqlConnection ConnectionToDB;
+
+        private static void FinalBlock(bool ResultOfOperation, ProgressBar indicator, Label TextIndicator)
+        {
+            if (ConnectionToDB.State == ConnectionState.Open)
+                ConnectionToDB.Close();
+            indicator.Visibility = Visibility.Hidden;
+            if (ResultOfOperation)
+                TextIndicator.Content = MyResourses.Texts.ProgramReady;
+            else
+                TextIndicator.Content = MyResourses.Texts.ProgramException;
+        }
 
         static DBConnector()
         {
@@ -65,7 +75,7 @@ namespace TASK_2_ado_net
                         City = FirstQueryReader[3].ToString(),
                         Country = FirstQueryReader[4].ToString(),
                         Phone = FirstQueryReader[5].ToString(),
-                        RequiredDate = FirstQueryReader[6].ToString(),
+                        OrderDate = FirstQueryReader[6].ToString(),
                         ShippedDate = FirstQueryReader[7].ToString(),
                         Freight = FirstQueryReader[8].ToString(),
                         ShipCity = FirstQueryReader[9].ToString(),
@@ -85,7 +95,7 @@ namespace TASK_2_ado_net
                     res.City,
                     res.Country,
                     res.Phone,
-                    res.RequiredDate,
+                    res.OrderDate,
                     res.ShippedDate,
                     res.Freight,
                     res.ShipCity,
@@ -98,20 +108,13 @@ namespace TASK_2_ado_net
             }
             catch(Exception excep)
             {
-
                 MessageBox.Show(MyResourses.Texts.CantAccessDB + excep.Message,
                     MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 success = false;
             }
             finally
             {
-                if (ConnectionToDB.State == ConnectionState.Open)
-                    ConnectionToDB.Close();
-                indicator.Visibility = Visibility.Hidden;
-                if (success)
-                    TextIndicator.Content = MyResourses.Texts.ProgramReady;
-                else
-                    TextIndicator.Content = MyResourses.Texts.ProgramException;
+                FinalBlock(success, indicator, TextIndicator);
             }
         }
 
@@ -157,13 +160,7 @@ namespace TASK_2_ado_net
             }
             finally
             {
-                if (ConnectionToDB.State == ConnectionState.Open)
-                    ConnectionToDB.Close();
-                indicator.Visibility = Visibility.Hidden;
-                if (success)
-                    TextIndicator.Content = MyResourses.Texts.ProgramReady;
-                else
-                    TextIndicator.Content = MyResourses.Texts.ProgramException;
+                FinalBlock(success, indicator, TextIndicator);
             }
         }
 
@@ -193,6 +190,62 @@ namespace TASK_2_ado_net
                 SecondQueryReader.Close();
                 DataGridForResult.ItemsSource = BufForData.Select(res => new { res.ProductName,
                     res.UnitPrice,res.Discontinued,res.QuantityPerUnit,res.CategoryName}).ToList();
+            }
+            catch (Exception excep)
+            {
+
+                MessageBox.Show(MyResourses.Texts.CantAccessDB + excep.Message,
+                    MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                success = false;
+            }
+            finally
+            {
+                FinalBlock(success, indicator, TextIndicator);
+            }
+        }
+
+        public static async void ExecuteFourthQuery(TextBox KeyWordTextBox,Label ResultLabel, 
+            ProgressBar indicator, Label TextIndicator)
+        {
+            bool success = true;
+            try
+            {
+                TextIndicator.Content = MyResourses.Texts.ProgramBusy;
+                indicator.Visibility = Visibility.Visible;
+                await ConnectionToDB.OpenAsync();
+                SqlCommand CommandSecondQuery = new SqlCommand(MyResourses.SSQLCommands.FourthQuery + "'" +
+                    KeyWordTextBox.Text + "'", ConnectionToDB);
+                int AmountOfCustomers = (int)await CommandSecondQuery.ExecuteScalarAsync();
+                ResultLabel.Content = AmountOfCustomers.ToString();
+            }
+            catch (Exception excep)
+            {
+
+                MessageBox.Show(MyResourses.Texts.CantAccessDB + excep.Message,
+                    MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                success = false;
+            }
+            finally
+            {
+                FinalBlock(success, indicator, TextIndicator);
+            }
+        }
+
+        public static async void ExecuteFifthQuery(TextBox DayFirstTextBox, TextBox MonthFirstTextBox, 
+            TextBox YearFirstTextBox, TextBox DaySecondTextBox, TextBox MonthSecondTextBox, 
+            TextBox YearSecondTextBox, ProgressBar indicator, Label TextIndicator)
+        {
+            bool success = true;
+            try
+            {
+                List<OurDataClass> BufForData = new List<OurDataClass>();
+                TextIndicator.Content = MyResourses.Texts.ProgramBusy;
+                indicator.Visibility = Visibility.Visible;
+                await ConnectionToDB.OpenAsync();
+                SqlCommand CommandSecondQuery = new SqlCommand(MyResourses.SSQLCommands.FifthQuery,
+                    ConnectionToDB);
+                SqlDataReader ReaderForOrdersClientsInfo = await CommandSecondQuery.ExecuteReaderAsync();
+
             }
             catch (Exception excep)
             {

@@ -39,6 +39,9 @@ namespace TASK_2_ado_net
                 case 2:
                     DBConnector.ExecuteThirdQuery(DataGridThirdQuery, QueryProgressBar, ProgramStateLabel);
                     break;
+                case 3:
+                    DBConnector.ExecuteFourthQuery(CityNameTextBox,AmountOfCustomersLabel, QueryProgressBar, ProgramStateLabel);
+                    break;
                 default:
                     break;
             }
