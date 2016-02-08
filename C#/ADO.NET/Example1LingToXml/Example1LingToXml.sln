@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1LinqToXml", "Example1LingToXml\Example1LinqToXml.csproj", "{B340EF7F-9B8F-4AE5-9EEA-9BE100E41AE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkWithXml", "WorkWithXml", "{9FE77DD4-52DE-4CDC-A348-A38E11C5C2A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1CreateXml", "Example1CreateXml\Example1CreateXml.csproj", "{02EA56EE-FA8B-4396-B69F-225F74ECC27B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example2ReadXml", "Example2ReadXml\Example2ReadXml.csproj", "{A3FD1690-AC84-44E8-86DA-7546E4705E87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example3UpdateXml", "Example3UpdateXml\Example3UpdateXml.csproj", "{DCF07EA5-8840-4664-956E-1D9FA069696E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example2LinqToXml", "Example2LinqToXml\Example2LinqToXml.csproj", "{2137EF41-38B9-4B38-8BB0-044106CB516A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example3LinqToXml", "Example3LinqToXml\Example3LinqToXml.csproj", "{FDDBD7AC-0ABE-428F-BF8A-34A93BAD7789}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B340EF7F-9B8F-4AE5-9EEA-9BE100E41AE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B340EF7F-9B8F-4AE5-9EEA-9BE100E41AE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B340EF7F-9B8F-4AE5-9EEA-9BE100E41AE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B340EF7F-9B8F-4AE5-9EEA-9BE100E41AE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02EA56EE-FA8B-4396-B69F-225F74ECC27B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02EA56EE-FA8B-4396-B69F-225F74ECC27B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02EA56EE-FA8B-4396-B69F-225F74ECC27B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02EA56EE-FA8B-4396-B69F-225F74ECC27B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3FD1690-AC84-44E8-86DA-7546E4705E87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3FD1690-AC84-44E8-86DA-7546E4705E87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3FD1690-AC84-44E8-86DA-7546E4705E87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3FD1690-AC84-44E8-86DA-7546E4705E87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCF07EA5-8840-4664-956E-1D9FA069696E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF07EA5-8840-4664-956E-1D9FA069696E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF07EA5-8840-4664-956E-1D9FA069696E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF07EA5-8840-4664-956E-1D9FA069696E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2137EF41-38B9-4B38-8BB0-044106CB516A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2137EF41-38B9-4B38-8BB0-044106CB516A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2137EF41-38B9-4B38-8BB0-044106CB516A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2137EF41-38B9-4B38-8BB0-044106CB516A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDDBD7AC-0ABE-428F-BF8A-34A93BAD7789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDDBD7AC-0ABE-428F-BF8A-34A93BAD7789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDDBD7AC-0ABE-428F-BF8A-34A93BAD7789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDDBD7AC-0ABE-428F-BF8A-34A93BAD7789}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{02EA56EE-FA8B-4396-B69F-225F74ECC27B} = {9FE77DD4-52DE-4CDC-A348-A38E11C5C2A3}
+		{A3FD1690-AC84-44E8-86DA-7546E4705E87} = {9FE77DD4-52DE-4CDC-A348-A38E11C5C2A3}
+		{DCF07EA5-8840-4664-956E-1D9FA069696E} = {9FE77DD4-52DE-4CDC-A348-A38E11C5C2A3}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1LinqToExcel", "Example1LinqToExcel\Example1LinqToExcel.csproj", "{3CC4FA09-BA79-4BF0-8C1D-D08E02B4C650}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example2LinqToExcel", "Example2LinqToExcel\Example2LinqToExcel.csproj", "{96D33D9E-8DA9-4A60-B1AC-5EE604DD64D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WorkWithExcel", "WorkWithExcel", "{666A94E9-4249-4A9B-9C2B-C459DB65577F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1WorkExcel", "Example1WorkExcel\Example1WorkExcel.csproj", "{9F2B7467-3206-43A6-B217-1F9BCFB75A3F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3CC4FA09-BA79-4BF0-8C1D-D08E02B4C650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CC4FA09-BA79-4BF0-8C1D-D08E02B4C650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CC4FA09-BA79-4BF0-8C1D-D08E02B4C650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CC4FA09-BA79-4BF0-8C1D-D08E02B4C650}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96D33D9E-8DA9-4A60-B1AC-5EE604DD64D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96D33D9E-8DA9-4A60-B1AC-5EE604DD64D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96D33D9E-8DA9-4A60-B1AC-5EE604DD64D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96D33D9E-8DA9-4A60-B1AC-5EE604DD64D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F2B7467-3206-43A6-B217-1F9BCFB75A3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F2B7467-3206-43A6-B217-1F9BCFB75A3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F2B7467-3206-43A6-B217-1F9BCFB75A3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F2B7467-3206-43A6-B217-1F9BCFB75A3F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9F2B7467-3206-43A6-B217-1F9BCFB75A3F} = {666A94E9-4249-4A9B-9C2B-C459DB65577F}
+	EndGlobalSection
+EndGlobal
