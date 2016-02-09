@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5e3b1b13003241b0a7f34c30ccc5267b" Name="Diagram1" ZoomLevel="125" >
+        <EntityTypeShape EntityType="DeliveryModel.Message" Width="1.5" PointX="3.125" PointY="1.125" />
+        <EntityTypeShape EntityType="DeliveryModel.ClientSet" Width="1.5" PointX="0.875" PointY="1.25" />
+        <AssociationConnector Association="DeliveryModel.FK_ClientMessage" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

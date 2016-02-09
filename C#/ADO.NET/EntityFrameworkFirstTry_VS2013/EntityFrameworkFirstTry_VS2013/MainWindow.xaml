@@ -2,7 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525" Closing="DataWindow_Closing">
-    <WrapPanel>
-        <DataGrid Name="CustomersDataGrid" ItemsSource="{Binding}"></DataGrid>
-    </WrapPanel>
+    <StackPanel>
+        <WrapPanel>
+            <DataGrid Name="CustomersDataGrid" ItemsSource="{Binding}"></DataGrid>
+        </WrapPanel>
+        <Button>Run test button</Button>
+    </StackPanel>
 </Window>
