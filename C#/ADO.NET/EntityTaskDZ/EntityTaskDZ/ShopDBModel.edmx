@@ -1,0 +1,493 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShopDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ShopDBModelStoreContainer">
+    <EntitySet Name="OfficeAssignmentSet" EntityType="ShopDBModel.Store.OfficeAssignmentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonSet" EntityType="ShopDBModel.Store.PersonSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EnrollmentSet" EntityType="ShopDBModel.Store.EnrollmentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CourseSet" EntityType="ShopDBModel.Store.CourseSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DepartmentSet" EntityType="ShopDBModel.Store.DepartmentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonSet_Instructor" EntityType="ShopDBModel.Store.PersonSet_Instructor" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PersonSet_Student" EntityType="ShopDBModel.Store.PersonSet_Student" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="InstructorCourse" EntityType="ShopDBModel.Store.InstructorCourse" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="OfficeAssignmentInstructor" Association="ShopDBModel.Store.OfficeAssignmentInstructor">
+      <End Role="OfficeAssignment" EntitySet="OfficeAssignmentSet" />
+      <End Role="Instructor" EntitySet="PersonSet_Instructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InstructorCourse_Instructor" Association="ShopDBModel.Store.FK_InstructorCourse_Instructor">
+      <End Role="Instructor" EntitySet="PersonSet_Instructor" />
+      <End Role="InstructorCourse" EntitySet="InstructorCourse" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InstructorCourse_Course" Association="ShopDBModel.Store.FK_InstructorCourse_Course">
+      <End Role="Course" EntitySet="CourseSet" />
+      <End Role="InstructorCourse" EntitySet="InstructorCourse" />
+    </AssociationSet>
+    <AssociationSet Name="EnrollmentCourse" Association="ShopDBModel.Store.EnrollmentCourse">
+      <End Role="Enrollment" EntitySet="EnrollmentSet" />
+      <End Role="Course" EntitySet="CourseSet" />
+    </AssociationSet>
+    <AssociationSet Name="CourseDepartment" Association="ShopDBModel.Store.CourseDepartment">
+      <End Role="Course" EntitySet="CourseSet" />
+      <End Role="Department" EntitySet="DepartmentSet" />
+    </AssociationSet>
+    <AssociationSet Name="StudentEnrollment" Association="ShopDBModel.Store.StudentEnrollment">
+      <End Role="Student" EntitySet="PersonSet_Student" />
+      <End Role="Enrollment" EntitySet="EnrollmentSet" />
+    </AssociationSet>
+    <AssociationSet Name="InstructorDepartment" Association="ShopDBModel.Store.InstructorDepartment">
+      <End Role="Instructor" EntitySet="PersonSet_Instructor" />
+      <End Role="Department" EntitySet="DepartmentSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Instructor_inherits_Person" Association="ShopDBModel.Store.FK_Instructor_inherits_Person">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Instructor" EntitySet="PersonSet_Instructor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_inherits_Person" Association="ShopDBModel.Store.FK_Student_inherits_Person">
+      <End Role="Person" EntitySet="PersonSet" />
+      <End Role="Student" EntitySet="PersonSet_Student" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="OfficeAssignmentSet">
+    <Key>
+      <PropertyRef Name="InstructorID" />
+    </Key>
+    <Property Name="InstructorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Location" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Instructor_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonSet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FirstMidName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EnrollmentSet">
+    <Key>
+      <PropertyRef Name="EnrollmentID" />
+    </Key>
+    <Property Name="EnrollmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseID" Type="int" Nullable="false" />
+    <Property Name="Grade" Type="int" Nullable="false" />
+    <Property Name="StudentID" Type="int" Nullable="false" />
+    <Property Name="Course_CourseID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CourseSet">
+    <Key>
+      <PropertyRef Name="CourseID" />
+    </Key>
+    <Property Name="CourseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Credits" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DepartmentID" Type="int" Nullable="false" />
+    <Property Name="Department_DepartmentID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DepartmentSet">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Budget" Type="float" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="RowVersion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="InstructorID" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="PersonSet_Instructor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="HireDate" Type="datetime" Nullable="true" />
+    <Property Name="ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PersonSet_Student">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="EnrollmentDate" Type="datetime" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InstructorCourse">
+    <Key>
+      <PropertyRef Name="Instructor_ID" />
+      <PropertyRef Name="Course_CourseID" />
+    </Key>
+    <Property Name="Instructor_ID" Type="int" Nullable="false" />
+    <Property Name="Course_CourseID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="OfficeAssignmentInstructor">
+    <End Role="OfficeAssignment" Type="ShopDBModel.Store.OfficeAssignmentSet" Multiplicity="*" />
+    <End Role="Instructor" Type="ShopDBModel.Store.PersonSet_Instructor" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Instructor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OfficeAssignment">
+        <PropertyRef Name="Instructor_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EnrollmentCourse">
+    <End Role="Enrollment" Type="ShopDBModel.Store.EnrollmentSet" Multiplicity="*" />
+    <End Role="Course" Type="ShopDBModel.Store.CourseSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="Enrollment">
+        <PropertyRef Name="Course_CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CourseDepartment">
+    <End Role="Course" Type="ShopDBModel.Store.CourseSet" Multiplicity="*" />
+    <End Role="Department" Type="ShopDBModel.Store.DepartmentSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="DepartmentID" />
+      </Principal>
+      <Dependent Role="Course">
+        <PropertyRef Name="Department_DepartmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentEnrollment">
+    <End Role="Student" Type="ShopDBModel.Store.PersonSet_Student" Multiplicity="1" />
+    <End Role="Enrollment" Type="ShopDBModel.Store.EnrollmentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Enrollment">
+        <PropertyRef Name="StudentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InstructorDepartment">
+    <End Role="Instructor" Type="ShopDBModel.Store.PersonSet_Instructor" Multiplicity="0..1" />
+    <End Role="Department" Type="ShopDBModel.Store.DepartmentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instructor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="InstructorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InstructorCourse_Instructor">
+    <End Role="Instructor" Type="ShopDBModel.Store.PersonSet_Instructor" Multiplicity="1" />
+    <End Role="InstructorCourse" Type="ShopDBModel.Store.InstructorCourse" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instructor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="InstructorCourse">
+        <PropertyRef Name="Instructor_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InstructorCourse_Course">
+    <End Role="InstructorCourse" Type="ShopDBModel.Store.InstructorCourse" Multiplicity="*" />
+    <End Role="Course" Type="ShopDBModel.Store.CourseSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseID" />
+      </Principal>
+      <Dependent Role="InstructorCourse">
+        <PropertyRef Name="Course_CourseID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Instructor_inherits_Person">
+    <End Role="Person" Type="ShopDBModel.Store.PersonSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Instructor" Type="ShopDBModel.Store.PersonSet_Instructor" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Instructor">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_inherits_Person">
+    <End Role="Person" Type="ShopDBModel.Store.PersonSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Student" Type="ShopDBModel.Store.PersonSet_Student" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ShopDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ShopDBModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OfficeAssignmentSet" EntityType="ShopDBModel.OfficeAssignment" />
+          <EntitySet Name="PersonSet" EntityType="ShopDBModel.Person" />
+          <AssociationSet Name="OfficeAssignmentInstructor" Association="ShopDBModel.OfficeAssignmentInstructor">
+            <End Role="OfficeAssignment" EntitySet="OfficeAssignmentSet" />
+            <End Role="Instructor" EntitySet="PersonSet" />
+          </AssociationSet>
+          <EntitySet Name="EnrollmentSet" EntityType="ShopDBModel.Enrollment" />
+          <EntitySet Name="CourseSet" EntityType="ShopDBModel.Course" />
+          <AssociationSet Name="InstructorCourse" Association="ShopDBModel.InstructorCourse">
+            <End Role="Instructor" EntitySet="PersonSet" />
+            <End Role="Course" EntitySet="CourseSet" />
+          </AssociationSet>
+          <AssociationSet Name="EnrollmentCourse" Association="ShopDBModel.EnrollmentCourse">
+            <End Role="Enrollment" EntitySet="EnrollmentSet" />
+            <End Role="Course" EntitySet="CourseSet" />
+          </AssociationSet>
+          <EntitySet Name="DepartmentSet" EntityType="ShopDBModel.Department" />
+          <AssociationSet Name="CourseDepartment" Association="ShopDBModel.CourseDepartment">
+            <End Role="Course" EntitySet="CourseSet" />
+            <End Role="Department" EntitySet="DepartmentSet" />
+          </AssociationSet>
+          <AssociationSet Name="StudentEnrollment" Association="ShopDBModel.StudentEnrollment">
+            <End Role="Student" EntitySet="PersonSet" />
+            <End Role="Enrollment" EntitySet="EnrollmentSet" />
+          </AssociationSet>
+          <AssociationSet Name="InstructorDepartment" Association="ShopDBModel.InstructorDepartment">
+            <End Role="Instructor" EntitySet="PersonSet" />
+            <End Role="Department" EntitySet="DepartmentSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OfficeAssignment">
+          <Key>
+            <PropertyRef Name="InstructorID" />
+          </Key>
+          <Property Name="InstructorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Location" Type="String" Nullable="false" />
+          <NavigationProperty Name="Instructor" Relationship="ShopDBModel.OfficeAssignmentInstructor" FromRole="OfficeAssignment" ToRole="Instructor" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" Nullable="false" />
+          <Property Name="FirstMidName" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student" BaseType="ShopDBModel.Person">
+          <Property Name="EnrollmentDate" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Enrollment" Relationship="ShopDBModel.StudentEnrollment" FromRole="Student" ToRole="Enrollment" />
+        </EntityType>
+        <EntityType Name="Instructor" BaseType="ShopDBModel.Person">
+          <Property Name="HireDate" Type="DateTime" Nullable="true" annotation:StoreGeneratedPattern="None" />
+          <NavigationProperty Name="OfficeAssignment" Relationship="ShopDBModel.OfficeAssignmentInstructor" FromRole="Instructor" ToRole="OfficeAssignment" />
+          <NavigationProperty Name="Course" Relationship="ShopDBModel.InstructorCourse" FromRole="Instructor" ToRole="Course" />
+          <NavigationProperty Name="Department" Relationship="ShopDBModel.InstructorDepartment" FromRole="Instructor" ToRole="Department" />
+        </EntityType>
+        <Association Name="OfficeAssignmentInstructor">
+          <End Type="ShopDBModel.OfficeAssignment" Role="OfficeAssignment" Multiplicity="0..1" />
+          <End Type="ShopDBModel.Instructor" Role="Instructor" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Enrollment">
+          <Key>
+            <PropertyRef Name="EnrollmentID" />
+          </Key>
+          <Property Name="EnrollmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CourseID" Type="Int32" Nullable="false" />
+          <Property Name="Grade" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="ShopDBModel.EnrollmentCourse" FromRole="Enrollment" ToRole="Course" />
+          <NavigationProperty Name="Student" Relationship="ShopDBModel.StudentEnrollment" FromRole="Enrollment" ToRole="Student" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CourseID" />
+          </Key>
+          <Property Name="CourseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Credits" Type="String" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instructor" Relationship="ShopDBModel.InstructorCourse" FromRole="Course" ToRole="Instructor" />
+          <NavigationProperty Name="Enrollment" Relationship="ShopDBModel.EnrollmentCourse" FromRole="Course" ToRole="Enrollment" />
+          <NavigationProperty Name="Department" Relationship="ShopDBModel.CourseDepartment" FromRole="Course" ToRole="Department" />
+        </EntityType>
+        <Association Name="InstructorCourse">
+          <End Type="ShopDBModel.Instructor" Role="Instructor" Multiplicity="*" />
+          <End Type="ShopDBModel.Course" Role="Course" Multiplicity="*" />
+        </Association>
+        <Association Name="EnrollmentCourse">
+          <End Type="ShopDBModel.Enrollment" Role="Enrollment" Multiplicity="*" />
+          <End Type="ShopDBModel.Course" Role="Course" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Budget" Type="Double" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="RowVersion" Type="String" Nullable="false" />
+          <NavigationProperty Name="Course" Relationship="ShopDBModel.CourseDepartment" FromRole="Department" ToRole="Course" />
+          <NavigationProperty Name="Instructor" Relationship="ShopDBModel.InstructorDepartment" FromRole="Department" ToRole="Instructor" />
+          <Property Name="InstructorID" Type="Int32" Nullable="true" />
+        </EntityType>
+        <Association Name="CourseDepartment">
+          <End Type="ShopDBModel.Course" Role="Course" Multiplicity="*" />
+          <End Type="ShopDBModel.Department" Role="Department" Multiplicity="1" />
+        </Association>
+        <Association Name="StudentEnrollment">
+          <End Type="ShopDBModel.Student" Role="Student" Multiplicity="1" />
+          <End Type="ShopDBModel.Enrollment" Role="Enrollment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Enrollment">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="InstructorDepartment">
+          <End Type="ShopDBModel.Instructor" Role="Instructor" Multiplicity="0..1" />
+          <End Type="ShopDBModel.Department" Role="Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instructor">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="InstructorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ShopDBModelStoreContainer" CdmEntityContainer="ShopDBModelContainer">
+    <EntitySetMapping Name="OfficeAssignmentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.OfficeAssignment)">
+        <MappingFragment StoreEntitySet="OfficeAssignmentSet">
+          <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PersonSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.Person)">
+        <MappingFragment StoreEntitySet="PersonSet">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstMidName" ColumnName="FirstMidName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.Instructor)">
+        <MappingFragment StoreEntitySet="PersonSet_Instructor">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.Student)">
+        <MappingFragment StoreEntitySet="PersonSet_Student">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="EnrollmentDate" ColumnName="EnrollmentDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EnrollmentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.Enrollment)">
+        <MappingFragment StoreEntitySet="EnrollmentSet">
+          <ScalarProperty Name="EnrollmentID" ColumnName="EnrollmentID" />
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.Course)">
+        <MappingFragment StoreEntitySet="CourseSet">
+          <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Credits" ColumnName="Credits" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DepartmentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.Department)">
+        <MappingFragment StoreEntitySet="DepartmentSet">
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Budget" ColumnName="Budget" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="RowVersion" ColumnName="RowVersion" />
+          <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="OfficeAssignmentInstructor" TypeName="ShopDBModel.OfficeAssignmentInstructor" StoreEntitySet="OfficeAssignmentSet">
+      <EndProperty Name="Instructor">
+        <ScalarProperty Name="ID" ColumnName="Instructor_ID" />
+      </EndProperty>
+      <EndProperty Name="OfficeAssignment">
+        <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="InstructorCourse" TypeName="ShopDBModel.InstructorCourse" StoreEntitySet="InstructorCourse">
+      <EndProperty Name="Instructor">
+        <ScalarProperty Name="ID" ColumnName="Instructor_ID" />
+      </EndProperty>
+      <EndProperty Name="Course">
+        <ScalarProperty Name="CourseID" ColumnName="Course_CourseID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="EnrollmentCourse" TypeName="ShopDBModel.EnrollmentCourse" StoreEntitySet="EnrollmentSet">
+      <EndProperty Name="Course">
+        <ScalarProperty Name="CourseID" ColumnName="Course_CourseID" />
+      </EndProperty>
+      <EndProperty Name="Enrollment">
+        <ScalarProperty Name="EnrollmentID" ColumnName="EnrollmentID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="CourseDepartment" TypeName="ShopDBModel.CourseDepartment" StoreEntitySet="CourseSet">
+      <EndProperty Name="Department">
+        <ScalarProperty Name="DepartmentID" ColumnName="Department_DepartmentID" />
+      </EndProperty>
+      <EndProperty Name="Course">
+        <ScalarProperty Name="CourseID" ColumnName="CourseID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
