@@ -11,6 +11,6 @@ namespace EntityCodeFirst_TEST
         public int ID { get;set; }
         public string Name { get; set; }
         public double Speed { get; set; }
-        public int YearOfCreation { get;set; }
+        //public int YearOfCreation { get; set; }
     }
 }

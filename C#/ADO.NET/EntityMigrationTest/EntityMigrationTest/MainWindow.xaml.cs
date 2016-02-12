@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EntityCodeFirst_TEST
+namespace EntityMigrationTest
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -25,18 +25,14 @@ namespace EntityCodeFirst_TEST
             InitializeComponent();
             try
             {
-                CarsContext OurContext = new CarsContext("CarsConnectionString");
-
-                Car NewCar = new Car() { ID = 7, Name = "CarName", Speed = 670.9/*, YearOfCreation = 1995 */};
-                OurContext.Cars.Add(NewCar);
+                CarsSecondContext OurContext = new CarsSecondContext("CarsConnectionString");
+                OurContext.Cars.Add(new CarSecond() { Name = "AnotherCarName" });
                 OurContext.SaveChanges();
             }
             catch (Exception excep)
             {
                 MessageBox.Show(excep.Message);
             }
-            //беру строку подключения из App.config
-
         }
     }
 }

@@ -1,18 +1,18 @@
-namespace EntityCodeFirst_TEST.Migrations
+namespace EntityMigrationTest.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<EntityCodeFirst_TEST.CarsContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<EntityMigrationTest.CarsSecondContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(EntityCodeFirst_TEST.CarsContext context)
+        protected override void Seed(EntityMigrationTest.CarsSecondContext context)
         {
             //  This method will be called after migrating to the latest version.
 

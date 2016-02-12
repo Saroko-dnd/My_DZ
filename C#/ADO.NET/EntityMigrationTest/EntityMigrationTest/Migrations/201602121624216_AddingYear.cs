@@ -1,20 +1,19 @@
-namespace EntityCodeFirst_TEST.Migrations
+namespace EntityMigrationTest.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddCarYearOfCreation : DbMigration
+    public partial class AddingYear : DbMigration
     {
         public override void Up()
         {
-            AddColumn("Cars","YearOfCreation",c => c.Int());
+            AddColumn("CarsSecondTable", "YearOfCreation", c => c.Int());
             /*CreateTable(
-                "dbo.Cars",
+                "dbo.CarsSecondTable",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        Speed = c.Double(nullable: false),
+                        CarName = c.String(),
                         YearOfCreation = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);*/
@@ -23,8 +22,8 @@ namespace EntityCodeFirst_TEST.Migrations
         
         public override void Down()
         {
-            //DropTable("dbo.Cars");
-            DropColumn("Cars", "YearOfCreation");
+            DropColumn("CarsSecondTable", "YearOfCreation");
+            //DropTable("dbo.CarsSecondTable");
         }
     }
 }

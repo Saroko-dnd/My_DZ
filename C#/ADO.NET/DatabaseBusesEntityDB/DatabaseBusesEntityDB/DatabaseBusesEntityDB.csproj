@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{329921EA-056B-4668-BB22-44B19B6025B4}</ProjectGuid>
+    <ProjectGuid>{B5405DC2-6799-408E-A2AD-362D472F6DFE}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EntityCodeFirst_TEST</RootNamespace>
-    <AssemblyName>EntityCodeFirst_TEST</AssemblyName>
+    <RootNamespace>DatabaseBusesEntityDB</RootNamespace>
+    <AssemblyName>DatabaseBusesEntityDB</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -62,6 +62,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DBContext\TransportDBContext.cs" />
+    <Compile Include="Entities\Time.cs" />
+    <Compile Include="Entities\Station.cs" />
+    <Compile Include="Entities\TypeOfVehicle.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,19 +74,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Cars.cs" />
-    <Compile Include="CarsContext.cs" />
+    <Compile Include="Entities\Route.cs" />
+    <Compile Include="Entities\Transport.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201602121533150_InitialCreate.cs" />
-    <Compile Include="Migrations\201602121533150_InitialCreate.Designer.cs">
-      <DependentUpon>201602121533150_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -96,9 +95,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Migrations\201602121533150_InitialCreate.resx">
-      <DependentUpon>201602121533150_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
