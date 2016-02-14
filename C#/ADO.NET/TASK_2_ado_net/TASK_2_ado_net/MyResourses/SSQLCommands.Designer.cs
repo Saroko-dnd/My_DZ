@@ -61,7 +61,18 @@ namespace TASK_2_ado_net.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT ***.
+        ///   Looks up a localized string similar to SELECT CompanyName,City,Country,SUM(OrderPrice) FROM Orders INNER JOIN 
+        ///(SELECT (UnitPrice * Quantity) AS OrderPrice,OrderID FROM [Order Details]) 
+        ///AS OrderPriceTable
+        /// ON (Orders.OrderID = OrderPriceTable.OrderID 
+        /// AND DATEPART(day,Orders.OrderDate) &gt;=1_
+        /// AND DATEPART(month,Orders.OrderDate) &gt;=2_ AND
+        ///  DATEPART(year,Orders.OrderDate) &gt;= 3_ 
+        /// AND DATEPART(day,Orders.OrderDate) &lt;=4_
+        /// AND DATEPART(month,Orders.OrderDate) &lt;=5_
+        /// AND DATEPART(year,Orders.OrderDate) &lt;= 6_) 
+        /// INNER JOIN Customers 
+        /// ON Cu [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string FifthQuery {
             get {

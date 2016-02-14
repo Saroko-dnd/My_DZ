@@ -118,7 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FifthQuery" xml:space="preserve">
-    <value>SELECT ***</value>
+    <value>SELECT CompanyName,City,Country,SUM(OrderPrice) FROM Orders INNER JOIN 
+(SELECT (UnitPrice * Quantity) AS OrderPrice,OrderID FROM [Order Details]) 
+AS OrderPriceTable
+ ON (Orders.OrderID = OrderPriceTable.OrderID 
+ AND DATEPART(day,Orders.OrderDate) &gt;=1_
+ AND DATEPART(month,Orders.OrderDate) &gt;=2_ AND
+  DATEPART(year,Orders.OrderDate) &gt;= 3_ 
+ AND DATEPART(day,Orders.OrderDate) &lt;=4_
+ AND DATEPART(month,Orders.OrderDate) &lt;=5_
+ AND DATEPART(year,Orders.OrderDate) &lt;= 6_) 
+ INNER JOIN Customers 
+ ON Customers.CustomerID = Orders.CustomerID GROUP BY CompanyName,Country,City</value>
   </data>
   <data name="FirstQuery" xml:space="preserve">
     <value>SELECT   CompanyName,ContactName,Address,City,Country,Phone,OrderDate,ShippedDate,Freight,ShipCity,ShipRegion,ShipCountry,Quantity,UnitPrice,Discount  FROM Customers INNER JOIN [Orders] ON Customers.CustomerID=[Orders].CustomerID INNER JOIN [Order Details] ON [Orders].[OrderID]=[Order Details].[OrderID]</value>

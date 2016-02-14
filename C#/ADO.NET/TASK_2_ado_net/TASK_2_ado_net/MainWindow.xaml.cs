@@ -24,6 +24,18 @@ namespace TASK_2_ado_net
         public MainWindow()
         {
             InitializeComponent();
+            FirstDayTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            FirstDayTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            FirstMonthTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            FirstMonthTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            FirstYearTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            FirstYearTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            SecondDayTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            SecondDayTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            SecondMonthTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            SecondMonthTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            SecondYearTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            SecondYearTextBox.PreviewTextInput += CharsKiller.InputValidation;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -40,7 +52,13 @@ namespace TASK_2_ado_net
                     DBConnector.ExecuteThirdQuery(DataGridThirdQuery, QueryProgressBar, ProgramStateLabel);
                     break;
                 case 3:
-                    DBConnector.ExecuteFourthQuery(CityNameTextBox,AmountOfCustomersLabel, QueryProgressBar, ProgramStateLabel);
+                    DBConnector.ExecuteFourthQuery(CityNameTextBox,AmountOfCustomersLabel, QueryProgressBar, 
+                        ProgramStateLabel);
+                    break;
+                case 4:
+                    DBConnector.ExecuteFifthQuery(FirstDayTextBox, FirstMonthTextBox, FirstYearTextBox,
+                        SecondDayTextBox,SecondMonthTextBox, SecondYearTextBox, DataGridFifthQuery,
+                        QueryProgressBar, ProgramStateLabel);
                     break;
                 default:
                     break;

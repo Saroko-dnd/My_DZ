@@ -77,7 +77,7 @@
             </TabItem>
             <TabItem Name="TabItem_5" Header="пятый запрос">
                 <StackPanel>
-                    <DataGrid MaxHeight="600" Name="DataGridFifthQuery" CanUserAddRows="False" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True" Height="{Binding ElementName=MainForm, Path=ActualHeight, Converter={StaticResource converter_for_grid_height_small}, Mode=OneWay}">
+                    <DataGrid ColumnWidth="*" MaxHeight="600" Name="DataGridFifthQuery" CanUserAddRows="False" CanUserResizeColumns="True" CanUserSortColumns="True" IsReadOnly="True" Height="{Binding ElementName=MainForm, Path=ActualHeight, Converter={StaticResource converter_for_grid_height_small}, Mode=OneWay}">
                     </DataGrid>
                     <WrapPanel>
                         <Label Content="{x:Static TextResourses:Texts.Period}"></Label>

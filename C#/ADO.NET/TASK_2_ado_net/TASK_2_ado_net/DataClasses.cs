@@ -43,6 +43,19 @@ namespace TASK_2_ado_net
         private string Discontinued_;
         private string QuantityPerUnit_;
         private string CategoryName_;
+        private string SumOrdersPrice_;
+
+        public string SumOrdersPrice
+        {
+            get
+            {
+                return SumOrdersPrice_;
+            }
+            set
+            {
+                SumOrdersPrice_ = value;
+            }
+        }
 
         public string CategoryName
         {

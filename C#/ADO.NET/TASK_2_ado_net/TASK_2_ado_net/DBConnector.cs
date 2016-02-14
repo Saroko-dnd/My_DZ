@@ -233,7 +233,7 @@ namespace TASK_2_ado_net
 
         public static async void ExecuteFifthQuery(TextBox DayFirstTextBox, TextBox MonthFirstTextBox, 
             TextBox YearFirstTextBox, TextBox DaySecondTextBox, TextBox MonthSecondTextBox, 
-            TextBox YearSecondTextBox, ProgressBar indicator, Label TextIndicator)
+            TextBox YearSecondTextBox,DataGrid DataGridForResult, ProgressBar indicator, Label TextIndicator)
         {
             bool success = true;
             try
@@ -242,10 +242,28 @@ namespace TASK_2_ado_net
                 TextIndicator.Content = MyResourses.Texts.ProgramBusy;
                 indicator.Visibility = Visibility.Visible;
                 await ConnectionToDB.OpenAsync();
-                SqlCommand CommandSecondQuery = new SqlCommand(MyResourses.SSQLCommands.FifthQuery,
-                    ConnectionToDB);
+                string QueryBuf = MyResourses.SSQLCommands.FifthQuery
+                    .Replace("1_", DayFirstTextBox.Text).Replace("2_", MonthFirstTextBox.Text).
+                    Replace("3_", YearFirstTextBox.Text).Replace("4_", DaySecondTextBox.Text).
+                    Replace("5_", MonthSecondTextBox.Text).Replace("6_", YearSecondTextBox.Text);
+                SqlCommand CommandSecondQuery = new SqlCommand(QueryBuf, ConnectionToDB);
                 SqlDataReader ReaderForOrdersClientsInfo = await CommandSecondQuery.ExecuteReaderAsync();
-
+                while (await ReaderForOrdersClientsInfo.ReadAsync())
+                {
+                    BufForData.Add(new OurDataClass()
+                    {
+                        CompanyName = ReaderForOrdersClientsInfo[0].ToString(),
+                        City = ReaderForOrdersClientsInfo[1].ToString(),
+                        Country = ReaderForOrdersClientsInfo[2].ToString(),
+                        SumOrdersPrice = ReaderForOrdersClientsInfo[3].ToString()
+                    });
+                }
+                DataGridForResult.ItemsSource = BufForData.Select(res => new {
+                    res.CompanyName,
+                    res.City,
+                    res.Country,
+                    res.SumOrdersPrice,
+                }).ToList();
             }
             catch (Exception excep)
             {
