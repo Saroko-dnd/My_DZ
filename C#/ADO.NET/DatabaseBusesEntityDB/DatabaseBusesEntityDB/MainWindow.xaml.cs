@@ -21,21 +21,57 @@ namespace DatabaseBusesEntityDB
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
             try
             {
-                TransportDBContext OurContext = new TransportDBContext("TransportConnectionString");
-                OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = "tank" });
-                OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = "bus" });
-                OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = "trolleybus" });
-                OurContext.SaveChanges();
+                /*TransportDBContext OurContext = new TransportDBContext("TransportConnectionString");
+                OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = "трамвай" });
+                OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = "автобус" });
+                OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = "троллейбус" });
+                OurContext.SaveChanges();*/
             }
             catch (Exception excep)
             {
                 MessageBox.Show(excep.Message);
-            }            
+            }
+        }
+
+        private async void AddTypeButton_Click(object sender, RoutedEventArgs e)
+        {
+            bool success = true;
+            try
+            {
+                TransportTypeAddProgressBar.Visibility = Visibility.Visible;
+                AddTypeLabel.Foreground = Brushes.Black;
+                AddTypeLabel.Content = MyResourses.Texts.AddDataOperationInProgress;
+                TransportDBContext OurContext = new TransportDBContext("TransportConnectionString");
+                OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = TransportTypeTextBox.Text });
+                TransportTypeTextBox.Clear();
+                await OurContext.SaveChangesAsync();
+            }
+            catch (Exception CurrentException)
+            {
+                success = false;
+                MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+            finally
+            {
+                TransportTypeAddProgressBar.Visibility = Visibility.Hidden;
+                if (success)
+                {
+                    AddTypeLabel.Foreground = Brushes.Green;
+                    AddTypeLabel.Content = MyResourses.Texts.AddDataOperationFinished;
+                }
+                else
+                {
+                    AddTypeLabel.Foreground = Brushes.Red;
+                    AddTypeLabel.Content = MyResourses.Texts.AddDataOperationFailed;
+                }
+            }
         }
     }
 }
