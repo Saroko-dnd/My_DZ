@@ -27,6 +27,10 @@ namespace BanksOnMap
             InitializeComponent();
             //конфигурируем карту
             //*****************************************************************************
+            //так добавляем маркеры (видимость маркера определяется видимостью его формы "shape")
+            MainMap.Markers.Add(new GMapMarker(new GMap.NET.PointLatLng(53.902542, 27.561781)) { Tag = "tagddd", Shape = new Label()
+                { FontSize = 12.0, Content = "Я маркер!!!", Foreground = Brushes.Yellow, Background = Brushes.Black } });
+
             MainMap.Zoom = 16;
             MainMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
@@ -35,9 +39,6 @@ namespace BanksOnMap
             MainMap.DragButton = MouseButton.Left;
             MainMap.Position = new GMap.NET.PointLatLng(53.902800, 27.561759);
             //*****************************************************************************
-            GMap.NET.WindowsPresentation.GMapMarker markerG = 
-                new GMapMarker(new GMap.NET.PointLatLng(53.902542, 27.561781));
-            markerG.Tag = "";
             //Текст отображаемый при наведении на маркер.
 
         }
