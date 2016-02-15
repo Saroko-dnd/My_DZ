@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModelLib", "DataModelLib\DataModelLib.csproj", "{6F957563-450D-4133-A655-F4EBA43E5549}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example1Linq2Entities", "Example1Linq2Entities\Example1Linq2Entities.csproj", "{09D5B47E-F9A4-4D76-9232-1060C09F8A66}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{58358F4A-0664-49A6-AF66-FDD488B9CFA5}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example2Linq2Entities", "Example2Linq2Entities\Example2Linq2Entities.csproj", "{4B8B0D0D-69F6-4E33-B945-819AF9650738}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example3Linq2Entities", "Example3Linq2Entities\Example3Linq2Entities.csproj", "{52AAA019-2C05-4B54-B467-B9A37BC110F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example4Linq2Entities", "Example4Linq2Entities\Example4Linq2Entities.csproj", "{45053799-AD88-4D55-A831-01E50A30142C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F957563-450D-4133-A655-F4EBA43E5549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F957563-450D-4133-A655-F4EBA43E5549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F957563-450D-4133-A655-F4EBA43E5549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F957563-450D-4133-A655-F4EBA43E5549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09D5B47E-F9A4-4D76-9232-1060C09F8A66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D5B47E-F9A4-4D76-9232-1060C09F8A66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D5B47E-F9A4-4D76-9232-1060C09F8A66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D5B47E-F9A4-4D76-9232-1060C09F8A66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B8B0D0D-69F6-4E33-B945-819AF9650738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B8B0D0D-69F6-4E33-B945-819AF9650738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B8B0D0D-69F6-4E33-B945-819AF9650738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B8B0D0D-69F6-4E33-B945-819AF9650738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52AAA019-2C05-4B54-B467-B9A37BC110F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52AAA019-2C05-4B54-B467-B9A37BC110F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52AAA019-2C05-4B54-B467-B9A37BC110F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52AAA019-2C05-4B54-B467-B9A37BC110F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45053799-AD88-4D55-A831-01E50A30142C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45053799-AD88-4D55-A831-01E50A30142C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45053799-AD88-4D55-A831-01E50A30142C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45053799-AD88-4D55-A831-01E50A30142C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

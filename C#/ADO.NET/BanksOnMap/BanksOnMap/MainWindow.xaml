@@ -1,0 +1,18 @@
+﻿<Window x:Class="BanksOnMap.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Map="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
+        xmlns:MapProviders="clr-namespace:GMap.NET.MapProviders;assembly=GMap.NET.Core"
+        xmlns:GMap="clr-namespace:GMap.NET;assembly=GMap.NET.Core"
+        Title="MainWindow" Height="350" Width="900">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="600">                
+            </ColumnDefinition>
+            <ColumnDefinition Width="*">
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Map:GMapControl Name="MainMap" Grid.Column="0" Bearing="0" MaxZoom="18" MinZoom="2">           
+        </Map:GMapControl>
+    </Grid>
+</Window>
