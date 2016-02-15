@@ -11,9 +11,9 @@ namespace DatabaseBusesEntityDB
     [Table("VehicleTypes")]
     public class TypeOfVehicle
     {
-        [Key]
-        public int TypeID { get; set; }
-        [Required]
+        //[Key]
+        //public int TypeID { get; set; }
+        [Key,Index(IsUnique = true)]
         public string TypeName { get; set; }
 
         public virtual ICollection<Transport> Vehicles { get; set; }

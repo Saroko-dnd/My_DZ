@@ -138,6 +138,9 @@
   <data name="Error" xml:space="preserve">
     <value>Ошибка!</value>
   </data>
+  <data name="RouteName" xml:space="preserve">
+    <value>Название маршрута:</value>
+  </data>
   <data name="TypeOfTransport" xml:space="preserve">
     <value>Тип транспорта:</value>
   </data>

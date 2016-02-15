@@ -27,11 +27,11 @@ namespace DatabaseBusesEntityDB
             InitializeComponent();
             try
             {
-                /*TransportDBContext OurContext = new TransportDBContext("TransportConnectionString");
+                TransportDBContext OurContext = new TransportDBContext("TransportConnectionString");
                 OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = "трамвай" });
                 OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = "автобус" });
                 OurContext.VehicleTypes.Add(new TypeOfVehicle() { TypeName = "троллейбус" });
-                OurContext.SaveChanges();*/
+                OurContext.SaveChanges();
             }
             catch (Exception excep)
             {

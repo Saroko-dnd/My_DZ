@@ -124,6 +124,15 @@ namespace DatabaseBusesEntityDB.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Название маршрута:.
+        /// </summary>
+        public static string RouteName {
+            get {
+                return ResourceManager.GetString("RouteName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Тип транспорта:.
         /// </summary>
         public static string TypeOfTransport {

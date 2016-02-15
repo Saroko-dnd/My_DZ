@@ -15,7 +15,5 @@ namespace DatabaseBusesEntityDB
         public int StationID { get; set; }
         [Required]
         public string StationName { get; set; }
-
-        public virtual ICollection<Time> TimesOfArrival { get; set; }
     }
 }

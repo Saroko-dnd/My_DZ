@@ -13,12 +13,9 @@ namespace DatabaseBusesEntityDB
     {
         [Key]
         public int TransportID { get; set; }
-
-        public Route RouteForThisTransport { get; set; }
-
         [Required]
-        public TypeOfVehicle CurrentType { get; set; }
-        public virtual ICollection<Time> ListOfTimes { get; set; }
-        
+        public Route RouteForThisTransport { get; set; }
+        [Required]
+        public TypeOfVehicle CurrentType { get; set; }      
     }
 }

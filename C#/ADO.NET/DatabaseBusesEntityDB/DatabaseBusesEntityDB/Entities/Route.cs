@@ -15,9 +15,8 @@ namespace DatabaseBusesEntityDB
         public int RouteID { get; set; }
         [Required]
         public string RouteName { get; set; }
-
-        public virtual ICollection<Transport> Vehicles { get; set; }
-
-        public virtual ICollection<Station> ListOfStations { get; set; }
+        [Required]
+        public int RouteNumber { get; set; }
+        public virtual ICollection<Time> ListOfStationsAndTimes { get; set; }
     }
 }

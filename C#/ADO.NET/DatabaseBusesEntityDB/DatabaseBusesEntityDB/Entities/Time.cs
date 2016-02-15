@@ -17,10 +17,7 @@ namespace DatabaseBusesEntityDB
 
         [Required, DisplayFormat(ApplyFormatInEditMode = true, DataFormatString ="{0:hh\\:mm}")]
         public DateTime TimeItself { get; set; }
-
-        public virtual ICollection<Transport> ArrivedTransport { get; set; }
-
-        public virtual ICollection<Station> RelatedStations { get; set; }
+        public Station RelatedStation { get; set; }
         
     }
 }
