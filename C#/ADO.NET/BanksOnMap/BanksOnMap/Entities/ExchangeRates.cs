@@ -25,7 +25,6 @@ namespace BanksOnMap.Entities
         public double RuSell { get; set; }
         [Required]
         public double RuBuy { get; set; }
-        [Required]
-        public BankBranch RelatedBranch { get; set; }
+        public virtual ICollection<BankBranch> RelatedBranches { get; set; }
     }
 }

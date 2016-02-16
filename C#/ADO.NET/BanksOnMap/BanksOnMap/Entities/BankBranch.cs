@@ -23,10 +23,17 @@ namespace BanksOnMap.Entities
         [Required]
         public Bank RelatedBank { get; set; }
         [Required]
-        public ExchangeRates RelatedRates { get; set; }
+        public virtual ExchangeRates RelatedRates { get; set; }
         [Required]
         public DbGeography MapLocation { get ;set; }
         [Required]
         public DateTime OpeningDate { get; set; }
+     //   public Cashier RelatedCashier { get; set; }
+        public virtual ICollection<Comment> RelatedComments { get; set; }
+        [Required]
+        public virtual ICollection<Service> RelatedServices { get; set; }
+        [Required]
+        public virtual WorkingHours WorkingHours { get; set; }
+        public virtual ICollection<BreakTime> BreakTimes { get; set; }
     }
 }

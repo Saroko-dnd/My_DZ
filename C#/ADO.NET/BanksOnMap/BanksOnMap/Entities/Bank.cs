@@ -11,9 +11,11 @@ namespace BanksOnMap.Entities
     [Table("Banks")]
     public class Bank
     {
-        [Key]
+        //[Key]
+        //public int BankID { get; set; }
+        [Key, Index("IDIndex", 1, IsUnique = true)]
         public int BankID { get; set; }
-        [Index(IsUnique = true)]
+        [Index("NameIndex", 2,IsUnique = true)]
         public string BankName { get; set; }
         public virtual ICollection<BankBranch> RelatedBranches { get; set; }
     }

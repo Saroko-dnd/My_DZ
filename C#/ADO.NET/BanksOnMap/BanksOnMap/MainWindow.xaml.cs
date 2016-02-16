@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GMap.NET.WindowsPresentation;
 using GMap.NET;
+using BanksOnMap.DBContext;
+using BanksOnMap.Entities;
+using System.Data.Entity.Spatial;
 
 namespace BanksOnMap
 {
@@ -25,6 +28,32 @@ namespace BanksOnMap
         public MainWindow()
         {
             InitializeComponent();
+            try
+            {
+                BanksDBContext TestContext = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
+                /*TestContext.Banks.Add(new Bank() { BankName = "UltraBank" });
+                TestContext.Banks.Add(new Bank() { BankName = "NativeBank" });
+                TestContext.Banks.Add(new Bank() { BankName = "GalacticBank" });*/
+                IQueryable<Bank> OurBanks = TestContext.Banks.Where(res => res.BankName == "NativeBank");
+                
+                Bank SingleBank = OurBanks.First();
+                //same
+                Bank SingleBank_ = TestContext.Banks.Where(res => res.BankName == "NativeBank").First();
+                SingleBank.BankName = "CommunistBank";
+                //TestContext
+                /*TestContext.BankBranches.
+                    Add(new BankBranch() {  BranchName = "Office 120 NativeBank",
+                                            Address = "Moon street",
+                                            MapLocation = DbGeography.FromText("POINT(50.861328 34.089061)"),
+                                            Phone = "3447689",
+                                            RelatedBank = 
+                });*/
+                TestContext.SaveChanges();
+            }
+            catch (Exception CurrentException)
+            {
+                MessageBox.Show(CurrentException.Message);
+            }
             //конфигурируем карту
             //*****************************************************************************
             //так добавляем маркеры (видимость маркера определяется видимостью его формы "shape")

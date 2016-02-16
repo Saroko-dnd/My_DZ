@@ -21,6 +21,6 @@ namespace BanksOnMap.Entities
         public byte EndHour { get; set; }
         [Required]
         public byte EndMinutes { get; set; }
-        public virtual ICollection<BreakTime> RelatedBreaks { get; set; }
+        public virtual ICollection<BankBranch> RelatedBranches { get; set; }
     }
 }
