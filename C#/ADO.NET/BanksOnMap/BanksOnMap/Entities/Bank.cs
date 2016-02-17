@@ -11,11 +11,10 @@ namespace BanksOnMap.Entities
     [Table("Banks")]
     public class Bank
     {
-        //[Key]
-        //public int BankID { get; set; }
-        [Key, Index("IDIndex", 1, IsUnique = true)]
+        [Key]
         public int BankID { get; set; }
-        [Index("NameIndex", 2,IsUnique = true)]
+        //уникальность можно выставлять только для небольших строк (ограничение MS SQL Server)
+        [MaxLength(100),Index(IsUnique = true)]
         public string BankName { get; set; }
         public virtual ICollection<BankBranch> RelatedBranches { get; set; }
     }

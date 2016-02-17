@@ -33,13 +33,9 @@ namespace BanksOnMap
                 BanksDBContext TestContext = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
                 /*TestContext.Banks.Add(new Bank() { BankName = "UltraBank" });
                 TestContext.Banks.Add(new Bank() { BankName = "NativeBank" });
-                TestContext.Banks.Add(new Bank() { BankName = "GalacticBank" });*/
-                IQueryable<Bank> OurBanks = TestContext.Banks.Where(res => res.BankName == "NativeBank");
-                
-                Bank SingleBank = OurBanks.First();
-                //same
-                Bank SingleBank_ = TestContext.Banks.Where(res => res.BankName == "NativeBank").First();
-                SingleBank.BankName = "CommunistBank";
+                TestContext.Banks.Add(new Bank() { BankName = "TestBank" });*/
+                /*Bank SingleBank = TestContext.Banks.Where(res => res.BankName == "NativeBank").First();
+                SingleBank.BankName = "CommunistBank";*/
                 //TestContext
                 /*TestContext.BankBranches.
                     Add(new BankBranch() {  BranchName = "Office 120 NativeBank",
