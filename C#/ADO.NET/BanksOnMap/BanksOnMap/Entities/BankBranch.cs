@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
+using System.Collections.ObjectModel;
 
 namespace BanksOnMap.Entities
 {
@@ -14,26 +15,30 @@ namespace BanksOnMap.Entities
     {
         [Key]
         public int BankBranchID { get; set; }
+        [ForeignKey("WorkingHours")]
+        public int WorkHoursID { get; set; }
         [Required]
         public string BranchName { get; set; }
-        [Required]
+
         public string Address { get; set; }
-        [Required]
+
         public string Phone { get; set; }
-        [Required]
         public Bank RelatedBank { get; set; }
-        [Required]
         public virtual ExchangeRates RelatedRates { get; set; }
+        public virtual Cashier RelatedCashier { get; set; }
         [Required]
         public DbGeography MapLocation { get ;set; }
-        [Required]
-        public DateTime OpeningDate { get; set; }
-     //   public Cashier RelatedCashier { get; set; }
+        //необязательный DateTime ДОЛЖЕН быть Nullable
+        public Nullable<DateTime> OpeningDate { get; set; }
         public virtual ICollection<Comment> RelatedComments { get; set; }
-        [Required]
         public virtual ICollection<Service> RelatedServices { get; set; }
-        [Required]
         public virtual WorkingHours WorkingHours { get; set; }
         public virtual ICollection<BreakTime> BreakTimes { get; set; }
+        public BankBranch ()
+        {
+            RelatedComments = new Collection<Comment>();
+            RelatedServices = new Collection<Service>();
+            BreakTimes = new Collection<BreakTime>();
+        }
     }
 }

@@ -17,6 +17,7 @@ using GMap.NET;
 using BanksOnMap.DBContext;
 using BanksOnMap.Entities;
 using System.Data.Entity.Spatial;
+using System.Collections.ObjectModel;
 
 namespace BanksOnMap
 {
@@ -30,21 +31,9 @@ namespace BanksOnMap
             InitializeComponent();
             try
             {
-                BanksDBContext TestContext = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
-                /*TestContext.Banks.Add(new Bank() { BankName = "UltraBank" });
-                TestContext.Banks.Add(new Bank() { BankName = "NativeBank" });
-                TestContext.Banks.Add(new Bank() { BankName = "TestBank" });*/
-                /*Bank SingleBank = TestContext.Banks.Where(res => res.BankName == "NativeBank").First();
-                SingleBank.BankName = "CommunistBank";*/
-                //TestContext
-                /*TestContext.BankBranches.
-                    Add(new BankBranch() {  BranchName = "Office 120 NativeBank",
-                                            Address = "Moon street",
-                                            MapLocation = DbGeography.FromText("POINT(50.861328 34.089061)"),
-                                            Phone = "3447689",
-                                            RelatedBank = 
-                });*/
-                TestContext.SaveChanges();
+                /*BanksDBContext TestContext = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
+                TestContext.Banks.Add(new Bank() { BankName = "TestName_23" });
+                TestContext.SaveChanges();*/
             }
             catch (Exception CurrentException)
             {
@@ -53,9 +42,16 @@ namespace BanksOnMap
             //конфигурируем карту
             //*****************************************************************************
             //так добавляем маркеры (видимость маркера определяется видимостью его формы "shape")
-            MainMap.Markers.Add(new GMapMarker(new GMap.NET.PointLatLng(53.902542, 27.561781)) { Tag = "tagddd", Shape = new Label()
-                { FontSize = 12.0, Content = "Я маркер!!!", Foreground = Brushes.Yellow, Background = Brushes.Black } });
-
+            BanksDBContext BanksDatabase = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
+            foreach ( BankBranch CurrentBranch in BanksDatabase.BankBranches)
+            {
+                MainMap.Markers.Add(new GMapMarker(new GMap.NET.PointLatLng((double)CurrentBranch.MapLocation.Longitude, (double)CurrentBranch.MapLocation.Latitude ))
+                {
+                    Tag = "tagddd",
+                    Shape = new Label()
+                    { FontSize = 12.0, Content = CurrentBranch.BranchName, Foreground = Brushes.Yellow, Background = Brushes.Black }
+                });
+            }
             MainMap.Zoom = 16;
             MainMap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerAndCache;
@@ -63,9 +59,19 @@ namespace BanksOnMap
             MainMap.CanDragMap = true;
             MainMap.DragButton = MouseButton.Left;
             MainMap.Position = new GMap.NET.PointLatLng(53.902800, 27.561759);
+            //разрешаем зум карты когда курсор на маркере
+            MainMap.IgnoreMarkerOnMouseWheel = true;
+            MapPointTestLabel.Text = "x " + MainMap.MapPoint.X.ToString() + "Y " +  MainMap.MapPoint.Y.ToString();
+            MainMap.MouseMove += ShowCoordinatesEvent;
+            MainMap.MouseWheel += ShowCoordinatesEvent;
             //*****************************************************************************
             //Текст отображаемый при наведении на маркер.
 
+        }
+
+        public void ShowCoordinatesEvent (Object Sender,EventArgs CurrentArgs)
+        {
+            MapPointTestLabel.Text = MainMap.Position.ToString();
         }
     }
 }

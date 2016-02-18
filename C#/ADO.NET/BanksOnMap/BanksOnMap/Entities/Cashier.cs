@@ -11,10 +11,8 @@ namespace BanksOnMap.Entities
     [Table("Cashiers")]
     public class Cashier
     {
-        [Key]
+        [Key, ForeignKey("RelatedBranch")]
         public int CashierID { get; set; }
-        [ForeignKey("RelatedBranch")]
-        public int BranchID { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]

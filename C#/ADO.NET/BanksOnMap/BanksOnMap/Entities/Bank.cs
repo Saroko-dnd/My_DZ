@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.ObjectModel;
 
 namespace BanksOnMap.Entities
 {
@@ -14,8 +15,13 @@ namespace BanksOnMap.Entities
         [Key]
         public int BankID { get; set; }
         //уникальность можно выставлять только для небольших строк (ограничение MS SQL Server)
-        [MaxLength(100),Index(IsUnique = true)]
+        [Required, MaxLength(100),Index(IsUnique = true)]
         public string BankName { get; set; }
         public virtual ICollection<BankBranch> RelatedBranches { get; set; }
+
+        public Bank()
+        {
+            RelatedBranches = new Collection<BankBranch>();
+        }
     }
 }
