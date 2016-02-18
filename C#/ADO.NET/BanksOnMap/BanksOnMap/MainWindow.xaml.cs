@@ -45,11 +45,12 @@ namespace BanksOnMap
             BanksDBContext BanksDatabase = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
             foreach ( BankBranch CurrentBranch in BanksDatabase.BankBranches)
             {
+                Label LabelForMarker = new Label() { FontSize = 12.0, Content = CurrentBranch.BranchName, Foreground = Brushes.Yellow, Background = Brushes.Black };
+                LabelForMarker.MouseLeftButtonDown += ClickMarkerEvent;
                 MainMap.Markers.Add(new GMapMarker(new GMap.NET.PointLatLng((double)CurrentBranch.MapLocation.Longitude, (double)CurrentBranch.MapLocation.Latitude ))
                 {
                     Tag = "tagddd",
-                    Shape = new Label()
-                    { FontSize = 12.0, Content = CurrentBranch.BranchName, Foreground = Brushes.Yellow, Background = Brushes.Black }
+                    Shape = LabelForMarker
                 });
             }
             MainMap.Zoom = 16;
@@ -64,9 +65,22 @@ namespace BanksOnMap
             MapPointTestLabel.Text = "x " + MainMap.MapPoint.X.ToString() + "Y " +  MainMap.MapPoint.Y.ToString();
             MainMap.MouseMove += ShowCoordinatesEvent;
             MainMap.MouseWheel += ShowCoordinatesEvent;
-            //*****************************************************************************
-            //Текст отображаемый при наведении на маркер.
+        }
 
+        public void ClickMarkerEvent(Object Sender, EventArgs CurrentArgs)
+        {
+            foreach (GMapMarker CurrentMarker in MainMap.Markers)
+            {
+                (CurrentMarker.Shape as Label).Background = Brushes.Black;
+            }
+            (Sender as Label).Background = Brushes.Blue;
+            BanksDBContext BanksDatabase = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
+            //если поместить (Sender as Label).Content.ToString() в запрос то возращает исключение
+            string BranchName = (Sender as Label).Content.ToString();
+            BankBranch SelectedBranch = BanksDatabase.BankBranches.Where(res => res.BranchName == BranchName).
+                First();
+            RelatedBankNameTextBox.Text = SelectedBranch.RelatedBank.BankName;
+            BranchNameTextBox.Text = SelectedBranch.BranchName;
         }
 
         public void ShowCoordinatesEvent (Object Sender,EventArgs CurrentArgs)

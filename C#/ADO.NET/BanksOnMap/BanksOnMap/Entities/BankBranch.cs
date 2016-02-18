@@ -23,7 +23,8 @@ namespace BanksOnMap.Entities
         public string Address { get; set; }
 
         public string Phone { get; set; }
-        public Bank RelatedBank { get; set; }
+        [Required]
+        public virtual Bank RelatedBank { get; set; }
         public virtual ExchangeRates RelatedRates { get; set; }
         public virtual Cashier RelatedCashier { get; set; }
         [Required]

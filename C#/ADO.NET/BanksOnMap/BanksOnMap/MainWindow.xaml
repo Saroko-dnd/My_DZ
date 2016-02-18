@@ -4,16 +4,38 @@
         xmlns:Map="clr-namespace:GMap.NET.WindowsPresentation;assembly=GMap.NET.WindowsPresentation"
         xmlns:MapProviders="clr-namespace:GMap.NET.MapProviders;assembly=GMap.NET.Core"
         xmlns:GMap="clr-namespace:GMap.NET;assembly=GMap.NET.Core"
-        Title="MainWindow" Height="350" Width="900">
+        xmlns:ThisProgram="clr-namespace:BanksOnMap"
+        xmlns:MyResourses="clr-namespace:BanksOnMap.MyResourses"
+        Title="MainWindow" Height="350" Width="900" Name="MainForm">
+    <Window.Resources>
+        <ThisProgram:GridCellWidthConverter x:Key="GridCellWidthConverter"></ThisProgram:GridCellWidthConverter>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1200">                
+            <ColumnDefinition Width="{Binding ElementName=MainForm, Path=ActualWidth, Converter={StaticResource GridCellWidthConverter}, Mode=OneWay}">                
             </ColumnDefinition>
             <ColumnDefinition Width="*">
             </ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Map:GMapControl Name="MainMap" Grid.Column="0" Bearing="0" MaxZoom="18" MinZoom="2">           
+        <Map:GMapControl Name="MainMap" Grid.Column="0" Bearing="0" MaxZoom="18" MinZoom="2">
         </Map:GMapControl>
-        <TextBox Name="MapPointTestLabel" Width="300" Grid.Column="1"></TextBox>
+        <TabControl Grid.Column="1">
+            <TabItem Header="{x:Static MyResourses:Texts.SelectedInfo}">
+                <StackPanel>
+                    <WrapPanel>
+                        <Label Content="{x:Static MyResourses:Texts.MapCoordinates}"></Label>
+                        <TextBox Name="MapPointTestLabel" Width="300"></TextBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="{x:Static MyResourses:Texts.BankName}"></Label>
+                        <TextBox Name="RelatedBankNameTextBox" Width="300"></TextBox>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="{x:Static MyResourses:Texts.BranchName}"></Label>
+                        <TextBox Name="BranchNameTextBox" Width="300"></TextBox>
+                    </WrapPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
