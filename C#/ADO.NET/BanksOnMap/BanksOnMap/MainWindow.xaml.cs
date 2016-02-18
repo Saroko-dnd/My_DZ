@@ -19,6 +19,7 @@ using BanksOnMap.Entities;
 using System.Data.Entity.Spatial;
 using System.Collections.ObjectModel;
 
+
 namespace BanksOnMap
 {
     /// <summary>
@@ -81,6 +82,32 @@ namespace BanksOnMap
                 First();
             RelatedBankNameTextBox.Text = SelectedBranch.RelatedBank.BankName;
             BranchNameTextBox.Text = SelectedBranch.BranchName;
+            AddressTextBox.Text = SelectedBranch.Address;
+            PhoneTextBox.Text = SelectedBranch.Phone;
+            FirstNameSelectedTextBox.Text = SelectedBranch.RelatedCashier.FirstName;
+            LastNameSelectedTextBox.Text = SelectedBranch.RelatedCashier.LastName;
+            PatronymicSelectedTextBox.Text = SelectedBranch.RelatedCashier.Patronymic;
+            CashierPhoneTextBox.Text = SelectedBranch.RelatedCashier.Phone;
+            USDBuyTextBox.Text = SelectedBranch.RelatedRates.USDBuy.ToString();
+            EUROBuyTextBox.Text = SelectedBranch.RelatedRates.EUROBuy.ToString();
+            RUBBuyTextBox.Text = SelectedBranch.RelatedRates.RuBuy.ToString();
+            USDSellTextBox.Text = SelectedBranch.RelatedRates.USDSell.ToString();
+            EUROSellTextBox.Text = SelectedBranch.RelatedRates.EUROSell.ToString();
+            RUBSellTextBox.Text = SelectedBranch.RelatedRates.RuSell.ToString();
+            ServicesDataGrid.ItemsSource = SelectedBranch.RelatedServices.
+                Select(res => new { res.Servise });
+            ListBoxOfServices.ItemsSource = BanksDatabase.Services.Select(res => new { res.Servise }).
+                ToList();
+            WorkHourBeginTextBox.Text = SelectedBranch.WorkingHours.StartHour.ToString();
+            WorkMinutesBeginTextBox.Text = SelectedBranch.WorkingHours.StartMinutes.ToString();
+            WorkHourEndTextBox.Text = SelectedBranch.WorkingHours.EndHour.ToString();
+            WorkMinutesEndTextBox.Text = SelectedBranch.WorkingHours.EndMinutes.ToString();
+            BreakTimesDataGrid.ItemsSource = SelectedBranch.BreakTimes.Select(res => new { res.StartHour,
+                res.StartMinutes, res.EndHour, res.EndMinutes });
+            CommentsDataGrid.ItemsSource = SelectedBranch.RelatedComments.
+                Select(res => new { res.CommentItself });
+            LongitudeTextBox.Text = SelectedBranch.MapLocation.Longitude.ToString();
+            LatitudeTextBox.Text = SelectedBranch.MapLocation.Latitude.ToString();
         }
 
         public void ShowCoordinatesEvent (Object Sender,EventArgs CurrentArgs)

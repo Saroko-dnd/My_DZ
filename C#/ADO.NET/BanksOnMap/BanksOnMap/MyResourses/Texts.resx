@@ -117,19 +117,106 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Добавить:</value>
+  </data>
+  <data name="AddBreakTime" xml:space="preserve">
+    <value>Добавить перерыв</value>
+  </data>
+  <data name="AddComment" xml:space="preserve">
+    <value>Добавить отзыв:</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес:</value>
+  </data>
   <data name="BankName" xml:space="preserve">
     <value>Название банка:</value>
+  </data>
+  <data name="Begin" xml:space="preserve">
+    <value>с</value>
+  </data>
+  <data name="BranchCoordinates" xml:space="preserve">
+    <value>Координаты выбранного объекта:</value>
   </data>
   <data name="BranchName" xml:space="preserve">
     <value>Название отделения:</value>
   </data>
+  <data name="Breaks" xml:space="preserve">
+    <value>Перерывы:</value>
+  </data>
+  <data name="Buy" xml:space="preserve">
+    <value>buy:</value>
+  </data>
+  <data name="Cashier" xml:space="preserve">
+    <value>Кассир:</value>
+  </data>
+  <data name="CashierPhone" xml:space="preserve">
+    <value>Телефон кассира:</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Отзывы:</value>
+  </data>
   <data name="ConnectionStringName" xml:space="preserve">
     <value>BanksConnectionString</value>
+  </data>
+  <data name="DeleteComment" xml:space="preserve">
+    <value>Удалить отзыв</value>
+  </data>
+  <data name="DeleteService" xml:space="preserve">
+    <value>Удалить услугу</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>до</value>
+  </data>
+  <data name="EURO" xml:space="preserve">
+    <value>EURO</value>
+  </data>
+  <data name="ExchangeRates" xml:space="preserve">
+    <value>Курсы валют:</value>
+  </data>
+  <data name="FieldForComment" xml:space="preserve">
+    <value>Поле для создания комментария:</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value>Часы:</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value>Широта:</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>Долгота:</value>
   </data>
   <data name="MapCoordinates" xml:space="preserve">
     <value>Координаты центра карты:</value>
   </data>
+  <data name="Minute" xml:space="preserve">
+    <value>Минуты:</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон:</value>
+  </data>
+  <data name="RemoveBreakTime" xml:space="preserve">
+    <value>Удалить перерыв</value>
+  </data>
+  <data name="RUB" xml:space="preserve">
+    <value>RUB</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
   <data name="SelectedInfo" xml:space="preserve">
     <value>Выбранный элемент</value>
+  </data>
+  <data name="Sell" xml:space="preserve">
+    <value>sell:</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Услуги:</value>
+  </data>
+  <data name="USD" xml:space="preserve">
+    <value>USD</value>
+  </data>
+  <data name="WorkHours" xml:space="preserve">
+    <value>Время работы:</value>
   </data>
 </root>
