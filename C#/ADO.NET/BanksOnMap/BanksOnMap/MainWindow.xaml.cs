@@ -27,9 +27,22 @@ namespace BanksOnMap
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<RadioButton> RatesSearchTypeRadioButtons = new List<RadioButton>();
+        public List<RadioButton> MoneyTypeRadioButtons = new List<RadioButton>();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            RatesSearchTypeRadioButtons.Add(MinBuyValueRadioButton);
+            RatesSearchTypeRadioButtons.Add(MinSellValueRadioButton);
+            RatesSearchTypeRadioButtons.Add(MaxBuyValueRadioButton);
+            RatesSearchTypeRadioButtons.Add(MaxSellValueRadioButton);
+
+            MoneyTypeRadioButtons.Add(EURORadioButton);
+            MoneyTypeRadioButtons.Add(RUBRadioButton);
+            MoneyTypeRadioButtons.Add(USDRadioButton);
+
             try
             {
                 /*BanksDBContext TestContext = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
@@ -40,6 +53,7 @@ namespace BanksOnMap
             {
                 MessageBox.Show(CurrentException.Message);
             }
+            EntityConnector.ConnectionStringName = MyResourses.Texts.ConnectionStringName;
             //конфигурируем карту
             //*****************************************************************************
             //так добавляем маркеры (видимость маркера определяется видимостью его формы "shape")
@@ -75,11 +89,9 @@ namespace BanksOnMap
                 (CurrentMarker.Shape as Label).Background = Brushes.Black;
             }
             (Sender as Label).Background = Brushes.Blue;
-            BanksDBContext BanksDatabase = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
-            //если поместить (Sender as Label).Content.ToString() в запрос то возращает исключение
-            string BranchName = (Sender as Label).Content.ToString();
-            BankBranch SelectedBranch = BanksDatabase.BankBranches.Where(res => res.BranchName == BranchName).
-                First();
+
+            BankBranch SelectedBranch = EntityConnector.LoadSelectedObjectData((Sender as Label).Content.ToString());
+
             RelatedBankNameTextBox.Text = SelectedBranch.RelatedBank.BankName;
             BranchNameTextBox.Text = SelectedBranch.BranchName;
             AddressTextBox.Text = SelectedBranch.Address;
@@ -96,27 +108,58 @@ namespace BanksOnMap
             RUBSellTextBox.Text = SelectedBranch.RelatedRates.RuSell.ToString();
             ServicesDataGrid.ItemsSource = SelectedBranch.RelatedServices.
                 Select(res => new { res.Servise }).ToList();
-            List<string> ListOfServices = new List<string>();
-            foreach ( Service CurrentService in BanksDatabase.Services)
-            {
-                ListOfServices.Add(CurrentService.Servise);
-            }
-            ListBoxOfServices.ItemsSource = ListOfServices;
             WorkHourBeginTextBox.Text = SelectedBranch.WorkingHours.StartHour.ToString();
             WorkMinutesBeginTextBox.Text = SelectedBranch.WorkingHours.StartMinutes.ToString();
             WorkHourEndTextBox.Text = SelectedBranch.WorkingHours.EndHour.ToString();
             WorkMinutesEndTextBox.Text = SelectedBranch.WorkingHours.EndMinutes.ToString();
-            BreakTimesDataGrid.ItemsSource = SelectedBranch.BreakTimes.Select(res => new { res.StartHour,
-                res.StartMinutes, res.EndHour, res.EndMinutes });
+            BreakTimesDataGrid.ItemsSource = SelectedBranch.BreakTimes.Select(res => new {
+                res.StartHour,
+                res.StartMinutes,
+                res.EndHour,
+                res.EndMinutes
+            });
             CommentsDataGrid.ItemsSource = SelectedBranch.RelatedComments.
                 Select(res => new { res.CommentItself });
             LongitudeTextBox.Text = SelectedBranch.MapLocation.Longitude.ToString();
             LatitudeTextBox.Text = SelectedBranch.MapLocation.Latitude.ToString();
+
+            ListBoxOfServices.ItemsSource = EntityConnector.GetListOfServices();
         }
 
         public void ShowCoordinatesEvent (Object Sender,EventArgs CurrentArgs)
         {
             MapPointTestLabel.Text = MainMap.Position.ToString();
+        }
+
+        public void SelectRatesSearchType (Object Sender, EventArgs CurrentArgs)
+        {
+            foreach (RadioButton CurrentRadioButton in RatesSearchTypeRadioButtons)
+            {
+                CurrentRadioButton.IsChecked = false;
+            }
+        }
+
+        public void SelectMoneyTypeForSearch(Object Sender, EventArgs CurrentArgs)
+        {
+            foreach (RadioButton CurrentRadioButton in MoneyTypeRadioButtons)
+            {
+                CurrentRadioButton.IsChecked = false;
+            }
+        }
+
+        public void StartSearchRatesButtonClick(Object Sender, EventArgs CurrentArgs)
+        {
+            try
+            {
+                MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First();
+                RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First();
+            }
+            catch
+            {
+                MessageBox.Show(MyResourses.Texts.CheckRadioButtonsError, MyResourses.Texts.Error, 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
     }
 }

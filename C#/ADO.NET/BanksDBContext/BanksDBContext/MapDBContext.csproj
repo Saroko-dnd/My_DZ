@@ -53,6 +53,7 @@
     <Compile Include="BankBranch.cs" />
     <Compile Include="BreakTime.cs" />
     <Compile Include="Cashier.cs" />
+    <Compile Include="EntityConnector.cs" />
     <Compile Include="WorkingHours.cs" />
     <Compile Include="Service.cs" />
     <Compile Include="ExchangeRates.cs" />

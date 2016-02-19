@@ -225,4 +225,25 @@
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
   </data>
+  <data name="MaxSellValue" xml:space="preserve">
+    <value>Лучшая цена продажи</value>
+  </data>
+  <data name="MinBuyValue" xml:space="preserve">
+    <value>Лучшая цена покупки</value>
+  </data>
+  <data name="MinSellValue" xml:space="preserve">
+    <value>Худшая цена продажи</value>
+  </data>
+  <data name="MaxBuyValue" xml:space="preserve">
+    <value>Худшая цена покупки</value>
+  </data>
+  <data name="StartSearch" xml:space="preserve">
+    <value>Найти</value>
+  </data>
+  <data name="CheckRadioButtonsError" xml:space="preserve">
+    <value>Убедитесь, что вы выбрали все параметры для поиска!</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка!</value>
+  </data>
 </root>

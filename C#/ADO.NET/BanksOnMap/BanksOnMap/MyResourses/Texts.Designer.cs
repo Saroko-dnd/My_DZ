@@ -169,6 +169,15 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Убедитесь, что вы выбрали все параметры для поиска!.
+        /// </summary>
+        public static string CheckRadioButtonsError {
+            get {
+                return ResourceManager.GetString("CheckRadioButtonsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Отзывы:.
         /// </summary>
         public static string Comments {
@@ -210,6 +219,15 @@ namespace BanksOnMap.MyResourses {
         public static string End {
             get {
                 return ResourceManager.GetString("End", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка!.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
@@ -273,6 +291,42 @@ namespace BanksOnMap.MyResourses {
         public static string MapCoordinates {
             get {
                 return ResourceManager.GetString("MapCoordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Худшая цена покупки.
+        /// </summary>
+        public static string MaxBuyValue {
+            get {
+                return ResourceManager.GetString("MaxBuyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Лучшая цена продажи.
+        /// </summary>
+        public static string MaxSellValue {
+            get {
+                return ResourceManager.GetString("MaxSellValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Лучшая цена покупки.
+        /// </summary>
+        public static string MinBuyValue {
+            get {
+                return ResourceManager.GetString("MinBuyValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Худшая цена продажи.
+        /// </summary>
+        public static string MinSellValue {
+            get {
+                return ResourceManager.GetString("MinSellValue", resourceCulture);
             }
         }
         
@@ -363,6 +417,15 @@ namespace BanksOnMap.MyResourses {
         public static string ServicesInDB {
             get {
                 return ResourceManager.GetString("ServicesInDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Найти.
+        /// </summary>
+        public static string StartSearch {
+            get {
+                return ResourceManager.GetString("StartSearch", resourceCulture);
             }
         }
         

@@ -152,7 +152,43 @@
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="{x:Static MyResourses:Texts.Search}">
-                    
+                    <StackPanel>
+                        <WrapPanel>
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.MinBuyValue}"></Label>
+                                    <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MinBuyValueRadioButton"></RadioButton>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.MaxSellValue}"></Label>
+                                    <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MaxSellValueRadioButton"></RadioButton>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.MinSellValue}"></Label>
+                                    <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MinSellValueRadioButton"></RadioButton>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.MaxBuyValue}"></Label>
+                                    <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MaxBuyValueRadioButton"></RadioButton>
+                                </WrapPanel>
+                            </StackPanel>
+                            <StackPanel>
+                                <WrapPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.EURO}"></Label>
+                                    <RadioButton PreviewMouseLeftButtonDown="SelectMoneyTypeForSearch" Margin="0,9,0,0" Name="EURORadioButton"></RadioButton>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.RUB}"></Label>
+                                    <RadioButton PreviewMouseLeftButtonDown="SelectMoneyTypeForSearch" Margin="0,9,0,0" Name="RUBRadioButton"></RadioButton>
+                                </WrapPanel>
+                                <WrapPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.USD}"></Label>
+                                    <RadioButton PreviewMouseLeftButtonDown="SelectMoneyTypeForSearch" Margin="0,9,0,0" Name="USDRadioButton"></RadioButton>
+                                </WrapPanel>
+                            </StackPanel>
+                        </WrapPanel>
+                        <Button Click="StartSearchRatesButtonClick" Name="StartSearchRatesButton" Content="{x:Static MyResourses:Texts.StartSearch}"></Button>
+                    </StackPanel>
                 </TabItem>
             </TabControl>
         </Grid>
