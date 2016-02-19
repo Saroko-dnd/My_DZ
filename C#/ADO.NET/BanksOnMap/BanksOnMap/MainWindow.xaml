@@ -21,7 +21,7 @@
             <Map:GMapControl Name="MainMap" Grid.Column="0" Bearing="0" MaxZoom="18" MinZoom="2">
             </Map:GMapControl>
             <TabControl Grid.Column="1">
-                <TabItem Header="{x:Static MyResourses:Texts.SelectedInfo}">
+                <TabItem Name="SelectedTabItem" Header="{x:Static MyResourses:Texts.SelectedInfo}">
                     <StackPanel>
                         <WrapPanel>
                             <Label Content="{x:Static MyResourses:Texts.MapCoordinates}"></Label>

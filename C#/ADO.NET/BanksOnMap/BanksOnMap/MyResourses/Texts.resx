@@ -246,4 +246,25 @@
   <data name="Error" xml:space="preserve">
     <value>Ошибка!</value>
   </data>
+  <data name="EURORadioButton" xml:space="preserve">
+    <value>EURORadioButton</value>
+  </data>
+  <data name="MaxBuyValueRadioButton" xml:space="preserve">
+    <value>MaxBuyValueRadioButton</value>
+  </data>
+  <data name="MaxSellValueRadioButton" xml:space="preserve">
+    <value>MaxSellValueRadioButton</value>
+  </data>
+  <data name="MinBuyValueRadioButton" xml:space="preserve">
+    <value>MinBuyValueRadioButton</value>
+  </data>
+  <data name="MinSellValueRadioButton" xml:space="preserve">
+    <value>MinSellValueRadioButton</value>
+  </data>
+  <data name="RUBRadioButton" xml:space="preserve">
+    <value>RUBRadioButton</value>
+  </data>
+  <data name="USDRadioButton" xml:space="preserve">
+    <value>USDRadioButton</value>
+  </data>
 </root>

@@ -30,6 +30,15 @@ namespace BanksOnMap
         public List<RadioButton> RatesSearchTypeRadioButtons = new List<RadioButton>();
         public List<RadioButton> MoneyTypeRadioButtons = new List<RadioButton>();
 
+        //************************************************************
+        //валюта для запроса связанного с курсом
+        public string Currency = string.Empty;
+        //лучший или худший курс
+        public bool Best = true;
+        //покупка или продажа
+        public bool Buy = true;
+        //************************************************************
+
         public MainWindow()
         {
             InitializeComponent();
@@ -92,6 +101,32 @@ namespace BanksOnMap
 
             BankBranch SelectedBranch = EntityConnector.LoadSelectedObjectData((Sender as Label).Content.ToString());
 
+            ShowBranchInfo(SelectedBranch);
+        }
+
+        public void ShowCoordinatesEvent (Object Sender,EventArgs CurrentArgs)
+        {
+            MapPointTestLabel.Text = MainMap.Position.ToString();
+        }
+
+        public void SelectRatesSearchType (Object Sender, EventArgs CurrentArgs)
+        {
+            foreach (RadioButton CurrentRadioButton in RatesSearchTypeRadioButtons)
+            {
+                CurrentRadioButton.IsChecked = false;
+            }
+        }
+
+        public void SelectMoneyTypeForSearch(Object Sender, EventArgs CurrentArgs)
+        {
+            foreach (RadioButton CurrentRadioButton in MoneyTypeRadioButtons)
+            {
+                CurrentRadioButton.IsChecked = false;
+            }
+        }
+
+        public void ShowBranchInfo(BankBranch SelectedBranch)
+        {
             RelatedBankNameTextBox.Text = SelectedBranch.RelatedBank.BankName;
             BranchNameTextBox.Text = SelectedBranch.BranchName;
             AddressTextBox.Text = SelectedBranch.Address;
@@ -126,40 +161,109 @@ namespace BanksOnMap
             ListBoxOfServices.ItemsSource = EntityConnector.GetListOfServices();
         }
 
-        public void ShowCoordinatesEvent (Object Sender,EventArgs CurrentArgs)
+        public void ChangeMapCenter(double Latitude, double Longitude)
         {
-            MapPointTestLabel.Text = MainMap.Position.ToString();
-        }
-
-        public void SelectRatesSearchType (Object Sender, EventArgs CurrentArgs)
-        {
-            foreach (RadioButton CurrentRadioButton in RatesSearchTypeRadioButtons)
-            {
-                CurrentRadioButton.IsChecked = false;
-            }
-        }
-
-        public void SelectMoneyTypeForSearch(Object Sender, EventArgs CurrentArgs)
-        {
-            foreach (RadioButton CurrentRadioButton in MoneyTypeRadioButtons)
-            {
-                CurrentRadioButton.IsChecked = false;
-            }
+            MainMap.Position = new GMap.NET.PointLatLng(Longitude, Latitude);
         }
 
         public void StartSearchRatesButtonClick(Object Sender, EventArgs CurrentArgs)
         {
             try
             {
-                MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First();
-                RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First();
+                BankBranch TempBranch = new BankBranch();
+                if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.EURORadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MinBuyValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.EURO,true,true);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.EURORadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MaxBuyValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.EURO, false, true);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.EURORadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MaxSellValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.EURO, true, false);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.EURORadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MinSellValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.EURO, false, false);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.RUBRadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MinBuyValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.RUB, true, true);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.RUBRadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MaxBuyValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.RUB, false, true);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.RUBRadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MaxSellValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.RUB, true, false);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.RUBRadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MinSellValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.RUB, false, false);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.USDRadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MinBuyValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.USD, true, true);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.USDRadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MaxBuyValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.USD, false, true);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.USDRadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MaxSellValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.USD, true, false);
+                }
+                else if (MoneyTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.USDRadioButton
+                    && RatesSearchTypeRadioButtons.Where(res => res.IsChecked == true).First().
+                    Name == MyResourses.Texts.MinSellValueRadioButton)
+                {
+                    TempBranch = EntityConnector.GetNecessaryBankRates(MyResourses.Texts.USD, false, false);
+                }
+                ShowBranchInfo(TempBranch);
+                ChangeMapCenter((double)TempBranch.MapLocation.Latitude, (double)TempBranch.MapLocation.Longitude);
+                SelectedTabItem.IsSelected = true;
             }
-            catch
+            catch (Exception CurrentException)
             {
                 MessageBox.Show(MyResourses.Texts.CheckRadioButtonsError, MyResourses.Texts.Error, 
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
     }
 }
