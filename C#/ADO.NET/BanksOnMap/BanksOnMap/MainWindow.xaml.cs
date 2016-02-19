@@ -104,6 +104,17 @@ namespace BanksOnMap
             ShowBranchInfo(SelectedBranch);
         }
 
+        public void ChangeColorOfSelectedBranch(string BranchName)
+        {
+            foreach (GMapMarker CurrentMarker in MainMap.Markers)
+            {
+                if ((CurrentMarker.Shape as Label).Content.ToString() != BranchName)
+                    (CurrentMarker.Shape as Label).Background = Brushes.Black;
+                else
+                    (CurrentMarker.Shape as Label).Background = Brushes.Blue;
+            }
+        }
+
         public void ShowCoordinatesEvent (Object Sender,EventArgs CurrentArgs)
         {
             MapPointTestLabel.Text = MainMap.Position.ToString();
@@ -258,12 +269,22 @@ namespace BanksOnMap
                 ShowBranchInfo(TempBranch);
                 ChangeMapCenter((double)TempBranch.MapLocation.Latitude, (double)TempBranch.MapLocation.Longitude);
                 SelectedTabItem.IsSelected = true;
+                ChangeColorOfSelectedBranch(TempBranch.BranchName);
             }
             catch (Exception CurrentException)
             {
                 MessageBox.Show(MyResourses.Texts.CheckRadioButtonsError, MyResourses.Texts.Error, 
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        public void StartSearchMapButtonClick(Object Sender, EventArgs CurrentArgs)
+        {
+            BankBranch NearestBranch = EntityConnector.GetNearestBranch(MainMap.Position.Lng, MainMap.Position.Lat);
+            ShowBranchInfo(NearestBranch);
+            ChangeMapCenter((double)NearestBranch.MapLocation.Latitude, (double)NearestBranch.MapLocation.Longitude);
+            SelectedTabItem.IsSelected = true;
+            ChangeColorOfSelectedBranch(NearestBranch.BranchName);
         }
     }
 }

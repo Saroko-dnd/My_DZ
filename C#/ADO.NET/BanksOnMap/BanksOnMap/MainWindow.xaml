@@ -20,177 +20,180 @@
             </Grid.ColumnDefinitions>
             <Map:GMapControl Name="MainMap" Grid.Column="0" Bearing="0" MaxZoom="18" MinZoom="2">
             </Map:GMapControl>
-            <TabControl Grid.Column="1">
-                <TabItem Name="SelectedTabItem" Header="{x:Static MyResourses:Texts.SelectedInfo}">
-                    <StackPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.MapCoordinates}"></Label>
-                            <TextBox Name="MapPointTestLabel" Width="300"></TextBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.BranchCoordinates}"></Label>
-                            <StackPanel>
-                                <WrapPanel>
-                                    <Label Content="{x:Static MyResourses:Texts.Longitude}"></Label>
-                                    <TextBox Name="LongitudeTextBox" Width="150"></TextBox>
-                                </WrapPanel>
-                                <WrapPanel>
-                                    <Label Content="{x:Static MyResourses:Texts.Latitude}"></Label>
-                                    <TextBox Name="LatitudeTextBox" Width="150"></TextBox>
-                                </WrapPanel>
-                            </StackPanel>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.BankName}"></Label>
-                            <TextBox Name="RelatedBankNameTextBox" Width="300"></TextBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.BranchName}"></Label>
-                            <TextBox Name="BranchNameTextBox" Width="300"></TextBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.Address}"></Label>
-                            <TextBox Name="AddressTextBox" Width="300"></TextBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.WorkHours}"></Label>
-                            <Label Content="{x:Static MyResourses:Texts.Begin}"></Label>
-                            <TextBox Name="WorkHourBeginTextBox" Width="25"></TextBox>
-                            <TextBox Name="WorkMinutesBeginTextBox" Width="25"></TextBox>
-                            <Label Content="{x:Static MyResourses:Texts.End}"></Label>
-                            <TextBox Name="WorkHourEndTextBox" Width="25"></TextBox>
-                            <TextBox Name="WorkMinutesEndTextBox" Width="25"></TextBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.Breaks}"></Label>
-                            <DataGrid Name="BreakTimesDataGrid" CanUserAddRows="True"></DataGrid>
-                            <Button Name="RemoveBreakTimeButton" Content="{x:Static MyResourses:Texts.RemoveBreakTime}"></Button>
-                        </WrapPanel>
+            <StackPanel Grid.Column="1">
+                <Label Content="{x:Static MyResourses:Texts.MapCoordinates}"></Label>
+                <TextBox Name="MapPointTestLabel" Width="300"></TextBox>
+                <TabControl>
+                    <TabItem Name="SelectedTabItem" Header="{x:Static MyResourses:Texts.SelectedInfo}">
                         <StackPanel>
                             <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.BranchCoordinates}"></Label>
+                                <StackPanel>
+                                    <WrapPanel>
+                                        <Label Content="{x:Static MyResourses:Texts.Latitude}"></Label>
+                                        <TextBox Name="LongitudeTextBox" Width="150"></TextBox>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Label Content="{x:Static MyResourses:Texts.Longitude}"></Label>
+                                        <TextBox Name="LatitudeTextBox" Width="150"></TextBox>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.BankName}"></Label>
+                                <TextBox Name="RelatedBankNameTextBox" Width="300"></TextBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.BranchName}"></Label>
+                                <TextBox Name="BranchNameTextBox" Width="300"></TextBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.Address}"></Label>
+                                <TextBox Name="AddressTextBox" Width="300"></TextBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.WorkHours}"></Label>
                                 <Label Content="{x:Static MyResourses:Texts.Begin}"></Label>
-                                <Label Content="{x:Static MyResourses:Texts.Hour}"></Label>
-                                <TextBox Name="BreakTimeBeginHourTextBox" Width="25"></TextBox>
-                                <Label Content="{x:Static MyResourses:Texts.Minute}"></Label>
-                                <TextBox Name="BreakTimeBeginMinuteTextBox" Width="25"></TextBox>
+                                <TextBox Name="WorkHourBeginTextBox" Width="25"></TextBox>
+                                <TextBox Name="WorkMinutesBeginTextBox" Width="25"></TextBox>
+                                <Label Content="{x:Static MyResourses:Texts.End}"></Label>
+                                <TextBox Name="WorkHourEndTextBox" Width="25"></TextBox>
+                                <TextBox Name="WorkMinutesEndTextBox" Width="25"></TextBox>
                             </WrapPanel>
                             <WrapPanel>
-                                <Label Content="{x:Static MyResourses:Texts.End}"></Label>
-                                <Label Content="{x:Static MyResourses:Texts.Hour}"></Label>
-                                <TextBox Name="BreakTimeEndHourTextBox" Width="25"></TextBox>
-                                <Label Content="{x:Static MyResourses:Texts.Minute}"></Label>
-                                <TextBox Name="BreakTimeEndMinuteTextBox" Width="25"></TextBox>
+                                <Label Content="{x:Static MyResourses:Texts.Breaks}"></Label>
+                                <DataGrid Name="BreakTimesDataGrid" CanUserAddRows="True"></DataGrid>
+                                <Button Name="RemoveBreakTimeButton" Content="{x:Static MyResourses:Texts.RemoveBreakTime}"></Button>
                             </WrapPanel>
-                            <Button Name="AddBreakTimeButton" HorizontalAlignment="Left" Content="{x:Static MyResourses:Texts.AddBreakTime}"></Button>
-                        </StackPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.Phone}"></Label>
-                            <TextBox Name="PhoneTextBox" Width="100"></TextBox>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.Cashier}"></Label>
-                            <StackPanel>
-                                <TextBox Name="FirstNameSelectedTextBox" Width="100"></TextBox>
-                                <TextBox Name="LastNameSelectedTextBox" Width="100"></TextBox>
-                                <TextBox Name="PatronymicSelectedTextBox" Width="100"></TextBox>
-                            </StackPanel>
-                            <StackPanel>
-                                <Label Content="{x:Static MyResourses:Texts.CashierPhone}"></Label>
-                                <TextBox Name="CashierPhoneTextBox" Width="100"></TextBox>
-                            </StackPanel>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.ExchangeRates}"></Label>
-                            <StackPanel>
-                                <Label Content="{x:Static MyResourses:Texts.USD}"></Label>
-                                <Label Content="{x:Static MyResourses:Texts.EURO}"></Label>
-                                <Label Content="{x:Static MyResourses:Texts.RUB}"></Label>
-                            </StackPanel>
-                            <StackPanel>
-                                <Label Content="{x:Static MyResourses:Texts.Buy}"></Label>
-                                <Label Content="{x:Static MyResourses:Texts.Buy}"></Label>
-                                <Label Content="{x:Static MyResourses:Texts.Buy}"></Label>
-                            </StackPanel>
-                            <StackPanel>
-                                <TextBox Name="USDBuyTextBox" Width="50" Margin="0,6,0,0"></TextBox>
-                                <TextBox Name="EUROBuyTextBox" Width="50" Margin="0,6,0,0"></TextBox>
-                                <TextBox Name="RUBBuyTextBox" Width="50" Margin="0,6,0,0"></TextBox>
-                            </StackPanel>
-                            <StackPanel>
-                                <Label Content="{x:Static MyResourses:Texts.Sell}"></Label>
-                                <Label Content="{x:Static MyResourses:Texts.Sell}"></Label>
-                                <Label Content="{x:Static MyResourses:Texts.Sell}"></Label>
-                            </StackPanel>
-                            <StackPanel>
-                                <TextBox Name="USDSellTextBox" Width="50" Margin="0,6,0,0"></TextBox>
-                                <TextBox Name="EUROSellTextBox" Width="50" Margin="0,6,0,0" ></TextBox>
-                                <TextBox Name="RUBSellTextBox" Width="50" Margin="0,6,0,0"></TextBox>
-                            </StackPanel>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.Services}"></Label>
-                            <DataGrid Name="ServicesDataGrid" CanUserAddRows="True"></DataGrid>
-                            <Button Name="DeleteServise" Content="{x:Static MyResourses:Texts.DeleteService}"></Button>
-                            <StackPanel>
-                                <Label Content="{x:Static MyResourses:Texts.ServicesInDB}"></Label>
-                                <ComboBox Height="25" Name="ListBoxOfServices" Width="250"></ComboBox>
-                                <Button Name="AddServiceButton" Content="{x:Static MyResourses:Texts.Add}">
-                                </Button>
-                            </StackPanel>
-                        </WrapPanel>
-                        <WrapPanel>
-                            <Label Content="{x:Static MyResourses:Texts.Comments}"></Label>
-                            <DataGrid Name="CommentsDataGrid"></DataGrid>
-                            <Button Name="DeleteCommentButton" Content="{x:Static MyResourses:Texts.DeleteComment}"></Button>
-                        </WrapPanel>
-                        <StackPanel>
-                            <Label Content="{x:Static MyResourses:Texts.FieldForComment}"></Label>
-                            <TextBox Name="CommentTextBox" Height="50"></TextBox>
-                            <Button Name="AddCommentButton" Content="{x:Static MyResourses:Texts.AddComment}"></Button>
-                        </StackPanel>
-                        <Button Name="SaveChangesButton" Margin="0,10,0,0" Content="{x:Static MyResourses:Texts.SaveChanges}"></Button>
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="{x:Static MyResourses:Texts.Search}">
-                    <StackPanel>
-                        <WrapPanel>
                             <StackPanel>
                                 <WrapPanel>
-                                    <Label Content="{x:Static MyResourses:Texts.MinBuyValue}"></Label>
-                                    <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MinBuyValueRadioButton"></RadioButton>
+                                    <Label Content="{x:Static MyResourses:Texts.Begin}"></Label>
+                                    <Label Content="{x:Static MyResourses:Texts.Hour}"></Label>
+                                    <TextBox Name="BreakTimeBeginHourTextBox" Width="25"></TextBox>
+                                    <Label Content="{x:Static MyResourses:Texts.Minute}"></Label>
+                                    <TextBox Name="BreakTimeBeginMinuteTextBox" Width="25"></TextBox>
                                 </WrapPanel>
                                 <WrapPanel>
-                                    <Label Content="{x:Static MyResourses:Texts.MaxSellValue}"></Label>
-                                    <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MaxSellValueRadioButton"></RadioButton>
+                                    <Label Content="{x:Static MyResourses:Texts.End}"></Label>
+                                    <Label Content="{x:Static MyResourses:Texts.Hour}"></Label>
+                                    <TextBox Name="BreakTimeEndHourTextBox" Width="25"></TextBox>
+                                    <Label Content="{x:Static MyResourses:Texts.Minute}"></Label>
+                                    <TextBox Name="BreakTimeEndMinuteTextBox" Width="25"></TextBox>
                                 </WrapPanel>
-                                <WrapPanel>
-                                    <Label Content="{x:Static MyResourses:Texts.MinSellValue}"></Label>
-                                    <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MinSellValueRadioButton"></RadioButton>
-                                </WrapPanel>
-                                <WrapPanel>
-                                    <Label Content="{x:Static MyResourses:Texts.MaxBuyValue}"></Label>
-                                    <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MaxBuyValueRadioButton"></RadioButton>
-                                </WrapPanel>
+                                <Button Name="AddBreakTimeButton" HorizontalAlignment="Left" Content="{x:Static MyResourses:Texts.AddBreakTime}"></Button>
                             </StackPanel>
-                            <StackPanel>
-                                <WrapPanel>
-                                    <Label Content="{x:Static MyResourses:Texts.EURO}"></Label>
-                                    <RadioButton PreviewMouseLeftButtonDown="SelectMoneyTypeForSearch" Margin="0,9,0,0" Name="EURORadioButton"></RadioButton>
-                                </WrapPanel>
-                                <WrapPanel>
-                                    <Label Content="{x:Static MyResourses:Texts.RUB}"></Label>
-                                    <RadioButton PreviewMouseLeftButtonDown="SelectMoneyTypeForSearch" Margin="0,9,0,0" Name="RUBRadioButton"></RadioButton>
-                                </WrapPanel>
-                                <WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.Phone}"></Label>
+                                <TextBox Name="PhoneTextBox" Width="100"></TextBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.Cashier}"></Label>
+                                <StackPanel>
+                                    <TextBox Name="FirstNameSelectedTextBox" Width="100"></TextBox>
+                                    <TextBox Name="LastNameSelectedTextBox" Width="100"></TextBox>
+                                    <TextBox Name="PatronymicSelectedTextBox" Width="100"></TextBox>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.CashierPhone}"></Label>
+                                    <TextBox Name="CashierPhoneTextBox" Width="100"></TextBox>
+                                </StackPanel>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.ExchangeRates}"></Label>
+                                <StackPanel>
                                     <Label Content="{x:Static MyResourses:Texts.USD}"></Label>
-                                    <RadioButton PreviewMouseLeftButtonDown="SelectMoneyTypeForSearch" Margin="0,9,0,0" Name="USDRadioButton"></RadioButton>
-                                </WrapPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.EURO}"></Label>
+                                    <Label Content="{x:Static MyResourses:Texts.RUB}"></Label>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.Buy}"></Label>
+                                    <Label Content="{x:Static MyResourses:Texts.Buy}"></Label>
+                                    <Label Content="{x:Static MyResourses:Texts.Buy}"></Label>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBox Name="USDBuyTextBox" Width="50" Margin="0,6,0,0"></TextBox>
+                                    <TextBox Name="EUROBuyTextBox" Width="50" Margin="0,6,0,0"></TextBox>
+                                    <TextBox Name="RUBBuyTextBox" Width="50" Margin="0,6,0,0"></TextBox>
+                                </StackPanel>
+                                <StackPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.Sell}"></Label>
+                                    <Label Content="{x:Static MyResourses:Texts.Sell}"></Label>
+                                    <Label Content="{x:Static MyResourses:Texts.Sell}"></Label>
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBox Name="USDSellTextBox" Width="50" Margin="0,6,0,0"></TextBox>
+                                    <TextBox Name="EUROSellTextBox" Width="50" Margin="0,6,0,0" ></TextBox>
+                                    <TextBox Name="RUBSellTextBox" Width="50" Margin="0,6,0,0"></TextBox>
+                                </StackPanel>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.Services}"></Label>
+                                <DataGrid Name="ServicesDataGrid" CanUserAddRows="True"></DataGrid>
+                                <Button Name="DeleteServise" Content="{x:Static MyResourses:Texts.DeleteService}"></Button>
+                                <StackPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.ServicesInDB}"></Label>
+                                    <ComboBox Height="25" Name="ListBoxOfServices" Width="250"></ComboBox>
+                                    <Button Name="AddServiceButton" Content="{x:Static MyResourses:Texts.Add}">
+                                    </Button>
+                                </StackPanel>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.Comments}"></Label>
+                                <DataGrid Name="CommentsDataGrid"></DataGrid>
+                                <Button Name="DeleteCommentButton" Content="{x:Static MyResourses:Texts.DeleteComment}"></Button>
+                            </WrapPanel>
+                            <StackPanel>
+                                <Label Content="{x:Static MyResourses:Texts.FieldForComment}"></Label>
+                                <TextBox Name="CommentTextBox" Height="50"></TextBox>
+                                <Button Name="AddCommentButton" Content="{x:Static MyResourses:Texts.AddComment}"></Button>
                             </StackPanel>
-                        </WrapPanel>
-                        <Button Click="StartSearchRatesButtonClick" Name="StartSearchRatesButton" Content="{x:Static MyResourses:Texts.StartSearch}"></Button>
-                    </StackPanel>
-                </TabItem>
-            </TabControl>
+                            <Button Name="SaveChangesButton" Margin="0,10,0,0" Content="{x:Static MyResourses:Texts.SaveChanges}"></Button>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="{x:Static MyResourses:Texts.Search}">
+                        <StackPanel>
+                            <WrapPanel>
+                                <StackPanel>
+                                    <WrapPanel>
+                                        <Label Content="{x:Static MyResourses:Texts.MinBuyValue}"></Label>
+                                        <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MinBuyValueRadioButton"></RadioButton>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Label Content="{x:Static MyResourses:Texts.MaxSellValue}"></Label>
+                                        <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MaxSellValueRadioButton"></RadioButton>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Label Content="{x:Static MyResourses:Texts.MinSellValue}"></Label>
+                                        <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MinSellValueRadioButton"></RadioButton>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Label Content="{x:Static MyResourses:Texts.MaxBuyValue}"></Label>
+                                        <RadioButton PreviewMouseLeftButtonDown="SelectRatesSearchType" Margin="0,9,0,0" Name="MaxBuyValueRadioButton"></RadioButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                                <StackPanel>
+                                    <WrapPanel>
+                                        <Label Content="{x:Static MyResourses:Texts.EURO}"></Label>
+                                        <RadioButton PreviewMouseLeftButtonDown="SelectMoneyTypeForSearch" Margin="0,9,0,0" Name="EURORadioButton"></RadioButton>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Label Content="{x:Static MyResourses:Texts.RUB}"></Label>
+                                        <RadioButton PreviewMouseLeftButtonDown="SelectMoneyTypeForSearch" Margin="0,9,0,0" Name="RUBRadioButton"></RadioButton>
+                                    </WrapPanel>
+                                    <WrapPanel>
+                                        <Label Content="{x:Static MyResourses:Texts.USD}"></Label>
+                                        <RadioButton PreviewMouseLeftButtonDown="SelectMoneyTypeForSearch" Margin="0,9,0,0" Name="USDRadioButton"></RadioButton>
+                                    </WrapPanel>
+                                </StackPanel>
+                            </WrapPanel>
+                            <Button Click="StartSearchRatesButtonClick" Name="StartSearchRatesButton" Content="{x:Static MyResourses:Texts.StartSearch}"></Button>
+                            <Label Content="{x:Static MyResourses:Texts.FindNearestExplanation}"></Label>
+                            <Button Click="StartSearchMapButtonClick" Name="StartSearchMapButton" Content="{x:Static MyResourses:Texts.StartSearch}"></Button>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </StackPanel>
+            
         </Grid>
     </ScrollViewer>
     

@@ -267,4 +267,9 @@
   <data name="USDRadioButton" xml:space="preserve">
     <value>USDRadioButton</value>
   </data>
+  <data name="FindNearestExplanation" xml:space="preserve">
+    <value>Кнопка ниже находит ближайшее 
+отделение банка к текущему центру карты 
+(Красный крестик на карте)</value>
+  </data>
 </root>
