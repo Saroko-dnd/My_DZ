@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
-using BanksDBContext;
 using System.Data.Entity.Spatial;
 using System.Windows;
 using System.Windows.Input;
 
 
-namespace BanksDBContext
+namespace MapDBContext
 {
     public class BanksDBContext : DbContext
     {

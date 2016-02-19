@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Collections.ObjectModel;
 
-namespace BanksDBContext
+namespace MapDBContext
 {
     [Table("WorkingHours")]
     public class WorkingHours

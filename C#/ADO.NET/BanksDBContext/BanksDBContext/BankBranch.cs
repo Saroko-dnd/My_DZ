@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
 using System.Collections.ObjectModel;
 
-namespace BanksDBContext
+namespace MapDBContext
 {
     [Table("BankBranches")]
     public class BankBranch

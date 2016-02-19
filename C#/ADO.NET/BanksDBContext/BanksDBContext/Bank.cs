@@ -8,8 +8,8 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Collections.ObjectModel;
 
-    namespace BanksDBContext
-    {
+    namespace MapDBContext
+{
         [Table("Banks")]
         public class Bank
         {

@@ -14,10 +14,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GMap.NET.WindowsPresentation;
 using GMap.NET;
-using BanksOnMap.DBContext;
-using BanksOnMap.Entities;
 using System.Data.Entity.Spatial;
 using System.Collections.ObjectModel;
+//namespace of my dll
+using MapDBContext;
 
 
 namespace BanksOnMap
@@ -44,7 +44,7 @@ namespace BanksOnMap
             //*****************************************************************************
             //так добавляем маркеры (видимость маркера определяется видимостью его формы "shape")
             BanksDBContext BanksDatabase = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
-            foreach ( BankBranch CurrentBranch in BanksDatabase.BankBranches)
+            foreach (BankBranch CurrentBranch in BanksDatabase.BankBranches)
             {
                 Label LabelForMarker = new Label() { FontSize = 12.0, Content = CurrentBranch.BranchName, Foreground = Brushes.Yellow, Background = Brushes.Black };
                 LabelForMarker.MouseLeftButtonDown += ClickMarkerEvent;
@@ -95,9 +95,13 @@ namespace BanksOnMap
             EUROSellTextBox.Text = SelectedBranch.RelatedRates.EUROSell.ToString();
             RUBSellTextBox.Text = SelectedBranch.RelatedRates.RuSell.ToString();
             ServicesDataGrid.ItemsSource = SelectedBranch.RelatedServices.
-                Select(res => new { res.Servise });
-            ListBoxOfServices.ItemsSource = BanksDatabase.Services.Select(res => new { res.Servise }).
-                ToList();
+                Select(res => new { res.Servise }).ToList();
+            List<string> ListOfServices = new List<string>();
+            foreach ( Service CurrentService in BanksDatabase.Services)
+            {
+                ListOfServices.Add(CurrentService.Servise);
+            }
+            ListBoxOfServices.ItemsSource = ListOfServices;
             WorkHourBeginTextBox.Text = SelectedBranch.WorkingHours.StartHour.ToString();
             WorkMinutesBeginTextBox.Text = SelectedBranch.WorkingHours.StartMinutes.ToString();
             WorkHourEndTextBox.Text = SelectedBranch.WorkingHours.EndHour.ToString();

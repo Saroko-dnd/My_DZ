@@ -219,4 +219,10 @@
   <data name="WorkHours" xml:space="preserve">
     <value>Время работы:</value>
   </data>
+  <data name="ServicesInDB" xml:space="preserve">
+    <value>Список услуг в БД:</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
 </root>

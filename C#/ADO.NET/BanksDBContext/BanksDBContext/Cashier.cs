@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BanksDBContext
+namespace MapDBContext
 {
     [Table("Cashiers")]
     public class Cashier
