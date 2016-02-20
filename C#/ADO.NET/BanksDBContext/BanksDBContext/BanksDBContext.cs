@@ -49,7 +49,7 @@ namespace MapDBContext
             BankBranch Branch_1 = new BankBranch()
             {
                 BranchName = "Отделение UltraBank №1",
-                MapLocation = DbGeography.FromText("POINT(53.9117074828877 27.5611889362335)"),
+                MapLocation = DbGeography.FromText("POINT(27.5611889362335 53.9117074828877)"),
                 RelatedBank = TestContext.Banks.Where(res => res.BankName == "UltraBank").First(),
                 WorkingHours = new WorkingHours() { StartHour = 9, StartMinutes = 30, EndHour = 21, EndMinutes = 30 },
                 RelatedCashier = new Cashier()
@@ -83,7 +83,7 @@ namespace MapDBContext
             BankBranch Branch_2 = new BankBranch()
             {
                 BranchName = "Отделение UltraBank №2",
-                MapLocation = DbGeography.FromText("POINT(53.8771501542879 27.5638872385025)"),
+                MapLocation = DbGeography.FromText("POINT(27.5638872385025 53.8771501542879)"),
                 RelatedBank = TestContext.Banks.Where(res => res.BankName == "UltraBank").First(),
                 WorkingHours = new WorkingHours() { StartHour = 9, StartMinutes = 0, EndHour = 21, EndMinutes = 0 },
                 RelatedCashier = new Cashier()
@@ -117,7 +117,7 @@ namespace MapDBContext
             BankBranch Branch_3 = new BankBranch()
             {
                 BranchName = "Отделение UltraBank №3",
-                MapLocation = DbGeography.FromText("POINT(53.8766346760167 27.5564360618591)"),
+                MapLocation = DbGeography.FromText("POINT(27.5564360618591 53.8766346760167)"),
                 RelatedBank = TestContext.Banks.Where(res => res.BankName == "UltraBank").First(),
                 WorkingHours = new WorkingHours() { StartHour = 7, StartMinutes = 0, EndHour = 21, EndMinutes = 20 },
                 RelatedCashier = new Cashier()
@@ -151,7 +151,7 @@ namespace MapDBContext
             BankBranch Branch_4 = new BankBranch()
             {
                 BranchName = "Отделение NativeBank №1",
-                MapLocation = DbGeography.FromText("POINT(53.8744841459664 27.5511145591736)"),
+                MapLocation = DbGeography.FromText("POINT(27.5511145591736 53.8744841459664)"),
                 RelatedBank = TestContext.Banks.Where(res => res.BankName == "NativeBank").First(),
                 WorkingHours = new WorkingHours() { StartHour = 8, StartMinutes = 0, EndHour = 21, EndMinutes = 0 },
                 RelatedCashier = new Cashier()
@@ -185,7 +185,7 @@ namespace MapDBContext
             BankBranch Branch_5 = new BankBranch()
             {
                 BranchName = "Отделение NativeBank №2",
-                MapLocation = DbGeography.FromText("POINT(53.8779692140537 27.533004283905)"),
+                MapLocation = DbGeography.FromText("POINT(27.533004283905 53.8779692140537)"),
                 RelatedBank = TestContext.Banks.Where(res => res.BankName == "NativeBank").First(),
                 WorkingHours = new WorkingHours() { StartHour = 10, StartMinutes = 0, EndHour = 22, EndMinutes = 0 },
                 RelatedCashier = new Cashier()
@@ -219,7 +219,7 @@ namespace MapDBContext
             BankBranch Branch_6 = new BankBranch()
             {
                 BranchName = "Отделение NativeBank №3",
-                MapLocation = DbGeography.FromText("POINT(53.9146997155977 27.4806904792786)"),
+                MapLocation = DbGeography.FromText("POINT(27.4806904792786 53.9146997155977)"),
                 RelatedBank = TestContext.Banks.Where(res => res.BankName == "NativeBank").First(),
                 WorkingHours = new WorkingHours() { StartHour = 12, StartMinutes = 0, EndHour = 24, EndMinutes = 0 },
                 RelatedCashier = new Cashier()
@@ -253,7 +253,7 @@ namespace MapDBContext
             BankBranch Branch_7 = new BankBranch()
             {
                 BranchName = "Отделение GalacticBank №1",
-                MapLocation = DbGeography.FromText("POINT(53.9392929865815 27.611340880394)"),
+                MapLocation = DbGeography.FromText("POINT(27.611340880394 53.9392929865815)"),
                 RelatedBank = TestContext.Banks.Where(res => res.BankName == "GalacticBank").First(),
                 WorkingHours = new WorkingHours() { StartHour = 6, StartMinutes = 0, EndHour = 24, EndMinutes = 0 },
                 RelatedCashier = new Cashier()
@@ -287,7 +287,7 @@ namespace MapDBContext
             BankBranch Branch_8 = new BankBranch()
             {
                 BranchName = "Отделение GalacticBank №2",
-                MapLocation = DbGeography.FromText("POINT(53.9286785318838 27.631698846817)"),
+                MapLocation = DbGeography.FromText("POINT(27.631698846817 53.9286785318838)"),
                 RelatedBank = TestContext.Banks.Where(res => res.BankName == "GalacticBank").First(),
                 WorkingHours = new WorkingHours() { StartHour = 6, StartMinutes = 30, EndHour = 23, EndMinutes = 30 },
                 RelatedCashier = new Cashier()
@@ -321,7 +321,7 @@ namespace MapDBContext
             BankBranch Branch_9 = new BankBranch()
             {
                 BranchName = "Отделение GalacticBank №3",
-                MapLocation = DbGeography.FromText("POINT(53.9178181080021 27.5730550289154)"),
+                MapLocation = DbGeography.FromText("POINT(27.5730550289154 53.9178181080021)"),
                 RelatedBank = TestContext.Banks.Where(res => res.BankName == "GalacticBank").First(),
                 WorkingHours = new WorkingHours() { StartHour = 7, StartMinutes = 30, EndHour = 23, EndMinutes = 30 },
                 RelatedCashier = new Cashier()

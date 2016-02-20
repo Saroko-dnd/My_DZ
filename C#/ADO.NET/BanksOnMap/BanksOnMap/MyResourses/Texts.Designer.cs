@@ -70,6 +70,15 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Добавить банк.
+        /// </summary>
+        public static string AddBank {
+            get {
+                return ResourceManager.GetString("AddBank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Добавить перерыв.
         /// </summary>
         public static string AddBreakTime {
@@ -97,7 +106,7 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Название банка:.
+        ///   Looks up a localized string similar to Название банка (обязательно):.
         /// </summary>
         public static string BankName {
             get {
@@ -115,7 +124,7 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Координаты выбранного объекта:.
+        ///   Looks up a localized string similar to Координаты выбранного объекта (обязательно):.
         /// </summary>
         public static string BranchCoordinates {
             get {
@@ -124,7 +133,7 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Название отделения:.
+        ///   Looks up a localized string similar to Название отделения (обязательно):.
         /// </summary>
         public static string BranchName {
             get {
@@ -138,6 +147,15 @@ namespace BanksOnMap.MyResourses {
         public static string Breaks {
             get {
                 return ResourceManager.GetString("Breaks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BreakTimeID.
+        /// </summary>
+        public static string BreakTimeID {
+            get {
+                return ResourceManager.GetString("BreakTimeID", resourceCulture);
             }
         }
         
@@ -169,11 +187,29 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Убедитесь что вы вводили в поля только допустимые значения!.
+        /// </summary>
+        public static string CheckCharacharsError {
+            get {
+                return ResourceManager.GetString("CheckCharacharsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Убедитесь, что вы выбрали все параметры для поиска!.
         /// </summary>
         public static string CheckRadioButtonsError {
             get {
                 return ResourceManager.GetString("CheckRadioButtonsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CommentItself.
+        /// </summary>
+        public static string CommentItself {
+            get {
+                return ResourceManager.GetString("CommentItself", resourceCulture);
             }
         }
         
@@ -192,6 +228,15 @@ namespace BanksOnMap.MyResourses {
         public static string ConnectionStringName {
             get {
                 return ResourceManager.GetString("ConnectionStringName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Создать новый объект.
+        /// </summary>
+        public static string CreateNewElement {
+            get {
+                return ResourceManager.GetString("CreateNewElement", resourceCulture);
             }
         }
         
@@ -396,11 +441,38 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вы ничего не выбрали для удаления!.
+        /// </summary>
+        public static string NoSelectedItems {
+            get {
+                return ResourceManager.GetString("NoSelectedItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Телефон:.
         /// </summary>
         public static string Phone {
             get {
                 return ResourceManager.GetString("Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to POINT.
+        /// </summary>
+        public static string POINT {
+            get {
+                return ResourceManager.GetString("POINT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RelatedBranches.
+        /// </summary>
+        public static string RelatedBranches {
+            get {
+                return ResourceManager.GetString("RelatedBranches", resourceCulture);
             }
         }
         
@@ -477,11 +549,20 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Список услуг в БД:.
+        ///   Looks up a localized string similar to Напишите новую услугу:.
         /// </summary>
         public static string ServicesInDB {
             get {
                 return ResourceManager.GetString("ServicesInDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Servise.
+        /// </summary>
+        public static string Servise {
+            get {
+                return ResourceManager.GetString("Servise", resourceCulture);
             }
         }
         
@@ -509,6 +590,18 @@ namespace BanksOnMap.MyResourses {
         public static string USDRadioButton {
             get {
                 return ResourceManager.GetString("USDRadioButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Использовать координаты
+        ///центра карты вместо 
+        ///ручного ввода при изменении
+        ///или добавлении объекта..
+        /// </summary>
+        public static string UseCenterCoordinates {
+            get {
+                return ResourceManager.GetString("UseCenterCoordinates", resourceCulture);
             }
         }
         

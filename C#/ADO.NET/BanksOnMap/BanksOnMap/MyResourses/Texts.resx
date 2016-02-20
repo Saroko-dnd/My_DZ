@@ -130,16 +130,16 @@
     <value>Адрес:</value>
   </data>
   <data name="BankName" xml:space="preserve">
-    <value>Название банка:</value>
+    <value>Название банка (обязательно):</value>
   </data>
   <data name="Begin" xml:space="preserve">
     <value>с</value>
   </data>
   <data name="BranchCoordinates" xml:space="preserve">
-    <value>Координаты выбранного объекта:</value>
+    <value>Координаты выбранного объекта (обязательно):</value>
   </data>
   <data name="BranchName" xml:space="preserve">
-    <value>Название отделения:</value>
+    <value>Название отделения (обязательно):</value>
   </data>
   <data name="Breaks" xml:space="preserve">
     <value>Перерывы:</value>
@@ -220,7 +220,7 @@
     <value>Время работы:</value>
   </data>
   <data name="ServicesInDB" xml:space="preserve">
-    <value>Список услуг в БД:</value>
+    <value>Напишите новую услугу:</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>
@@ -271,5 +271,38 @@
     <value>Кнопка ниже находит ближайшее 
 отделение банка к текущему центру карты 
 (Красный крестик на карте)</value>
+  </data>
+  <data name="AddBank" xml:space="preserve">
+    <value>Добавить банк</value>
+  </data>
+  <data name="CreateNewElement" xml:space="preserve">
+    <value>Создать новый объект</value>
+  </data>
+  <data name="CheckCharacharsError" xml:space="preserve">
+    <value>Убедитесь что вы вводили в поля только допустимые значения!</value>
+  </data>
+  <data name="UseCenterCoordinates" xml:space="preserve">
+    <value>Использовать координаты
+центра карты вместо 
+ручного ввода при изменении
+или добавлении объекта.</value>
+  </data>
+  <data name="BreakTimeID" xml:space="preserve">
+    <value>BreakTimeID</value>
+  </data>
+  <data name="RelatedBranches" xml:space="preserve">
+    <value>RelatedBranches</value>
+  </data>
+  <data name="NoSelectedItems" xml:space="preserve">
+    <value>Вы ничего не выбрали для удаления!</value>
+  </data>
+  <data name="Servise" xml:space="preserve">
+    <value>Servise</value>
+  </data>
+  <data name="CommentItself" xml:space="preserve">
+    <value>CommentItself</value>
+  </data>
+  <data name="POINT" xml:space="preserve">
+    <value>POINT</value>
   </data>
 </root>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
+using System.Data.Entity;
 
 namespace MapDBContext
 {
@@ -12,20 +13,20 @@ namespace MapDBContext
     {
         public static string ConnectionStringName = String.Empty;
 
+        public static BanksDBContext StaticBanksDBContext;
+
         public static BankBranch LoadSelectedObjectData(string BankBranchName)
         {
-            BanksDBContext BanksDatabase = new BanksDBContext(ConnectionStringName);
             //если поместить (Sender as Label).Content.ToString() в запрос то возращает исключение
-            BankBranch SelectedBranch = BanksDatabase.BankBranches.Where(res => res.BranchName == BankBranchName).
+            BankBranch SelectedBranch = StaticBanksDBContext.BankBranches.Where(res => res.BranchName == BankBranchName).
                 First();
             return SelectedBranch;
         }
 
         public static List<string> GetListOfServices()
         {
-            BanksDBContext BanksDatabase = new BanksDBContext(ConnectionStringName);
             List<string> ListOfServices = new List<string>();
-            foreach (Service CurrentService in BanksDatabase.Services)
+            foreach (Service CurrentService in StaticBanksDBContext.Services)
             {
                 ListOfServices.Add(CurrentService.Servise);
             }
@@ -34,49 +35,48 @@ namespace MapDBContext
 
         public static BankBranch GetNecessaryBankRates(string currency, bool Best, bool Buy)
         {
-            BanksDBContext BanksDatabase = new BanksDBContext(ConnectionStringName);
             switch (currency)
             {
                 case "EURO":
                     if (Best && Buy)
-                        return BanksDatabase.BankBranches.OrderBy(res => res.RelatedRates.EUROBuy).
+                        return StaticBanksDBContext.BankBranches.OrderBy(res => res.RelatedRates.EUROBuy).
                             First();
                     if (!Best && Buy)
-                        return BanksDatabase.BankBranches.OrderByDescending(res => res.RelatedRates.EUROBuy).
+                        return StaticBanksDBContext.BankBranches.OrderByDescending(res => res.RelatedRates.EUROBuy).
                             First();
                     if (Best && !Buy)
-                        return BanksDatabase.BankBranches.OrderByDescending(res => res.RelatedRates.EUROSell).
+                        return StaticBanksDBContext.BankBranches.OrderByDescending(res => res.RelatedRates.EUROSell).
                             First();
                     if (!Best && !Buy)
-                        return BanksDatabase.BankBranches.OrderBy(res => res.RelatedRates.EUROSell).
+                        return StaticBanksDBContext.BankBranches.OrderBy(res => res.RelatedRates.EUROSell).
                             First();
                     break;
                 case "RUB":
                     if (Best && Buy)
-                        return BanksDatabase.BankBranches.OrderBy(res => res.RelatedRates.RuBuy).
+                        return StaticBanksDBContext.BankBranches.OrderBy(res => res.RelatedRates.RuBuy).
                             First();
                     if (!Best && Buy)
-                        return BanksDatabase.BankBranches.OrderByDescending(res => res.RelatedRates.RuBuy).
+                        return StaticBanksDBContext.BankBranches.OrderByDescending(res => res.RelatedRates.RuBuy).
                             First();
                     if (Best && !Buy)
-                        return BanksDatabase.BankBranches.OrderByDescending(res => res.RelatedRates.RuSell).
+                        return StaticBanksDBContext.BankBranches.OrderByDescending(res => res.RelatedRates.RuSell).
                             First();
                     if (!Best && !Buy)
-                        return BanksDatabase.BankBranches.OrderBy(res => res.RelatedRates.RuSell).
+                        return StaticBanksDBContext.BankBranches.OrderBy(res => res.RelatedRates.RuSell).
                             First();
                     break;
                 case "USD":
                     if (Best && Buy)
-                        return BanksDatabase.BankBranches.OrderBy(res => res.RelatedRates.USDBuy).
+                        return StaticBanksDBContext.BankBranches.OrderBy(res => res.RelatedRates.USDBuy).
                             First();
                     if (!Best && Buy)
-                        return BanksDatabase.BankBranches.OrderByDescending(res => res.RelatedRates.USDBuy).
+                        return StaticBanksDBContext.BankBranches.OrderByDescending(res => res.RelatedRates.USDBuy).
                             First();
                     if (Best && !Buy)
-                        return BanksDatabase.BankBranches.OrderByDescending(res => res.RelatedRates.USDSell).
+                        return StaticBanksDBContext.BankBranches.OrderByDescending(res => res.RelatedRates.USDSell).
                             First();
                     if (!Best && !Buy)
-                        return BanksDatabase.BankBranches.OrderBy(res => res.RelatedRates.USDSell).
+                        return StaticBanksDBContext.BankBranches.OrderBy(res => res.RelatedRates.USDSell).
                             First();
                     break;
                 default:
@@ -89,12 +89,11 @@ namespace MapDBContext
         {
 
             //lattitude юг -90 север 90 Longitude запад -180 восток 180
-            BanksDBContext BanksDatabase = new BanksDBContext(ConnectionStringName);
             double BufForLatitudeSearch = 90 + LatitudeSearch;
             double BufForLongitudeSearch = 180 + LongitudeSearch;
             List<BranchWithSumDif> SumOfDif = new List<BranchWithSumDif>();
 
-            foreach (BankBranch CurrentBranch in BanksDatabase.BankBranches)
+            foreach (BankBranch CurrentBranch in StaticBanksDBContext.BankBranches)
             {
                 double BufForLatitude = 90 + (double)CurrentBranch.MapLocation.Latitude;
                 double BufForLongitude = 180 + (double)CurrentBranch.MapLocation.Longitude;
@@ -136,9 +135,21 @@ namespace MapDBContext
                 }
             }
             BranchWithSumDif NearestBranchName = SumOfDif.OrderBy(res => res.SumDif).First();
-            return BanksDatabase.BankBranches.Where(res => res.BranchName == NearestBranchName.BranchName).
+            return StaticBanksDBContext.BankBranches.Where(res => res.BranchName == NearestBranchName.BranchName).
                 First();
         }
+
+        public static bool AddNewBankIfNecessary(string NewBankName)
+        {
+            if (!StaticBanksDBContext.Banks.Any(res => res.BankName == NewBankName))
+            {
+                StaticBanksDBContext.Banks.Add(new Bank() { BankName = NewBankName });
+                StaticBanksDBContext.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
     }
 
     public class BranchWithSumDif

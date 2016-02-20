@@ -6,7 +6,7 @@
         xmlns:GMap="clr-namespace:GMap.NET;assembly=GMap.NET.Core"
         xmlns:ThisProgram="clr-namespace:BanksOnMap"
         xmlns:MyResourses="clr-namespace:BanksOnMap.MyResourses"
-        Title="MainWindow" Height="850" Width="900" Name="MainForm" >
+        Title="MainWindow" Height="850" Width="930" Name="MainForm" >
     <Window.Resources>
         <ThisProgram:GridCellWidthConverter x:Key="GridCellWidthConverter"></ThisProgram:GridCellWidthConverter>
     </Window.Resources>
@@ -31,13 +31,17 @@
                                 <StackPanel>
                                     <WrapPanel>
                                         <Label Content="{x:Static MyResourses:Texts.Latitude}"></Label>
-                                        <TextBox Name="LongitudeTextBox" Width="150"></TextBox>
+                                        <TextBox Name="LatitudeTextBox" Width="150"></TextBox>
                                     </WrapPanel>
                                     <WrapPanel>
                                         <Label Content="{x:Static MyResourses:Texts.Longitude}"></Label>
-                                        <TextBox Name="LatitudeTextBox" Width="150"></TextBox>
+                                        <TextBox Name="LongitudeTextBox" Width="150"></TextBox>
                                     </WrapPanel>
                                 </StackPanel>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.UseCenterCoordinates}"></Label>
+                                <CheckBox Name="UseMapCoordinatesCheckBox" Margin="0,30,0,0"></CheckBox>
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.BankName}"></Label>
@@ -54,33 +58,33 @@
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.WorkHours}"></Label>
                                 <Label Content="{x:Static MyResourses:Texts.Begin}"></Label>
-                                <TextBox Name="WorkHourBeginTextBox" Width="25"></TextBox>
-                                <TextBox Name="WorkMinutesBeginTextBox" Width="25"></TextBox>
+                                <TextBox MaxLength="2" Name="WorkHourBeginTextBox" Width="25"></TextBox>
+                                <TextBox MaxLength="2" Name="WorkMinutesBeginTextBox" Width="25"></TextBox>
                                 <Label Content="{x:Static MyResourses:Texts.End}"></Label>
-                                <TextBox Name="WorkHourEndTextBox" Width="25"></TextBox>
-                                <TextBox Name="WorkMinutesEndTextBox" Width="25"></TextBox>
+                                <TextBox MaxLength="2" Name="WorkHourEndTextBox" Width="25"></TextBox>
+                                <TextBox MaxLength="2" Name="WorkMinutesEndTextBox" Width="25"></TextBox>
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.Breaks}"></Label>
-                                <DataGrid Name="BreakTimesDataGrid" CanUserAddRows="True"></DataGrid>
-                                <Button Name="RemoveBreakTimeButton" Content="{x:Static MyResourses:Texts.RemoveBreakTime}"></Button>
+                                <DataGrid SelectionMode="Single" AutoGeneratingColumn="BreakTimesDataGridCheckClumns" MaxHeight="100" Name="BreakTimesDataGrid" CanUserAddRows="True"></DataGrid>
+                                <Button Click="BreakTimeRemoveButtonClick" Name="RemoveBreakTimeButton" Content="{x:Static MyResourses:Texts.RemoveBreakTime}"></Button>
                             </WrapPanel>
                             <StackPanel>
                                 <WrapPanel>
                                     <Label Content="{x:Static MyResourses:Texts.Begin}"></Label>
                                     <Label Content="{x:Static MyResourses:Texts.Hour}"></Label>
-                                    <TextBox Name="BreakTimeBeginHourTextBox" Width="25"></TextBox>
+                                    <TextBox Name="BreakTimeBeginHourTextBox" Width="25" MaxLength="2"></TextBox>
                                     <Label Content="{x:Static MyResourses:Texts.Minute}"></Label>
-                                    <TextBox Name="BreakTimeBeginMinuteTextBox" Width="25"></TextBox>
+                                    <TextBox Name="BreakTimeBeginMinuteTextBox" Width="25" MaxLength="2"></TextBox>
                                 </WrapPanel>
                                 <WrapPanel>
                                     <Label Content="{x:Static MyResourses:Texts.End}"></Label>
                                     <Label Content="{x:Static MyResourses:Texts.Hour}"></Label>
-                                    <TextBox Name="BreakTimeEndHourTextBox" Width="25"></TextBox>
+                                    <TextBox Name="BreakTimeEndHourTextBox" Width="25" MaxLength="2"></TextBox>
                                     <Label Content="{x:Static MyResourses:Texts.Minute}"></Label>
-                                    <TextBox Name="BreakTimeEndMinuteTextBox" Width="25"></TextBox>
+                                    <TextBox Name="BreakTimeEndMinuteTextBox" Width="25" MaxLength="2"></TextBox>
                                 </WrapPanel>
-                                <Button Name="AddBreakTimeButton" HorizontalAlignment="Left" Content="{x:Static MyResourses:Texts.AddBreakTime}"></Button>
+                                <Button Name="AddBreakTimeButton" Click="AddNewBreakButtonClick" HorizontalAlignment="Left" Content="{x:Static MyResourses:Texts.AddBreakTime}"></Button>
                             </StackPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.Phone}"></Label>
@@ -128,26 +132,27 @@
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.Services}"></Label>
-                                <DataGrid Name="ServicesDataGrid" CanUserAddRows="True"></DataGrid>
-                                <Button Name="DeleteServise" Content="{x:Static MyResourses:Texts.DeleteService}"></Button>
+                                <DataGrid AutoGeneratingColumn="ServicesDataGridCheckColumns" SelectionMode="Single" Name="ServicesDataGrid" MaxHeight="100" CanUserAddRows="True"></DataGrid>
+                                <Button Click="ServiceRemoveButtonClick" Name="DeleteServise" Content="{x:Static MyResourses:Texts.DeleteService}"></Button>
                                 <StackPanel>
                                     <Label Content="{x:Static MyResourses:Texts.ServicesInDB}"></Label>
-                                    <ComboBox Height="25" Name="ListBoxOfServices" Width="250"></ComboBox>
-                                    <Button Name="AddServiceButton" Content="{x:Static MyResourses:Texts.Add}">
+                                    <TextBox Name="NewServiceTextBox" Width="200"></TextBox>
+                                    <Button Click="AddNewServiceButtonClick" Name="AddServiceButton" Content="{x:Static MyResourses:Texts.Add}">
                                     </Button>
                                 </StackPanel>
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.Comments}"></Label>
-                                <DataGrid Name="CommentsDataGrid"></DataGrid>
-                                <Button Name="DeleteCommentButton" Content="{x:Static MyResourses:Texts.DeleteComment}"></Button>
+                                <DataGrid AutoGeneratingColumn="CommentsDataGridCheckColumns" MaxHeight="100" SelectionMode="Single" Name="CommentsDataGrid"></DataGrid>
+                                <Button Click="CommentRemoveButtonClick" Name="DeleteCommentButton" Content="{x:Static MyResourses:Texts.DeleteComment}"></Button>
                             </WrapPanel>
                             <StackPanel>
                                 <Label Content="{x:Static MyResourses:Texts.FieldForComment}"></Label>
                                 <TextBox Name="CommentTextBox" Height="50"></TextBox>
-                                <Button Name="AddCommentButton" Content="{x:Static MyResourses:Texts.AddComment}"></Button>
+                                <Button Click="AddCommentButtonClick" Name="AddCommentButton" Content="{x:Static MyResourses:Texts.AddComment}"></Button>
                             </StackPanel>
-                            <Button Name="SaveChangesButton" Margin="0,10,0,0" Content="{x:Static MyResourses:Texts.SaveChanges}"></Button>
+                            <Button Click="SaveChangesButtonClick" Name="SaveChangesButton" Margin="0,10,0,0" Content="{x:Static MyResourses:Texts.SaveChanges}"></Button>
+                            <Button Click="AddNewBranchButtonClick" Name="CreateNewObjectButton" Margin="0,10,0,0" Content="{x:Static MyResourses:Texts.CreateNewElement}"></Button>
                         </StackPanel>
                     </TabItem>
                     <TabItem Header="{x:Static MyResourses:Texts.Search}">
@@ -191,9 +196,11 @@
                             <Button Click="StartSearchMapButtonClick" Name="StartSearchMapButton" Content="{x:Static MyResourses:Texts.StartSearch}"></Button>
                         </StackPanel>
                     </TabItem>
+                    <TabItem Header="{x:Static MyResourses:Texts.CreateNewElement}">
+
+                    </TabItem>
                 </TabControl>
             </StackPanel>
-            
         </Grid>
     </ScrollViewer>
     

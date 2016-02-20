@@ -16,9 +16,7 @@ namespace MapDBContext
     {
         [Key]
         public int BankBranchID { get; set; }
-        [ForeignKey("WorkingHours")]
-        public int WorkHoursID { get; set; }
-        [Required]
+        [Required,MaxLength(100), Index(IsUnique = true)]
         public string BranchName { get; set; }
 
         public string Address { get; set; }
