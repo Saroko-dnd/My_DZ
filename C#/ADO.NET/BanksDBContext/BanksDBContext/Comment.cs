@@ -11,13 +11,10 @@ namespace MapDBContext
     [Table("Comments")]
     public class Comment
     {
-        [ForeignKey("RelatedBranch")]
-        public int BranchID { get; set; }
         [Key]
         public int CommentID { get; set; }
         [Required]
         public string CommentItself { get; set; }
-        [Required]
         public virtual BankBranch RelatedBranch { get; set; }
     }
 }

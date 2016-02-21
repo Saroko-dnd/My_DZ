@@ -106,6 +106,24 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Применить фильтры.
+        /// </summary>
+        public static string Apply {
+            get {
+                return ResourceManager.GetString("Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asc.
+        /// </summary>
+        public static string Asc {
+            get {
+                return ResourceManager.GetString("Asc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Название банка (обязательно):.
         /// </summary>
         public static string BankName {
@@ -115,11 +133,30 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Отфильтровать по 
+        ///названию банка:.
+        /// </summary>
+        public static string BankNameFilter {
+            get {
+                return ResourceManager.GetString("BankNameFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to с.
         /// </summary>
         public static string Begin {
             get {
                 return ResourceManager.GetString("Begin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отделение с таким именем уже существует!.
+        /// </summary>
+        public static string BranchAlreadyExists {
+            get {
+                return ResourceManager.GetString("BranchAlreadyExists", resourceCulture);
             }
         }
         
@@ -169,7 +206,17 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Кассир:.
+        ///   Looks up a localized string similar to Вы не можете добавить услугу для отделения, пока у отделения не будут заполнены ВСЕ ОБЯЗАТЕЛЬНЫЕ ПОЛЯ. (название банка, название отделения, координаты).
+        /// </summary>
+        public static string CantAddService {
+            get {
+                return ResourceManager.GetString("CantAddService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Кассир:
+        ///(ФИО).
         /// </summary>
         public static string Cashier {
             get {
@@ -183,6 +230,18 @@ namespace BanksOnMap.MyResourses {
         public static string CashierPhone {
             get {
                 return ResourceManager.GetString("CashierPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Если вы хотите добавить
+        ///к отделению кассира
+        ///то необходимо заполнить
+        ///ВСЕ его поля..
+        /// </summary>
+        public static string CashierWarning {
+            get {
+                return ResourceManager.GetString("CashierWarning", resourceCulture);
             }
         }
         
@@ -241,6 +300,15 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to День.
+        /// </summary>
+        public static string Day {
+            get {
+                return ResourceManager.GetString("Day", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Удалить отзыв.
         /// </summary>
         public static string DeleteComment {
@@ -255,6 +323,15 @@ namespace BanksOnMap.MyResourses {
         public static string DeleteService {
             get {
                 return ResourceManager.GetString("DeleteService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Desc.
+        /// </summary>
+        public static string Desc {
+            get {
+                return ResourceManager.GetString("Desc", resourceCulture);
             }
         }
         
@@ -313,6 +390,15 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Фильтрация.
+        /// </summary>
+        public static string Filtration {
+            get {
+                return ResourceManager.GetString("Filtration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Кнопка ниже находит ближайшее 
         ///отделение банка к текущему центру карты 
         ///(Красный крестик на карте).
@@ -329,6 +415,26 @@ namespace BanksOnMap.MyResourses {
         public static string Hour {
             get {
                 return ResourceManager.GetString("Hour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Все операции связанные с изменением и добавлением объектов происходят в разделе &quot;Выбранный элемент&quot;!
+        ///Элементы можно редактировать и сохранять изменения, а также создавать на их основе новые элементы.
+        ///.
+        /// </summary>
+        public static string IMPORTANT {
+            get {
+                return ResourceManager.GetString("IMPORTANT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Важно!.
+        /// </summary>
+        public static string ImportantWarning {
+            get {
+                return ResourceManager.GetString("ImportantWarning", resourceCulture);
             }
         }
         
@@ -441,11 +547,39 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Месяц.
+        /// </summary>
+        public static string Month {
+            get {
+                return ResourceManager.GetString("Month", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вы ничего не выбрали для удаления!.
         /// </summary>
         public static string NoSelectedItems {
             get {
                 return ResourceManager.GetString("NoSelectedItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дата открытия:.
+        /// </summary>
+        public static string OpenDate {
+            get {
+                return ResourceManager.GetString("OpenDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Показать на карте только те отделения
+        /// у которых указана дата открытия:.
+        /// </summary>
+        public static string OpeningDateFiltration {
+            get {
+                return ResourceManager.GetString("OpeningDateFiltration", resourceCulture);
             }
         }
         
@@ -606,11 +740,45 @@ namespace BanksOnMap.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Справка.
+        /// </summary>
+        public static string UsefulInfo {
+            get {
+                return ResourceManager.GetString("UsefulInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Если вы хотите добавить рабочие часы, 
+        ///перерывы, кассира, или изменить(создать) 
+        ///курсы валют - вы должны заполнить 
+        ///ВСЕ поля этих свойств.
+        ///Кроме того объекты не должны содержать
+        /// несколько одинаковых услуг, поэтому 
+        ///если вы попытаетесь добавить объекту услугу
+        ///которой он уже обладает, то получите ошибку..
+        /// </summary>
+        public static string UsefulInfoItself {
+            get {
+                return ResourceManager.GetString("UsefulInfoItself", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Время работы:.
         /// </summary>
         public static string WorkHours {
             get {
                 return ResourceManager.GetString("WorkHours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Год.
+        /// </summary>
+        public static string Year {
+            get {
+                return ResourceManager.GetString("Year", resourceCulture);
             }
         }
     }

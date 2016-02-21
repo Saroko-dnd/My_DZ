@@ -22,6 +22,13 @@ namespace MapDBContext
         public DbSet<Service> Services { get; set; }
         public DbSet<WorkingHours> WorkingHours { get; set; }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BankBranch>()
+              .HasOptional(a => a.RelatedCashier)
+              .WithRequired(s => s.RelatedBranch);
+        }
+
         public BanksDBContext()
         {
         }

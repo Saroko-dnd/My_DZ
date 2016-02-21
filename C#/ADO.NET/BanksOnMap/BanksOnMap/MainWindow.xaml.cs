@@ -17,6 +17,7 @@ using GMap.NET;
 using System.Data.Entity.Spatial;
 using System.Collections.ObjectModel;
 using System.Data.Entity.Validation;
+using Google.Apis.Services;
 //namespace of my dll
 using MapDBContext;
 
@@ -34,6 +35,10 @@ namespace BanksOnMap
 
         public BankBranch SelectedBranchBuf = new BankBranch();
         public bool AddNewBranch= true;
+        public bool UseFilters = false;
+        List<BreakTime> ItemsSourseBreakTimes = new List<BreakTime>();
+        List<Service> ItemsSourseServices = new List<Service>();
+        List<Comment> ItemsSourceComments = new List<Comment>();
 
 
         public MainWindow()
@@ -82,16 +87,13 @@ namespace BanksOnMap
             RUBSellTextBox.PreviewTextInput += CharsKiller.InputValidationDoubleOnly;
             RUBSellTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
 
-            try
-            {
-                /*BanksDBContext TestContext = new BanksDBContext(MyResourses.Texts.ConnectionStringName);
-                TestContext.Banks.Add(new Bank() { BankName = "TestName_23" });
-                TestContext.SaveChanges();*/
-            }
-            catch (Exception CurrentException)
-            {
-                MessageBox.Show(CurrentException.Message);
-            }
+            YearTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            YearTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            MonthTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            MonthTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            DayTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            DayTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+
             EntityConnector.ConnectionStringName = MyResourses.Texts.ConnectionStringName;
             //конфигурируем карту
             //*****************************************************************************
@@ -109,6 +111,7 @@ namespace BanksOnMap
             MapPointTestLabel.Text = "x " + MainMap.MapPoint.X.ToString() + "Y " +  MainMap.MapPoint.Y.ToString();
             MainMap.MouseMove += ShowCoordinatesEvent;
             MainMap.MouseWheel += ShowCoordinatesEvent;
+            MessageBox.Show(MyResourses.Texts.IMPORTANT, MyResourses.Texts.ImportantWarning,MessageBoxButton.OK,MessageBoxImage.Warning);
         }
 
         public void LoadObjectsOnMap()
@@ -116,14 +119,26 @@ namespace BanksOnMap
             MainMap.Markers.Clear();
             foreach (BankBranch CurrentBranch in EntityConnector.StaticBanksDBContext.BankBranches)
             {
-                Label LabelForMarker = new Label() { FontSize = 12.0, Content = CurrentBranch.BranchName, Foreground = Brushes.Yellow, Background = Brushes.Black };
-                LabelForMarker.MouseLeftButtonDown += ClickMarkerEvent;
-                MainMap.Markers.Add(new GMapMarker(new GMap.NET.PointLatLng((double)CurrentBranch.MapLocation.Latitude, (double)CurrentBranch.MapLocation.Longitude))
+                bool allowed = true;
+                if (UseFilters && OpeningDateFilterCheckBox.IsChecked.Value && CurrentBranch.OpeningDate == null)
                 {
-                    Tag = "tagddd",
-                    Shape = LabelForMarker
-                });
+                    allowed = false;
+                }
+                else if (UseFilters && BankNameFilterCheckBox.IsChecked.Value && CurrentBranch.RelatedBank.BankName != BankNameForFilterTextBox.Text)
+                {
+                    allowed = false;
+                }
+                if (allowed)
+                {
+                    Label LabelForMarker = new Label() { FontSize = 12.0, Content = CurrentBranch.BranchName, Foreground = Brushes.Yellow, Background = Brushes.Black };
+                    LabelForMarker.MouseLeftButtonDown += ClickMarkerEvent;
+                    MainMap.Markers.Add(new GMapMarker(new GMap.NET.PointLatLng((double)CurrentBranch.MapLocation.Latitude, (double)CurrentBranch.MapLocation.Longitude))
+                    {
+                        Shape = LabelForMarker
+                    });
+                }
             }
+            UseFilters = false;
         }
 
         public void ClickMarkerEvent(Object Sender, EventArgs CurrentArgs)
@@ -177,6 +192,7 @@ namespace BanksOnMap
 
         public void ShowBranchInfo(BankBranch SelectedBranch)
         {
+            ClearDataFromFields();
             if (SelectedBranch.RelatedBank != null)
                 RelatedBankNameTextBox.Text = SelectedBranch.RelatedBank.BankName;
             if (SelectedBranch.BranchName != null)
@@ -203,8 +219,8 @@ namespace BanksOnMap
             }
             if (SelectedBranch.RelatedServices != null)
             {
-                ServicesDataGrid.ItemsSource = null;
-                ServicesDataGrid.ItemsSource = SelectedBranch.RelatedServices;
+                ItemsSourseServices = SelectedBranch.RelatedServices.ToList();
+                ServicesDataGrid.ItemsSource = ItemsSourseServices;
             }
             if (SelectedBranch.WorkingHours != null)
             {
@@ -215,24 +231,60 @@ namespace BanksOnMap
             }
             if (SelectedBranch.BreakTimes != null)
             {
-                BreakTimesDataGrid.ItemsSource = null;
-                BreakTimesDataGrid.ItemsSource = SelectedBranch.BreakTimes;
+                ItemsSourseBreakTimes = SelectedBranch.BreakTimes.ToList();
+                BreakTimesDataGrid.ItemsSource = ItemsSourseBreakTimes;
             }
             if (SelectedBranch.RelatedComments != null)
             {
-                CommentsDataGrid.ItemsSource = null;
-                CommentsDataGrid.ItemsSource = SelectedBranch.RelatedComments;
+                ItemsSourceComments = SelectedBranch.RelatedComments.ToList();
+                CommentsDataGrid.ItemsSource = ItemsSourceComments;
             }
             if (SelectedBranch.MapLocation != null)
             {
                 LongitudeTextBox.Text = SelectedBranch.MapLocation.Longitude.ToString();
                 LatitudeTextBox.Text = SelectedBranch.MapLocation.Latitude.ToString();
             }
+            if (SelectedBranch.OpeningDate != null)
+            {
+                YearTextBox.Text = SelectedBranch.OpeningDate.Value.Year.ToString();
+                MonthTextBox.Text = SelectedBranch.OpeningDate.Value.Month.ToString();
+                DayTextBox.Text = SelectedBranch.OpeningDate.Value.Day.ToString();
+            }
+        }
+
+        public void ClearDataFromFields()
+        {
+            RelatedBankNameTextBox.Text = string.Empty;
+            BranchNameTextBox.Text = string.Empty;
+            AddressTextBox.Text = string.Empty;
+            PhoneTextBox.Text = string.Empty;
+            FirstNameSelectedTextBox.Text = string.Empty;
+            LastNameSelectedTextBox.Text = string.Empty;
+            PatronymicSelectedTextBox.Text = string.Empty;
+            CashierPhoneTextBox.Text = string.Empty;
+            USDBuyTextBox.Text = string.Empty;
+            EUROBuyTextBox.Text = string.Empty;
+            RUBBuyTextBox.Text = string.Empty;
+            USDSellTextBox.Text = string.Empty;
+            EUROSellTextBox.Text = string.Empty;
+            RUBSellTextBox.Text = string.Empty;
+            ServicesDataGrid.ItemsSource = null;
+            WorkHourBeginTextBox.Text = string.Empty;
+            WorkMinutesBeginTextBox.Text = string.Empty;
+            WorkHourEndTextBox.Text = string.Empty;
+            WorkMinutesEndTextBox.Text = string.Empty;
+            BreakTimesDataGrid.ItemsSource = null;
+            CommentsDataGrid.ItemsSource = null;
+            LongitudeTextBox.Text = string.Empty;
+            LatitudeTextBox.Text = string.Empty;
+            YearTextBox.Text = string.Empty;
+            MonthTextBox.Text = string.Empty;
+            DayTextBox.Text = string.Empty;
         }
 
         public void ChangeMapCenter(double Latitude, double Longitude)
         {
-            MainMap.Position = new GMap.NET.PointLatLng(Longitude, Latitude);
+            MainMap.Position = new GMap.NET.PointLatLng(Latitude, Longitude);
         }
 
         public void StartSearchRatesButtonClick(Object Sender, EventArgs CurrentArgs)
@@ -337,7 +389,7 @@ namespace BanksOnMap
 
         public void StartSearchMapButtonClick(Object Sender, EventArgs CurrentArgs)
         {
-            SelectedBranchBuf = EntityConnector.GetNearestBranch(MainMap.Position.Lng, MainMap.Position.Lat);
+            SelectedBranchBuf = EntityConnector.GetNearestBranch(MainMap.Position.Lat, MainMap.Position.Lng);
             ShowBranchInfo(SelectedBranchBuf);
             ChangeMapCenter((double)SelectedBranchBuf.MapLocation.Latitude, (double)SelectedBranchBuf.MapLocation.Longitude);
             SelectedTabItem.IsSelected = true;
@@ -351,14 +403,15 @@ namespace BanksOnMap
                 if (Byte.Parse(BreakTimeBeginHourTextBox.Text) > 24 || Byte.Parse(BreakTimeEndHourTextBox.Text) > 24 || 
                     Byte.Parse(BreakTimeBeginMinuteTextBox.Text) > 59 || Byte.Parse(BreakTimeEndMinuteTextBox.Text) > 59)
                     throw new InvalidOperationException();
-                SelectedBranchBuf.BreakTimes.Add(new BreakTime()
+                ItemsSourseBreakTimes.Add(new BreakTime()
                 {
                     StartHour = Byte.Parse(BreakTimeBeginHourTextBox.Text),
                     StartMinutes = Byte.Parse(BreakTimeBeginMinuteTextBox.Text),
                     EndHour = Byte.Parse(BreakTimeEndHourTextBox.Text),
                     EndMinutes = Byte.Parse(BreakTimeEndMinuteTextBox.Text)
                 });
-                ShowBranchInfo(SelectedBranchBuf);
+                BreakTimesDataGrid.ItemsSource = null;
+                BreakTimesDataGrid.ItemsSource = ItemsSourseBreakTimes;
             }
             catch
             {
@@ -371,13 +424,13 @@ namespace BanksOnMap
         {
             try
             {
-                if (SelectedBranchBuf.RelatedServices.Where(res => res.Servise == NewServiceTextBox.Text).ToList().Count > 0)
-                    throw new InvalidOperationException();
-                SelectedBranchBuf.RelatedServices.Add(new Service()
+                if (ItemsSourseServices.Any(res => res.Servise == NewServiceTextBox.Text))
                 {
-                    Servise = NewServiceTextBox.Text
-                });
-                ShowBranchInfo(SelectedBranchBuf);
+                    throw new InvalidOperationException();
+                }
+                ItemsSourseServices.Add(new Service() { Servise = NewServiceTextBox.Text });
+                ServicesDataGrid.ItemsSource = null;
+                ServicesDataGrid.ItemsSource = ItemsSourseServices;
             }
             catch (Exception CurrentException)
             {
@@ -403,8 +456,9 @@ namespace BanksOnMap
             try
             {
                 BreakTime SelectedBreakTime = BreakTimesDataGrid.SelectedItem as BreakTime;
-                SelectedBranchBuf.BreakTimes.Remove(SelectedBreakTime);
-                ShowBranchInfo(SelectedBranchBuf);
+                ItemsSourseBreakTimes.Remove(SelectedBreakTime);
+                BreakTimesDataGrid.ItemsSource = null;
+                BreakTimesDataGrid.ItemsSource = ItemsSourseBreakTimes;
             }
             catch
             {
@@ -430,8 +484,9 @@ namespace BanksOnMap
             try
             {
                 Service SelectedService = ServicesDataGrid.SelectedItem as Service;
-                SelectedBranchBuf.RelatedServices.Remove(SelectedService);
-                ShowBranchInfo(SelectedBranchBuf);
+                ItemsSourseServices.Remove(SelectedService);
+                ServicesDataGrid.ItemsSource = null;
+                ServicesDataGrid.ItemsSource = ItemsSourseServices;
             }
             catch
             {
@@ -457,8 +512,9 @@ namespace BanksOnMap
             try
             {
                 Comment SelectedComment = CommentsDataGrid.SelectedItem as Comment;
-                SelectedBranchBuf.RelatedComments.Remove(SelectedComment);
-                ShowBranchInfo(SelectedBranchBuf);
+                ItemsSourceComments.Remove(SelectedComment);
+                CommentsDataGrid.ItemsSource = null;
+                CommentsDataGrid.ItemsSource = ItemsSourceComments;
             }
             catch
             {
@@ -469,8 +525,9 @@ namespace BanksOnMap
 
         public void AddCommentButtonClick(Object Sender, EventArgs arguments)
         {
-            SelectedBranchBuf.RelatedComments.Add( new Comment() { CommentItself = CommentTextBox.Text } );
-            ShowBranchInfo(SelectedBranchBuf);
+            ItemsSourceComments.Add(new Comment() { CommentItself = CommentTextBox.Text });
+            CommentsDataGrid.ItemsSource = null;
+            CommentsDataGrid.ItemsSource = ItemsSourceComments;
         }
 
         public void SaveChangesButtonClick(Object Sender, EventArgs arguments)
@@ -495,17 +552,59 @@ namespace BanksOnMap
                 {
                     Longitude = MainMap.Position.Lng.ToString().Replace(",", ".");
                     Latitude = MainMap.Position.Lat.ToString().Replace(",", ".");
-                    BranchToSave.MapLocation = DbGeography.FromText(MyResourses.Texts.POINT + "(" + Longitude +
-                        " " + Latitude + ")");
+                    if (AddNewBranch)
+                    {
+                        BranchToSave.MapLocation = DbGeography.FromText(MyResourses.Texts.POINT + "(" + Longitude +
+                            " " + Latitude + ")");
+                    }
+                    else
+                    {
+                        EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().
+                            MapLocation 
+                            = DbGeography.FromText(MyResourses.Texts.POINT + "(" + Longitude +
+                            " " + Latitude + ")");
+                        EntityConnector.StaticBanksDBContext.SaveChanges();
+                    }
                 }
                 else
                 {
                     Longitude = LongitudeTextBox.Text.Replace(",", ".");
                     Latitude = LatitudeTextBox.Text.Replace(",", ".");
-                    BranchToSave.MapLocation = DbGeography.FromText(MyResourses.Texts.POINT + "(" + Longitude +
-                        " " + Latitude + ")");
+                    if (AddNewBranch)
+                    {
+                        BranchToSave.MapLocation = DbGeography.FromText(MyResourses.Texts.POINT + "(" + Longitude +
+                            " " + Latitude + ")");
+                    }
+                    else
+                    {
+                        EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().
+                            MapLocation
+                            = DbGeography.FromText(MyResourses.Texts.POINT + "(" + Longitude +
+                            " " + Latitude + ")");
+                        EntityConnector.StaticBanksDBContext.SaveChanges();
+                    }
                 }
-
+                if (YearTextBox.Text != string.Empty && MonthTextBox.Text != string.Empty &&
+                    DayTextBox.Text != string.Empty)
+                {
+                    if (Int32.Parse(MonthTextBox.Text) > 12 || Int32.Parse(DayTextBox.Text) > 31)
+                    {
+                        throw new InvalidOperationException();
+                    }
+                    else
+                    {
+                        if (AddNewBranch)
+                        BranchToSave.OpeningDate = new DateTime(Int32.Parse(YearTextBox.Text), 
+                            Int32.Parse(MonthTextBox.Text), Int32.Parse(DayTextBox.Text));
+                        else
+                        {
+                            EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().
+                                OpeningDate = new DateTime(Int32.Parse(YearTextBox.Text),
+                            Int32.Parse(MonthTextBox.Text), Int32.Parse(DayTextBox.Text));
+                            EntityConnector.StaticBanksDBContext.SaveChanges();
+                        }
+                    }
+                }
                 if (WorkHourBeginTextBox.Text != string.Empty && WorkHourEndTextBox.Text != string.Empty &&
                     WorkMinutesBeginTextBox.Text != string.Empty && WorkMinutesEndTextBox.Text != string.Empty)
                 {
@@ -514,39 +613,118 @@ namespace BanksOnMap
                         throw new InvalidOperationException();
                     else
                     {
-                        BranchToSave.WorkingHours = new WorkingHours()
+                        if (AddNewBranch)
                         {
-                            EndHour = Byte.Parse(WorkHourEndTextBox.Text),
-                            StartHour = Byte.Parse(WorkHourBeginTextBox.Text),
-                            StartMinutes = Byte.Parse(WorkMinutesBeginTextBox.Text),
-                            EndMinutes = Byte.Parse(WorkMinutesEndTextBox.Text)
+                            BranchToSave.WorkingHours = new WorkingHours()
+                            {
+                                EndHour = Byte.Parse(WorkHourEndTextBox.Text),
+                                StartHour = Byte.Parse(WorkHourBeginTextBox.Text),
+                                StartMinutes = Byte.Parse(WorkMinutesBeginTextBox.Text),
+                                EndMinutes = Byte.Parse(WorkMinutesEndTextBox.Text)
+                            };
+                        }
+                        else
+                        {
+                            EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().
+                                WorkingHours = new WorkingHours()
+                            {
+                                EndHour = Byte.Parse(WorkHourEndTextBox.Text),
+                                StartHour = Byte.Parse(WorkHourBeginTextBox.Text),
+                                StartMinutes = Byte.Parse(WorkMinutesBeginTextBox.Text),
+                                EndMinutes = Byte.Parse(WorkMinutesEndTextBox.Text)
+                            };
+                            EntityConnector.StaticBanksDBContext.SaveChanges();
+                        }
+
+                    }
+                }
+                  
+                if (!AddNewBranch && EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BranchName == BranchNameTextBox.Text).
+                    Where(res => res.BankBranchID != BranchToSave.BankBranchID).ToList().Count > 0)
+                {
+                    MessageBox.Show(MyResourses.Texts.BranchAlreadyExists, MyResourses.Texts.Error,
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    throw new InvalidOperationException();
+                }
+                else if (AddNewBranch && EntityConnector.StaticBanksDBContext.BankBranches.Any(res => res.BranchName == BranchNameTextBox.Text))
+                {
+                    MessageBox.Show(MyResourses.Texts.BranchAlreadyExists, MyResourses.Texts.Error,
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                    throw new InvalidOperationException();
+                }
+                if (AddNewBranch)
+                {
+                    BranchToSave.BranchName = BranchNameTextBox.Text;
+                    BranchToSave.Address = AddressTextBox.Text;
+                    BranchToSave.Phone = PhoneTextBox.Text;
+                }
+                else
+                {
+                    EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().BranchName = BranchNameTextBox.Text;
+                    EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().Address = AddressTextBox.Text;
+                    EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().Phone = PhoneTextBox.Text;
+                    EntityConnector.StaticBanksDBContext.SaveChanges();
+                }      
+
+                if (FirstNameSelectedTextBox.Text != string.Empty && LastNameSelectedTextBox.Text != string.Empty &&
+                    PatronymicSelectedTextBox.Text != string.Empty && CashierPhoneTextBox.Text != string.Empty)
+                {
+                    if (AddNewBranch)
+                    {
+                        BranchToSave.RelatedCashier = new Cashier()
+                        {
+                            FirstName = FirstNameSelectedTextBox.Text,
+                            LastName = LastNameSelectedTextBox.Text,
+                            Patronymic = PatronymicSelectedTextBox.Text,
+                            Phone = CashierPhoneTextBox.Text
                         };
                     }
-                }               
-                BranchToSave.BranchName = BranchNameTextBox.Text;
-                BranchToSave.Address = AddressTextBox.Text;
-                BranchToSave.Phone = PhoneTextBox.Text;
-                if (FirstNameSelectedTextBox.Text != string.Empty && LastNameSelectedTextBox.Text != string.Empty &&
-                   PatronymicSelectedTextBox.Text != string.Empty && CashierPhoneTextBox.Text != string.Empty)
-                    BranchToSave.RelatedCashier = new Cashier()
+                    else
                     {
-                        FirstName = FirstNameSelectedTextBox.Text,
-                        LastName = LastNameSelectedTextBox.Text,
-                        Patronymic = PatronymicSelectedTextBox.Text,
-                        Phone = CashierPhoneTextBox.Text
-                    };
+                        EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().RelatedCashier 
+                            = new Cashier()
+                        {
+                            FirstName = FirstNameSelectedTextBox.Text,
+                            LastName = LastNameSelectedTextBox.Text,
+                            Patronymic = PatronymicSelectedTextBox.Text,
+                            Phone = CashierPhoneTextBox.Text
+                        };
+                        EntityConnector.StaticBanksDBContext.SaveChanges();
+                    }
+                }
+
                 if (EUROBuyTextBox.Text != string.Empty && EUROSellTextBox.Text != string.Empty &&
                     RUBBuyTextBox.Text != string.Empty && RUBSellTextBox.Text != string.Empty &&
                     USDBuyTextBox.Text != string.Empty && USDSellTextBox.Text != string.Empty)
-                BranchToSave.RelatedRates = new ExchangeRates()
                 {
-                    EUROBuy = double.Parse(EUROBuyTextBox.Text),
-                    EUROSell = double.Parse(EUROSellTextBox.Text),
-                    RuBuy = double.Parse(RUBBuyTextBox.Text),
-                    RuSell = double.Parse(RUBSellTextBox.Text),
-                    USDBuy = double.Parse(USDBuyTextBox.Text),
-                    USDSell = double.Parse(USDSellTextBox.Text),
-                };
+                    if (AddNewBranch)
+                    {
+                        BranchToSave.RelatedRates = new ExchangeRates()
+                        {
+                            EUROBuy = double.Parse(EUROBuyTextBox.Text),
+                            EUROSell = double.Parse(EUROSellTextBox.Text),
+                            RuBuy = double.Parse(RUBBuyTextBox.Text),
+                            RuSell = double.Parse(RUBSellTextBox.Text),
+                            USDBuy = double.Parse(USDBuyTextBox.Text),
+                            USDSell = double.Parse(USDSellTextBox.Text),
+                        };
+                    }
+                    else
+                    {
+                        EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().
+                            RelatedRates = new ExchangeRates()
+                        {
+                            EUROBuy = double.Parse(EUROBuyTextBox.Text),
+                            EUROSell = double.Parse(EUROSellTextBox.Text),
+                            RuBuy = double.Parse(RUBBuyTextBox.Text),
+                            RuSell = double.Parse(RUBSellTextBox.Text),
+                            USDBuy = double.Parse(USDBuyTextBox.Text),
+                            USDSell = double.Parse(USDSellTextBox.Text),
+                        };
+                        EntityConnector.StaticBanksDBContext.SaveChanges();
+                    }
+                }
+
                 if (AddNewBranch)
                 {
                     foreach (var CurrentItem in BreakTimesDataGrid.Items)
@@ -557,18 +735,76 @@ namespace BanksOnMap
                     foreach (var CurrentItem in ServicesDataGrid.Items)
                     {
                         if ((CurrentItem as Service) != null)
-                            BranchToSave.RelatedServices.Add(CurrentItem as Service);
+                        {
+                            string ServiceName = (CurrentItem as Service).Servise;
+                            if (EntityConnector.StaticBanksDBContext.Services.Any(res => res.Servise == ServiceName))
+                                BranchToSave.RelatedServices.Add(EntityConnector.StaticBanksDBContext.Services.Where(res => res.Servise == ServiceName).First());
+                            else
+                                BranchToSave.RelatedServices.Add(CurrentItem as Service);
+                        }
                     }
                     foreach (var CurrentItem in CommentsDataGrid.Items)
                     {
                         if ((CurrentItem as Comment) != null)
-                            BranchToSave.RelatedComments.Add(new Comment() { CommentItself = (CurrentItem as Comment).CommentItself } );
+                            BranchToSave.RelatedComments.Add(new Comment() { CommentItself = (CurrentItem as Comment).CommentItself });
                     }
                 }
+                else
+                {
+                    List<BreakTime> NewBreakTimes = new List<BreakTime>();
+                    List<Service> NewServices = new List<Service>();
+                    List<Comment> NewComments = new List<Comment>();
+                    foreach (var CurrentItem in BreakTimesDataGrid.Items)
+                    {
+                        if ((CurrentItem as BreakTime) != null)
+                        {
+                            NewBreakTimes.Add(CurrentItem as BreakTime);
+                        }
+                    }
+                    EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().BreakTimes
+                         = NewBreakTimes;
+                    EntityConnector.StaticBanksDBContext.SaveChanges();
+                    foreach (var CurrentItem in ServicesDataGrid.Items)
+                    {
+                        if ((CurrentItem as Service) != null)
+                        {
+                            string ServiceName = (CurrentItem as Service).Servise;
+                            if (EntityConnector.StaticBanksDBContext.Services.Any(res => res.Servise == ServiceName))
+                                NewServices.Add(EntityConnector.StaticBanksDBContext.Services.Where(res => res.Servise == ServiceName).First());
+                            else
+                                NewServices.Add(CurrentItem as Service);
+                        }
+                    }
+                    EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().
+                        RelatedServices = NewServices;
+                    EntityConnector.StaticBanksDBContext.SaveChanges();
+                    foreach (var CurrentItem in CommentsDataGrid.Items)
+                    {
+                        if ((CurrentItem as Comment) != null)
+                            NewComments.Add(CurrentItem as Comment);
+                    }
+                    foreach (Comment CurComment in NewComments)
+                    {
+                        CurComment.RelatedBranch = EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First();
+                    }
+                        EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().
+                        RelatedComments = NewComments;
+                        EntityConnector.StaticBanksDBContext.SaveChanges();
+                }
+
+
                 EntityConnector.AddNewBankIfNecessary(RelatedBankNameTextBox.Text);
                 BranchToSave.RelatedBank = null;
-                EntityConnector.StaticBanksDBContext.Banks.Where(res => res.BankName == RelatedBankNameTextBox.Text).
-                    First().RelatedBranches.Add(BranchToSave);
+                if (AddNewBranch)
+                {
+                    EntityConnector.StaticBanksDBContext.Banks.Where(res => res.BankName == RelatedBankNameTextBox.Text).
+                        First().RelatedBranches.Add(BranchToSave);
+                }
+                else
+                {
+                    EntityConnector.StaticBanksDBContext.BankBranches.Where(res => res.BankBranchID == BranchToSave.BankBranchID).First().RelatedBank = EntityConnector.StaticBanksDBContext.Banks.
+                        Where(res => res.BankName == RelatedBankNameTextBox.Text).First();
+                }
                 EntityConnector.StaticBanksDBContext.SaveChanges();
                 LoadObjectsOnMap();
             }
@@ -579,5 +815,10 @@ namespace BanksOnMap
             }
         }
 
+        public void UseFiltersButtonClick(Object Sender, EventArgs arguments)
+        {
+            UseFilters = true;
+            LoadObjectsOnMap();
+        }
     }
 }

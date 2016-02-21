@@ -148,7 +148,8 @@
     <value>buy:</value>
   </data>
   <data name="Cashier" xml:space="preserve">
-    <value>Кассир:</value>
+    <value>Кассир:
+(ФИО)</value>
   </data>
   <data name="CashierPhone" xml:space="preserve">
     <value>Телефон кассира:</value>
@@ -304,5 +305,70 @@
   </data>
   <data name="POINT" xml:space="preserve">
     <value>POINT</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Месяц</value>
+  </data>
+  <data name="OpenDate" xml:space="preserve">
+    <value>Дата открытия:</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Год</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Применить фильтры</value>
+  </data>
+  <data name="Asc" xml:space="preserve">
+    <value>Asc</value>
+  </data>
+  <data name="BankNameFilter" xml:space="preserve">
+    <value>Отфильтровать по 
+названию банка:</value>
+  </data>
+  <data name="BranchAlreadyExists" xml:space="preserve">
+    <value>Отделение с таким именем уже существует!</value>
+  </data>
+  <data name="CantAddService" xml:space="preserve">
+    <value>Вы не можете добавить услугу для отделения, пока у отделения не будут заполнены ВСЕ ОБЯЗАТЕЛЬНЫЕ ПОЛЯ. (название банка, название отделения, координаты)</value>
+  </data>
+  <data name="CashierWarning" xml:space="preserve">
+    <value>Если вы хотите добавить
+к отделению кассира
+то необходимо заполнить
+ВСЕ его поля.</value>
+  </data>
+  <data name="Desc" xml:space="preserve">
+    <value>Desc</value>
+  </data>
+  <data name="Filtration" xml:space="preserve">
+    <value>Фильтрация</value>
+  </data>
+  <data name="IMPORTANT" xml:space="preserve">
+    <value>Все операции связанные с изменением и добавлением объектов происходят в разделе "Выбранный элемент"!
+Элементы можно редактировать и сохранять изменения, а также создавать на их основе новые элементы.
+</value>
+  </data>
+  <data name="ImportantWarning" xml:space="preserve">
+    <value>Важно!</value>
+  </data>
+  <data name="OpeningDateFiltration" xml:space="preserve">
+    <value>Показать на карте только те отделения
+ у которых указана дата открытия:</value>
+  </data>
+  <data name="UsefulInfo" xml:space="preserve">
+    <value>Справка</value>
+  </data>
+  <data name="UsefulInfoItself" xml:space="preserve">
+    <value>Если вы хотите добавить рабочие часы, 
+перерывы, кассира, или изменить(создать) 
+курсы валют - вы должны заполнить 
+ВСЕ поля этих свойств.
+Кроме того объекты не должны содержать
+ несколько одинаковых услуг, поэтому 
+если вы попытаетесь добавить объекту услугу
+которой он уже обладает, то получите ошибку.</value>
   </data>
 </root>

@@ -11,7 +11,7 @@ namespace MapDBContext
     [Table("Cashiers")]
     public class Cashier
     {
-        [Key, ForeignKey("RelatedBranch")]
+        [Key]
         public int CashierID { get; set; }
         [Required]
         public string FirstName { get; set; }

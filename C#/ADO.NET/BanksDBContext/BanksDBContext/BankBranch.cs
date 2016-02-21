@@ -29,6 +29,7 @@ namespace MapDBContext
         [Required]
         public DbGeography MapLocation { get ;set; }
         //необязательный DateTime ДОЛЖЕН быть Nullable
+        [Column(TypeName ="datetime2")]
         public Nullable<DateTime> OpeningDate { get; set; }
         public virtual ICollection<Comment> RelatedComments { get; set; }
         public virtual ICollection<Service> RelatedServices { get; set; }

@@ -6,7 +6,7 @@
         xmlns:GMap="clr-namespace:GMap.NET;assembly=GMap.NET.Core"
         xmlns:ThisProgram="clr-namespace:BanksOnMap"
         xmlns:MyResourses="clr-namespace:BanksOnMap.MyResourses"
-        Title="MainWindow" Height="850" Width="930" Name="MainForm" >
+        Title="MainWindow" Height="850" Width="1000" Name="MainForm" >
     <Window.Resources>
         <ThisProgram:GridCellWidthConverter x:Key="GridCellWidthConverter"></ThisProgram:GridCellWidthConverter>
     </Window.Resources>
@@ -27,7 +27,7 @@
                     <TabItem Name="SelectedTabItem" Header="{x:Static MyResourses:Texts.SelectedInfo}">
                         <StackPanel>
                             <WrapPanel>
-                                <Label Content="{x:Static MyResourses:Texts.BranchCoordinates}"></Label>
+                                <Label Foreground="Red" Content="{x:Static MyResourses:Texts.BranchCoordinates}"></Label>
                                 <StackPanel>
                                     <WrapPanel>
                                         <Label Content="{x:Static MyResourses:Texts.Latitude}"></Label>
@@ -40,20 +40,29 @@
                                 </StackPanel>
                             </WrapPanel>
                             <WrapPanel>
-                                <Label Content="{x:Static MyResourses:Texts.UseCenterCoordinates}"></Label>
+                                <Label Foreground="Red" Content="{x:Static MyResourses:Texts.UseCenterCoordinates}"></Label>
                                 <CheckBox Name="UseMapCoordinatesCheckBox" Margin="0,30,0,0"></CheckBox>
                             </WrapPanel>
                             <WrapPanel>
-                                <Label Content="{x:Static MyResourses:Texts.BankName}"></Label>
+                                <Label Foreground="Red" Content="{x:Static MyResourses:Texts.BankName}"></Label>
                                 <TextBox Name="RelatedBankNameTextBox" Width="300"></TextBox>
                             </WrapPanel>
                             <WrapPanel>
-                                <Label Content="{x:Static MyResourses:Texts.BranchName}"></Label>
+                                <Label Foreground="Red" Content="{x:Static MyResourses:Texts.BranchName}"></Label>
                                 <TextBox Name="BranchNameTextBox" Width="300"></TextBox>
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.Address}"></Label>
                                 <TextBox Name="AddressTextBox" Width="300"></TextBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.OpenDate}"></Label>
+                                <Label Content="{x:Static MyResourses:Texts.Year}"></Label>
+                                <TextBox MaxLength="4" Name="YearTextBox" Width="40"></TextBox>
+                                <Label Content="{x:Static MyResourses:Texts.Month}"></Label>
+                                <TextBox MaxLength="2" Name="MonthTextBox" Width="20"></TextBox>
+                                <Label Content="{x:Static MyResourses:Texts.Day}"></Label>
+                                <TextBox MaxLength="2" Name="DayTextBox" Width="20"></TextBox>
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.WorkHours}"></Label>
@@ -66,7 +75,7 @@
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.Breaks}"></Label>
-                                <DataGrid SelectionMode="Single" AutoGeneratingColumn="BreakTimesDataGridCheckClumns" MaxHeight="100" Name="BreakTimesDataGrid" CanUserAddRows="True"></DataGrid>
+                                <DataGrid CanUserAddRows="False" SelectionMode="Single" AutoGeneratingColumn="BreakTimesDataGridCheckClumns" MaxHeight="100" Name="BreakTimesDataGrid"></DataGrid>
                                 <Button Click="BreakTimeRemoveButtonClick" Name="RemoveBreakTimeButton" Content="{x:Static MyResourses:Texts.RemoveBreakTime}"></Button>
                             </WrapPanel>
                             <StackPanel>
@@ -101,6 +110,9 @@
                                     <Label Content="{x:Static MyResourses:Texts.CashierPhone}"></Label>
                                     <TextBox Name="CashierPhoneTextBox" Width="100"></TextBox>
                                 </StackPanel>
+                                <StackPanel>
+                                    <Label Content="{x:Static MyResourses:Texts.CashierWarning}" Foreground="Red"></Label>
+                                </StackPanel>
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.ExchangeRates}"></Label>
@@ -132,7 +144,7 @@
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.Services}"></Label>
-                                <DataGrid AutoGeneratingColumn="ServicesDataGridCheckColumns" SelectionMode="Single" Name="ServicesDataGrid" MaxHeight="100" CanUserAddRows="True"></DataGrid>
+                                <DataGrid AutoGeneratingColumn="ServicesDataGridCheckColumns" SelectionMode="Single" Name="ServicesDataGrid" MaxHeight="100" CanUserAddRows="False"></DataGrid>
                                 <Button Click="ServiceRemoveButtonClick" Name="DeleteServise" Content="{x:Static MyResourses:Texts.DeleteService}"></Button>
                                 <StackPanel>
                                     <Label Content="{x:Static MyResourses:Texts.ServicesInDB}"></Label>
@@ -143,7 +155,7 @@
                             </WrapPanel>
                             <WrapPanel>
                                 <Label Content="{x:Static MyResourses:Texts.Comments}"></Label>
-                                <DataGrid AutoGeneratingColumn="CommentsDataGridCheckColumns" MaxHeight="100" SelectionMode="Single" Name="CommentsDataGrid"></DataGrid>
+                                <DataGrid CanUserAddRows="False" AutoGeneratingColumn="CommentsDataGridCheckColumns" MaxHeight="100" SelectionMode="Single" Name="CommentsDataGrid"></DataGrid>
                                 <Button Click="CommentRemoveButtonClick" Name="DeleteCommentButton" Content="{x:Static MyResourses:Texts.DeleteComment}"></Button>
                             </WrapPanel>
                             <StackPanel>
@@ -196,8 +208,22 @@
                             <Button Click="StartSearchMapButtonClick" Name="StartSearchMapButton" Content="{x:Static MyResourses:Texts.StartSearch}"></Button>
                         </StackPanel>
                     </TabItem>
-                    <TabItem Header="{x:Static MyResourses:Texts.CreateNewElement}">
-
+                    <TabItem Header="{x:Static MyResourses:Texts.Filtration}">
+                        <StackPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.OpeningDateFiltration}"></Label>
+                                <CheckBox Name="OpeningDateFilterCheckBox" Margin="0,15,0,0"></CheckBox>
+                            </WrapPanel>
+                            <WrapPanel>
+                                <Label Content="{x:Static MyResourses:Texts.BankNameFilter}"></Label>
+                                <TextBox Name="BankNameForFilterTextBox" MaxLines="1" Width="130"></TextBox>
+                                <CheckBox Name="BankNameFilterCheckBox" Margin="0,15,0,0"></CheckBox>
+                            </WrapPanel>
+                            <Button Click="UseFiltersButtonClick" Content="{x:Static MyResourses:Texts.Apply}"></Button>
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="{x:Static MyResourses:Texts.UsefulInfo}">
+                        <Label Foreground="Blue" FontSize="14" Content="{x:Static MyResourses:Texts.UsefulInfoItself}"></Label>
                     </TabItem>
                 </TabControl>
             </StackPanel>
