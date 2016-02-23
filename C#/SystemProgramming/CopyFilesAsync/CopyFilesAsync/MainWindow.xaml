@@ -1,0 +1,12 @@
+﻿<Window x:Class="CopyFilesAsync.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MyRes="clr-namespace:CopyFilesAsync.MyResourses"
+        Title="MainWindow" Height="350" Width="625">
+    <StackPanel>
+        <Button Name="FromButton" Content="{x:Static MyRes:Texts.FROM}" Click="FromButton_Click"></Button>
+        <Button Name="WhereButton" Content="{x:Static MyRes:Texts.WHERE}" Click="WhereButton_Click"></Button>
+        <Button Name="StartButton" Content="{x:Static MyRes:Texts.START}" Click="StartButton_Click"></Button>
+        <ProgressBar Name="CopyProgressBar" Height="15"  ></ProgressBar>
+    </StackPanel>
+</Window>
