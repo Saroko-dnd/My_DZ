@@ -4,7 +4,9 @@
         xmlns:MyRes="clr-namespace:CopyFilesAsync.MyResourses"
         Title="MainWindow" Height="350" Width="625">
     <StackPanel>
+        <Label HorizontalAlignment="Center"  Content="{x:Static MyRes:Texts.FROM}"></Label>
         <Button Name="FromButton" Content="{x:Static MyRes:Texts.FROM}" Click="FromButton_Click"></Button>
+        <Label HorizontalAlignment="Center"  Content="{x:Static MyRes:Texts.WHERE}"></Label>
         <Button Name="WhereButton" Content="{x:Static MyRes:Texts.WHERE}" Click="WhereButton_Click"></Button>
         <Button Name="StartButton" Content="{x:Static MyRes:Texts.START}" Click="StartButton_Click"></Button>
         <ProgressBar Name="CopyProgressBar" Height="15"  ></ProgressBar>

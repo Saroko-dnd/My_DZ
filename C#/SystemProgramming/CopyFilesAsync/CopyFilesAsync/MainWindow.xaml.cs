@@ -25,7 +25,8 @@ namespace CopyFilesAsync
     public partial class MainWindow : Window
     {
         public static OpenFileDialog FileSelectionDialogFrom = new OpenFileDialog();
-        public static OpenFileDialog FileSelectionDialogWhere = new OpenFileDialog();
+        public static SaveFileDialog FileDialogWhere = new SaveFileDialog();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,24 +39,44 @@ namespace CopyFilesAsync
 
         private void WhereButton_Click(object sender, RoutedEventArgs e)
         {
-            FileSelectionDialogWhere.ShowDialog();
+            FileDialogWhere.ShowDialog();
+            WhereButton.Content = FileDialogWhere.FileName;
         }
 
         private void FromButton_Click(object sender, RoutedEventArgs e)
         {
             FileSelectionDialogFrom.ShowDialog();
+            FromButton.Content = FileSelectionDialogFrom.FileName;
         }
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            Thread FileCopyThread = new Thread(CopyFile);
+            Thread FileCopyThread = new Thread(() => CopyFile());
             FileCopyThread.Start();
         }
 
         public void CopyFile()
         {
-            
-            File.Copy(FileSelectionDialogFrom.FileName, FileSelectionDialogWhere.FileName);
+            using (FileStream source = new FileStream(FileSelectionDialogFrom.FileName, FileMode.Open, FileAccess.Read))
+            {
+                byte[] buffer = new byte[4000];
+                long fileLength = source.Length;
+                using (FileStream dest = new FileStream(FileDialogWhere.FileName, FileMode.CreateNew, FileAccess.Write))
+                {
+                    long totalBytes = 0;
+                    int currentBlockSize = 0;
+
+                    while ((currentBlockSize = source.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        totalBytes += currentBlockSize;
+                        double persentage = (double)totalBytes * 100.0 / fileLength;
+                        dest.Write(buffer, 0, currentBlockSize);
+                        Dispatcher.Invoke(
+                                new System.Action(() => CopyProgressBar.Value = persentage)
+                                );
+                    }
+                }
+            }
         }
     }
 }
