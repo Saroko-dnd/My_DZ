@@ -63,7 +63,7 @@ namespace tests
         {
             this.Foo();
         }*/
-        
+
 
 
         static void Main()
@@ -78,7 +78,7 @@ namespace tests
             string str = "" + 5;
             str = 5.ToString();
             str = "".ToString() + "5";
-            str = (Object)5.ToString();
+            //str = (Object)5.ToString();
 
             Func<int> d;
             d = () => 0;
@@ -121,4 +121,15 @@ namespace tests
             Console.WriteLine(e++);
         }
     }
+
+
+    public interface hghgjkk
+    {
+        int this[string value]
+        {
+            get;
+        }
+    }
+
+
 }
