@@ -61,6 +61,33 @@ namespace CopyFilesAsync.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BREAK.
+        /// </summary>
+        public static string BREAK {
+            get {
+                return ResourceManager.GetString("BREAK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Прервано!.
+        /// </summary>
+        public static string BreakNow {
+            get {
+                return ResourceManager.GetString("BreakNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Файл успешно скопирован!.
+        /// </summary>
+        public static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FROM.
         /// </summary>
         public static string FROM {
@@ -70,11 +97,38 @@ namespace CopyFilesAsync.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PAUSE.
+        /// </summary>
+        public static string PAUSE {
+            get {
+                return ResourceManager.GetString("PAUSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Приостановлено!.
+        /// </summary>
+        public static string PauseNow {
+            get {
+                return ResourceManager.GetString("PauseNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to START.
         /// </summary>
         public static string START {
             get {
                 return ResourceManager.GetString("START", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UNPAUSE.
+        /// </summary>
+        public static string UNPAUSE {
+            get {
+                return ResourceManager.GetString("UNPAUSE", resourceCulture);
             }
         }
         

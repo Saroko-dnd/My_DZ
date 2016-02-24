@@ -117,11 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BREAK" xml:space="preserve">
+    <value>BREAK</value>
+  </data>
+  <data name="BreakNow" xml:space="preserve">
+    <value>Прервано!</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Файл успешно скопирован!</value>
+  </data>
   <data name="FROM" xml:space="preserve">
     <value>FROM</value>
   </data>
+  <data name="PAUSE" xml:space="preserve">
+    <value>PAUSE</value>
+  </data>
+  <data name="PauseNow" xml:space="preserve">
+    <value>Приостановлено!</value>
+  </data>
   <data name="START" xml:space="preserve">
     <value>START</value>
+  </data>
+  <data name="UNPAUSE" xml:space="preserve">
+    <value>UNPAUSE</value>
   </data>
   <data name="WHERE" xml:space="preserve">
     <value>WHERE</value>

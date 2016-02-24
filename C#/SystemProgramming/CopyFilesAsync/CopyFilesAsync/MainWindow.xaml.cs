@@ -26,6 +26,8 @@ namespace CopyFilesAsync
     {
         public static OpenFileDialog FileSelectionDialogFrom = new OpenFileDialog();
         public static SaveFileDialog FileDialogWhere = new SaveFileDialog();
+        public bool MainPause = false;
+        public bool MainBreak = false;
 
         public MainWindow()
         {
@@ -59,6 +61,8 @@ namespace CopyFilesAsync
         {
             using (FileStream source = new FileStream(FileSelectionDialogFrom.FileName, FileMode.Open, FileAccess.Read))
             {
+                bool pause = false;
+                bool BreakNow = false;
                 byte[] buffer = new byte[4000];
                 long fileLength = source.Length;
                 using (FileStream dest = new FileStream(FileDialogWhere.FileName, FileMode.CreateNew, FileAccess.Write))
@@ -66,8 +70,23 @@ namespace CopyFilesAsync
                     long totalBytes = 0;
                     int currentBlockSize = 0;
 
-                    while ((currentBlockSize = source.Read(buffer, 0, buffer.Length)) > 0)
+                    while ((currentBlockSize = source.Read(buffer, 0, buffer.Length)) > 0 )
                     {
+                        do
+                        {
+                            Dispatcher.Invoke(
+                            new System.Action(() => BreakNow = MainBreak)
+                            );
+                            if (BreakNow)
+                                break;
+                            Dispatcher.Invoke(
+                            new System.Action(() => pause = MainPause)
+                            );
+                        } while (pause && !BreakNow);
+                        if (BreakNow)
+                        {
+                            break;
+                        }
                         totalBytes += currentBlockSize;
                         double persentage = (double)totalBytes * 100.0 / fileLength;
                         dest.Write(buffer, 0, currentBlockSize);
@@ -75,8 +94,40 @@ namespace CopyFilesAsync
                                 new System.Action(() => CopyProgressBar.Value = persentage)
                                 );
                     }
+                    if (BreakNow)
+                        Dispatcher.Invoke(
+                            new System.Action(() => MainBreak = false)
+                            );
+                    else
+                    {
+                        Dispatcher.Invoke(
+                        new System.Action(() => CopyProgressBar.Value = 0.0)
+                        );
+                        Dispatcher.Invoke(
+                        new System.Action(() => CopyStateLabel.Content = MyResourses.Texts.Done)
+                        );
+                    }
+
                 }
             }
+        }
+
+        private void PauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainPause = true;
+            CopyStateLabel.Content = MyResourses.Texts.PauseNow;
+        }
+
+        private void UnPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainPause = false;
+            CopyStateLabel.Content = string.Empty;
+        }
+
+        private void BreakButtonClick(object sender, RoutedEventArgs e)
+        {
+            MainBreak = true;
+            CopyStateLabel.Content = MyResourses.Texts.BreakNow;
         }
     }
 }
