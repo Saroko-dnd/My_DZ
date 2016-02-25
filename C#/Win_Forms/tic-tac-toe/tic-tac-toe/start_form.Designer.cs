@@ -1,4 +1,7 @@
-﻿namespace tic_tac_toe
+﻿using System;
+using System.Windows.Forms;
+
+namespace tic_tac_toe
 {
     partial class start_form
     {
@@ -18,6 +21,11 @@
                 components.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public void MyEventCode(object sender, EventArgs e)
+        {
+            MessageBox.Show("EVENT FIRED");
         }
 
         #region Windows Form Designer generated code
