@@ -24,17 +24,17 @@
             <WrapPanel>
                 <StackPanel>
                     <Label Content="{x:Static MyRes:Texts.Processes}"></Label>
-                    <DataGrid SelectionChanged="SelectionOfAnotherProcess" SelectionMode="Single" AutoGeneratingColumn="GenerateColumnEvent" Name="ProcessesNamesDataGrid">
+                    <DataGrid MaxHeight="500" SelectionChanged="SelectionOfAnotherProcess" SelectionMode="Single" AutoGeneratingColumn="GenerateColumnEvent" Name="ProcessesNamesDataGrid">
                     </DataGrid>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="{x:Static MyRes:Texts.ThreadList}"></Label>
-                    <DataGrid Name="ThreadsDataGrid">
+                    <DataGrid MaxWidth="300" MaxHeight="500" Name="ThreadsDataGrid">
                     </DataGrid>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="{x:Static MyRes:Texts.ListOfDlls}"></Label>
-                    <DataGrid Name="DllsDataGrid">
+                    <DataGrid MaxWidth="300" MaxHeight="500" Name="DllsDataGrid">
                     </DataGrid>
                 </StackPanel>
             </WrapPanel>

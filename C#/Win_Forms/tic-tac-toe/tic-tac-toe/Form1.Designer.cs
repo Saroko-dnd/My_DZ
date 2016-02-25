@@ -72,9 +72,18 @@
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.Click += new System.EventHandler(ShowResult);
+            this.Click += new System.EventHandler(ShowResult);
 
         }
+        public static void ShowResult(object sender, System.EventArgs e)
+        {
+            //Код для запуска таблицы результатов
+        }
+        public static void MainForm_Load(object sender, System.EventArgs e)
+        {
 
+        }
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel Tic_Tac_Toe_table;

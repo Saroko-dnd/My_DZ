@@ -44,25 +44,28 @@ namespace CopyFilesAsync
             InitializeComponent();
             this.Closing += WaitUntilThreadsDies;
             ProcessesThread = new Thread(() => WorkWithProcesses());
+            ProcessesThread.IsBackground = true;
             ShowAllModulesOfSelectedProcess = new Thread(() => ShowModulesForSelectedProcess());
+            ShowAllModulesOfSelectedProcess.IsBackground = true;
             ProcessesThread.Start();
             ShowAllModulesOfSelectedProcess.Start();
 
         }
         public void SelectionOfAnotherProcess(Object sender, EventArgs e)
         {
-            if (ProcessesNamesDataGrid.SelectedItem != null)
+            if ((sender as DataGrid).SelectedIndex >= 0)
             {
                 SelectedItem = ProcessesNamesDataGrid.SelectedItem as Process;
-                MainSelectedAnotherProcess = true;
+                if (!MainSelectedAnotherProcess)
+                    MainSelectedAnotherProcess = true;
             }
         }
         public void WaitUntilThreadsDies(Object sender,EventArgs e)
         {
-            ThreadsMustDie = true;
+            /*ThreadsMustDie = true;
             while (ProcessesThread.IsAlive || ShowAllModulesOfSelectedProcess.IsAlive)
             {
-            }
+            }*/
         }
         public void GenerateColumnEvent(Object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -152,22 +155,14 @@ namespace CopyFilesAsync
         {
             bool TimeToDie = false;
             bool Pause = false;
-            Process SelectedItem = null;
+            int SelectedIndex = -1;
             while (!TimeToDie)
             {
-                try
+                Dispatcher.Invoke(
+                    new System.Action(() => SelectedIndex = ProcessesNamesDataGrid.SelectedIndex)
+                    );
+                if (SelectedIndex >= 0)
                 {
-                    Dispatcher.Invoke(
-                        new System.Action(() => SelectedItem = (ProcessesNamesDataGrid.SelectedItem as Process))
-                        );
-                }
-                catch (InvalidCastException ex)
-                {
-                    SelectedItem = null;
-                }
-                if (SelectedItem != null)
-                {
-                    SelectedItem = null;
                     Pause = true;
                     Dispatcher.Invoke(
                         new System.Action(() => MainProcessesPause = true)
@@ -193,30 +188,26 @@ namespace CopyFilesAsync
         {
             bool TimeToDie = false;
             bool SelectionChanged = false;
-            Process ggg = new Process();
+            Process SelectedProcess = new Process();
 
             while (!TimeToDie)
             {
-
-                double size;
                 Dispatcher.Invoke(new System.Action(() => TimeToDie = ThreadsMustDie));
                 Dispatcher.Invoke(new System.Action(() => SelectionChanged = MainSelectedAnotherProcess));
                 if (SelectionChanged)
                 {
                     try
                     {
-                        Dispatcher.Invoke(new System.Action(() => ggg =
+                        Dispatcher.Invoke(new System.Action(() => SelectedProcess =
                             Process.GetProcessById(SelectedItem.Id)));
-                       Dispatcher.Invoke(new System.Action(() => ThreadsDataGrid.ItemsSource =
-                            ggg.Threads));
-                        Dispatcher.Invoke(new System.Action(() => MainSelectedAnotherProcess = false));
-                        Dispatcher.Invoke(new System.Action(() => size =
-                            ThreadsDataGrid.Width));
-
+                        Dispatcher.Invoke(new System.Action(() => ThreadsDataGrid.ItemsSource =
+                            SelectedProcess.Threads));
+                        Dispatcher.Invoke(new System.Action(() => DllsDataGrid.ItemsSource =
+                            SelectedProcess.Modules));
                     }
-                    catch (NullReferenceException ex)
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("WARNING");
+                        MessageBox.Show(ex.Message);
                     }
                     finally
                     {
@@ -224,6 +215,7 @@ namespace CopyFilesAsync
                         Dispatcher.Invoke(new System.Action(() => MainProcessesPause = false));
                     }
                 }
+                Thread.Sleep(3000);
             }
         }
         private void PauseButton_Click(object sender, RoutedEventArgs e)

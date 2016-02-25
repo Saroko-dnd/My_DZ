@@ -18,5 +18,7 @@ namespace tic_tac_toe
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
         }
+
+
     }
 }
