@@ -97,6 +97,15 @@ namespace CopyFilesAsync.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Список библиотек.
+        /// </summary>
+        public static string ListOfDlls {
+            get {
+                return ResourceManager.GetString("ListOfDlls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PAUSE.
         /// </summary>
         public static string PAUSE {
@@ -115,11 +124,38 @@ namespace CopyFilesAsync.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Процессы.
+        /// </summary>
+        public static string Processes {
+            get {
+                return ResourceManager.GetString("Processes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ProcessName.
+        /// </summary>
+        public static string ProcessName {
+            get {
+                return ResourceManager.GetString("ProcessName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to START.
         /// </summary>
         public static string START {
             get {
                 return ResourceManager.GetString("START", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Список потоков.
+        /// </summary>
+        public static string ThreadList {
+            get {
+                return ResourceManager.GetString("ThreadList", resourceCulture);
             }
         }
         
@@ -138,6 +174,24 @@ namespace CopyFilesAsync.MyResourses {
         public static string WHERE {
             get {
                 return ResourceManager.GetString("WHERE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Работа с файлами.
+        /// </summary>
+        public static string WorkWithFiles {
+            get {
+                return ResourceManager.GetString("WorkWithFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Работа с процессами.
+        /// </summary>
+        public static string WorkWithProcesses {
+            get {
+                return ResourceManager.GetString("WorkWithProcesses", resourceCulture);
             }
         }
     }

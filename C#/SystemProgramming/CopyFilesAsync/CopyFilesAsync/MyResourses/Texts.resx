@@ -129,19 +129,37 @@
   <data name="FROM" xml:space="preserve">
     <value>FROM</value>
   </data>
+  <data name="ListOfDlls" xml:space="preserve">
+    <value>Список библиотек</value>
+  </data>
   <data name="PAUSE" xml:space="preserve">
     <value>PAUSE</value>
   </data>
   <data name="PauseNow" xml:space="preserve">
     <value>Приостановлено!</value>
   </data>
+  <data name="Processes" xml:space="preserve">
+    <value>Процессы</value>
+  </data>
+  <data name="ProcessName" xml:space="preserve">
+    <value>ProcessName</value>
+  </data>
   <data name="START" xml:space="preserve">
     <value>START</value>
+  </data>
+  <data name="ThreadList" xml:space="preserve">
+    <value>Список потоков</value>
   </data>
   <data name="UNPAUSE" xml:space="preserve">
     <value>UNPAUSE</value>
   </data>
   <data name="WHERE" xml:space="preserve">
     <value>WHERE</value>
+  </data>
+  <data name="WorkWithFiles" xml:space="preserve">
+    <value>Работа с файлами</value>
+  </data>
+  <data name="WorkWithProcesses" xml:space="preserve">
+    <value>Работа с процессами</value>
   </data>
 </root>

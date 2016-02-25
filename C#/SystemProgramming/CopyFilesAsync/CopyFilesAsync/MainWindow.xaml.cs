@@ -16,6 +16,8 @@ using System.IO;
 //for open dialog
 using Microsoft.Win32;
 using System.Threading;
+using System.Collections;
+using System.Diagnostics;
 
 namespace CopyFilesAsync
 {
@@ -29,34 +31,69 @@ namespace CopyFilesAsync
         public bool MainPause = false;
         public bool MainBreak = false;
 
+        public bool ThreadsMustDie = false;
+        public bool MainSelectedAnotherProcess = false;
+        public bool MainProcessesPause = false;
+        public Thread ProcessesThread;
+        public Thread ShowAllModulesOfSelectedProcess;
+        public Process SelectedItem = new Process();
+
+
         public MainWindow()
         {
             InitializeComponent();
-        }
+            this.Closing += WaitUntilThreadsDies;
+            ProcessesThread = new Thread(() => WorkWithProcesses());
+            ShowAllModulesOfSelectedProcess = new Thread(() => ShowModulesForSelectedProcess());
+            ProcessesThread.Start();
+            ShowAllModulesOfSelectedProcess.Start();
 
+        }
+        public void SelectionOfAnotherProcess(Object sender, EventArgs e)
+        {
+            if (ProcessesNamesDataGrid.SelectedItem != null)
+            {
+                SelectedItem = ProcessesNamesDataGrid.SelectedItem as Process;
+                MainSelectedAnotherProcess = true;
+            }
+        }
+        public void WaitUntilThreadsDies(Object sender,EventArgs e)
+        {
+            ThreadsMustDie = true;
+            while (ProcessesThread.IsAlive || ShowAllModulesOfSelectedProcess.IsAlive)
+            {
+            }
+        }
+        public void GenerateColumnEvent(Object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyName == MyResourses.Texts.ProcessName)
+            {
+                e.Cancel = false;
+            }
+            else
+            {
+                e.Cancel = true;
+            }
+        }
         public void CopyFileAsyncFunction()
         {
             
         }
-
         private void WhereButton_Click(object sender, RoutedEventArgs e)
         {
             FileDialogWhere.ShowDialog();
             WhereButton.Content = FileDialogWhere.FileName;
         }
-
         private void FromButton_Click(object sender, RoutedEventArgs e)
         {
             FileSelectionDialogFrom.ShowDialog();
             FromButton.Content = FileSelectionDialogFrom.FileName;
         }
-
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             Thread FileCopyThread = new Thread(() => CopyFile());
             FileCopyThread.Start();
         }
-
         public void CopyFile()
         {
             using (FileStream source = new FileStream(FileSelectionDialogFrom.FileName, FileMode.Open, FileAccess.Read))
@@ -111,19 +148,94 @@ namespace CopyFilesAsync
                 }
             }
         }
+        public void WorkWithProcesses()
+        {
+            bool TimeToDie = false;
+            bool Pause = false;
+            Process SelectedItem = null;
+            while (!TimeToDie)
+            {
+                try
+                {
+                    Dispatcher.Invoke(
+                        new System.Action(() => SelectedItem = (ProcessesNamesDataGrid.SelectedItem as Process))
+                        );
+                }
+                catch (InvalidCastException ex)
+                {
+                    SelectedItem = null;
+                }
+                if (SelectedItem != null)
+                {
+                    SelectedItem = null;
+                    Pause = true;
+                    Dispatcher.Invoke(
+                        new System.Action(() => MainProcessesPause = true)
+                        ); 
+                }
+                while (Pause)
+                {
+                    Dispatcher.Invoke(
+                        new System.Action(() => Pause = MainProcessesPause)
+                        ); 
+                }
+                Dispatcher.Invoke(
+                    new System.Action(() => TimeToDie = ThreadsMustDie)
+                    );               
+                Dispatcher.Invoke(
+                    new System.Action(() => ProcessesNamesDataGrid.ItemsSource = Process.GetProcesses())
+                    );
+                Thread.Sleep(3000);
+            }
 
+        }
+        public void ShowModulesForSelectedProcess()
+        {
+            bool TimeToDie = false;
+            bool SelectionChanged = false;
+            Process ggg = new Process();
+
+            while (!TimeToDie)
+            {
+
+                double size;
+                Dispatcher.Invoke(new System.Action(() => TimeToDie = ThreadsMustDie));
+                Dispatcher.Invoke(new System.Action(() => SelectionChanged = MainSelectedAnotherProcess));
+                if (SelectionChanged)
+                {
+                    try
+                    {
+                        Dispatcher.Invoke(new System.Action(() => ggg =
+                            Process.GetProcessById(SelectedItem.Id)));
+                       Dispatcher.Invoke(new System.Action(() => ThreadsDataGrid.ItemsSource =
+                            ggg.Threads));
+                        Dispatcher.Invoke(new System.Action(() => MainSelectedAnotherProcess = false));
+                        Dispatcher.Invoke(new System.Action(() => size =
+                            ThreadsDataGrid.Width));
+
+                    }
+                    catch (NullReferenceException ex)
+                    {
+                        MessageBox.Show("WARNING");
+                    }
+                    finally
+                    {
+                        SelectionChanged = false;
+                        Dispatcher.Invoke(new System.Action(() => MainProcessesPause = false));
+                    }
+                }
+            }
+        }
         private void PauseButton_Click(object sender, RoutedEventArgs e)
         {
             MainPause = true;
             CopyStateLabel.Content = MyResourses.Texts.PauseNow;
         }
-
         private void UnPauseButton_Click(object sender, RoutedEventArgs e)
         {
             MainPause = false;
             CopyStateLabel.Content = string.Empty;
         }
-
         private void BreakButtonClick(object sender, RoutedEventArgs e)
         {
             MainBreak = true;
