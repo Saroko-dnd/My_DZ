@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
+using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace CopyFilesAsync
 {
@@ -15,16 +18,23 @@ namespace CopyFilesAsync
     {
         //CancellationTokenSource позволяет синхронно закрывать потоки связанные с его token
         public static CancellationTokenSource cts = new CancellationTokenSource();
+        //мои объекты критических секций
+        public static object MainLock_1 = new object();
+        public static object MainLock_2 = new object();
+
+        public static ObservableCollection<ProcessThread> AllThreads = new ObservableCollection<ProcessThread>();
+        public static ObservableCollection<ProcessModule> AllModules = new ObservableCollection<ProcessModule>();
 
         public static bool MainProgramClosing = false;
         public static bool MainSelectedAnotherProcess = false;
-        public static bool MainProcessesPause = false;
         public static Thread ProcessesThread;
         public static Thread ShowAllModulesOfSelectedProcess;
         public static Process SelectedItem = new Process();
         public static DataGrid ProcessesNamesDataGrid = new DataGrid();
         public static DataGrid ThreadsDataGrid = new DataGrid();
         public static DataGrid DllsDataGrid = new DataGrid();
+
+        public static Xceed.Wpf.DataGrid.DataGridControl SuperDataGrid = new Xceed.Wpf.DataGrid.DataGridControl();
 
         public static void ActivateThreads()
         {
@@ -39,11 +49,17 @@ namespace CopyFilesAsync
         public static void MainFormClosing (Object sender,EventArgs e)
         {
             //говорим источнику закрыть все связанные потоки (tokens)
-            cts.Cancel();
+            lock (MainLock_1)
+            {
+                lock (MainLock_2)
+                {
+                    cts.Cancel();
+                }
+            }
 
             while (ProcessesThread.ThreadState != System.Threading.ThreadState.Stopped || ShowAllModulesOfSelectedProcess.ThreadState != System.Threading.ThreadState.Stopped)
             {
-
+                int i = 0;
             }
         }
 
@@ -65,30 +81,40 @@ namespace CopyFilesAsync
             {
                 while (true)
                 {
-                    if (CurrentToken.IsCancellationRequested)
-                        break;
-                    Application.Current.Dispatcher.Invoke(
-                        new System.Action(() => SelectedIndex = ProcessesNamesDataGrid.SelectedIndex)
-                        );
-                    if (SelectedIndex >= 0)
+                    lock (MainLock_1)
                     {
-                        Pause = true;
-                        Application.Current.Dispatcher.Invoke(
-                            new System.Action(() => MainProcessesPause = true)
-                            );
-                    }
-                    while (Pause)
-                    {
-                        Application.Current.Dispatcher.Invoke(
-                            new System.Action(() => Pause = MainProcessesPause)
-                            );
                         if (CurrentToken.IsCancellationRequested)
                             break;
+                        /*Application.Current.Dispatcher.Invoke(
+                            new System.Action(() => SelectedIndex = ProcessesNamesDataGrid.SelectedIndex)
+                            );
+                        if (SelectedIndex >= 0)
+                        {
+                            Pause = true;
+                            Application.Current.Dispatcher.Invoke(
+                                new System.Action(() => MainProcessesPause = true)
+                                );
+                        }
+                        while (Pause)
+                        {
+                            Application.Current.Dispatcher.Invoke(
+                                new System.Action(() => Pause = MainProcessesPause)
+                                );
+                            if (CurrentToken.IsCancellationRequested)
+                                break;
+                        }*/
+                        Application.Current.Dispatcher.Invoke(
+                            new System.Action(() => ProcessesNamesDataGrid.ItemsSource = Process.GetProcesses())
+                            );
                     }
-                    Application.Current.Dispatcher.Invoke(
-                        new System.Action(() => ProcessesNamesDataGrid.ItemsSource = Process.GetProcesses())
-                        );
-                    Thread.Sleep(3000);
+                    int CounterOfMilliseconds = 0;
+                    while (!CurrentToken.IsCancellationRequested && CounterOfMilliseconds < 3000)
+                    {
+                        CounterOfMilliseconds += 100;
+                        Thread.Sleep(100);
+                    }
+                    if (CurrentToken.IsCancellationRequested)
+                        break;
                 }
             }
             catch (TaskCanceledException TaskFinishedException)
@@ -107,36 +133,64 @@ namespace CopyFilesAsync
         public static void ShowModulesForSelectedProcess(CancellationToken CurrentToken)
         {
             bool SelectionChanged = false;
+            bool ProcessAlreadyLoaded = false;
             Process SelectedProcess = new Process();
+            int pos = 0;
+            Application.Current.Dispatcher.Invoke(new System.Action(() => ThreadsDataGrid.DataContext =
+                AllThreads));
+            Application.Current.Dispatcher.Invoke(new System.Action(() => DllsDataGrid.DataContext =
+                AllModules));
             try
             {
                 while (true)
                 {
-                    if (CurrentToken.IsCancellationRequested)
-                        break;
-                    Application.Current.Dispatcher.Invoke(new System.Action(() => SelectionChanged = MainSelectedAnotherProcess));
-                    if (SelectionChanged)
+                    lock (MainLock_2)
                     {
-                        try
+                        if (CurrentToken.IsCancellationRequested)
+                            break;
+                        Application.Current.Dispatcher.Invoke(new System.Action(() => SelectionChanged = MainSelectedAnotherProcess));
+                        //Application.Current.Dispatcher.Invoke(new System.Action(() => SelectedProcess = SelectedItem));
+                        if (SelectionChanged || ProcessAlreadyLoaded)
                         {
-                            Application.Current.Dispatcher.Invoke(new System.Action(() => SelectedProcess =
-                                Process.GetProcessById(SelectedItem.Id)));
-                            Application.Current.Dispatcher.Invoke(new System.Action(() => ThreadsDataGrid.ItemsSource =
-                                SelectedProcess.Threads));
-                            Application.Current.Dispatcher.Invoke(new System.Action(() => DllsDataGrid.ItemsSource =
-                                SelectedProcess.Modules));
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message);
-                        }
-                        finally
-                        {
-                            SelectionChanged = false;
-                            Application.Current.Dispatcher.Invoke(new System.Action(() => MainProcessesPause = false));
+                            try
+                            {
+                                Application.Current.Dispatcher.Invoke(new System.Action(() => SelectedProcess =
+                                    Process.GetProcessById(SelectedItem.Id)));
+                                ProcessAlreadyLoaded = true;
+                                //Application.Current.Dispatcher.Invoke(new System.Action(() => SuperDataGrid.ItemsSource =
+                                    //SelectedProcess.Threads));
+                                Application.Current.Dispatcher.Invoke(new System.Action(() => AllThreads.Clear()));
+                                Application.Current.Dispatcher.Invoke(new System.Action(() => AllModules.Clear()));
+                                foreach (ProcessThread ProcThr in SelectedProcess.Threads)
+                                {
+                                    Application.Current.Dispatcher.Invoke(new System.Action(() => AllThreads.Add(ProcThr)));
+                                }
+                                foreach (ProcessModule ProcMod in SelectedProcess.Modules)
+                                {
+                                    Application.Current.Dispatcher.Invoke(new System.Action(() => AllModules.Add(ProcMod)));
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                            finally
+                            {
+                                SelectionChanged = false;
+                                Application.Current.Dispatcher.Invoke(new System.Action(() => MainSelectedAnotherProcess = false));
+                            }
                         }
                     }
-                    Thread.Sleep(3000);
+                    int CounterOfMilliseconds = 0;
+                    while (!CurrentToken.IsCancellationRequested && CounterOfMilliseconds < 3000)
+                    {
+                        CounterOfMilliseconds += 100;
+                        Thread.Sleep(100);
+                    }
+                    if (CurrentToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
                 }
             }
             catch (TaskCanceledException TaskFinishedException)
@@ -145,8 +199,6 @@ namespace CopyFilesAsync
             }
             catch (Exception CurrentException)
             {
-                MessageBox.Show(CurrentException.Message + " " + MyResourses.Texts.ThreadProcessesDied,
-                    MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 MessageBox.Show(CurrentException.Message + " " + MyResourses.Texts.ThreadProcessesDied,
                     MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }

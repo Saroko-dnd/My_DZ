@@ -2,7 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:MyRes="clr-namespace:CopyFilesAsync.MyResourses"
-        Title="MainWindow" Height="350" Width="625" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+        xmlns:Xceed="http://schemas.xceed.com/wpf/xaml/datagrid"
+        Title="MainWindow" Name="MainForm" Height="350" Width="625" ScrollViewer.HorizontalScrollBarVisibility="Visible">
     <TabControl>
         <TabItem Header="{x:Static MyRes:Texts.WorkWithFiles}">
             <StackPanel>
@@ -29,13 +30,18 @@
                 </StackPanel>
                 <StackPanel>
                     <Label Content="{x:Static MyRes:Texts.ThreadList}"></Label>
-                    <DataGrid MaxWidth="300" MaxHeight="500" Name="ThreadsDataGrid">
+                    <DataGrid MaxWidth="400" MaxHeight="500" Name="ThreadsDataGrid" ItemsSource="{Binding}">
                     </DataGrid>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="{x:Static MyRes:Texts.ListOfDlls}"></Label>
-                    <DataGrid MaxWidth="300" MaxHeight="500" Name="DllsDataGrid">
+                    <DataGrid MaxWidth="400" MaxHeight="500" Name="DllsDataGrid" ItemsSource="{Binding}">
                     </DataGrid>
+                </StackPanel>
+                <StackPanel>
+                    <Xceed:DataGridControl MaxHeight="500" ScrollViewer.HorizontalScrollBarVisibility="Auto" Name="TestDataGrid" MaxWidth="300" ItemsSource="{Binding}">
+                        
+                    </Xceed:DataGridControl>
                 </StackPanel>
             </WrapPanel>
         </TabItem>

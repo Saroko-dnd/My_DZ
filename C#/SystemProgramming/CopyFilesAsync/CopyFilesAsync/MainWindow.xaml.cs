@@ -47,8 +47,8 @@ namespace CopyFilesAsync
             AsyncProcessesThreadsModules.ThreadsDataGrid = this.ThreadsDataGrid;
             AsyncProcessesThreadsModules.ProcessesNamesDataGrid = this.ProcessesNamesDataGrid;
             AsyncProcessesThreadsModules.ActivateThreads();
-
-    }
+            AsyncProcessesThreadsModules.SuperDataGrid = TestDataGrid;
+        }
 
         public void GenerateColumnEvent(Object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
