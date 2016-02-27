@@ -61,7 +61,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CustomFileCopier.cs" />
+    <Compile Include="AsyncFileCopier.cs" />
+    <Compile Include="AsyncProcessesThreadsModules.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

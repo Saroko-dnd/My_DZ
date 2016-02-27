@@ -162,4 +162,13 @@
   <data name="WorkWithProcesses" xml:space="preserve">
     <value>Работа с процессами</value>
   </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка!</value>
+  </data>
+  <data name="ThreadModulesDllsDied" xml:space="preserve">
+    <value>Поток обновляющий список потоков и библиотек выбранного процесса прекращает свою работу!</value>
+  </data>
+  <data name="ThreadProcessesDied" xml:space="preserve">
+    <value>Поток обновляющий список процессов прекращает свою работу!</value>
+  </data>
 </root>

@@ -65,7 +65,6 @@ namespace tests
         }*/
 
 
-
         static void Main()
         {
             int[,] matrix = { { 2, 4, 6, 8 }, { 2, 4, 6, 8 }, { 2, 4, 6, 8 }, { 2, 4, 6, 8 } };
@@ -131,5 +130,13 @@ namespace tests
         }
     }
 
+    public class fffggg : ddd
+    {
 
+    }
+
+    sealed class ddd
+    {
+
+    }
 }

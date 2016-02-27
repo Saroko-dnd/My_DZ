@@ -7,14 +7,14 @@
         <TabItem Header="{x:Static MyRes:Texts.WorkWithFiles}">
             <StackPanel>
                 <Label HorizontalAlignment="Center"  Content="{x:Static MyRes:Texts.FROM}"></Label>
-                <Button Name="FromButton" Content="{x:Static MyRes:Texts.FROM}" Click="FromButton_Click"></Button>
+                <Button Name="FromButton" Content="{x:Static MyRes:Texts.FROM}" ></Button>
                 <Label HorizontalAlignment="Center"  Content="{x:Static MyRes:Texts.WHERE}"></Label>
-                <Button Name="WhereButton" Content="{x:Static MyRes:Texts.WHERE}" Click="WhereButton_Click"></Button>
-                <Button Name="StartButton" Content="{x:Static MyRes:Texts.START}" Click="StartButton_Click"></Button>
+                <Button Name="WhereButton" Content="{x:Static MyRes:Texts.WHERE}" ></Button>
+                <Button Name="StartButton" Content="{x:Static MyRes:Texts.START}" ></Button>
                 <WrapPanel>
-                    <Button Name="PauseButton" Content="{x:Static MyRes:Texts.PAUSE}" Click="PauseButton_Click"></Button>
-                    <Button Name="UnPauseButton" Content="{x:Static MyRes:Texts.UNPAUSE}" Click="UnPauseButton_Click"></Button>
-                    <Button Click="BreakButtonClick" Name="BreakButton" Content="{x:Static MyRes:Texts.BREAK}"></Button>
+                    <Button Name="PauseButton" Content="{x:Static MyRes:Texts.PAUSE}" ></Button>
+                    <Button Name="UnPauseButton" Content="{x:Static MyRes:Texts.UNPAUSE}" ></Button>
+                    <Button  Name="BreakButton" Content="{x:Static MyRes:Texts.BREAK}"></Button>
                     <Label Name="CopyStateLabel"></Label>
                 </WrapPanel>
                 <ProgressBar Name="CopyProgressBar" Height="15"  ></ProgressBar>
@@ -24,7 +24,7 @@
             <WrapPanel>
                 <StackPanel>
                     <Label Content="{x:Static MyRes:Texts.Processes}"></Label>
-                    <DataGrid MaxHeight="500" SelectionChanged="SelectionOfAnotherProcess" SelectionMode="Single" AutoGeneratingColumn="GenerateColumnEvent" Name="ProcessesNamesDataGrid">
+                    <DataGrid MaxHeight="500" SelectionMode="Single" AutoGeneratingColumn="GenerateColumnEvent" Name="ProcessesNamesDataGrid">
                     </DataGrid>
                 </StackPanel>
                 <StackPanel>
