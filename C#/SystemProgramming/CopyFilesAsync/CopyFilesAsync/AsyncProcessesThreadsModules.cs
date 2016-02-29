@@ -16,6 +16,7 @@ namespace CopyFilesAsync
 {
     static class AsyncProcessesThreadsModules
     {
+        public static Mutex BufForMainMutex = new Mutex();
         //CancellationTokenSource позволяет синхронно закрывать потоки связанные с его token
         public static CancellationTokenSource cts = new CancellationTokenSource();
         //мои объекты критических секций
@@ -61,6 +62,7 @@ namespace CopyFilesAsync
             {
                 int i = 0;
             }
+            BufForMainMutex.ReleaseMutex();
         }
 
         public static void SelectionOfAnotherProcess(Object sender, EventArgs e)
@@ -75,8 +77,6 @@ namespace CopyFilesAsync
 
         public static void WorkWithProcesses(CancellationToken CurrentToken)
         {
-            bool Pause = false;
-            int SelectedIndex = -1;
             try
             {
                 while (true)
@@ -85,24 +85,6 @@ namespace CopyFilesAsync
                     {
                         if (CurrentToken.IsCancellationRequested)
                             break;
-                        /*Application.Current.Dispatcher.Invoke(
-                            new System.Action(() => SelectedIndex = ProcessesNamesDataGrid.SelectedIndex)
-                            );
-                        if (SelectedIndex >= 0)
-                        {
-                            Pause = true;
-                            Application.Current.Dispatcher.Invoke(
-                                new System.Action(() => MainProcessesPause = true)
-                                );
-                        }
-                        while (Pause)
-                        {
-                            Application.Current.Dispatcher.Invoke(
-                                new System.Action(() => Pause = MainProcessesPause)
-                                );
-                            if (CurrentToken.IsCancellationRequested)
-                                break;
-                        }*/
                         Application.Current.Dispatcher.Invoke(
                             new System.Action(() => ProcessesNamesDataGrid.ItemsSource = Process.GetProcesses())
                             );
@@ -116,10 +98,6 @@ namespace CopyFilesAsync
                     if (CurrentToken.IsCancellationRequested)
                         break;
                 }
-            }
-            catch (TaskCanceledException TaskFinishedException)
-            {
-                //просто завершаем поток, так как завершен процесс
             }
             catch (Exception CurrentException)
             {
@@ -192,10 +170,6 @@ namespace CopyFilesAsync
                         break;
                     }
                 }
-            }
-            catch (TaskCanceledException TaskFinishedException)
-            {
-                //просто завершаем поток, так как завершен процесс
             }
             catch (Exception CurrentException)
             {

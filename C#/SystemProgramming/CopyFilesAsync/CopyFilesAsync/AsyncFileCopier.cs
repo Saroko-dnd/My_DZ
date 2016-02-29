@@ -21,6 +21,12 @@ namespace CopyFilesAsync
         public static bool MainBreak = false;
         public static ProgressBar CopyProgressBar = new ProgressBar();
         public static Label CopyStateLabel = new Label();
+        public static byte[] Buffer_1 = new byte[4000];
+        public static byte[] Buffer_2 = new byte[4000];
+        public static string Buffer_1_State = "";
+        public static string Buffer_2_State = "";
+        public static bool FirstBuffer = true;
+
 
         //Обработчики нажатий клавиш*************************************************
         public static void FromButton_Click(object sender, RoutedEventArgs e)
@@ -37,8 +43,10 @@ namespace CopyFilesAsync
 
         public static void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            Thread FileCopyThread = new Thread(() => CopyFileThreadFunction());
-            FileCopyThread.Start();
+            Thread FileCopyThread_1 = new Thread(() => CopyFileThreadFunction_1());
+
+            FileCopyThread_1.Start();
+
         }
 
         public static void PauseButton_Click(object sender, RoutedEventArgs e)
@@ -59,10 +67,11 @@ namespace CopyFilesAsync
             CopyStateLabel.Content = MyResourses.Texts.BreakNow;
         }
         //*******************************************************************************
-        public static void CopyFileThreadFunction()
+        public static void CopyFileThreadFunction_1()
         {
             using (FileStream source = new FileStream(FileSelectionDialogFrom.FileName, FileMode.Open, FileAccess.Read))
             {
+                
                 bool pause = false;
                 bool BreakNow = false;
                 byte[] buffer = new byte[4000];
@@ -72,7 +81,9 @@ namespace CopyFilesAsync
                     long totalBytes = 0;
                     int currentBlockSize = 0;
 
-                    while ((currentBlockSize = source.Read(buffer, 0, buffer.Length)) > 0)
+
+                    while ((currentBlockSize = FirstBuffer ? source.Read(Buffer_1, 0, Buffer_1.Length) : 
+                        source.Read(Buffer_2, 0, Buffer_2.Length)) > 0)                          
                     {
                         do
                         {
@@ -111,6 +122,14 @@ namespace CopyFilesAsync
                     }
 
                 }
+            }
+        }
+
+        public static void CopyFileThreadFunction_2()
+        {
+            using (FileStream dest = new FileStream(FileDialogWhere.FileName, FileMode.CreateNew, FileAccess.Write))
+            {
+                
             }
         }
     }
