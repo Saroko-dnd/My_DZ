@@ -174,4 +174,13 @@
   <data name="ProgramAlreadyRunning" xml:space="preserve">
     <value>Программа уже запущена! </value>
   </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Empty</value>
+  </data>
+  <data name="EmptyForever" xml:space="preserve">
+    <value>EmptyForever</value>
+  </data>
+  <data name="Full" xml:space="preserve">
+    <value>Full</value>
+  </data>
 </root>
