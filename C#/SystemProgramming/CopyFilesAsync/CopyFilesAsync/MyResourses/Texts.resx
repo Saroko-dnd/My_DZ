@@ -183,4 +183,28 @@
   <data name="Full" xml:space="preserve">
     <value>Full</value>
   </data>
+  <data name="FirstMatrix" xml:space="preserve">
+    <value>ПЕРВАЯ МАТРИЦА</value>
+  </data>
+  <data name="LastMatrix" xml:space="preserve">
+    <value>ВТОРАЯ МАТРИЦА</value>
+  </data>
+  <data name="MatrixColumns" xml:space="preserve">
+    <value>Количество столбцов:</value>
+  </data>
+  <data name="MatrixMultiplication" xml:space="preserve">
+    <value>Умножение матриц</value>
+  </data>
+  <data name="MatrixRows" xml:space="preserve">
+    <value>Количество строк:</value>
+  </data>
+  <data name="ResultMatrix" xml:space="preserve">
+    <value>Результирующая матрица</value>
+  </data>
+  <data name="StartMatrixMultiplication" xml:space="preserve">
+    <value>Приступить к генерации и умножению матриц.</value>
+  </data>
+  <data name="StartRrocThreads" xml:space="preserve">
+    <value>Запустить потоки</value>
+  </data>
 </root>

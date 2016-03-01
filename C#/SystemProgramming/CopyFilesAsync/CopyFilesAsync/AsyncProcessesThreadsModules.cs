@@ -37,14 +37,17 @@ namespace CopyFilesAsync
 
         public static Xceed.Wpf.DataGrid.DataGridControl SuperDataGrid = new Xceed.Wpf.DataGrid.DataGridControl();
 
-        public static void ActivateThreads()
+        public static void ActivateThreads(Object sender,EventArgs e)
         {
-            ProcessesThread = new Thread(() => WorkWithProcesses(cts.Token));
-            //ProcessesThread.IsBackground = true;
-            ShowAllModulesOfSelectedProcess = new Thread(() => ShowModulesForSelectedProcess(cts.Token));
-            //ShowAllModulesOfSelectedProcess.IsBackground = true;
-            ProcessesThread.Start();
-            ShowAllModulesOfSelectedProcess.Start();
+            if (ProcessesThread == null && ShowAllModulesOfSelectedProcess == null)
+            {
+                ProcessesThread = new Thread(() => WorkWithProcesses(cts.Token));
+                //ProcessesThread.IsBackground = true;
+                ShowAllModulesOfSelectedProcess = new Thread(() => ShowModulesForSelectedProcess(cts.Token));
+                //ShowAllModulesOfSelectedProcess.IsBackground = true;
+                ProcessesThread.Start();
+                ShowAllModulesOfSelectedProcess.Start();
+            }
         }
 
         public static void MainFormClosing (Object sender,EventArgs e)
@@ -57,10 +60,12 @@ namespace CopyFilesAsync
                     cts.Cancel();
                 }
             }
-
-            while (ProcessesThread.ThreadState != System.Threading.ThreadState.Stopped || ShowAllModulesOfSelectedProcess.ThreadState != System.Threading.ThreadState.Stopped)
+            if (ProcessesThread != null && ShowAllModulesOfSelectedProcess != null)
             {
-                int i = 0;
+                while (ProcessesThread.ThreadState != System.Threading.ThreadState.Stopped || ShowAllModulesOfSelectedProcess.ThreadState != System.Threading.ThreadState.Stopped)
+                {
+                    int i = 0;
+                }
             }
             BufForMainMutex.ReleaseMutex();
         }

@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:MyRes="clr-namespace:CopyFilesAsync.MyResourses"
         xmlns:Xceed="http://schemas.xceed.com/wpf/xaml/datagrid"
-        Title="MainWindow" Name="MainForm" Height="350" Width="625" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+        xmlns:TwoDimencialdataGridLib="clr-namespace:CopyFilesAsync;assembly=DataGrid2DLibrary"
+        Title="MainWindow" Name="MainForm" Height="700" Width="625" ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+        ScrollViewer.VerticalScrollBarVisibility="Auto">
     <TabControl>
         <TabItem Header="{x:Static MyRes:Texts.WorkWithFiles}">
             <StackPanel>
@@ -22,28 +24,58 @@
             </StackPanel>
         </TabItem>
         <TabItem Header="{x:Static MyRes:Texts.WorkWithProcesses}">
-            <WrapPanel>
-                <StackPanel>
-                    <Label Content="{x:Static MyRes:Texts.Processes}"></Label>
-                    <DataGrid MaxHeight="500" SelectionMode="Single" AutoGeneratingColumn="GenerateColumnEvent" Name="ProcessesNamesDataGrid">
-                    </DataGrid>
-                </StackPanel>
-                <StackPanel>
-                    <Label Content="{x:Static MyRes:Texts.ThreadList}"></Label>
-                    <DataGrid MaxWidth="400" MaxHeight="500" Name="ThreadsDataGrid" ItemsSource="{Binding}">
-                    </DataGrid>
-                </StackPanel>
-                <StackPanel>
-                    <Label Content="{x:Static MyRes:Texts.ListOfDlls}"></Label>
-                    <DataGrid MaxWidth="400" MaxHeight="500" Name="DllsDataGrid" ItemsSource="{Binding}">
-                    </DataGrid>
-                </StackPanel>
-                <StackPanel>
-                    <Xceed:DataGridControl MaxHeight="500" ScrollViewer.HorizontalScrollBarVisibility="Auto" Name="TestDataGrid" MaxWidth="300" ItemsSource="{Binding}">
-                        
-                    </Xceed:DataGridControl>
-                </StackPanel>
-            </WrapPanel>
+            <StackPanel>
+                <WrapPanel>
+                    <Button Content="{x:Static MyRes:Texts.StartRrocThreads}" Name="StartProcessesThreadsButton"></Button>
+                </WrapPanel>
+                <WrapPanel>
+                    <StackPanel>
+                        <Label Content="{x:Static MyRes:Texts.Processes}"></Label>
+                        <DataGrid MaxHeight="500" SelectionMode="Single" AutoGeneratingColumn="GenerateColumnEvent" Name="ProcessesNamesDataGrid">
+                        </DataGrid>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="{x:Static MyRes:Texts.ThreadList}"></Label>
+                        <DataGrid MaxWidth="400" MaxHeight="500" Name="ThreadsDataGrid" ItemsSource="{Binding}">
+                        </DataGrid>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="{x:Static MyRes:Texts.ListOfDlls}"></Label>
+                        <DataGrid MaxWidth="400" MaxHeight="500" Name="DllsDataGrid" ItemsSource="{Binding}">
+                        </DataGrid>
+                    </StackPanel>
+                    <StackPanel>
+                        <Xceed:DataGridControl MaxHeight="500" ScrollViewer.HorizontalScrollBarVisibility="Auto" Name="TestDataGrid" MaxWidth="300" ItemsSource="{Binding}">
+
+                        </Xceed:DataGridControl>
+                    </StackPanel>
+                </WrapPanel>
+            </StackPanel>           
+        </TabItem>
+        <TabItem Header="{x:Static MyRes:Texts.MatrixMultiplication}">
+            <StackPanel>
+                <WrapPanel>
+                    <Button Content="{x:Static MyRes:Texts.StartMatrixMultiplication}" Name="StartMatrixMultiplication"></Button>
+                </WrapPanel>
+                <Label Content="{x:Static MyRes:Texts.FirstMatrix}"></Label>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.MatrixRows}"></Label>
+                    <TextBox Name="FirstMatrixRowsTextBox" Width="50"></TextBox>
+                    <Label Content="{x:Static MyRes:Texts.MatrixColumns}"></Label>
+                    <TextBox Name="FirstMatrixColumnsTextBox" Width="50"></TextBox>
+                </WrapPanel>
+                <Label Height="150" Width="150" Name="FirstGeneratedMatrixLabel"></Label>
+                <Label Content="{x:Static MyRes:Texts.LastMatrix}"></Label>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.MatrixRows}"></Label>
+                    <TextBox Name="SecondMatrixRowsTextBox" Width="50"></TextBox>
+                    <Label Content="{x:Static MyRes:Texts.MatrixColumns}"></Label>
+                    <TextBox Name="SecondMatrixColumnsTextBox" Width="50"></TextBox>
+                </WrapPanel>
+                <Label Height="150" Width="150" Name="SecondGeneratedMatrixLabel"></Label>
+                <Label Content="{x:Static MyRes:Texts.ResultMatrix}"></Label>
+                <Label Height="150" Width="150" Name="ResultMultiplicationMatrixLabel"></Label>
+            </StackPanel>        
         </TabItem>
     </TabControl>
 </Window>

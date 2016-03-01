@@ -27,6 +27,7 @@ namespace CopyFilesAsync
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static Random MainRandom = new Random();
         public static bool WeOwnenrsOfMutex;
 
         public static Mutex CheckIfAnotherAppRun; 
@@ -39,7 +40,9 @@ namespace CopyFilesAsync
             if (CheckIfAnotherAppRun.WaitOne(0,false))
             {
                 InitializeComponent();
-
+                MatrixMultiplication.ResultMatrixLabel = ResultMultiplicationMatrixLabel;
+                StartProcessesThreadsButton.Click += AsyncProcessesThreadsModules.ActivateThreads;
+                StartMatrixMultiplication.Click += CreateTwoMatrixAndStartMultiplication;
 
                 this.Closing += AsyncProcessesThreadsModules.MainFormClosing;
 
@@ -57,7 +60,6 @@ namespace CopyFilesAsync
                 AsyncProcessesThreadsModules.DllsDataGrid = this.DllsDataGrid;
                 AsyncProcessesThreadsModules.ThreadsDataGrid = this.ThreadsDataGrid;
                 AsyncProcessesThreadsModules.ProcessesNamesDataGrid = this.ProcessesNamesDataGrid;
-                AsyncProcessesThreadsModules.ActivateThreads();
                 AsyncProcessesThreadsModules.SuperDataGrid = TestDataGrid;
                 AsyncProcessesThreadsModules.BufForMainMutex = CheckIfAnotherAppRun;
             }
@@ -80,6 +82,50 @@ namespace CopyFilesAsync
             {
                 e.Cancel = true;
             }
+        }
+
+        public void CreateTwoMatrixAndStartMultiplication(Object sender,EventArgs e)
+        {
+            MatrixMultiplication.FirstMatrix = new int[Int32.Parse(FirstMatrixRowsTextBox.Text), Int32.Parse(FirstMatrixColumnsTextBox.Text)];
+            MatrixMultiplication.SecondMatrix = new int[Int32.Parse(SecondMatrixRowsTextBox.Text), Int32.Parse(SecondMatrixColumnsTextBox.Text)];
+            StringBuilder BufString = new StringBuilder();
+
+            for (int RowNumber = 0; RowNumber < Int32.Parse(FirstMatrixRowsTextBox.Text); ++RowNumber)
+            {
+                for (int ColumnNumber = 0; ColumnNumber < Int32.Parse(FirstMatrixColumnsTextBox.Text); ++ColumnNumber)
+                {            
+                    MatrixMultiplication.FirstMatrix[RowNumber, ColumnNumber] = MainRandom.Next(10);
+                    BufString.Append(" ");
+                    BufString.Append(MatrixMultiplication.FirstMatrix[RowNumber, ColumnNumber]);
+                }
+                BufString.AppendLine();
+            }
+            FirstGeneratedMatrixLabel.Content = BufString.ToString();
+            BufString.Clear();
+            for (int RowNumber = 0; RowNumber < Int32.Parse(SecondMatrixRowsTextBox.Text); ++RowNumber)
+            {
+                for (int ColumnNumber = 0; ColumnNumber < Int32.Parse(SecondMatrixColumnsTextBox.Text); ++ColumnNumber)
+                {
+                    MatrixMultiplication.SecondMatrix[RowNumber, ColumnNumber] = MainRandom.Next(10);
+                    BufString.Append(" ");
+                    BufString.Append(MatrixMultiplication.SecondMatrix[RowNumber, ColumnNumber]);
+                }
+                BufString.AppendLine();
+            }
+            SecondGeneratedMatrixLabel.Content = BufString.ToString();
+            BufString.Clear();
+
+            MatrixMultiplication.StartMultiplication();
+
+            for (int RowNumber = 0; RowNumber < MatrixMultiplication.ResultMatrix.GetLength(0); ++RowNumber)
+            {
+                for (int ColumnNumber = 0; ColumnNumber < MatrixMultiplication.ResultMatrix.GetLength(1); ++ColumnNumber)
+                {
+                    BufString.Append(MatrixMultiplication.ResultMatrix[RowNumber, ColumnNumber]);
+                }
+                BufString.AppendLine();
+            }
+            ResultMultiplicationMatrixLabel.Content = BufString.ToString();
         }
 
     }
