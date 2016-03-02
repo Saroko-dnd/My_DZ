@@ -7,6 +7,7 @@ using System.Threading;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace CopyFilesAsync
 {
@@ -22,37 +23,99 @@ namespace CopyFilesAsync
         public static List<Thread> AllRelatedThreads = new List<Thread>();
         public static Label ResultMatrixLabel;
 
+        public static void PrintResult()
+        {
+            StringBuilder BufString = new StringBuilder();
+            for (int RowNumber = 0; RowNumber < MatrixMultiplication.ResultMatrix.GetLength(0); ++RowNumber)
+            {
+                for (int ColumnNumber = 0; ColumnNumber < MatrixMultiplication.ResultMatrix.GetLength(1); ++ColumnNumber)
+                {
+                    BufString.Append(MatrixMultiplication.ResultMatrix[RowNumber, ColumnNumber]);
+                    BufString.Append(" ");
+                }
+                BufString.AppendLine();
+            }
+            ResultMatrixLabel.Content = BufString.ToString();
+        }
+
+        public static void RunMultiplicationThread()
+        {
+            Thread MultiplicationThread = new Thread(StartMultiplication);
+            MultiplicationThread.Start();
+        }
+
         public static void StartMultiplication()
         {
             ResultMatrix = new int[NumberOfRowsInResultMatrix, NumberOfColumnsInResultMatrix];
             if (FirstMatrix.GetLength(1) == SecondMatrix.GetLength(0))
             {
-                for (int counter = (FirstMatrix.GetLength(0) - 1); counter >= 0 ;--counter)
+                int Index = (FirstMatrix.GetLength(0) - 1);
+                int AmountOfThreads = 0;
+                while (Index >= 0)
                 {
-                    Thread CalculateЬMatrixRowThread = new Thread(() => CalculateЬMatrixRow(counter));
-                    CalculateЬMatrixRowThread.Start();
+                    int BugFixInt = Index;
+                    AllRelatedThreads.Add(new Thread(() => CalculateЬMatrixRow(BugFixInt)));
+                    --Index;
+                    ++AmountOfThreads;
+                    //этот фрагмент кода лимитирует количество потоков
+                    if (AmountOfThreads % 20 == 0 && AmountOfThreads > 0)
+                    {
+                        foreach (Thread CurrentThread in AllRelatedThreads)
+                        {
+                            CurrentThread.Start();
+                        }
+                        foreach (Thread CurrentThread in AllRelatedThreads)
+                        {
+                            CurrentThread.Join();
+                            --AmountOfThreads;
+                        }
+                        AllRelatedThreads.Clear();
+                    }
+                }
+                foreach (Thread CurrentThread in AllRelatedThreads)
+                {
+                    CurrentThread.Start();
                 }
                 foreach (Thread CurrentThread in AllRelatedThreads)
                 {
                     CurrentThread.Join();
+                    --AmountOfThreads;
                 }
+                Application.Current.Dispatcher.Invoke(
+                    new System.Action(() => PrintResult())
+                    );
             }
         }
+
         public static void CalculateЬMatrixRow(int RowNumber)
         {
-            List<Thread> AllRelatedThreads = new List<Thread>();
             int SecondMatrixRow = 0;
-            for (int counter = 0; counter <= (SecondMatrix.GetLength(1) - 1); ++counter)
+            int SecondMatrixColumnAmount = 0;
+            int FirstMatrixColumnAmount = 0;
+            Application.Current.Dispatcher.Invoke(
+                new System.Action(() => SecondMatrixColumnAmount = (SecondMatrix.GetLength(1) - 1))
+                );
+            Application.Current.Dispatcher.Invoke(
+                new System.Action(() => FirstMatrixColumnAmount = (FirstMatrix.GetLength(1) - 1))
+                );
+            while (SecondMatrixColumnAmount == 0 || FirstMatrixColumnAmount == 0)
+            {
+
+            }
+            for (int ColumnNumSecondMatrix = 0; ColumnNumSecondMatrix <= SecondMatrixColumnAmount; ++ColumnNumSecondMatrix)
             {
                 SecondMatrixRow = 0;
-                for (int counter_2 = 0; counter_2 <= (FirstMatrix.GetLength(1) - 1); ++counter_2)
+                for (int ColumnNumFirstMatrix = 0; ColumnNumFirstMatrix <= FirstMatrixColumnAmount; ++ColumnNumFirstMatrix)
                 {
 
                         Application.Current.Dispatcher.Invoke(
-                            new System.Action(() => ResultMatrix[RowNumber, counter] += (FirstMatrix[RowNumber, counter_2] * SecondMatrix[SecondMatrixRow, counter]))
+                            new System.Action(() => ResultMatrix[RowNumber, ColumnNumSecondMatrix] +=
+                            (FirstMatrix[RowNumber, ColumnNumFirstMatrix] * SecondMatrix[SecondMatrixRow, ColumnNumSecondMatrix]))
                             );
+
+
                         ++SecondMatrixRow;
-                }                
+                }
             }
         }
 

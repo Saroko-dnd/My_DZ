@@ -86,6 +86,9 @@ namespace CopyFilesAsync
 
         public void CreateTwoMatrixAndStartMultiplication(Object sender,EventArgs e)
         {
+            MatrixMultiplication.NumberOfColumnsInResultMatrix = Int32.Parse(SecondMatrixColumnsTextBox.Text);
+            MatrixMultiplication.NumberOfRowsInResultMatrix = Int32.Parse(FirstMatrixRowsTextBox.Text);
+
             MatrixMultiplication.FirstMatrix = new int[Int32.Parse(FirstMatrixRowsTextBox.Text), Int32.Parse(FirstMatrixColumnsTextBox.Text)];
             MatrixMultiplication.SecondMatrix = new int[Int32.Parse(SecondMatrixRowsTextBox.Text), Int32.Parse(SecondMatrixColumnsTextBox.Text)];
             StringBuilder BufString = new StringBuilder();
@@ -115,17 +118,7 @@ namespace CopyFilesAsync
             SecondGeneratedMatrixLabel.Content = BufString.ToString();
             BufString.Clear();
 
-            MatrixMultiplication.StartMultiplication();
-
-            for (int RowNumber = 0; RowNumber < MatrixMultiplication.ResultMatrix.GetLength(0); ++RowNumber)
-            {
-                for (int ColumnNumber = 0; ColumnNumber < MatrixMultiplication.ResultMatrix.GetLength(1); ++ColumnNumber)
-                {
-                    BufString.Append(MatrixMultiplication.ResultMatrix[RowNumber, ColumnNumber]);
-                }
-                BufString.AppendLine();
-            }
-            ResultMultiplicationMatrixLabel.Content = BufString.ToString();
+            MatrixMultiplication.RunMultiplicationThread();
         }
 
     }
