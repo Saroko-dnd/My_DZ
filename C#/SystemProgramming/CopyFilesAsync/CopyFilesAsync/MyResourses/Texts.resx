@@ -207,4 +207,16 @@
   <data name="StartRrocThreads" xml:space="preserve">
     <value>Запустить потоки</value>
   </data>
+  <data name="MultiplicationImpossible" xml:space="preserve">
+    <value>Матрицы таких размеров нельзя перемножить! Убедитесь, что количество колонок в первой матрице равняется количеству строк во второй.</value>
+  </data>
+  <data name="WrongFormatRowsColumnsMatrix" xml:space="preserve">
+    <value>Вы должны корректно указать ВСЕ размеры матрицы!</value>
+  </data>
+  <data name="TooBigNumber" xml:space="preserve">
+    <value>Вы ввели слишком большие размеры матриц! (не влазит в инт)</value>
+  </data>
+  <data name="ZeroError" xml:space="preserve">
+    <value>Количество строк или колонок у матрицы не может быть равным нулю!</value>
+  </data>
 </root>

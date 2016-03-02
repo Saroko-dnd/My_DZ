@@ -21,7 +21,7 @@ namespace CopyFilesAsync
         public static List<List<int>> ArrayForDataGrid = new List<List<int>>();
         public static int[,] ResultMatrix;
         public static List<Thread> AllRelatedThreads = new List<Thread>();
-        public static Label ResultMatrixLabel;
+        public static TextBox ResultMatrixLabel;
 
         public static void PrintResult()
         {
@@ -35,7 +35,7 @@ namespace CopyFilesAsync
                 }
                 BufString.AppendLine();
             }
-            ResultMatrixLabel.Content = BufString.ToString();
+            ResultMatrixLabel.Text = BufString.ToString();
         }
 
         public static void RunMultiplicationThread()
@@ -85,6 +85,11 @@ namespace CopyFilesAsync
                     new System.Action(() => PrintResult())
                     );
             }
+            else
+            {
+                MessageBox.Show(MyResourses.Texts.MultiplicationImpossible,MyResourses.Texts.Error,
+                    MessageBoxButton.OK,MessageBoxImage.Error);
+            }
         }
 
         public static void CalculateЬMatrixRow(int RowNumber)
@@ -98,10 +103,6 @@ namespace CopyFilesAsync
             Application.Current.Dispatcher.Invoke(
                 new System.Action(() => FirstMatrixColumnAmount = (FirstMatrix.GetLength(1) - 1))
                 );
-            while (SecondMatrixColumnAmount == 0 || FirstMatrixColumnAmount == 0)
-            {
-
-            }
             for (int ColumnNumSecondMatrix = 0; ColumnNumSecondMatrix <= SecondMatrixColumnAmount; ++ColumnNumSecondMatrix)
             {
                 SecondMatrixRow = 0;
