@@ -13,6 +13,11 @@ namespace CopyFilesAsync
 {
     static class MatrixMultiplication
     {
+        public static CancellationTokenSource cts = new CancellationTokenSource();
+
+        public static bool TaskFinished = false;
+        public static List<int> NumbersOfRows = new List<int>();
+        public static bool AlreadyRunning = false;
         public static int NumberOfRowsInResultMatrix = 0;
         public static int NumberOfColumnsInResultMatrix = 0;
         //1 - Rows 2- Columns
@@ -23,6 +28,7 @@ namespace CopyFilesAsync
         public static List<Thread> AllRelatedThreads = new List<Thread>();
         public static TextBox ResultMatrixLabel;
 
+        //WaitHandle класс для ожидания срабатывания событий.
         public static void PrintResult()
         {
             StringBuilder BufString = new StringBuilder();
@@ -36,6 +42,7 @@ namespace CopyFilesAsync
                 BufString.AppendLine();
             }
             ResultMatrixLabel.Text = BufString.ToString();
+            AlreadyRunning = false;
         }
 
         public static void RunMultiplicationThread()
@@ -51,31 +58,26 @@ namespace CopyFilesAsync
             {
                 int Index = (FirstMatrix.GetLength(0) - 1);
                 int AmountOfThreads = 0;
-                while (Index >= 0)
+                //создание потоков
+                for (int Amount = 0; Amount < 20; ++Amount)
                 {
-                    int BugFixInt = Index;
-                    AllRelatedThreads.Add(new Thread(() => CalculateЬMatrixRow(BugFixInt)));
-                    --Index;
-                    ++AmountOfThreads;
-                    //этот фрагмент кода лимитирует количество потоков
-                    if (AmountOfThreads % 20 == 0 && AmountOfThreads > 0)
-                    {
-                        foreach (Thread CurrentThread in AllRelatedThreads)
-                        {
-                            CurrentThread.Start();
-                        }
-                        foreach (Thread CurrentThread in AllRelatedThreads)
-                        {
-                            CurrentThread.Join();
-                            --AmountOfThreads;
-                        }
-                        AllRelatedThreads.Clear();
-                    }
+                    ThreadPool.SetMaxThreads(20,20);
+                    //ThreadPool.QueueUserWorkItem(new WaitCallback(CalculateЬMatrixRow), cts);
+                    AllRelatedThreads.Add(new Thread(() => CalculateЬMatrixRow(cts.Token)));
                 }
                 foreach (Thread CurrentThread in AllRelatedThreads)
                 {
                     CurrentThread.Start();
                 }
+                //заполнение очереди задач
+                while (Index >= 0)
+                {
+                    NumbersOfRows.Add(Index);
+                    --Index;
+                }
+                //говорим, что задачи кончились
+                TaskFinished = true;
+
                 foreach (Thread CurrentThread in AllRelatedThreads)
                 {
                     CurrentThread.Join();
@@ -92,8 +94,11 @@ namespace CopyFilesAsync
             }
         }
 
-        public static void CalculateЬMatrixRow(int RowNumber)
+        public static void CalculateЬMatrixRow(CancellationToken CurrentToken)
         {
+            bool ListComplete = false;
+            int NumberOfElementsInList = 0;
+            int CurrentRowNumber = -1;
             int SecondMatrixRow = 0;
             int SecondMatrixColumnAmount = 0;
             int FirstMatrixColumnAmount = 0;
@@ -103,19 +108,48 @@ namespace CopyFilesAsync
             Application.Current.Dispatcher.Invoke(
                 new System.Action(() => FirstMatrixColumnAmount = (FirstMatrix.GetLength(1) - 1))
                 );
-            for (int ColumnNumSecondMatrix = 0; ColumnNumSecondMatrix <= SecondMatrixColumnAmount; ++ColumnNumSecondMatrix)
+
+            while (!CurrentToken.IsCancellationRequested)
             {
-                SecondMatrixRow = 0;
-                for (int ColumnNumFirstMatrix = 0; ColumnNumFirstMatrix <= FirstMatrixColumnAmount; ++ColumnNumFirstMatrix)
+                while (CurrentRowNumber < 0 && !CurrentToken.IsCancellationRequested)
                 {
-
+                    lock (NumbersOfRows)
+                    {
                         Application.Current.Dispatcher.Invoke(
-                            new System.Action(() => ResultMatrix[RowNumber, ColumnNumSecondMatrix] +=
-                            (FirstMatrix[RowNumber, ColumnNumFirstMatrix] * SecondMatrix[SecondMatrixRow, ColumnNumSecondMatrix]))
+                            new System.Action(() => NumberOfElementsInList = NumbersOfRows.Count())
                             );
+                        Application.Current.Dispatcher.Invoke(
+                            new System.Action(() => ListComplete = TaskFinished)
+                            );
+                        if (NumberOfElementsInList == 0 && ListComplete)
+                            return;
+                        if (NumberOfElementsInList > 0)
+                        {
+                            Application.Current.Dispatcher.Invoke(
+                                new System.Action(() => CurrentRowNumber = NumbersOfRows.First())
+                                );
+                            Application.Current.Dispatcher.Invoke(
+                                new System.Action(() => NumbersOfRows.Remove(CurrentRowNumber))
+                                );
+                        }
+                    }
+                }
+                if (!CurrentToken.IsCancellationRequested)
+                {
+                    for (int ColumnNumSecondMatrix = 0; ColumnNumSecondMatrix <= SecondMatrixColumnAmount; ++ColumnNumSecondMatrix)
+                    {
+                        SecondMatrixRow = 0;
+                        for (int ColumnNumFirstMatrix = 0; ColumnNumFirstMatrix <= FirstMatrixColumnAmount; ++ColumnNumFirstMatrix)
+                        {
 
-
-                        ++SecondMatrixRow;
+                            Application.Current.Dispatcher.Invoke(
+                                new System.Action(() => ResultMatrix[CurrentRowNumber, ColumnNumSecondMatrix] +=
+                                (FirstMatrix[CurrentRowNumber, ColumnNumFirstMatrix] * SecondMatrix[SecondMatrixRow, ColumnNumSecondMatrix]))
+                                );
+                            ++SecondMatrixRow;
+                        }
+                    }
+                    CurrentRowNumber = -1;
                 }
             }
         }

@@ -16,6 +16,7 @@ namespace CopyFilesAsync
 {
     static class AsyncProcessesThreadsModules
     {
+        public static bool AlreadyRunning = false;
         public static Mutex BufForMainMutex = new Mutex();
         //CancellationTokenSource позволяет синхронно закрывать потоки связанные с его token
         public static CancellationTokenSource cts = new CancellationTokenSource();
@@ -39,14 +40,18 @@ namespace CopyFilesAsync
 
         public static void ActivateThreads(Object sender,EventArgs e)
         {
-            if (ProcessesThread == null && ShowAllModulesOfSelectedProcess == null)
+            if (!AlreadyRunning)
             {
-                ProcessesThread = new Thread(() => WorkWithProcesses(cts.Token));
-                //ProcessesThread.IsBackground = true;
-                ShowAllModulesOfSelectedProcess = new Thread(() => ShowModulesForSelectedProcess(cts.Token));
-                //ShowAllModulesOfSelectedProcess.IsBackground = true;
-                ProcessesThread.Start();
-                ShowAllModulesOfSelectedProcess.Start();
+                AlreadyRunning = true;
+                if (ProcessesThread == null && ShowAllModulesOfSelectedProcess == null)
+                {
+                    ProcessesThread = new Thread(() => WorkWithProcesses(cts.Token));
+                    //ProcessesThread.IsBackground = true;
+                    ShowAllModulesOfSelectedProcess = new Thread(() => ShowModulesForSelectedProcess(cts.Token));
+                    //ShowAllModulesOfSelectedProcess.IsBackground = true;
+                    ProcessesThread.Start();
+                    ShowAllModulesOfSelectedProcess.Start();
+                }
             }
         }
 
