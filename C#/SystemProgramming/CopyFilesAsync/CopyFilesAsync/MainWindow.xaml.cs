@@ -99,6 +99,7 @@ namespace CopyFilesAsync
             if (!MatrixMultiplication.AlreadyRunning )
             {
                 MatrixMultiplication.AlreadyRunning = true;
+                MatrixMultiplication.TaskFinished = false;
                 try
                 {
                     if (Int32.Parse(SecondMatrixColumnsTextBox.Text) == 0 || Int32.Parse(FirstMatrixRowsTextBox.Text) == 0
