@@ -54,7 +54,9 @@ namespace CopyFilesAsync
                 StartProcessesThreadsButton.Click += AsyncProcessesThreadsModules.ActivateThreads;
                 StartMatrixMultiplication.Click += CreateTwoMatrixAndStartMultiplication;
 
+                //Добавляем при закрытии приложения ожидание остановки всех созданных нами потоков
                 this.Closing += AsyncProcessesThreadsModules.MainFormClosing;
+                this.Closing += MatrixMultiplication.UIClosing;
 
                 AsyncCopyFiles.CopyProgressBar = this.CopyProgressBar;
                 AsyncCopyFiles.CopyStateLabel = this.CopyStateLabel;

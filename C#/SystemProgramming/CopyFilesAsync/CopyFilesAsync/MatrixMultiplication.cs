@@ -16,6 +16,7 @@ namespace CopyFilesAsync
         public static Object NumbersOfRowsGate = new object();
         public static Object PrintResultGate = new object();
 
+        public static bool ProgramClosing = false;
         public static bool PrintedAlready = false;
         public static bool TaskFinished = false;
 
@@ -30,6 +31,21 @@ namespace CopyFilesAsync
         public static int[,] ResultMatrix;
         public static List<Thread> AllRelatedThreads = new List<Thread>();
         public static TextBox ResultMatrixLabel;
+
+        public static ManualResetEvent[] doneEvents = new ManualResetEvent[20];
+
+        public static void UIClosing(Object sender,EventArgs e)
+        {
+            lock (PrintResultGate)
+            {
+                ProgramClosing = true;
+            }
+            //В WPF нельзя пользоваться WaitHandle.WaitAll() поскольку UI поток является STA
+            foreach (ManualResetEvent CurrentMRE in doneEvents)
+            {
+                CurrentMRE.WaitOne();
+            }
+        }
 
         //WaitHandle класс для ожидания срабатывания событий.
         public static void PrintResult()
@@ -63,10 +79,15 @@ namespace CopyFilesAsync
             {
                 int Index = (FirstMatrix.GetLength(0) - 1);
                 //создание потоков
+                for (int counter = 0; counter < 20; ++counter)
+                {
+                    doneEvents[counter] = new ManualResetEvent(false);
+                }
                 ThreadPool.SetMaxThreads(20, 20);
                 for (int Amount = 0; Amount < 20; ++Amount)
                 {
-                    ThreadPool.QueueUserWorkItem(o => CalculateЬMatrixRow());
+                    int BugFixInt = Amount;
+                    ThreadPool.QueueUserWorkItem(o => CalculateЬMatrixRow(doneEvents[BugFixInt]));
                 }
                 foreach (Thread CurrentThread in AllRelatedThreads)
                 {
@@ -88,9 +109,8 @@ namespace CopyFilesAsync
             }
         }
 
-        public static void CalculateЬMatrixRow()
+        public static void CalculateЬMatrixRow(ManualResetEvent CurrentMRE)
         {
-            int NumberOfElementsInList = 0;
             int CurrentRowNumber = -1;
             int SecondMatrixRow = 0;
             int SecondMatrixColumnAmount = 0;
@@ -103,12 +123,11 @@ namespace CopyFilesAsync
                 {
                     lock (NumbersOfRowsGate)
                     {
-                        NumberOfElementsInList = NumbersOfRows.Count();
-                        if (NumberOfElementsInList == 0 && TaskFinished)
+                        if (NumbersOfRows.Count() == 0 && TaskFinished)
                         {
                             lock (PrintResultGate)
                             {
-                                if (!PrintedAlready)
+                                if (!PrintedAlready && !ProgramClosing)
                                 {
                                     Application.Current.Dispatcher.Invoke(
                                         new System.Action(() => PrintResult())
@@ -116,9 +135,10 @@ namespace CopyFilesAsync
                                     PrintedAlready = true;
                                 }
                             }
+                            CurrentMRE.Set();
                             return;
                         }
-                        else
+                        else if (NumbersOfRows.Count() > 0)
                         {
                             CurrentRowNumber = NumbersOfRows.First();
                             NumbersOfRows.Remove(CurrentRowNumber);
