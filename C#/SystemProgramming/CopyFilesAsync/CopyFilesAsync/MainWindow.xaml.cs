@@ -40,7 +40,9 @@ namespace CopyFilesAsync
             if (CheckIfAnotherAppRun.WaitOne(0,false))
             {
                 InitializeComponent();
-                
+
+                StartAreasCalculationsButton.Click += StartTriangleCalculationsEvent;
+
                 FirstMatrixRowsTextBox.PreviewTextInput += CharsKiller.InputValidation;
                 FirstMatrixRowsTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
                 FirstMatrixColumnsTextBox.PreviewTextInput += CharsKiller.InputValidation;
@@ -94,6 +96,13 @@ namespace CopyFilesAsync
             {
                 e.Cancel = true;
             }
+        }
+
+        public void StartTriangleCalculationsEvent(Object sender, EventArgs e)
+        {
+            Triangle.calculateAreasInManyThreads();
+            TrianglesAreasTextBox.Text = Triangle.ResultsForPrint.ToString();
+            Triangle.ResultsForPrint.Clear();
         }
 
         public void CreateTwoMatrixAndStartMultiplication(Object sender,EventArgs e)

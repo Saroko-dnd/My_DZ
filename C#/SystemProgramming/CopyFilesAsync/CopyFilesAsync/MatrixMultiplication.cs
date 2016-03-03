@@ -16,6 +16,7 @@ namespace CopyFilesAsync
         public static Object NumbersOfRowsGate = new object();
         public static Object PrintResultGate = new object();
 
+        public static bool ThreadsWereCreated = false;
         public static bool ProgramClosing = false;
         public static bool PrintedAlready = false;
         public static bool TaskFinished = false;
@@ -41,9 +42,12 @@ namespace CopyFilesAsync
                 ProgramClosing = true;
             }
             //В WPF нельзя пользоваться WaitHandle.WaitAll() поскольку UI поток является STA
-            foreach (ManualResetEvent CurrentMRE in doneEvents)
+            if (ThreadsWereCreated)
             {
-                CurrentMRE.WaitOne();
+                foreach (ManualResetEvent CurrentMRE in doneEvents)
+                {
+                    CurrentMRE.WaitOne();
+                }
             }
         }
 
@@ -83,6 +87,7 @@ namespace CopyFilesAsync
                 {
                     doneEvents[counter] = new ManualResetEvent(false);
                 }
+                ThreadsWereCreated = true;
                 ThreadPool.SetMaxThreads(20, 20);
                 for (int Amount = 0; Amount < 20; ++Amount)
                 {

@@ -219,4 +219,10 @@
   <data name="ZeroError" xml:space="preserve">
     <value>Количество строк или колонок у матрицы не может быть равным нулю!</value>
   </data>
+  <data name="StartTriangleAreaCalculation" xml:space="preserve">
+    <value>Вычислить 40 площадей треугольников</value>
+  </data>
+  <data name="TriangleAreaCalculation" xml:space="preserve">
+    <value>Площади 40 треугольников</value>
+  </data>
 </root>

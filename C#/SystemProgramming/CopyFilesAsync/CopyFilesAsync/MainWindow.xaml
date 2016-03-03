@@ -77,5 +77,12 @@
                 <TextBox HorizontalAlignment="Left" IsReadOnlyCaretVisible="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="150" Width="150" Name="ResultMultiplicationMatrixLabel"></TextBox>
             </StackPanel>        
         </TabItem>
+        <TabItem Header="{x:Static MyRes:Texts.TriangleAreaCalculation}">
+            <StackPanel>
+                <Button HorizontalAlignment="Left" Content="{x:Static MyRes:Texts.StartTriangleAreaCalculation}" Name="StartAreasCalculationsButton"></Button>
+                <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalAlignment="Left" Height="600" Width="300" Name="TrianglesAreasTextBox">
+                </TextBox>
+            </StackPanel>
+        </TabItem>
     </TabControl>
 </Window>
