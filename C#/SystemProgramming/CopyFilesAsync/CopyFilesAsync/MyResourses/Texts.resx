@@ -231,4 +231,10 @@
   <data name="KillProcess" xml:space="preserve">
     <value>Завершить выбранный процесс</value>
   </data>
+  <data name="ProcessNotSelected" xml:space="preserve">
+    <value>Не выбран процесс для завершения!</value>
+  </data>
+  <data name="WaitForThreads" xml:space="preserve">
+    <value>Программу нельзя завершить прямо сейчас. Пожалуйста дождитесь окончания работы всех потоков.</value>
+  </data>
 </root>

@@ -250,6 +250,15 @@ namespace CopyFilesAsync.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не выбран процесс для завершения!.
+        /// </summary>
+        public static string ProcessNotSelected {
+            get {
+                return ResourceManager.GetString("ProcessNotSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Программа уже запущена! .
         /// </summary>
         public static string ProgramAlreadyRunning {
@@ -354,6 +363,15 @@ namespace CopyFilesAsync.MyResourses {
         public static string UNPAUSE {
             get {
                 return ResourceManager.GetString("UNPAUSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Программу нельзя завершить прямо сейчас. Пожалуйста дождитесь окончания работы всех потоков..
+        /// </summary>
+        public static string WaitForThreads {
+            get {
+                return ResourceManager.GetString("WaitForThreads", resourceCulture);
             }
         }
         

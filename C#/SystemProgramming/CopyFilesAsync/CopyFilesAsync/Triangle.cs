@@ -15,6 +15,7 @@ namespace CopyFilesAsync
         public static ManualResetEvent CurrentMRE = new ManualResetEvent(false);
         public static TaskCounter CounterOfRemainingTasks;
         public static StringBuilder ResultsForPrint = new StringBuilder();
+
         public static void calculateAreasInManyThreads()
         {
             ThreadPool.SetMaxThreads(20, 20);

@@ -8,20 +8,17 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using System.ComponentModel;
 
 namespace CopyFilesAsync
 {
     static class MatrixMultiplication
     {
-        public static Object NumbersOfRowsGate = new object();
-        public static Object PrintResultGate = new object();
+        public static TaskCounter CounterOfRemainingTasks;
 
         public static bool ThreadsWereCreated = false;
-        public static bool ProgramClosing = false;
         public static bool PrintedAlready = false;
-        public static bool TaskFinished = false;
 
-        public static List<int> NumbersOfRows = new List<int>();
         public static bool AlreadyRunning = false;
         public static int NumberOfRowsInResultMatrix = 0;
         public static int NumberOfColumnsInResultMatrix = 0;
@@ -30,28 +27,10 @@ namespace CopyFilesAsync
         public static int[,] SecondMatrix = new int[3,3];
         public static List<List<int>> ArrayForDataGrid = new List<List<int>>();
         public static int[,] ResultMatrix;
-        public static List<Thread> AllRelatedThreads = new List<Thread>();
-        public static TextBox ResultMatrixLabel;
+        public static TextBox ResultMatrixTextBox;
 
-        public static ManualResetEvent[] doneEvents = new ManualResetEvent[20];
+        public static ManualResetEvent CheckFinishMRE;
 
-        public static void UIClosing(Object sender,EventArgs e)
-        {
-            lock (PrintResultGate)
-            {
-                ProgramClosing = true;
-            }
-            //В WPF нельзя пользоваться WaitHandle.WaitAll() поскольку UI поток является STA
-            if (ThreadsWereCreated)
-            {
-                foreach (ManualResetEvent CurrentMRE in doneEvents)
-                {
-                    CurrentMRE.WaitOne();
-                }
-            }
-        }
-
-        //WaitHandle класс для ожидания срабатывания событий.
         public static void PrintResult()
         {
             StringBuilder BufString = new StringBuilder();
@@ -64,48 +43,33 @@ namespace CopyFilesAsync
                 }
                 BufString.AppendLine();
             }
-            ResultMatrixLabel.Text = BufString.ToString();
+            ResultMatrixTextBox.Text = BufString.ToString();
             AlreadyRunning = false;
         }
 
-        public static void RunMultiplicationThread()
+        public static void RunMultiplicationThread(int AmountOfRows)
         {
-            TaskFinished = false;
             PrintedAlready = false;
-            Thread MultiplicationThread = new Thread(StartMultiplication);
+            CheckFinishMRE = new ManualResetEvent(false);
+            CounterOfRemainingTasks = new TaskCounter(AmountOfRows);
+            Thread MultiplicationThread = new Thread(() => StartMultiplication(AmountOfRows));
             MultiplicationThread.Start();
         }
 
-        public static void StartMultiplication()
+        public static void StartMultiplication(int AmountOfRows)
         {
             ResultMatrix = new int[NumberOfRowsInResultMatrix, NumberOfColumnsInResultMatrix];
             if (FirstMatrix.GetLength(1) == SecondMatrix.GetLength(0))
             {
                 int Index = (FirstMatrix.GetLength(0) - 1);
                 //создание потоков
-                for (int counter = 0; counter < 20; ++counter)
-                {
-                    doneEvents[counter] = new ManualResetEvent(false);
-                }
                 ThreadsWereCreated = true;
                 ThreadPool.SetMaxThreads(20, 20);
-                for (int Amount = 0; Amount < 20; ++Amount)
+                for (int Amount = 0; Amount < AmountOfRows; ++Amount)
                 {
                     int BugFixInt = Amount;
-                    ThreadPool.QueueUserWorkItem(o => CalculateЬMatrixRow(doneEvents[BugFixInt]));
+                    ThreadPool.QueueUserWorkItem(o => CalculateЬMatrixRow(BugFixInt));
                 }
-                foreach (Thread CurrentThread in AllRelatedThreads)
-                {
-                    CurrentThread.Start();
-                }
-                //заполнение очереди задач
-                while (Index >= 0)
-                {
-                    NumbersOfRows.Add(Index);
-                    --Index;
-                }
-                //говорим, что задачи кончились
-                TaskFinished = true;
             }
             else
             {
@@ -114,53 +78,27 @@ namespace CopyFilesAsync
             }
         }
 
-        public static void CalculateЬMatrixRow(ManualResetEvent CurrentMRE)
+        public static void CalculateЬMatrixRow(int RowIndex)
         {
-            int CurrentRowNumber = -1;
             int SecondMatrixRow = 0;
             int SecondMatrixColumnAmount = 0;
             int FirstMatrixColumnAmount = 0;
             SecondMatrixColumnAmount = (SecondMatrix.GetLength(1) - 1);
             FirstMatrixColumnAmount = (FirstMatrix.GetLength(1) - 1);
-            while (true)
+            for (int ColumnNumSecondMatrix = 0; ColumnNumSecondMatrix <= SecondMatrixColumnAmount; ++ColumnNumSecondMatrix)
             {
-                while (CurrentRowNumber < 0)
+                SecondMatrixRow = 0;
+                for (int ColumnNumFirstMatrix = 0; ColumnNumFirstMatrix <= FirstMatrixColumnAmount; ++ColumnNumFirstMatrix)
                 {
-                    lock (NumbersOfRowsGate)
-                    {
-                        if (NumbersOfRows.Count() == 0 && TaskFinished)
-                        {
-                            lock (PrintResultGate)
-                            {
-                                if (!PrintedAlready && !ProgramClosing)
-                                {
-                                    Application.Current.Dispatcher.Invoke(
-                                        new System.Action(() => PrintResult())
-                                        );
-                                    PrintedAlready = true;
-                                }
-                            }
-                            CurrentMRE.Set();
-                            return;
-                        }
-                        else if (NumbersOfRows.Count() > 0)
-                        {
-                            CurrentRowNumber = NumbersOfRows.First();
-                            NumbersOfRows.Remove(CurrentRowNumber);
-                        }
-                    }
+                    ResultMatrix[RowIndex, ColumnNumSecondMatrix] +=
+                        (FirstMatrix[RowIndex, ColumnNumFirstMatrix] * SecondMatrix[SecondMatrixRow, ColumnNumSecondMatrix]);
+                    ++SecondMatrixRow;
                 }
-                for (int ColumnNumSecondMatrix = 0; ColumnNumSecondMatrix <= SecondMatrixColumnAmount; ++ColumnNumSecondMatrix)
-                {
-                    SecondMatrixRow = 0;
-                    for (int ColumnNumFirstMatrix = 0; ColumnNumFirstMatrix <= FirstMatrixColumnAmount; ++ColumnNumFirstMatrix)
-                    {
-                        ResultMatrix[CurrentRowNumber, ColumnNumSecondMatrix] +=
-                            (FirstMatrix[CurrentRowNumber, ColumnNumFirstMatrix] * SecondMatrix[SecondMatrixRow, ColumnNumSecondMatrix]);
-                        ++SecondMatrixRow;
-                    }
-                 }
-                 CurrentRowNumber = -1;
+            }
+            if (Interlocked.Decrement(ref CounterOfRemainingTasks.AmountOfTasks) == 0)
+            {
+                Application.Current.Dispatcher.Invoke(new System.Action(() => PrintResult()));
+                CheckFinishMRE.Set();
             }
         }
 

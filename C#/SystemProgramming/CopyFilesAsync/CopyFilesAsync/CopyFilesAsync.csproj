@@ -82,6 +82,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationExitThread.cs" />
     <Compile Include="TaskCounter.cs" />
     <Compile Include="Triangle.cs" />
     <Page Include="MainWindow.xaml">

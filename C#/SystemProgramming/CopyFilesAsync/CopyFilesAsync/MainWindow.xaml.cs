@@ -19,6 +19,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace CopyFilesAsync
 {
@@ -35,13 +36,12 @@ namespace CopyFilesAsync
         {
             string MutexName = Marshal.GetTypeLibGuidForAssembly(Assembly.GetExecutingAssembly()).ToString();
             CheckIfAnotherAppRun = new Mutex(false, MutexName);
-            //CheckIfAnotherAppRun = new Mutex(true, MutexName, out WeOwnenrsOfMutex);
-            //if (WeOwnenrsOfMutex)
             if (CheckIfAnotherAppRun.WaitOne(0,false))
             {
-                InitializeComponent(); 
-                
+                InitializeComponent();
+
                 StartAreasCalculationsButton.Click += StartTriangleCalculationsEvent;
+                KillProcessButton.Click += AsyncProcessesThreadsModules.KillSelectedProcess;
 
                 FirstMatrixRowsTextBox.PreviewTextInput += CharsKiller.InputValidation;
                 FirstMatrixRowsTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
@@ -52,13 +52,12 @@ namespace CopyFilesAsync
                 SecondMatrixColumnsTextBox.PreviewTextInput += CharsKiller.InputValidation;
                 SecondMatrixColumnsTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
 
-                MatrixMultiplication.ResultMatrixLabel = ResultMultiplicationMatrixLabel;
+                MatrixMultiplication.ResultMatrixTextBox = ResultMultiplicationMatrixTextBox;
                 StartProcessesThreadsButton.Click += AsyncProcessesThreadsModules.ActivateThreads;
                 StartMatrixMultiplication.Click += CreateTwoMatrixAndStartMultiplication;
 
                 //Добавляем при закрытии приложения ожидание остановки всех созданных нами потоков
-                this.Closing += AsyncProcessesThreadsModules.MainFormClosing;
-                this.Closing += MatrixMultiplication.UIClosing;
+                this.Closing += CloseMainWindowEvent;
 
                 AsyncCopyFiles.CopyProgressBar = this.CopyProgressBar;
                 AsyncCopyFiles.CopyStateLabel = this.CopyStateLabel;
@@ -83,8 +82,24 @@ namespace CopyFilesAsync
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 this.Close();
             }
-
+            ApplicationExitThread.MainAppWindow = this;
+            Thread TestThread = new Thread(() => ApplicationExitThread.WaitForThreads());
+            TestThread.Start();
         }
+
+        public void CloseMainWindowEvent(Object sender,CancelEventArgs e)
+        {
+            if (!ApplicationExitThread.ProgramCanBeCanceled)
+            {
+                e.Cancel = true;
+                ApplicationExitThread.AppTryingToClose = true;
+            }
+            else
+            {
+                CheckIfAnotherAppRun.ReleaseMutex();
+            }
+        }
+
 
         public void GenerateColumnEvent(Object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -110,7 +125,6 @@ namespace CopyFilesAsync
             if (!MatrixMultiplication.AlreadyRunning )
             {
                 MatrixMultiplication.AlreadyRunning = true;
-                MatrixMultiplication.TaskFinished = false;
                 try
                 {
                     if (Int32.Parse(SecondMatrixColumnsTextBox.Text) == 0 || Int32.Parse(FirstMatrixRowsTextBox.Text) == 0
@@ -138,7 +152,7 @@ namespace CopyFilesAsync
                             }
                             BufString.AppendLine();
                         }
-                        FirstGeneratedMatrixLabel.Text = BufString.ToString();
+                        FirstGeneratedMatrixTextBox.Text = BufString.ToString();
                         BufString.Clear();
                         for (int RowNumber = 0; RowNumber < Int32.Parse(SecondMatrixRowsTextBox.Text); ++RowNumber)
                         {
@@ -150,10 +164,10 @@ namespace CopyFilesAsync
                             }
                             BufString.AppendLine();
                         }
-                        SecondGeneratedMatrixLabel.Text = BufString.ToString();
+                        SecondGeneratedMatrixTextBox.Text = BufString.ToString();
                         BufString.Clear();
 
-                        MatrixMultiplication.RunMultiplicationThread();
+                        MatrixMultiplication.RunMultiplicationThread(Int32.Parse(FirstMatrixRowsTextBox.Text));
                     }
                 }
                 catch (FormatException CurrentException)

@@ -16,15 +16,14 @@ namespace CopyFilesAsync
 {
     static class AsyncProcessesThreadsModules
     {
+        public static Object RefreshProcessDataGate = new object();
+
         public static List<int> IDOfAllProcessesInDataGrid = new List<int>();
         public static Label SelectedProcessLabel;
         public static bool AlreadyRunning = false;
         public static Mutex BufForMainMutex = new Mutex();
         //CancellationTokenSource позволяет синхронно закрывать потоки связанные с его token
         public static CancellationTokenSource cts = new CancellationTokenSource();
-        //мои объекты критических секций
-        public static object MainLock_1 = new object();
-        public static object MainLock_2 = new object();
 
         public static List<ProcessThread> AllThreads = new List<ProcessThread>();
         public static List<ProcessModule> AllModules = new List<ProcessModule>();
@@ -33,10 +32,26 @@ namespace CopyFilesAsync
         public static bool MainSelectedAnotherProcess = false;
         public static Thread ProcessesThread;
         public static Thread ShowAllModulesOfSelectedProcess;
-        public static Process SelectedItem = new Process();
+        public static Process SelectedItem = null;
         public static DataGrid ProcessesNamesDataGrid = new DataGrid();
         public static DataGrid ThreadsDataGrid = new DataGrid();
         public static DataGrid DllsDataGrid = new DataGrid();
+
+        public static void KillSelectedProcess(Object sender, EventArgs e)
+        {
+            lock (RefreshProcessDataGate)
+            {
+                if (SelectedItem != null)
+                {
+                    SelectedItem.Kill();
+                    SelectedItem = null;
+                }
+                else
+                {
+                    MessageBox.Show(MyResourses.Texts.ProcessNotSelected,MyResourses.Texts.Error,MessageBoxButton.OK,MessageBoxImage.Error);
+                }
+            }
+        }
 
         public static void ActivateThreads(Object sender,EventArgs e)
         {
@@ -48,33 +63,11 @@ namespace CopyFilesAsync
                 if (ProcessesThread == null && ShowAllModulesOfSelectedProcess == null)
                 {
                     ProcessesThread = new Thread(() => WorkWithProcesses(cts.Token));
-                    //ProcessesThread.IsBackground = true;
                     ShowAllModulesOfSelectedProcess = new Thread(() => ShowModulesForSelectedProcess(cts.Token));
-                    //ShowAllModulesOfSelectedProcess.IsBackground = true;
                     ProcessesThread.Start();
                     ShowAllModulesOfSelectedProcess.Start();
                 }
             }
-        }
-
-        public static void MainFormClosing (Object sender,EventArgs e)
-        {
-            //говорим источнику закрыть все связанные потоки (tokens)
-            lock (MainLock_1)
-            {
-                lock (MainLock_2)
-                {
-                    cts.Cancel();
-                }
-            }
-            if (ProcessesThread != null && ShowAllModulesOfSelectedProcess != null)
-            {
-                while (ProcessesThread.ThreadState != System.Threading.ThreadState.Stopped || ShowAllModulesOfSelectedProcess.ThreadState != System.Threading.ThreadState.Stopped)
-                {
-                    int i = 0;
-                }
-            }
-            BufForMainMutex.ReleaseMutex();
         }
 
         public static void SelectionOfAnotherProcess(Object sender, EventArgs e)
@@ -95,8 +88,6 @@ namespace CopyFilesAsync
             {
                 while (true)
                 {
-                    lock (MainLock_1)
-                    {
                         if (CurrentToken.IsCancellationRequested)
                             break;
 
@@ -128,7 +119,6 @@ namespace CopyFilesAsync
                                 );
                             RefreshNecessary = false;
                         }
-                    }
                     int CounterOfMilliseconds = 0;
                     while (!CurrentToken.IsCancellationRequested && CounterOfMilliseconds < 3000)
                     {
@@ -157,45 +147,47 @@ namespace CopyFilesAsync
             {
                 while (true)
                 {
-                    lock (MainLock_2)
-                    {
                         if (CurrentToken.IsCancellationRequested)
                             break;
                         Application.Current.Dispatcher.Invoke(new System.Action(() => SelectionChanged = MainSelectedAnotherProcess));
-                        //Application.Current.Dispatcher.Invoke(new System.Action(() => SelectedProcess = SelectedItem));
-                        if (SelectionChanged || ProcessAlreadyLoaded)
+                        AllThreads.Clear();
+                        AllModules.Clear();
+                        lock (RefreshProcessDataGate)
                         {
-                            try
-                            {                             
-                                Application.Current.Dispatcher.Invoke(new System.Action(() => SelectedProcess =
-                                    Process.GetProcessById(SelectedItem.Id)));
-                                ProcessAlreadyLoaded = true;
-                                //Application.Current.Dispatcher.Invoke(new System.Action(() => SuperDataGrid.ItemsSource =
-                                //SelectedProcess.Threads));
-                                AllThreads.Clear();
-                                AllModules.Clear();
-                                foreach (ProcessThread ProcThr in SelectedProcess.Threads)
-                                {
-                                    AllThreads.Add(ProcThr);
-                                }
-                                foreach (ProcessModule ProcMod in SelectedProcess.Modules)
-                                {
-                                    AllModules.Add(ProcMod);
-                                }
-                                Application.Current.Dispatcher.Invoke(new System.Action(() => DllsDataGrid.Items.Refresh()));
-                                Application.Current.Dispatcher.Invoke(new System.Action(() => ThreadsDataGrid.Items.Refresh()));
-                            }
-                            catch (Exception ex)
+                            if (SelectedItem != null && (SelectionChanged || ProcessAlreadyLoaded))
                             {
-                                MessageBox.Show(ex.Message);
+                                try
+                                {
+
+                                    Application.Current.Dispatcher.Invoke(new System.Action(() => SelectedProcess =
+                                        Process.GetProcessById(SelectedItem.Id)));
+                                    ProcessAlreadyLoaded = true;
+                                    foreach (ProcessThread ProcThr in SelectedProcess.Threads)
+                                    {
+                                        AllThreads.Add(ProcThr);
+                                    }
+                                    foreach (ProcessModule ProcMod in SelectedProcess.Modules)
+                                    {
+                                        AllModules.Add(ProcMod);
+                                    }                           
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                }
+                                finally
+                                {
+                                    SelectionChanged = false;
+                                    Application.Current.Dispatcher.Invoke(new System.Action(() => MainSelectedAnotherProcess = false));
+                                }
                             }
-                            finally
+                            else
                             {
-                                SelectionChanged = false;
-                                Application.Current.Dispatcher.Invoke(new System.Action(() => MainSelectedAnotherProcess = false));
+                                Application.Current.Dispatcher.Invoke(new System.Action(() => SelectedProcessLabel.Content = string.Empty));
                             }
+                            Application.Current.Dispatcher.Invoke(new System.Action(() => DllsDataGrid.Items.Refresh()));
+                            Application.Current.Dispatcher.Invoke(new System.Action(() => ThreadsDataGrid.Items.Refresh()));
                         }
-                    }
                     int CounterOfMilliseconds = 0;
                     while (!CurrentToken.IsCancellationRequested && CounterOfMilliseconds < 3000)
                     {

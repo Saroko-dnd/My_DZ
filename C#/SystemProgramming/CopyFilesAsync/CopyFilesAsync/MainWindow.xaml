@@ -62,7 +62,7 @@
                     <Label Content="{x:Static MyRes:Texts.MatrixColumns}"></Label>
                     <TextBox Name="FirstMatrixColumnsTextBox" Width="50"></TextBox>
                 </WrapPanel>
-                <TextBox HorizontalAlignment="Left" IsReadOnlyCaretVisible="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="150" Width="150" Name="FirstGeneratedMatrixLabel"></TextBox>
+                <TextBox HorizontalAlignment="Left" IsReadOnlyCaretVisible="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="150" Width="150" Name="FirstGeneratedMatrixTextBox"></TextBox>
                 <Label Content="{x:Static MyRes:Texts.LastMatrix}"></Label>
                 <WrapPanel>
                     <Label Content="{x:Static MyRes:Texts.MatrixRows}"></Label>
@@ -70,9 +70,9 @@
                     <Label Content="{x:Static MyRes:Texts.MatrixColumns}"></Label>
                     <TextBox Name="SecondMatrixColumnsTextBox" Width="50"></TextBox>
                 </WrapPanel>
-                <TextBox HorizontalAlignment="Left" IsReadOnlyCaretVisible="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="150" Width="150" Name="SecondGeneratedMatrixLabel"></TextBox>
+                <TextBox HorizontalAlignment="Left" IsReadOnlyCaretVisible="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="150" Width="150" Name="SecondGeneratedMatrixTextBox"></TextBox>
                 <Label Content="{x:Static MyRes:Texts.ResultMatrix}"></Label>
-                <TextBox HorizontalAlignment="Left" IsReadOnlyCaretVisible="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="150" Width="150" Name="ResultMultiplicationMatrixLabel"></TextBox>
+                <TextBox HorizontalAlignment="Left" IsReadOnlyCaretVisible="False" IsReadOnly="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="150" Width="150" Name="ResultMultiplicationMatrixTextBox"></TextBox>
             </StackPanel>        
         </TabItem>
         <TabItem Header="{x:Static MyRes:Texts.TriangleAreaCalculation}">
