@@ -16,6 +16,8 @@ namespace CopyFilesAsync
 {
     static class AsyncProcessesThreadsModules
     {
+        public static List<int> IDOfAllProcessesInDataGrid = new List<int>();
+        public static Label SelectedProcessLabel;
         public static bool AlreadyRunning = false;
         public static Mutex BufForMainMutex = new Mutex();
         //CancellationTokenSource позволяет синхронно закрывать потоки связанные с его token
@@ -24,8 +26,8 @@ namespace CopyFilesAsync
         public static object MainLock_1 = new object();
         public static object MainLock_2 = new object();
 
-        public static ObservableCollection<ProcessThread> AllThreads = new ObservableCollection<ProcessThread>();
-        public static ObservableCollection<ProcessModule> AllModules = new ObservableCollection<ProcessModule>();
+        public static List<ProcessThread> AllThreads = new List<ProcessThread>();
+        public static List<ProcessModule> AllModules = new List<ProcessModule>();
 
         public static bool MainProgramClosing = false;
         public static bool MainSelectedAnotherProcess = false;
@@ -36,13 +38,13 @@ namespace CopyFilesAsync
         public static DataGrid ThreadsDataGrid = new DataGrid();
         public static DataGrid DllsDataGrid = new DataGrid();
 
-        public static Xceed.Wpf.DataGrid.DataGridControl SuperDataGrid = new Xceed.Wpf.DataGrid.DataGridControl();
-
         public static void ActivateThreads(Object sender,EventArgs e)
         {
             if (!AlreadyRunning)
             {
                 AlreadyRunning = true;
+                ThreadsDataGrid.ItemsSource = AllThreads;
+                DllsDataGrid.ItemsSource = AllModules;
                 if (ProcessesThread == null && ShowAllModulesOfSelectedProcess == null)
                 {
                     ProcessesThread = new Thread(() => WorkWithProcesses(cts.Token));
@@ -80,6 +82,7 @@ namespace CopyFilesAsync
             if ((sender as DataGrid).SelectedIndex >= 0)
             {
                 SelectedItem = ProcessesNamesDataGrid.SelectedItem as Process;
+                SelectedProcessLabel.Content = SelectedItem.ProcessName;
                 if (!MainSelectedAnotherProcess)
                     MainSelectedAnotherProcess = true;
             }
@@ -87,6 +90,7 @@ namespace CopyFilesAsync
 
         public static void WorkWithProcesses(CancellationToken CurrentToken)
         {
+            bool RefreshNecessary = true;
             try
             {
                 while (true)
@@ -95,9 +99,35 @@ namespace CopyFilesAsync
                     {
                         if (CurrentToken.IsCancellationRequested)
                             break;
-                        Application.Current.Dispatcher.Invoke(
-                            new System.Action(() => ProcessesNamesDataGrid.ItemsSource = Process.GetProcesses())
-                            );
+
+                        foreach (Process CurrentProcess in Process.GetProcesses())
+                        {
+                            if (!IDOfAllProcessesInDataGrid.Contains(CurrentProcess.Id))
+                            {
+                                RefreshNecessary = true;
+                                break;
+                            }
+                        }
+                        foreach (int CurrentID in IDOfAllProcessesInDataGrid)
+                        {
+                            if (!Process.GetProcesses().Select(res => res.Id).Contains(CurrentID))
+                            {
+                                RefreshNecessary = true;
+                                break;
+                            }
+                        }
+                        if (RefreshNecessary)
+                        {
+                            IDOfAllProcessesInDataGrid.Clear();
+                            foreach (Process CurrentProcess in Process.GetProcesses())
+                            {
+                                IDOfAllProcessesInDataGrid.Add(CurrentProcess.Id);
+                            }
+                            Application.Current.Dispatcher.Invoke(
+                                new System.Action(() => ProcessesNamesDataGrid.ItemsSource = Process.GetProcesses())
+                                );
+                            RefreshNecessary = false;
+                        }
                     }
                     int CounterOfMilliseconds = 0;
                     while (!CurrentToken.IsCancellationRequested && CounterOfMilliseconds < 3000)
@@ -123,11 +153,6 @@ namespace CopyFilesAsync
             bool SelectionChanged = false;
             bool ProcessAlreadyLoaded = false;
             Process SelectedProcess = new Process();
-            int pos = 0;
-            Application.Current.Dispatcher.Invoke(new System.Action(() => ThreadsDataGrid.DataContext =
-                AllThreads));
-            Application.Current.Dispatcher.Invoke(new System.Action(() => DllsDataGrid.DataContext =
-                AllModules));
             try
             {
                 while (true)
@@ -141,22 +166,24 @@ namespace CopyFilesAsync
                         if (SelectionChanged || ProcessAlreadyLoaded)
                         {
                             try
-                            {
+                            {                             
                                 Application.Current.Dispatcher.Invoke(new System.Action(() => SelectedProcess =
                                     Process.GetProcessById(SelectedItem.Id)));
                                 ProcessAlreadyLoaded = true;
                                 //Application.Current.Dispatcher.Invoke(new System.Action(() => SuperDataGrid.ItemsSource =
-                                    //SelectedProcess.Threads));
-                                Application.Current.Dispatcher.Invoke(new System.Action(() => AllThreads.Clear()));
-                                Application.Current.Dispatcher.Invoke(new System.Action(() => AllModules.Clear()));
+                                //SelectedProcess.Threads));
+                                AllThreads.Clear();
+                                AllModules.Clear();
                                 foreach (ProcessThread ProcThr in SelectedProcess.Threads)
                                 {
-                                    Application.Current.Dispatcher.Invoke(new System.Action(() => AllThreads.Add(ProcThr)));
+                                    AllThreads.Add(ProcThr);
                                 }
                                 foreach (ProcessModule ProcMod in SelectedProcess.Modules)
                                 {
-                                    Application.Current.Dispatcher.Invoke(new System.Action(() => AllModules.Add(ProcMod)));
+                                    AllModules.Add(ProcMod);
                                 }
+                                Application.Current.Dispatcher.Invoke(new System.Action(() => DllsDataGrid.Items.Refresh()));
+                                Application.Current.Dispatcher.Invoke(new System.Action(() => ThreadsDataGrid.Items.Refresh()));
                             }
                             catch (Exception ex)
                             {

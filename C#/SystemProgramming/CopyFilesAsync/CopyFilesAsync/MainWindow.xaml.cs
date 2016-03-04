@@ -39,8 +39,8 @@ namespace CopyFilesAsync
             //if (WeOwnenrsOfMutex)
             if (CheckIfAnotherAppRun.WaitOne(0,false))
             {
-                InitializeComponent();
-
+                InitializeComponent(); 
+                
                 StartAreasCalculationsButton.Click += StartTriangleCalculationsEvent;
 
                 FirstMatrixRowsTextBox.PreviewTextInput += CharsKiller.InputValidation;
@@ -71,10 +71,10 @@ namespace CopyFilesAsync
                 BreakButton.Click += AsyncCopyFiles.BreakButtonClick;
 
                 ProcessesNamesDataGrid.SelectionChanged += AsyncProcessesThreadsModules.SelectionOfAnotherProcess;
+                AsyncProcessesThreadsModules.SelectedProcessLabel = SelectedProcessLabel;
                 AsyncProcessesThreadsModules.DllsDataGrid = this.DllsDataGrid;
                 AsyncProcessesThreadsModules.ThreadsDataGrid = this.ThreadsDataGrid;
                 AsyncProcessesThreadsModules.ProcessesNamesDataGrid = this.ProcessesNamesDataGrid;
-                AsyncProcessesThreadsModules.SuperDataGrid = TestDataGrid;
                 AsyncProcessesThreadsModules.BufForMainMutex = CheckIfAnotherAppRun;
             }
             else

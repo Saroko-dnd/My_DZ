@@ -27,6 +27,9 @@
             <StackPanel>
                 <WrapPanel>
                     <Button Content="{x:Static MyRes:Texts.StartRrocThreads}" Name="StartProcessesThreadsButton"></Button>
+                    <Label Content="{x:Static MyRes:Texts.CurrentProcess}"></Label>
+                    <Label Name="SelectedProcessLabel"></Label>
+                    <Button Content="{x:Static MyRes:Texts.KillProcess}" Name="KillProcessButton"></Button>
                 </WrapPanel>
                 <WrapPanel>
                     <StackPanel>
@@ -43,11 +46,6 @@
                         <Label Content="{x:Static MyRes:Texts.ListOfDlls}"></Label>
                         <DataGrid MaxWidth="400" MaxHeight="500" Name="DllsDataGrid" ItemsSource="{Binding}">
                         </DataGrid>
-                    </StackPanel>
-                    <StackPanel>
-                        <Xceed:DataGridControl MaxHeight="500" ScrollViewer.HorizontalScrollBarVisibility="Auto" Name="TestDataGrid" MaxWidth="300" ItemsSource="{Binding}">
-
-                        </Xceed:DataGridControl>
                     </StackPanel>
                 </WrapPanel>
             </StackPanel>           

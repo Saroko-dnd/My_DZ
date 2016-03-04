@@ -225,4 +225,10 @@
   <data name="TriangleAreaCalculation" xml:space="preserve">
     <value>Площади 40 треугольников</value>
   </data>
+  <data name="CurrentProcess" xml:space="preserve">
+    <value>Выбранный сейчас процесс:</value>
+  </data>
+  <data name="KillProcess" xml:space="preserve">
+    <value>Завершить выбранный процесс</value>
+  </data>
 </root>
