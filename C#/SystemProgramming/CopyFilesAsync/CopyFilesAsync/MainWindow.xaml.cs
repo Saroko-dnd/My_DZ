@@ -40,6 +40,9 @@ namespace CopyFilesAsync
             {
                 InitializeComponent();
 
+                AppDomain d = AppDomain.CreateDomain("Domain");
+                d.ExecuteAssemblyByName("Assembly");
+
                 StartAreasCalculationsButton.Click += StartTriangleCalculationsEvent;
                 KillProcessButton.Click += AsyncProcessesThreadsModules.KillSelectedProcess;
 
