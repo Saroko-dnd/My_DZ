@@ -37,7 +37,19 @@ namespace WPF_examples_linq
             DataStorage.Add(new DataClass("John", 44, "Fools", 99));
             DataStorage.Add(new DataClass("Ryan", 40, "Fools", 99));
 
-            QueryResultDataGrid.ItemsSource = DataStorage;
+            var Result = DataStorage.GroupBy(res => { if (res.Year < 40) return "Young"; else return "Old"; });
+            StringBuilder MainBuilder = new StringBuilder();
+
+            foreach (var GroupedData in Result)
+            {
+                MainBuilder.Append(GroupedData.Key);
+                MainBuilder.Append(" ");
+                MainBuilder.Append(GroupedData.Count().ToString());
+                MainBuilder.AppendLine();
+            }
+
+            ConsoleTextBox.Text = MainBuilder.ToString();
+
         }
     }
 }
