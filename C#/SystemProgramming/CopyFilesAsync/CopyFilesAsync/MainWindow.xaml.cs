@@ -88,6 +88,7 @@ namespace CopyFilesAsync
             ApplicationExitThread.MainAppWindow = this;
             Thread TestThread = new Thread(() => ApplicationExitThread.WaitForThreads());
             TestThread.Start();
+          
         }
 
         public void CloseMainWindowEvent(Object sender,CancelEventArgs e)
