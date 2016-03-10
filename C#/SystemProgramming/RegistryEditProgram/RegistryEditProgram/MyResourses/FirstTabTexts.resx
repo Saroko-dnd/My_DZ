@@ -120,7 +120,34 @@
   <data name="AddNewValueToRegistry" xml:space="preserve">
     <value>Добавить запись в реестр</value>
   </data>
+  <data name="CantFindUninstaller" xml:space="preserve">
+    <value>Не найден инсталятор для выбранной программы! (отсутствует UninstallString)</value>
+  </data>
+  <data name="DataGridProperties" xml:space="preserve">
+    <value>Настройка  DataGrid (сохраняется в реестре):</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
   <data name="GetAllSubkeys" xml:space="preserve">
     <value>Получить список установленных программ</value>
+  </data>
+  <data name="InstalledComponents" xml:space="preserve">
+    <value>Установленные компоненты</value>
+  </data>
+  <data name="KeyToUninstall" xml:space="preserve">
+    <value>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="SelectedNothing" xml:space="preserve">
+    <value>Не выбрана программа для удаления!</value>
+  </data>
+  <data name="UninstallProgram" xml:space="preserve">
+    <value>Удалить программу</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
   </data>
 </root>

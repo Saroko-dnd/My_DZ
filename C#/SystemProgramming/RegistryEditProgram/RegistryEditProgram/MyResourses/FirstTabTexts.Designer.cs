@@ -70,11 +70,92 @@ namespace RegistryEditProgram.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не найден инсталятор для выбранной программы! (отсутствует UninstallString).
+        /// </summary>
+        public static string CantFindUninstaller {
+            get {
+                return ResourceManager.GetString("CantFindUninstaller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Настройка  DataGrid (сохраняется в реестре):.
+        /// </summary>
+        public static string DataGridProperties {
+            get {
+                return ResourceManager.GetString("DataGridProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ошибка.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Получить список установленных программ.
         /// </summary>
         public static string GetAllSubkeys {
             get {
                 return ResourceManager.GetString("GetAllSubkeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Установленные компоненты.
+        /// </summary>
+        public static string InstalledComponents {
+            get {
+                return ResourceManager.GetString("InstalledComponents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\.
+        /// </summary>
+        public static string KeyToUninstall {
+            get {
+                return ResourceManager.GetString("KeyToUninstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Нет.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не выбрана программа для удаления!.
+        /// </summary>
+        public static string SelectedNothing {
+            get {
+                return ResourceManager.GetString("SelectedNothing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить программу.
+        /// </summary>
+        public static string UninstallProgram {
+            get {
+                return ResourceManager.GetString("UninstallProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Да.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
