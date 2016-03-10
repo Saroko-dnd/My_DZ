@@ -39,10 +39,7 @@ namespace CopyFilesAsync
             if (CheckIfAnotherAppRun.WaitOne(0,false))
             {
                 InitializeComponent();
-
-                AppDomain d = AppDomain.CreateDomain("Domain");
-                d.ExecuteAssemblyByName("Assembly");
-
+                //SemaphoreTest.CreateFiles();
                 StartAreasCalculationsButton.Click += StartTriangleCalculationsEvent;
                 KillProcessButton.Click += AsyncProcessesThreadsModules.KillSelectedProcess;
 

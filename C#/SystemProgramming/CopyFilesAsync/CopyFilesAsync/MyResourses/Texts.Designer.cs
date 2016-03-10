@@ -79,6 +79,15 @@ namespace CopyFilesAsync.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Создать 100 текстовых файлов.
+        /// </summary>
+        public static string CreateManyFiles {
+            get {
+                return ResourceManager.GetString("CreateManyFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выбранный сейчас процесс:.
         /// </summary>
         public static string CurrentProcess {
@@ -120,6 +129,24 @@ namespace CopyFilesAsync.MyResourses {
         public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TestFile.txt.
+        /// </summary>
+        public static string FileName {
+            get {
+                return ResourceManager.GetString("FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Это текстовый файл..
+        /// </summary>
+        public static string FileText {
+            get {
+                return ResourceManager.GetString("FileText", resourceCulture);
             }
         }
         
@@ -273,6 +300,15 @@ namespace CopyFilesAsync.MyResourses {
         public static string ResultMatrix {
             get {
                 return ResourceManager.GetString("ResultMatrix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Семафор.
+        /// </summary>
+        public static string Semaphore {
+            get {
+                return ResourceManager.GetString("Semaphore", resourceCulture);
             }
         }
         

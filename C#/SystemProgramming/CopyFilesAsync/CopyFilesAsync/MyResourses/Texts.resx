@@ -237,4 +237,16 @@
   <data name="WaitForThreads" xml:space="preserve">
     <value>Программу нельзя завершить прямо сейчас. Пожалуйста дождитесь окончания работы всех потоков.</value>
   </data>
+  <data name="Semaphore" xml:space="preserve">
+    <value>Семафор</value>
+  </data>
+  <data name="CreateManyFiles" xml:space="preserve">
+    <value>Создать 100 текстовых файлов</value>
+  </data>
+  <data name="FileText" xml:space="preserve">
+    <value>Это текстовый файл.</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>TestFile.txt</value>
+  </data>
 </root>

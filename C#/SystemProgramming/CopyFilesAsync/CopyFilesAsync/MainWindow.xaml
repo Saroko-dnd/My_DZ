@@ -82,5 +82,10 @@
                 </TextBox>
             </StackPanel>
         </TabItem>
+        <TabItem Header="{x:Static MyRes:Texts.Semaphore}">
+            <StackPanel>
+                <Button Name="CreateFilesButton" Content="{x:Static MyRes:Texts.CreateManyFiles}"></Button>
+            </StackPanel>
+        </TabItem>
     </TabControl>
 </Window>
