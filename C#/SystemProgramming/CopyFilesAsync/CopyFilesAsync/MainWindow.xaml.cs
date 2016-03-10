@@ -39,7 +39,10 @@ namespace CopyFilesAsync
             if (CheckIfAnotherAppRun.WaitOne(0,false))
             {
                 InitializeComponent();
-                //SemaphoreTest.CreateFiles();
+
+                SemaphoreTest.MainAppWindow = this;
+                CreateFilesButton.Click += SemaphoreTest.CreateFiles;
+
                 StartAreasCalculationsButton.Click += StartTriangleCalculationsEvent;
                 KillProcessButton.Click += AsyncProcessesThreadsModules.KillSelectedProcess;
 

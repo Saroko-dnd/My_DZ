@@ -249,4 +249,13 @@
   <data name="FileName" xml:space="preserve">
     <value>TestFile.txt</value>
   </data>
+  <data name="ContinueOrNo" xml:space="preserve">
+    <value>ПРОДОЛЖИТЬ ВЫПОЛНЕНИЕ ПРОГРАММЫ?</value>
+  </data>
+  <data name="FilesSucess" xml:space="preserve">
+    <value>Файлы успешно созданы рядом с exe файлом этой программы!</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Готово!</value>
+  </data>
 </root>

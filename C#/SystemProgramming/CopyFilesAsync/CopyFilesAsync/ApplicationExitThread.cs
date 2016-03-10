@@ -36,6 +36,10 @@ namespace CopyFilesAsync
             {
                 MatrixMultiplication.CheckFinishMRE.WaitOne();
             }
+            while (SemaphoreTest.ThreadsRunning)
+            {
+
+            }
             ProgramCanBeCanceled = true;
             Application.Current.Dispatcher.Invoke(new System.Action(() => MainAppWindow.Close()));
         }

@@ -79,6 +79,15 @@ namespace CopyFilesAsync.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ПРОДОЛЖИТЬ ВЫПОЛНЕНИЕ ПРОГРАММЫ?.
+        /// </summary>
+        public static string ContinueOrNo {
+            get {
+                return ResourceManager.GetString("ContinueOrNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Создать 100 текстовых файлов.
         /// </summary>
         public static string CreateManyFiles {
@@ -138,6 +147,15 @@ namespace CopyFilesAsync.MyResourses {
         public static string FileName {
             get {
                 return ResourceManager.GetString("FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Файлы успешно созданы рядом с exe файлом этой программы!.
+        /// </summary>
+        public static string FilesSucess {
+            get {
+                return ResourceManager.GetString("FilesSucess", resourceCulture);
             }
         }
         
@@ -291,6 +309,15 @@ namespace CopyFilesAsync.MyResourses {
         public static string ProgramAlreadyRunning {
             get {
                 return ResourceManager.GetString("ProgramAlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Готово!.
+        /// </summary>
+        public static string Ready {
+            get {
+                return ResourceManager.GetString("Ready", resourceCulture);
             }
         }
         
