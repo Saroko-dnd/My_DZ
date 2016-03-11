@@ -129,6 +129,9 @@
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
   </data>
+  <data name="FontSize" xml:space="preserve">
+    <value>Размер шрифта</value>
+  </data>
   <data name="GetAllSubkeys" xml:space="preserve">
     <value>Получить список установленных программ</value>
   </data>
@@ -137,6 +140,12 @@
   </data>
   <data name="KeyToUninstall" xml:space="preserve">
     <value>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\</value>
+  </data>
+  <data name="MyRegKey" xml:space="preserve">
+    <value>RegC#Test</value>
+  </data>
+  <data name="MyRegKeyFull" xml:space="preserve">
+    <value>HKEY_CURRENT_USER\RegC#Test</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>Нет</value>

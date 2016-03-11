@@ -25,19 +25,46 @@ namespace RegistryEditProgram
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static List<string> AllBrushes = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
-            
-            MessageBox.Show(Brushes.Purple.Color.ToString());
+            ProgramsDataGrid.ItemsSource = typeof(Brushes).GetProperties().Select(res => new { Name = res.Name }).ToList();
             UninstallProgramButton.Click += DeleteSelectedProgramButtonClick;
             GetSubKeysButton.Click += GetAllInstalledComponentsButton_Click;
-            //Registry.SetValue(@"HKEY_CURRENT_USER\RegC#Test", "ForegroundColor", @"Red");
-            //Registry.SetValue(@"HKEY_CURRENT_USER\RegC#Test", "FontSize", 12);
-            ProgramsDataGrid.FontSize = (int)Registry.GetValue(@"HKEY_CURRENT_USER\RegC#Test", "FontSize", 0);           
-            BrushConverter ConverterForConsoleBackground = new BrushConverter();
-            ProgramsDataGrid.Foreground = (Brush)ConverterForConsoleBackground.ConvertFromString(Registry.GetValue(@"HKEY_CURRENT_USER\RegC#Test", "ForegroundColor", "Black").ToString());
-            ProgramsDataGrid.RowBackground = (Brush)ConverterForConsoleBackground.ConvertFromString(Registry.GetValue(@"HKEY_CURRENT_USER\RegC#Test", "BacgroundColor", "White").ToString());
+
+            FontSizeTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            FontSizeTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+
+            if (Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.MyRegKey) == null)
+            {
+                try
+                {
+                    Registry.SetValue(MyResourses.FirstTabTexts.MyRegKeyFull, "ForegroundColor", @"Black");
+                    Registry.SetValue(MyResourses.FirstTabTexts.MyRegKeyFull, "FontSize", 12);
+                    Registry.SetValue(MyResourses.FirstTabTexts.MyRegKeyFull, "BacgroundColor", @"White");
+                }
+                catch (Exception CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message,MyResourses.FirstTabTexts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            try
+            {
+                FontSizeTextBox.Text = ((int)Registry.GetValue(MyResourses.FirstTabTexts.MyRegKeyFull, "FontSize", 12)).ToString();
+                ProgramsDataGrid.FontSize = (int)Registry.GetValue(MyResourses.FirstTabTexts.MyRegKeyFull, "FontSize", 12);
+                BrushConverter ConverterForConsoleBackground = new BrushConverter();
+                ProgramsDataGrid.Foreground = (Brush)ConverterForConsoleBackground.ConvertFromString(Registry.GetValue(MyResourses.FirstTabTexts.MyRegKeyFull, "ForegroundColor", 
+                    "Black").ToString());
+                ProgramsDataGrid.RowBackground = (Brush)ConverterForConsoleBackground.ConvertFromString(Registry.GetValue(MyResourses.FirstTabTexts.MyRegKeyFull, "BacgroundColor", 
+                    "White").ToString());
+            }
+            catch (Exception CurrentException)
+            {
+                MessageBox.Show(CurrentException.Message, MyResourses.FirstTabTexts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void AddValueRegistryButton_Click(object sender, RoutedEventArgs e)
@@ -66,7 +93,7 @@ namespace RegistryEditProgram
 
         private void DeleteSelectedProgramButtonClick(Object sender,EventArgs e)
         {
-            if (ProgramsDataGrid.SelectedIndex >= 0 && (ProgramsDataGrid.SelectedItem as InstalledComponent).UninstallPath != string.Empty)
+            if (ProgramsDataGrid.SelectedIndex >= 0)
             {
                 if ((ProgramsDataGrid.SelectedItem as InstalledComponent).UninstallPath != string.Empty)
                 {
