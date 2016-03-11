@@ -19,6 +19,19 @@
                         <Label Content="{x:Static MyRes:FirstTabTexts.FontSize}"></Label>
                         <TextBox Name="FontSizeTextBox"></TextBox>
                     </StackPanel>
+                    <StackPanel>
+                        <Label Content="{x:Static MyRes:FirstTabTexts.BackgroundColor}"></Label>
+                        <ComboBox Name="BackgroundBrushesComboBox"></ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="{x:Static MyRes:FirstTabTexts.ForegroundColor}"></Label>
+                        <ComboBox Name="ForegroundBrushesComboBox"></ComboBox>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="{x:Static MyRes:FirstTabTexts.HeadersColor}"></Label>
+                        <ComboBox Name="HeadersBrushesComboBox"></ComboBox>
+                    </StackPanel>
+                    <Button Content="{x:Static MyRes:FirstTabTexts.SaveInRegistry}" Name="SaveInRegistryButton" Click="SaveInRegistryButton_Click"></Button>
                 </WrapPanel>   
                 </StackPanel>
             </TabItem>

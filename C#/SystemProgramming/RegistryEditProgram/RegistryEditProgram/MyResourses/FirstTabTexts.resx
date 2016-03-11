@@ -120,8 +120,20 @@
   <data name="AddNewValueToRegistry" xml:space="preserve">
     <value>Добавить запись в реестр</value>
   </data>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>Цвет фона</value>
+  </data>
   <data name="CantFindUninstaller" xml:space="preserve">
     <value>Не найден инсталятор для выбранной программы! (отсутствует UninstallString)</value>
+  </data>
+  <data name="ChangesDone" xml:space="preserve">
+    <value>Изменения сохранены в реестре!</value>
+  </data>
+  <data name="ChangesNotDone" xml:space="preserve">
+    <value>Вы ничего не изменили! (нечего изменять в реестре)</value>
+  </data>
+  <data name="CheckDataFirst" xml:space="preserve">
+    <value>Убедитесь что вы ввели корректное число как размер шрифта!</value>
   </data>
   <data name="DataGridProperties" xml:space="preserve">
     <value>Настройка  DataGrid (сохраняется в реестре):</value>
@@ -132,8 +144,14 @@
   <data name="FontSize" xml:space="preserve">
     <value>Размер шрифта</value>
   </data>
+  <data name="ForegroundColor" xml:space="preserve">
+    <value>Цвет шрифта</value>
+  </data>
   <data name="GetAllSubkeys" xml:space="preserve">
     <value>Получить список установленных программ</value>
+  </data>
+  <data name="HeadersColor" xml:space="preserve">
+    <value>Цвет заголовков</value>
   </data>
   <data name="InstalledComponents" xml:space="preserve">
     <value>Установленные компоненты</value>
@@ -150,11 +168,17 @@
   <data name="No" xml:space="preserve">
     <value>Нет</value>
   </data>
+  <data name="SaveInRegistry" xml:space="preserve">
+    <value>Сохранить и применить</value>
+  </data>
   <data name="SelectedNothing" xml:space="preserve">
     <value>Не выбрана программа для удаления!</value>
   </data>
   <data name="UninstallProgram" xml:space="preserve">
     <value>Удалить программу</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>Предупреждение</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Да</value>

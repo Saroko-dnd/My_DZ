@@ -70,11 +70,47 @@ namespace RegistryEditProgram.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Цвет фона.
+        /// </summary>
+        public static string BackgroundColor {
+            get {
+                return ResourceManager.GetString("BackgroundColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не найден инсталятор для выбранной программы! (отсутствует UninstallString).
         /// </summary>
         public static string CantFindUninstaller {
             get {
                 return ResourceManager.GetString("CantFindUninstaller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменения сохранены в реестре!.
+        /// </summary>
+        public static string ChangesDone {
+            get {
+                return ResourceManager.GetString("ChangesDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы ничего не изменили! (нечего изменять в реестре).
+        /// </summary>
+        public static string ChangesNotDone {
+            get {
+                return ResourceManager.GetString("ChangesNotDone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Убедитесь что вы ввели корректное число как размер шрифта!.
+        /// </summary>
+        public static string CheckDataFirst {
+            get {
+                return ResourceManager.GetString("CheckDataFirst", resourceCulture);
             }
         }
         
@@ -106,11 +142,29 @@ namespace RegistryEditProgram.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Цвет шрифта.
+        /// </summary>
+        public static string ForegroundColor {
+            get {
+                return ResourceManager.GetString("ForegroundColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Получить список установленных программ.
         /// </summary>
         public static string GetAllSubkeys {
             get {
                 return ResourceManager.GetString("GetAllSubkeys", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Цвет заголовков.
+        /// </summary>
+        public static string HeadersColor {
+            get {
+                return ResourceManager.GetString("HeadersColor", resourceCulture);
             }
         }
         
@@ -160,6 +214,15 @@ namespace RegistryEditProgram.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сохранить и применить.
+        /// </summary>
+        public static string SaveInRegistry {
+            get {
+                return ResourceManager.GetString("SaveInRegistry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не выбрана программа для удаления!.
         /// </summary>
         public static string SelectedNothing {
@@ -174,6 +237,15 @@ namespace RegistryEditProgram.MyResourses {
         public static string UninstallProgram {
             get {
                 return ResourceManager.GetString("UninstallProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Предупреждение.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         
