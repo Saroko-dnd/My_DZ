@@ -120,6 +120,9 @@
   <data name="AddNewValueToRegistry" xml:space="preserve">
     <value>Добавить запись в реестр</value>
   </data>
+  <data name="AutoLoadManager" xml:space="preserve">
+    <value>Менеджер автозагрузки</value>
+  </data>
   <data name="BackgroundColor" xml:space="preserve">
     <value>Цвет фона</value>
   </data>
@@ -167,6 +170,9 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>Нет</value>
+  </data>
+  <data name="ProgramName" xml:space="preserve">
+    <value>Название программы</value>
   </data>
   <data name="SaveInRegistry" xml:space="preserve">
     <value>Сохранить и применить</value>

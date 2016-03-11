@@ -35,5 +35,8 @@
                 </WrapPanel>   
                 </StackPanel>
             </TabItem>
+        <TabItem Header="{x:Static MyRes:FirstTabTexts.AutoLoadManager}">
+            
+        </TabItem>
         </TabControl>
 </Window>
