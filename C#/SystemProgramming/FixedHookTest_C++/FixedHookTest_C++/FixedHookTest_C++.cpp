@@ -1,9 +1,8 @@
-// HookTestsProgram_C++.cpp : Defines the entry point for the application.
+// FixedHookTest_C++.cpp : Defines the entry point for the application.
 //
 
 #include "stdafx.h"
-
-#include "HookTestsProgram_C++.h"
+#include "FixedHookTest_C++.h"
 
 #define MAX_LOADSTRING 100
 
@@ -12,14 +11,14 @@ HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 KBDLLHOOKSTRUCT MainHookStruct;
-wchar_t wtext[20];
+char PressedKeyName[20];
 
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
-LRESULT _stdcall HookCallback(int,WPARAM,LPARAM);
+LRESULT _stdcall HookCallback(int, WPARAM, LPARAM);
 LRESULT _stdcall HookCallback_2(int, WPARAM, LPARAM);
 
 HHOOK FirstHook;
@@ -28,7 +27,7 @@ HHOOK SecondHook;
 
 LRESULT _stdcall HookCallback(int nCode, WPARAM CurrenrWparam, LPARAM CurrentLparam)
 {
-	
+
 	if (nCode >= 0)
 	{
 		if (CurrenrWparam == WM_KEYDOWN)
@@ -36,13 +35,21 @@ LRESULT _stdcall HookCallback(int nCode, WPARAM CurrenrWparam, LPARAM CurrentLpa
 			unsigned int KeyNumber = CurrenrWparam;
 			//GetKeyNameTextA(CurrentLparam, wtext, 10);
 			//GetKeyNameTextW(CurrentLparam, wtext, 10);
-			GetKeyNameText(CurrentLparam, wtext, 10);
+
 			//std::string str;
 			//_itoa_s(KeyNumber, PressedKey, 10);
 			MainHookStruct = *((KBDLLHOOKSTRUCT*)CurrentLparam);
+
+			//***********Получаем имя нажатой клавиши здесь
+			LONG Param = 1;
+			Param += MainHookStruct.scanCode << 16;
+			Param += MainHookStruct.flags << 24;
+			GetKeyNameTextA(Param, PressedKeyName, sizeof(PressedKeyName));
+			//***********
+
 			if (MainHookStruct.vkCode == VK_F1)
 			{
-				MessageBox(NULL,L"F1 is pressed",L"Header",MB_ICONWARNING);
+				MessageBox(NULL, L"F1 is pressed", L"Header", MB_ICONWARNING);
 			}
 		}
 	}
@@ -115,7 +122,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 
 	// Initialize global strings
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-	LoadString(hInstance, IDC_HOOKTESTSPROGRAM_C, szWindowClass, MAX_LOADSTRING);
+	LoadString(hInstance, IDC_FIXEDHOOKTEST_C, szWindowClass, MAX_LOADSTRING);
 	MyRegisterClass(hInstance);
 
 	// Perform application initialization:
@@ -124,7 +131,7 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 		return FALSE;
 	}
 
-	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_HOOKTESTSPROGRAM_C));
+	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_FIXEDHOOKTEST_C));
 	SetHook();
 	// Main message loop:
 	while (GetMessage(&msg, NULL, 0, 0))
@@ -157,10 +164,10 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= hInstance;
-	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_HOOKTESTSPROGRAM_C));
+	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_FIXEDHOOKTEST_C));
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)(COLOR_WINDOW+1);
-	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_HOOKTESTSPROGRAM_C);
+	wcex.lpszMenuName	= MAKEINTRESOURCE(IDC_FIXEDHOOKTEST_C);
 	wcex.lpszClassName	= szWindowClass;
 	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -264,5 +271,3 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 	}
 	return (INT_PTR)FALSE;
 }
-
-
