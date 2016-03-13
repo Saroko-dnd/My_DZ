@@ -6,6 +6,8 @@
 #include "HookTestsProgram_C++.h"
 
 #define MAX_LOADSTRING 100
+#define ScreenX GetSystemMetrics(SM_CXSCREEN);
+#define ScreenY GetSystemMetrics(SM_CYSCREEN);
 
 // Global Variables:
 HINSTANCE hInst;								// current instance
@@ -185,6 +187,15 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+
+   RECT rc;
+
+   GetWindowRect(hWnd, &rc);
+
+   int xPos = (GetSystemMetrics(SM_CXSCREEN) - rc.right) / 2;
+   int yPos = (GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2;
+
+   SetWindowPos(hWnd, 0, xPos, yPos, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 
    if (!hWnd)
    {

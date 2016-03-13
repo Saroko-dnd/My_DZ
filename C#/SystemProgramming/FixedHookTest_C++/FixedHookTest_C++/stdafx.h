@@ -4,7 +4,7 @@
 //
 
 #pragma once
-
+#define _CRT_SECURE_NO_WARNINGS
 #include "targetver.h"
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
@@ -18,5 +18,10 @@
 #include <tchar.h>
 #include <string>
 #include <iostream>
+#include <windowsx.h>
+#include <vector>
+#include <algorithm>
+#include <stdio.h>
+#include <fstream>
 
 // TODO: reference additional headers your program requires here

