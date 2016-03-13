@@ -120,8 +120,20 @@
   <data name="AddNewValueToRegistry" xml:space="preserve">
     <value>Добавить запись в реестр</value>
   </data>
+  <data name="AddProgramToAutorun" xml:space="preserve">
+    <value>Добавить новую программу в автозагрузку</value>
+  </data>
   <data name="AutoLoadManager" xml:space="preserve">
     <value>Менеджер автозагрузки</value>
+  </data>
+  <data name="AutorunFullPath" xml:space="preserve">
+    <value>HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run</value>
+  </data>
+  <data name="AutorunSubKeyPath" xml:space="preserve">
+    <value>Software\Microsoft\Windows\CurrentVersion\Run</value>
+  </data>
+  <data name="AutorunThisProgram" xml:space="preserve">
+    <value>Автоматический запуск</value>
   </data>
   <data name="BackgroundColor" xml:space="preserve">
     <value>Цвет фона</value>
@@ -173,6 +185,18 @@
   </data>
   <data name="ProgramName" xml:space="preserve">
     <value>Название программы</value>
+  </data>
+  <data name="RegistryKeyForAutorunOff" xml:space="preserve">
+    <value>HKEY_CURRENT_USER\AutorunOff_DZProgram</value>
+  </data>
+  <data name="RegistryKeyForAutorunOff_SubKey" xml:space="preserve">
+    <value>AutorunOff_DZProgram</value>
+  </data>
+  <data name="RemoveProgramFromAutorun" xml:space="preserve">
+    <value>Удалить программу из автозагрузки</value>
+  </data>
+  <data name="SaveChangesAutorun" xml:space="preserve">
+    <value>Сохранить изменения в реестре</value>
   </data>
   <data name="SaveInRegistry" xml:space="preserve">
     <value>Сохранить и применить</value>

@@ -26,12 +26,28 @@ namespace RegistryEditProgram
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static List<string> AllBrushes = new List<string>();
-        public static BrushConverter ConverterForConsoleBackground = new BrushConverter();
+        public OpenFileDialog MainFileOpenDialog = new OpenFileDialog();
+        public List<string> AllBrushes = new List<string>();
+        public List<AutoRunProgram> AutorunPrograms = new List<AutoRunProgram>();
+        public BrushConverter ConverterForConsoleBackground = new BrushConverter();
 
         public MainWindow()
         {
             InitializeComponent();
+
+            if (Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.RegistryKeyForAutorunOff_SubKey) == null)
+            {
+                try
+                {
+                    Registry.CurrentUser.CreateSubKey(MyResourses.FirstTabTexts.RegistryKeyForAutorunOff_SubKey);
+                }
+                catch (Exception CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.FirstTabTexts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            AutorunProgramsDataGrid.AutoGeneratingColumn += AutoRunProgram.dataGridAutoGeneratingColumn;
+            LoadAutorunPrograms();
             //составляем список из Brushes для двух ComboBox
             foreach (PropertyInfo CurrentPropertyInfo in typeof(Brushes).GetProperties())
             {
@@ -43,6 +59,7 @@ namespace RegistryEditProgram
 
             UninstallProgramButton.Click += DeleteSelectedProgramButtonClick;
             GetSubKeysButton.Click += GetAllInstalledComponentsButton_Click;
+            RemoveProgramFromAutorunButton.Click += RemoveProgramFromAutorunButton_Click;
 
             FontSizeTextBox.PreviewTextInput += CharsKiller.InputValidation;
             FontSizeTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
@@ -87,6 +104,23 @@ namespace RegistryEditProgram
                 MessageBox.Show(CurrentException.Message, MyResourses.FirstTabTexts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
+        }
+
+        private void LoadAutorunPrograms()
+        {
+            AutorunPrograms.Clear();
+            RegistryKey AutorunCurUserKey = Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.AutorunSubKeyPath);
+            foreach (string ValueName in AutorunCurUserKey.GetValueNames())
+            {
+                AutorunPrograms.Add(new AutoRunProgram(ValueName,true));
+            }
+            AutorunCurUserKey = Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.RegistryKeyForAutorunOff_SubKey);
+            foreach (string ValueName in AutorunCurUserKey.GetValueNames())
+            {
+                AutorunPrograms.Add(new AutoRunProgram(ValueName, false));
+            }
+            AutorunProgramsDataGrid.ItemsSource = null;
+            AutorunProgramsDataGrid.ItemsSource = AutorunPrograms;
         }
 
         private void AddValueRegistryButton_Click(object sender, RoutedEventArgs e)
@@ -179,6 +213,84 @@ namespace RegistryEditProgram
             {
                 MessageBox.Show(MyResourses.FirstTabTexts.ChangesNotDone, MyResourses.FirstTabTexts.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }           
+        }
+
+        private void AddProgramToAutorunButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainFileOpenDialog.ShowDialog() == true)
+            {
+                Registry.SetValue(MyResourses.FirstTabTexts.AutorunFullPath, MainFileOpenDialog.SafeFileName, MainFileOpenDialog.FileName);
+                LoadAutorunPrograms();
+            }
+        }
+
+        private void RemoveProgramFromAutorunButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (AutorunProgramsDataGrid.SelectedIndex >= 0)
+                {
+                    RegistryKey AutorunCurUserKey = Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.AutorunSubKeyPath, true);
+                    if (AutorunCurUserKey.GetValue((AutorunProgramsDataGrid.SelectedItem as AutoRunProgram).ProgramName, null) != null)
+                    {
+                        AutorunCurUserKey.DeleteValue((AutorunProgramsDataGrid.SelectedItem as AutoRunProgram).ProgramName);
+                    }
+                    else
+                    {
+                        AutorunCurUserKey = Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.RegistryKeyForAutorunOff_SubKey, true);
+                        AutorunCurUserKey.DeleteValue((AutorunProgramsDataGrid.SelectedItem as AutoRunProgram).ProgramName);
+                    }
+                    LoadAutorunPrograms();
+                }
+                else
+                {
+                    MessageBox.Show(MyResourses.FirstTabTexts.SelectedNothing, MyResourses.FirstTabTexts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception CurrentException)
+            {
+                MessageBox.Show(CurrentException.Message, MyResourses.FirstTabTexts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void SaveChangesAutorunButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegistryKey AutorunCurUserKey;
+            string ProgramPath = string.Empty;
+            try
+            {
+                foreach (AutoRunProgram CurrentProgram in AutorunPrograms)
+                {
+                    if (CurrentProgram.RunWhenOSstart)
+                    {
+                        AutorunCurUserKey = Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.RegistryKeyForAutorunOff_SubKey, true);
+                        if (AutorunCurUserKey.GetValue(CurrentProgram.ProgramName, null) != null)
+                        {
+                            ProgramPath = AutorunCurUserKey.GetValue(CurrentProgram.ProgramName, string.Empty).ToString();
+                            AutorunCurUserKey.DeleteValue(CurrentProgram.ProgramName);
+                            AutorunCurUserKey = Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.AutorunSubKeyPath, true);
+                            AutorunCurUserKey.SetValue(CurrentProgram.ProgramName, ProgramPath);
+                        }
+                    }
+                    else
+                    {
+                        AutorunCurUserKey = Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.AutorunSubKeyPath, true);
+                        if (AutorunCurUserKey.GetValue(CurrentProgram.ProgramName, null) != null)
+                        {
+                            ProgramPath = AutorunCurUserKey.GetValue(CurrentProgram.ProgramName, string.Empty).ToString();
+                            AutorunCurUserKey.DeleteValue(CurrentProgram.ProgramName);
+                            AutorunCurUserKey = Registry.CurrentUser.OpenSubKey(MyResourses.FirstTabTexts.RegistryKeyForAutorunOff_SubKey, true);
+                            AutorunCurUserKey.SetValue(CurrentProgram.ProgramName, ProgramPath);
+                        }
+                    }
+                }
+                MessageBox.Show(MyResourses.FirstTabTexts.ChangesDone, MyResourses.FirstTabTexts.Warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception CurrentException)
+            {
+                MessageBox.Show(CurrentException.Message, MyResourses.FirstTabTexts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
     }
 }

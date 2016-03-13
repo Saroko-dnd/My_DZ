@@ -36,7 +36,12 @@
                 </StackPanel>
             </TabItem>
         <TabItem Header="{x:Static MyRes:FirstTabTexts.AutoLoadManager}">
-            
+            <StackPanel>
+                <Button Name="AddProgramToAutorunButton" Content="{x:Static MyRes:FirstTabTexts.AddProgramToAutorun}" Click="AddProgramToAutorunButton_Click"></Button>
+                <Button Name="RemoveProgramFromAutorunButton" Content="{x:Static MyRes:FirstTabTexts.RemoveProgramFromAutorun}"></Button>
+                <DataGrid ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" MaxHeight="600" Name="AutorunProgramsDataGrid"></DataGrid>
+                <Button Name="SaveChangesAutorunButton" Content="{x:Static MyRes:FirstTabTexts.SaveChangesAutorun}" Click="SaveChangesAutorunButton_Click"></Button>
+            </StackPanel>
         </TabItem>
         </TabControl>
 </Window>
