@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,12 @@ namespace WPF_examples_linq
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<DataClass> DataStorage = new List<DataClass>();
+        public List<DataClass_2> DataStorage_2 = new List<DataClass_2>();
+
         public MainWindow()
         {
             InitializeComponent();
-            List<DataClass> DataStorage = new List<DataClass>();
             DataStorage.Add(new DataClass("Kevin",30, "Immortals", 110));
             DataStorage.Add(new DataClass("Max", 30, "Immortals", 100));
             DataStorage.Add(new DataClass("Kelly", 40, "Immortals", 100));
@@ -37,6 +40,11 @@ namespace WPF_examples_linq
             DataStorage.Add(new DataClass("John", 44, "Fools", 99));
             DataStorage.Add(new DataClass("Ryan", 40, "Fools", 99));
 
+            DataStorage_2.Add(new DataClass_2("Fools", 100,400));
+            DataStorage_2.Add(new DataClass_2("Immortals", 500, 600));
+            DataStorage_2.Add(new DataClass_2("Geeks", 1100, 150));
+
+            //пример GroupBy
             var Result = DataStorage.GroupBy(res => { if (res.Year < 40) return "Young"; else return "Old"; });
             StringBuilder MainBuilder = new StringBuilder();
 
@@ -47,8 +55,11 @@ namespace WPF_examples_linq
                 MainBuilder.Append(GroupedData.Count().ToString());
                 MainBuilder.AppendLine();
             }
-
             ConsoleTextBox.Text = MainBuilder.ToString();
+
+            //пример join
+            QueryResultDataGrid.ItemsSource = DataStorage.Join(DataStorage_2, Original => Original.RelatedCommand,Addon => Addon.CommandName,
+                (Original, Addon) => new { Original.Name, Addon.Popularity }).ToList();
 
         }
     }
