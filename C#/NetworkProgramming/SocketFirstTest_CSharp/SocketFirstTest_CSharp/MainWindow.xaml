@@ -1,7 +1,8 @@
 ﻿<Window x:Class="SocketFirstTest_CSharp.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:MyRes="clr-namespace:SocketFirstTest_CSharp.MyResourses"
+        Title="{x:Static MyRes:Texts.Server}" Height="350" Width="525">
     <Grid>
         <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="600" Name="ConsoleTextBox"></TextBox>
     </Grid>
