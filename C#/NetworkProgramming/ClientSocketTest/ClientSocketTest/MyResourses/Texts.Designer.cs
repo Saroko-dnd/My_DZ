@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SocketFirstTest_CSharp.MyResourses {
+namespace ClientSocketTest.MyResourses {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SocketFirstTest_CSharp.MyResourses {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SocketFirstTest_CSharp.MyResourses.Texts", typeof(Texts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ClientSocketTest.MyResourses.Texts", typeof(Texts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,29 @@ namespace SocketFirstTest_CSharp.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Off.
+        ///   Looks up a localized string similar to Клиент.
         /// </summary>
-        public static string ClientOff {
+        public static string Client {
             get {
-                return ResourceManager.GetString("ClientOff", resourceCulture);
+                return ResourceManager.GetString("Client", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Отключился.
+        ///   Looks up a localized string similar to Имя клиента:.
         /// </summary>
-        public static string ClientOffServerLogMessage {
+        public static string ClientName {
             get {
-                return ResourceManager.GetString("ClientOffServerLogMessage", resourceCulture);
+                return ResourceManager.GetString("ClientName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сервер обнаружил подключение:.
+        ///   Looks up a localized string similar to Порт клиента (вход):.
         /// </summary>
-        public static string ConnectionFound {
+        public static string ClientPortNumberListen {
             get {
-                return ResourceManager.GetString("ConnectionFound", resourceCulture);
+                return ResourceManager.GetString("ClientPortNumberListen", resourceCulture);
             }
         }
         
@@ -97,7 +97,7 @@ namespace SocketFirstTest_CSharp.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не найден локальный IP для сокета сервера!.
+        ///   Looks up a localized string similar to Не найден локальный IP для сокета клиента!.
         /// </summary>
         public static string LocalIpNotFound {
             get {
@@ -106,56 +106,11 @@ namespace SocketFirstTest_CSharp.MyResourses {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MutexForSocketTestServer.
+        ///   Looks up a localized string similar to Порт сервера (выход):.
         /// </summary>
-        public static string MutexName {
+        public static string ServerPortNumber {
             get {
-                return ResourceManager.GetString("MutexName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Сервер.
-        /// </summary>
-        public static string Server {
-            get {
-                return ResourceManager.GetString("Server", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Сервер уже запущен!.
-        /// </summary>
-        public static string ServerAlreadyRunning {
-            get {
-                return ResourceManager.GetString("ServerAlreadyRunning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ready.
-        /// </summary>
-        public static string ServerAnswer {
-            get {
-                return ResourceManager.GetString("ServerAnswer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Сервер принял сообщение от:.
-        /// </summary>
-        public static string ServerGetMessage {
-            get {
-                return ResourceManager.GetString("ServerGetMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Сервер отправил сообщение клиенту с именем.
-        /// </summary>
-        public static string ServerSendMessage {
-            get {
-                return ResourceManager.GetString("ServerSendMessage", resourceCulture);
+                return ResourceManager.GetString("ServerPortNumber", resourceCulture);
             }
         }
     }

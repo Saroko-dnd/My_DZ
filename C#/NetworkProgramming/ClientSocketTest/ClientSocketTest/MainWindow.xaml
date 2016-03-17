@@ -1,0 +1,20 @@
+﻿<Window x:Class="ClientSocketTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClientSocketTest"
+        xmlns:MyRes="clr-namespace:ClientSocketTest.MyResourses"
+        mc:Ignorable="d"
+        Title="{x:Static MyRes:Texts.Client}" Height="350" Width="700">
+    <StackPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.ClientName}"></Label>
+            <TextBox Width="150" Name="ClientNameTextBox"></TextBox>
+            <Label Content="{x:Static MyRes:Texts.ClientPortNumberListen}"></Label>
+            <TextBox Width="50" Name="ClientListenPortTextBox"></TextBox>
+            <Label Content="{x:Static MyRes:Texts.ServerPortNumber}"></Label>
+            <TextBox Width="50" Name="ServerPortTextBox"></TextBox>
+        </WrapPanel>
+    </StackPanel>
+</Window>

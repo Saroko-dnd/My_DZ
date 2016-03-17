@@ -32,30 +32,46 @@ namespace SocketFirstTest_CSharp
         public bool ServerShutDown = false;
         public char CharSeparator = '#';
         public int PortNumber = 9015;
+        public bool InstanceOfServerAlreadyRunning = false;
+        public Mutex OnlyOneServerGate = null;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            bool LocalIpWasFound = false;
 
-            try
+            Mutex.TryOpenExisting(MyResourses.Texts.MutexName, out OnlyOneServerGate);
+
+            if (OnlyOneServerGate == null)
             {
-                ServerEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), PortNumber);
-                LocalIpWasFound = true;
+                OnlyOneServerGate = new Mutex(true, MyResourses.Texts.MutexName);
+
+                bool LocalIpWasFound = false;
+
+                try
+                {
+                    ServerEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), PortNumber);
+                    LocalIpWasFound = true;
+                }
+                catch (Exception CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                if (LocalIpWasFound)
+                {
+                    ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    ServerSocket.Bind(ServerEndPoint);
+                    ServerSocket.Listen(10);
+                    ThreadPool.SetMinThreads(2, 2);
+                    ThreadPool.QueueUserWorkItem(o => RunServer());
+                    this.Closing += ShutDownServer;
+                }
             }
-            catch (Exception CurrentException)
+            else
             {
-                MessageBox.Show(CurrentException.Message,MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            if (LocalIpWasFound)
-            {
-                ServerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                ServerSocket.Bind(ServerEndPoint);
-                ServerSocket.Listen(10);
-                ThreadPool.SetMinThreads(2, 2);
-                ThreadPool.QueueUserWorkItem(o => RunServer());
-                this.Closing += ShutDownServer;
+                MessageBox.Show(MyResourses.Texts.ServerAlreadyRunning, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                InstanceOfServerAlreadyRunning = true;
+                this.Close();
             }
         }
 
@@ -107,6 +123,7 @@ namespace SocketFirstTest_CSharp
                                     MainStringBuilder.AppendLine(BuilderForTextBox.ToString());
                                     Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                                 }
+                                BuilderForTextBox.Clear();
                             }
                         }
                         foreach (ClientMessage CurrentMessage in DeleteList)
@@ -141,14 +158,18 @@ namespace SocketFirstTest_CSharp
 
         public void ShutDownServer(Object sender,EventArgs e)
         {
-            ServerShutDown = true;
-            ServerSocket.Close();
-            lock (AllConnectedSockets)
+            if (!InstanceOfServerAlreadyRunning)
             {
-                foreach (Socket CurrentSocket in AllConnectedSockets)
+                ServerShutDown = true;
+                ServerSocket.Close();
+                lock (AllConnectedSockets)
                 {
-                    CurrentSocket.Close();
+                    foreach (Socket CurrentSocket in AllConnectedSockets)
+                    {
+                        CurrentSocket.Close();
+                    }
                 }
+                OnlyOneServerGate.Close();
             }
         }
 
