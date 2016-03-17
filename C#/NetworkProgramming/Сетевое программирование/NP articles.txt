@@ -1,0 +1,4 @@
+http://professorweb.ru/my/csharp/web/level1/web_index.php
+http://www.java2s.com/Tutorial/CSharp/0580__Network/Catalog0580__Network.htm
+http://csharp.net-informations.com/communications/csharp-socket-programming.htm
+http://metanit.com/sharp/net/

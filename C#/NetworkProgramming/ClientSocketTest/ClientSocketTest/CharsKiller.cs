@@ -19,6 +19,14 @@ namespace ClientSocketTest
                 Event.Handled = true;
         }
 
+        public static void InputValidationForIP (object sender, TextCompositionEventArgs Event)
+        {
+            Regex CheckForCharsRegex = new Regex("[0-9.]");
+            if (CheckForCharsRegex.IsMatch(Event.Text))
+                Event.Handled = false;
+            else
+                Event.Handled = true;
+        }
         public static void SpaceBarKillerPreviewKeyDown(object sender, KeyEventArgs Event)
         {
             if (Event.Key == Key.Space)

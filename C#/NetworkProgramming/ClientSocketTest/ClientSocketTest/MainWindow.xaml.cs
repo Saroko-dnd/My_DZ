@@ -24,9 +24,14 @@ namespace ClientSocketTest
     public partial class MainWindow : Window
     {
         public IPEndPoint ClientEndPoint;
-        public int PortNumber = 5000;
+        public IPEndPoint ServerEndPoint;
+        public int PortNumber = -1;
         public Socket ClientListenSocket;
         public Socket ClientSendSocket;
+        public bool ClientShutDown = false;
+        public StringBuilder MainBuilderForTextBox = new StringBuilder();
+        public bool ConnectionEstablished = false;
+        public bool ServerReady = false;
 
         public MainWindow()
         {
@@ -36,6 +41,9 @@ namespace ClientSocketTest
             ClientListenPortTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
             ServerPortTextBox.PreviewTextInput += CharsKiller.InputValidation;
             ServerPortTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            IPofServerTextBox.PreviewTextInput += CharsKiller.InputValidationForIP;
+            IPofServerTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+
 
             /*bool LocalIpWasFound = false;
 
@@ -57,6 +65,25 @@ namespace ClientSocketTest
             }*/
         }
 
+        public void CloseSockets(object Sender,EventArgs e)
+        {
+            ClientShutDown = true;
+            ClientSendSocket.Send(Encoding.UTF8.GetBytes(MyResourses.Texts.ClientOff));
+            ClientListenSocket.Close();
+            ClientSendSocket.Close();
+        }
+
+        public void Messaging()
+        {
+            ClientSendSocket.Connect(ServerEndPoint);
+            //посылаем инитиируещее связь сообщение пока не получим подтверждение от сервера
+            while (!ServerReady)
+            {
+                ClientSendSocket.Send();
+            }
+        }
+
+
         public static string GetLocalIPAddress()
         {
             var host = Dns.GetHostEntry(Dns.GetHostName());
@@ -68,6 +95,49 @@ namespace ClientSocketTest
                 }
             }
             throw new Exception(MyResourses.Texts.LocalIpNotFound);
+        }
+
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ConnectionEstablished)
+            {
+                MessageBox.Show(MyResourses.Texts.ConnectionAlreadyExists, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            {
+                bool LocalIPwasFound = false;
+                try
+                {
+                    ClientEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), Int32.Parse(ClientListenPortTextBox.Text));
+                    LocalIPwasFound = true;
+                }
+                catch (Exception CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                if (LocalIPwasFound)
+                {
+                    bool DataCorrect = false;
+                    try
+                    {
+                        ServerEndPoint = new IPEndPoint(IPAddress.Parse(IPofServerTextBox.Text), Int32.Parse(ServerPortTextBox.Text));
+                        DataCorrect = true;
+                    }
+                    catch
+                    {
+                        MessageBox.Show(MyResourses.Texts.CheckInfoInTextBoxes, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    if (LocalIPwasFound && DataCorrect)
+                    {
+                        ClientListenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                        ClientListenSocket.Bind(ClientEndPoint);
+                        ClientListenSocket.Listen(1);
+
+                        ThreadPool.SetMinThreads(2, 2);
+
+                    }
+                }
+            }
         }
     }
 }

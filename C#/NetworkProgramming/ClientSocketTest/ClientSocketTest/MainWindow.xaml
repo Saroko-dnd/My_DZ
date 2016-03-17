@@ -6,15 +6,36 @@
         xmlns:local="clr-namespace:ClientSocketTest"
         xmlns:MyRes="clr-namespace:ClientSocketTest.MyResourses"
         mc:Ignorable="d"
-        Title="{x:Static MyRes:Texts.Client}" Height="350" Width="700">
+        Title="{x:Static MyRes:Texts.Client}" Height="700" Width="1000">
     <StackPanel>
         <WrapPanel>
             <Label Content="{x:Static MyRes:Texts.ClientName}"></Label>
-            <TextBox Width="150" Name="ClientNameTextBox"></TextBox>
+            <TextBox FontSize="20" Width="150" Name="ClientNameTextBox"></TextBox>
             <Label Content="{x:Static MyRes:Texts.ClientPortNumberListen}"></Label>
-            <TextBox Width="50" Name="ClientListenPortTextBox"></TextBox>
+            <TextBox FontSize="20" Width="50" Name="ClientListenPortTextBox"></TextBox>
             <Label Content="{x:Static MyRes:Texts.ServerPortNumber}"></Label>
-            <TextBox Width="50" Name="ServerPortTextBox"></TextBox>
+            <TextBox FontSize="20" Width="50" Name="ServerPortTextBox"></TextBox>
+            <Label Content="{x:Static MyRes:Texts.IPofServer}"></Label>
+            <TextBox FontSize="20" Width="150" Name="IPofServerTextBox"></TextBox>
+        </WrapPanel>
+        <WrapPanel>          
+            <StackPanel>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.MessageTarget}"></Label>
+                    <TextBox Width="150" Name="TargetClientNameTextBox"></TextBox>
+                </WrapPanel>
+                <Label Content="{x:Static MyRes:Texts.MessageToServer}"></Label>
+                <TextBox Height="500" Name="MessageToServerTextBox"></TextBox>
+                <Button Name="SendMessageButton" Content="{x:Static MyRes:Texts.SendMessage}"></Button>
+            </StackPanel>
+            <StackPanel>
+                <Label Margin="0,26,0,0" Content="{x:Static MyRes:Texts.MessagesFromServer}"></Label>
+                <TextBox Name="MessagesFromServerTextBox" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="500" Width="300"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <Button Name="ConnectButton" Content="{x:Static MyRes:Texts.ConnectToServer}" Click="ConnectButton_Click"></Button>
+                <Button Name="DisconnectButton" Content="{x:Static MyRes:Texts.DisconnectFromServer}"></Button>
+            </StackPanel>
         </WrapPanel>
     </StackPanel>
 </Window>
