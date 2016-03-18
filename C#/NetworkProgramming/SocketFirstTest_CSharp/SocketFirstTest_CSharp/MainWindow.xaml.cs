@@ -26,6 +26,7 @@ namespace SocketFirstTest_CSharp
     {
         public StringBuilder MainStringBuilder = new StringBuilder(); 
         public Socket ServerSocket;
+        public UdpClient TimeMessaging;
         public List<ClientMessage> AllClientsMessages = new List<ClientMessage>();
         public List<Socket> AllConnectedSockets = new List<Socket>();
         public List<Socket> AllSendingSockets = new List<Socket>();
@@ -33,8 +34,10 @@ namespace SocketFirstTest_CSharp
         public bool ServerShutDown = false;
         public char CharSeparator = '#';
         public int PortNumber = 9015;
+        public int PortUDP = 9016;
         public bool InstanceOfServerAlreadyRunning = false;
         public Mutex OnlyOneServerGate = null;
+        public List<IPEndPoint> ListOfIPEndPointsForTimeSending = new List<IPEndPoint>();
 
         public MainWindow()
         {
@@ -163,6 +166,7 @@ namespace SocketFirstTest_CSharp
             {
                 ServerShutDown = true;
                 ServerSocket.Close();
+                TimeMessaging.Close();
                 lock (AllConnectedSockets)
                 {
                     lock (AllSendingSockets)
@@ -194,10 +198,40 @@ namespace SocketFirstTest_CSharp
             }
         }
 
+        public void TimeSending()
+        {
+            try
+            {
+                while (true)
+                {
+                    string CurrentSystemDateTime = DateTime.Now.ToString();
+                    lock (ListOfIPEndPointsForTimeSending)
+                    {
+                        foreach (IPEndPoint CurrentEndPoint in ListOfIPEndPointsForTimeSending)
+                        {
+                            byte[] BufferForMessage = new byte[500];
+                            TimeMessaging.Send(Encoding.UTF8.GetBytes(CurrentSystemDateTime), 500, CurrentEndPoint);
+                        }
+                    }
+                    Thread.Sleep(1000);
+                }
+            }
+            catch (Exception CurrentException)
+            {
+                if (!ServerShutDown)
+                {
+                    MessageBox.Show(CurrentException.Message + "TimeSending", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
+        }
+
         public void RunServer()
         {
             try
             {
+                TimeMessaging = new UdpClient(new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), PortUDP));
+                ThreadPool.QueueUserWorkItem(o => TimeSending());
                 while (true)
                 {
                     Socket BufSocket = ServerSocket.Accept();
@@ -254,6 +288,12 @@ namespace SocketFirstTest_CSharp
                         return;
                     }
                 }
+                IPEndPoint EndPointForUDPClient = new IPEndPoint(IPAddress.Parse(ClientListenSocket.Split(CharSeparator)[0]),
+                    Int32.Parse(ClientListenSocket.Split(CharSeparator)[3]));
+                lock (ListOfIPEndPointsForTimeSending)
+                {
+                    ListOfIPEndPointsForTimeSending.Add(EndPointForUDPClient);
+                }
 
                 ThreadPool.QueueUserWorkItem(o => SendMessagesToClient(CloseCurrentSocketsGate, SocketForMessaging, new IPEndPoint(IPAddress.Parse(ClientListenSocket.Split(CharSeparator)[0]),
                     Int32.Parse(ClientListenSocket.Split(CharSeparator)[1])), ClientListenSocket.Split(CharSeparator)[2]));
@@ -272,6 +312,10 @@ namespace SocketFirstTest_CSharp
                     string MessageText = Encoding.UTF8.GetString(BufferForMessage_2).TrimEnd('\0');
                     if (MessageText == MyResourses.Texts.ClientOff)
                     {
+                        lock (ListOfIPEndPointsForTimeSending)
+                        {
+                            ListOfIPEndPointsForTimeSending.Remove(EndPointForUDPClient);
+                        }
                         lock (CloseCurrentSocketsGate)
                         {
                             CloseCurrentSocketsGate.SocketClosed = true;
