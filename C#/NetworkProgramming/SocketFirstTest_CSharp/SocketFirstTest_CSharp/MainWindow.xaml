@@ -4,6 +4,6 @@
         xmlns:MyRes="clr-namespace:SocketFirstTest_CSharp.MyResourses"
         Title="{x:Static MyRes:Texts.Server}" Height="350" Width="525">
     <Grid>
-        <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="600" Name="ConsoleTextBox"></TextBox>
+        <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="300" Name="ConsoleTextBox"></TextBox>
     </Grid>
 </Window>

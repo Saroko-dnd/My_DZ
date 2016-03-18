@@ -61,6 +61,33 @@ namespace ClientSocketTest.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Невозможно послать сообщение, так как отсутствует подключение к серверу!.
+        /// </summary>
+        public static string CantSendMessage {
+            get {
+                return ResourceManager.GetString("CantSendMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не удалось послать сообщение на сервер! (Если проблема не исчезает попробуйте создать подключение заново).
+        /// </summary>
+        public static string CantSendMessageConnectProblem {
+            get {
+                return ResourceManager.GetString("CantSendMessageConnectProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не удалось уведомить сервер об отключении данного клиента!.
+        /// </summary>
+        public static string CantSendOffToServer {
+            get {
+                return ResourceManager.GetString("CantSendOffToServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не удалось корректно получить данные о сервере! Проверьте введенные параметры!.
         /// </summary>
         public static string CheckInfoInTextBoxes {
@@ -111,6 +138,33 @@ namespace ClientSocketTest.MyResourses {
         public static string ConnectionAlreadyExists {
             get {
                 return ResourceManager.GetString("ConnectionAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не удалось установить соединение с сервером!.
+        /// </summary>
+        public static string ConnectionFail {
+            get {
+                return ResourceManager.GetString("ConnectionFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы не можете прервать соединение с сервером, так как оно еще не установлено!.
+        /// </summary>
+        public static string ConnectionNotExist {
+            get {
+                return ResourceManager.GetString("ConnectionNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Соединение с сервером отключено пользователем..
+        /// </summary>
+        public static string ConnectionOffByClient {
+            get {
+                return ResourceManager.GetString("ConnectionOffByClient", resourceCulture);
             }
         }
         
@@ -169,6 +223,15 @@ namespace ClientSocketTest.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сообщение от:.
+        /// </summary>
+        public static string MessageFrom {
+            get {
+                return ResourceManager.GetString("MessageFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сообщения от сервера.
         /// </summary>
         public static string MessagesFromServer {
@@ -196,11 +259,29 @@ namespace ClientSocketTest.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сообщение успешно отправлено..
+        /// </summary>
+        public static string MessageWasSendToServer {
+            get {
+                return ResourceManager.GetString("MessageWasSendToServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Послать сообщение на сервер.
         /// </summary>
         public static string SendMessage {
             get {
                 return ResourceManager.GetString("SendMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        public static string ServerOff {
+            get {
+                return ResourceManager.GetString("ServerOff", resourceCulture);
             }
         }
         
@@ -219,6 +300,33 @@ namespace ClientSocketTest.MyResourses {
         public static string ServerReady {
             get {
                 return ResourceManager.GetString("ServerReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сервер отключился (соединение разорвано).
+        /// </summary>
+        public static string ServerShutDown {
+            get {
+                return ResourceManager.GetString("ServerShutDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сервер недоступен!.
+        /// </summary>
+        public static string ServerUnavailable {
+            get {
+                return ResourceManager.GetString("ServerUnavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы не указали имя клиента получателя!.
+        /// </summary>
+        public static string TargetUnknown {
+            get {
+                return ResourceManager.GetString("TargetUnknown", resourceCulture);
             }
         }
         

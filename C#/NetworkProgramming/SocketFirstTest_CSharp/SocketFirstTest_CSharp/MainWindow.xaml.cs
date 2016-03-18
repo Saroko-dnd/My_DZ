@@ -111,7 +111,7 @@ namespace SocketFirstTest_CSharp
                                 {
                                     if (!CloseCurrentSocketsGate.SocketClosed)
                                     {
-                                        SocketForMessaging.Send(Encoding.UTF8.GetBytes(CurrentMessage.Message));
+                                        SocketForMessaging.Send(Encoding.UTF8.GetBytes(CurrentMessage.SenderName + CharSeparator + CurrentMessage.Message));
                                     }
                                     else
                                     {
@@ -308,7 +308,7 @@ namespace SocketFirstTest_CSharp
                             BuilderForTextBox.AppendLine(CurrentClientName);
                             lock (AllClientsMessages)
                             {
-                                AllClientsMessages.Add(new ClientMessage(MessageText.Split(CharSeparator)[0], MessageText.Split(CharSeparator)[1]));
+                                AllClientsMessages.Add(new ClientMessage(MessageText.Split(CharSeparator)[0], CurrentClientName, MessageText.Split(CharSeparator)[1]));
                             }
                             lock (MainStringBuilder)
                             {

@@ -174,4 +174,40 @@
   <data name="TryingToConnect" xml:space="preserve">
     <value>Устанавливается соединение с сервером...</value>
   </data>
+  <data name="ServerOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
+  <data name="ServerShutDown" xml:space="preserve">
+    <value>Сервер отключился (соединение разорвано)</value>
+  </data>
+  <data name="ServerUnavailable" xml:space="preserve">
+    <value>Сервер недоступен!</value>
+  </data>
+  <data name="ConnectionFail" xml:space="preserve">
+    <value>Не удалось установить соединение с сервером!</value>
+  </data>
+  <data name="CantSendOffToServer" xml:space="preserve">
+    <value>Не удалось уведомить сервер об отключении данного клиента!</value>
+  </data>
+  <data name="ConnectionNotExist" xml:space="preserve">
+    <value>Вы не можете прервать соединение с сервером, так как оно еще не установлено!</value>
+  </data>
+  <data name="ConnectionOffByClient" xml:space="preserve">
+    <value>Соединение с сервером отключено пользователем.</value>
+  </data>
+  <data name="CantSendMessage" xml:space="preserve">
+    <value>Невозможно послать сообщение, так как отсутствует подключение к серверу!</value>
+  </data>
+  <data name="CantSendMessageConnectProblem" xml:space="preserve">
+    <value>Не удалось послать сообщение на сервер! (Если проблема не исчезает попробуйте создать подключение заново)</value>
+  </data>
+  <data name="MessageWasSendToServer" xml:space="preserve">
+    <value>Сообщение успешно отправлено.</value>
+  </data>
+  <data name="TargetUnknown" xml:space="preserve">
+    <value>Вы не указали имя клиента получателя!</value>
+  </data>
+  <data name="MessageFrom" xml:space="preserve">
+    <value>Сообщение от:</value>
+  </data>
 </root>
