@@ -28,6 +28,7 @@ namespace SocketFirstTest_CSharp
         public Socket ServerSocket;
         public List<ClientMessage> AllClientsMessages = new List<ClientMessage>();
         public List<Socket> AllConnectedSockets = new List<Socket>();
+        public List<Socket> AllSendingSockets = new List<Socket>();
         public IPEndPoint ServerEndPoint;
         public bool ServerShutDown = false;
         public char CharSeparator = '#';
@@ -131,14 +132,14 @@ namespace SocketFirstTest_CSharp
                             AllClientsMessages.Remove(CurrentMessage);
                         }
                     }
-                    Thread.Sleep(200);
+                    Thread.Sleep(300);
                 }
             }
             catch (Exception CurrentException)
             {
                 if (!ServerShutDown)
                 {
-                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(CurrentException.Message + "Messaging", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -164,9 +165,29 @@ namespace SocketFirstTest_CSharp
                 ServerSocket.Close();
                 lock (AllConnectedSockets)
                 {
-                    foreach (Socket CurrentSocket in AllConnectedSockets)
+                    lock (AllSendingSockets)
                     {
-                        CurrentSocket.Close();
+                        int FailSendingCounter = 0;
+                        foreach (Socket CurrentSocket in AllSendingSockets)
+                        {
+                            try
+                            {
+                                CurrentSocket.Send(Encoding.UTF8.GetBytes(MyResourses.Texts.ServerOff));
+                            }
+                            catch (Exception CurrentException)
+                            {
+                                ++FailSendingCounter;
+                            }
+                        }
+                        if (FailSendingCounter > 0)
+                        {
+                            MessageBox.Show(MyResourses.Texts.FailToSend + " " + FailSendingCounter.ToString() + " " + MyResourses.Texts.ToClients, MyResourses.Texts.Error,
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        foreach (Socket CurrentSocket in AllConnectedSockets)
+                        {
+                            CurrentSocket.Close();
+                        }
                     }
                 }
                 OnlyOneServerGate.Close();
@@ -182,7 +203,15 @@ namespace SocketFirstTest_CSharp
                     Socket BufSocket = ServerSocket.Accept();
                     lock (AllConnectedSockets)
                     {
-                        AllConnectedSockets.Add(BufSocket);
+                        if (!ServerShutDown)
+                        {
+                            AllConnectedSockets.Add(BufSocket);
+                        }
+                        else
+                        {
+                            BufSocket.Close();
+                            return;
+                        }
                     }
                     ThreadPool.QueueUserWorkItem(o => RunConnectionWithClient(BufSocket));
                 }
@@ -191,7 +220,7 @@ namespace SocketFirstTest_CSharp
             {
                 if (!ServerShutDown)
                 {
-                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(CurrentException.Message + "RunServer", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -207,13 +236,24 @@ namespace SocketFirstTest_CSharp
                 SocketForClient.Receive(BufferForMessage);
                 ClientListenSocket = Encoding.UTF8.GetString(BufferForMessage).TrimEnd('\0');
                 string CurrentClientName = ClientListenSocket.Split(CharSeparator)[2];
+                Socket SocketForMessaging = null;
 
-                Socket SocketForMessaging = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 lock (AllConnectedSockets)
                 {
-                    AllConnectedSockets.Add(SocketForMessaging);
+                    if (!ServerShutDown)
+                    {
+                        SocketForMessaging = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                        AllConnectedSockets.Add(SocketForMessaging);
+                        lock (AllSendingSockets)
+                        {
+                            AllSendingSockets.Add(SocketForMessaging);
+                        }
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
-
 
                 ThreadPool.QueueUserWorkItem(o => SendMessagesToClient(CloseCurrentSocketsGate, SocketForMessaging, new IPEndPoint(IPAddress.Parse(ClientListenSocket.Split(CharSeparator)[0]),
                     Int32.Parse(ClientListenSocket.Split(CharSeparator)[1])), ClientListenSocket.Split(CharSeparator)[2]));
@@ -226,9 +266,10 @@ namespace SocketFirstTest_CSharp
                 }
                 while (true)
                 {
+                    byte[] BufferForMessage_2 = new byte[500];
                     BuilderForTextBox.Clear();
-                    SocketForClient.Receive(BufferForMessage);
-                    string MessageText = Encoding.UTF8.GetString(BufferForMessage).TrimEnd('\0');
+                    SocketForClient.Receive(BufferForMessage_2);
+                    string MessageText = Encoding.UTF8.GetString(BufferForMessage_2).TrimEnd('\0');
                     if (MessageText == MyResourses.Texts.ClientOff)
                     {
                         lock (CloseCurrentSocketsGate)
@@ -241,6 +282,10 @@ namespace SocketFirstTest_CSharp
                         {
                             AllConnectedSockets.Remove(SocketForMessaging);
                             AllConnectedSockets.Remove(SocketForClient);
+                        }
+                        lock (AllSendingSockets)
+                        {
+                            AllSendingSockets.Remove(SocketForMessaging);
                         }
                         BuilderForTextBox.AppendLine(MyResourses.Texts.ClientOffServerLogMessage);
                         BuilderForTextBox.Append(" " + CurrentClientName);
@@ -278,7 +323,7 @@ namespace SocketFirstTest_CSharp
             {
                 if (!ServerShutDown)
                 {
-                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(CurrentException.Message + "ConnectionWithClient", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

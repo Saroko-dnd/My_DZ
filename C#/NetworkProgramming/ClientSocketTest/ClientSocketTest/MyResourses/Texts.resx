@@ -165,4 +165,13 @@
   <data name="ServerPortNumber" xml:space="preserve">
     <value>Порт сервера (выход):</value>
   </data>
+  <data name="ConnectionSuccess" xml:space="preserve">
+    <value>Соединение с сервером успешно установлено!</value>
+  </data>
+  <data name="ServerReady" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="TryingToConnect" xml:space="preserve">
+    <value>Устанавливается соединение с сервером...</value>
+  </data>
 </root>

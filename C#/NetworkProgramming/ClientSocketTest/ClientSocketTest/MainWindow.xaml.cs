@@ -26,12 +26,13 @@ namespace ClientSocketTest
         public IPEndPoint ClientEndPoint;
         public IPEndPoint ServerEndPoint;
         public int PortNumber = -1;
-        public Socket ClientListenSocket;
-        public Socket ClientSendSocket;
+        public Socket ClientListenSocket = null;
+        public Socket ClientSendSocket = null;
         public bool ClientShutDown = false;
         public StringBuilder MainBuilderForTextBox = new StringBuilder();
         public bool ConnectionEstablished = false;
         public bool ServerReady = false;
+        public char CharSeparator = '#';
 
         public MainWindow()
         {
@@ -43,43 +44,65 @@ namespace ClientSocketTest
             ServerPortTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
             IPofServerTextBox.PreviewTextInput += CharsKiller.InputValidationForIP;
             IPofServerTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
-
-
-            /*bool LocalIpWasFound = false;
-
-            try
-            {
-                ClientEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), PortNumber);
-                LocalIpWasFound = true;
-            }
-            catch (Exception CurrentException)
-            {
-                MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            if (LocalIpWasFound)
-            {
-                ClientListenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                ClientListenSocket.Bind(ClientEndPoint);
-                ClientListenSocket.Listen(1);
-                ThreadPool.SetMinThreads(2, 2);
-            }*/
         }
 
         public void CloseSockets(object Sender,EventArgs e)
         {
             ClientShutDown = true;
-            ClientSendSocket.Send(Encoding.UTF8.GetBytes(MyResourses.Texts.ClientOff));
-            ClientListenSocket.Close();
-            ClientSendSocket.Close();
+            if (ClientListenSocket != null && ClientSendSocket != null)
+            {
+                ClientSendSocket.Send(Encoding.UTF8.GetBytes(MyResourses.Texts.ClientOff));
+                ClientListenSocket.Close();
+                ClientSendSocket.Close();
+            }
         }
 
-        public void Messaging()
+        public void InitAndIdentityMessaging()
         {
-            ClientSendSocket.Connect(ServerEndPoint);
-            //посылаем инитиируещее связь сообщение пока не получим подтверждение от сервера
-            while (!ServerReady)
+            try
             {
-                ClientSendSocket.Send();
+                ClientSendSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                ClientSendSocket.Connect(ServerEndPoint);
+                //посылаем инитиируещее связь сообщение пока не получим подтверждение от сервера
+                Application.Current.Dispatcher.Invoke(new Action(() => ClientSendSocket.Send(Encoding.UTF8.GetBytes(GetLocalIPAddress() + 
+                    CharSeparator + PortNumber.ToString() + CharSeparator + ClientNameTextBox.Text))));
+                while (!ServerReady)
+                {
+                    Thread.Sleep(100);
+                }
+                lock (MainBuilderForTextBox)
+                {
+                    MainBuilderForTextBox.AppendLine(MyResourses.Texts.ConnectionSuccess);
+                    Application.Current.Dispatcher.Invoke(new Action(() => MessagesFromServerTextBox.Text = MainBuilderForTextBox.ToString()));
+                }
+            }
+            catch (Exception CurrentException)
+            {
+                if (!ClientShutDown)
+                {
+                    MessageBox.Show(CurrentException.Message + "Client_init", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public void ListenServer()
+        {
+            try
+            {
+                byte[] BufForMessage = new byte[500];
+                Socket ConnectionToServer = ClientListenSocket.Accept();
+                ConnectionToServer.Receive(BufForMessage);
+                if (Encoding.UTF8.GetString(BufForMessage).TrimEnd('\0') == MyResourses.Texts.ServerReady)
+                {
+                    ServerReady = true;
+                }
+            }
+            catch (Exception CurrentException)
+            {
+                if (!ClientShutDown)
+                {
+                    MessageBox.Show(CurrentException.Message + "ClientListen", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -108,12 +131,13 @@ namespace ClientSocketTest
                 bool LocalIPwasFound = false;
                 try
                 {
-                    ClientEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), Int32.Parse(ClientListenPortTextBox.Text));
+                    PortNumber = Int32.Parse(ClientListenPortTextBox.Text);
+                    ClientEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), PortNumber);
                     LocalIPwasFound = true;
                 }
                 catch (Exception CurrentException)
                 {
-                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(CurrentException.Message + "Client_1", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 if (LocalIPwasFound)
                 {
@@ -132,9 +156,12 @@ namespace ClientSocketTest
                         ClientListenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                         ClientListenSocket.Bind(ClientEndPoint);
                         ClientListenSocket.Listen(1);
-
+                        MainBuilderForTextBox.AppendLine(MyResourses.Texts.TryingToConnect);
+                        MessagesFromServerTextBox.Text = MainBuilderForTextBox.ToString();
                         ThreadPool.SetMinThreads(2, 2);
-
+                        ThreadPool.QueueUserWorkItem(o => InitAndIdentityMessaging());
+                        ThreadPool.QueueUserWorkItem(o => ListenServer());
+                        this.Closing += CloseSockets;
                     }
                 }
             }

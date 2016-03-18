@@ -97,6 +97,15 @@ namespace SocketFirstTest_CSharp.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не удалось уведомить об отключении сервера.
+        /// </summary>
+        public static string FailToSend {
+            get {
+                return ResourceManager.GetString("FailToSend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Не найден локальный IP для сокета сервера!.
         /// </summary>
         public static string LocalIpNotFound {
@@ -151,11 +160,29 @@ namespace SocketFirstTest_CSharp.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Off.
+        /// </summary>
+        public static string ServerOff {
+            get {
+                return ResourceManager.GetString("ServerOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сервер отправил сообщение клиенту с именем.
         /// </summary>
         public static string ServerSendMessage {
             get {
                 return ResourceManager.GetString("ServerSendMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to клиентам!.
+        /// </summary>
+        public static string ToClients {
+            get {
+                return ResourceManager.GetString("ToClients", resourceCulture);
             }
         }
     }

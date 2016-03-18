@@ -129,6 +129,9 @@
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
   </data>
+  <data name="FailToSend" xml:space="preserve">
+    <value>Не удалось уведомить об отключении сервера</value>
+  </data>
   <data name="LocalIpNotFound" xml:space="preserve">
     <value>Не найден локальный IP для сокета сервера!</value>
   </data>
@@ -147,7 +150,13 @@
   <data name="ServerGetMessage" xml:space="preserve">
     <value>Сервер принял сообщение от:</value>
   </data>
+  <data name="ServerOff" xml:space="preserve">
+    <value>Off</value>
+  </data>
   <data name="ServerSendMessage" xml:space="preserve">
     <value>Сервер отправил сообщение клиенту с именем</value>
+  </data>
+  <data name="ToClients" xml:space="preserve">
+    <value>клиентам!</value>
   </data>
 </root>
