@@ -11,10 +11,26 @@
         <WrapPanel>
             <Label Content="{x:Static MyRes:Texts.ClientName}"></Label>
             <TextBox FontSize="20" Width="150" Name="ClientNameTextBox"></TextBox>
-            <Label Content="{x:Static MyRes:Texts.ClientPortNumberListen}"></Label>
-            <TextBox FontSize="20" Width="50" Name="ClientListenPortTextBox"></TextBox>
-            <Label Content="{x:Static MyRes:Texts.ServerPortNumber}"></Label>
-            <TextBox FontSize="20" Width="50" Name="ServerPortTextBox"></TextBox>
+            <StackPanel>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.ClientPortNumberListen}"></Label>
+                    <TextBox FontSize="20" Width="50" Name="ClientListenPortTextBox"></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.UDPClientPort}"></Label>
+                    <TextBox FontSize="20" Width="50" Name="ClientUDPPortTextBox"></TextBox>
+                </WrapPanel>
+            </StackPanel>
+            <StackPanel>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.ServerPortNumber}"></Label>
+                    <TextBox Text="9015"  FontSize="20" Width="50" Name="ServerPortTextBox"></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.ServerUDPPort}"></Label>
+                    <TextBox Text="9016" FontSize="20" Width="50" Name="ServerUDPportTextBox"></TextBox>
+                </WrapPanel>
+            </StackPanel>
             <Label Content="{x:Static MyRes:Texts.IPofServer}"></Label>
             <TextBox FontSize="20" Width="150" Name="IPofServerTextBox"></TextBox>
         </WrapPanel>
@@ -35,7 +51,12 @@
             <StackPanel>
                 <Button Name="ConnectButton" Content="{x:Static MyRes:Texts.ConnectToServer}" Click="ConnectButton_Click"></Button>
                 <Button Name="DisconnectButton" Content="{x:Static MyRes:Texts.DisconnectFromServer}" Click="DisconnectButton_Click"></Button>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.ServerTime}" ></Label>
+                    <Label Name="ServerDateTimeLabel" Width="150" ></Label>
+                </WrapPanel>
             </StackPanel>
+            
         </WrapPanel>
     </StackPanel>
 </Window>

@@ -54,6 +54,11 @@ namespace ClientSocketTest
             IPofServerTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
             ClientNameTextBox.PreviewTextInput += CharsKiller.InputValidationNames;
             TargetClientNameTextBox.PreviewTextInput += CharsKiller.InputValidationNames;
+            ClientUDPPortTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            ClientUDPPortTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            ServerUDPportTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            ServerUDPportTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
+            
             this.Closing += CloseSockets;
         }
 
@@ -77,7 +82,8 @@ namespace ClientSocketTest
                     }
                     ClientListenSocket.Close();
                     ClientSendSocket.Close();
-                    ConnectionToServer.Close();
+                    if (ConnectionToServer != null)
+                        ConnectionToServer.Close();
                     UdpClientForTimeSync.Close();
                 }
             }
@@ -87,13 +93,16 @@ namespace ClientSocketTest
         {
             try
             {
-                IPEndPoint ServerUDPEndPoint = new IPEndPoint(ServerIP, UDPServerPort);
+                IPEndPoint ClientUDPEndPoint = null;
                 while (true)
-                {
-                    
-                    byte[] BufferForDateTime = UdpClientForTimeSync.Receive(ref ServerUDPEndPoint);
-                    string DateTimeString = Encoding.UTF8.GetString(BufferForDateTime);
-
+                {                 
+                    byte[] BufferForDateTime = UdpClientForTimeSync.Receive(ref ClientUDPEndPoint);
+                    //Проверяем откуда сообщение
+                    if (ClientUDPEndPoint.Address.ToString() == ServerIP.ToString())
+                    {
+                        string DateTimeString = Encoding.UTF8.GetString(BufferForDateTime).TrimEnd('\0');
+                        Application.Current.Dispatcher.Invoke(new Action(() => ServerDateTimeLabel.Content = DateTimeString));
+                    }
                 }
             }
             catch (Exception CurrentException)
@@ -174,8 +183,7 @@ namespace ClientSocketTest
                     if (Encoding.UTF8.GetString(BufForMessage).TrimEnd('\0') == MyResourses.Texts.ServerReady)
                     {
                         ServerReady = true;
-                        UdpClientForTimeSync = new UdpClient(new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), UDPPortNumberForTime));
-                        Application.Current.Dispatcher.Invoke(new Action(() => UdpClientForTimeSync.Connect(new IPEndPoint(IPAddress.Parse(IPofServerTextBox.Text), Int32.Parse(ServerPortTextBox.Text)))));
+                        UdpClientForTimeSync = new UdpClient(UDPPortNumberForTime);
                         ThreadPool.QueueUserWorkItem(o => GetTimeFromServer());
                     }
                     else if (Encoding.UTF8.GetString(BufForMessage).TrimEnd('\0') == MyResourses.Texts.ServerOff)
@@ -242,6 +250,8 @@ namespace ClientSocketTest
                 try
                 {
                     PortNumber = Int32.Parse(ClientListenPortTextBox.Text);
+                    UDPPortNumberForTime = Int32.Parse(ClientUDPPortTextBox.Text);
+                    UDPServerPort = Int32.Parse(ServerUDPportTextBox.Text);
                     ClientEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), PortNumber);
                     LocalIPwasFound = true;
                 }

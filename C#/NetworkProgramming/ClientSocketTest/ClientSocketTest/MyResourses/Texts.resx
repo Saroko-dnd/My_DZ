@@ -210,4 +210,13 @@
   <data name="MessageFrom" xml:space="preserve">
     <value>Сообщение от:</value>
   </data>
+  <data name="UDPClientPort" xml:space="preserve">
+    <value>Порт клиента (UDP):</value>
+  </data>
+  <data name="ServerUDPPort" xml:space="preserve">
+    <value>Порт сервера (UDP):</value>
+  </data>
+  <data name="ServerTime" xml:space="preserve">
+    <value>Время на сервере:</value>
+  </data>
 </root>

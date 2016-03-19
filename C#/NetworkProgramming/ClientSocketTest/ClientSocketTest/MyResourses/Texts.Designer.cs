@@ -313,6 +313,24 @@ namespace ClientSocketTest.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Время на сервере:.
+        /// </summary>
+        public static string ServerTime {
+            get {
+                return ResourceManager.GetString("ServerTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Порт сервера (UDP):.
+        /// </summary>
+        public static string ServerUDPPort {
+            get {
+                return ResourceManager.GetString("ServerUDPPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сервер недоступен!.
         /// </summary>
         public static string ServerUnavailable {
@@ -336,6 +354,15 @@ namespace ClientSocketTest.MyResourses {
         public static string TryingToConnect {
             get {
                 return ResourceManager.GetString("TryingToConnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Порт клиента (UDP):.
+        /// </summary>
+        public static string UDPClientPort {
+            get {
+                return ResourceManager.GetString("UDPClientPort", resourceCulture);
             }
         }
     }

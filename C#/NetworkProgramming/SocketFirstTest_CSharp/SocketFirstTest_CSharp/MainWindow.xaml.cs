@@ -209,8 +209,7 @@ namespace SocketFirstTest_CSharp
                     {
                         foreach (IPEndPoint CurrentEndPoint in ListOfIPEndPointsForTimeSending)
                         {
-                            byte[] BufferForMessage = new byte[500];
-                            TimeMessaging.Send(Encoding.UTF8.GetBytes(CurrentSystemDateTime), 500, CurrentEndPoint);
+                            TimeMessaging.Send(Encoding.UTF8.GetBytes(CurrentSystemDateTime), Encoding.UTF8.GetBytes(CurrentSystemDateTime).Length, CurrentEndPoint);
                         }
                     }
                     Thread.Sleep(1000);
@@ -230,7 +229,8 @@ namespace SocketFirstTest_CSharp
         {
             try
             {
-                TimeMessaging = new UdpClient(new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), PortUDP));
+                //TimeMessaging = new UdpClient(new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), PortUDP));
+                TimeMessaging = new UdpClient();
                 ThreadPool.QueueUserWorkItem(o => TimeSending());
                 while (true)
                 {
