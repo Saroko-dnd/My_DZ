@@ -1,0 +1,19 @@
+﻿<Window x:Class="ChatWithoutServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatWithoutServer"
+        xmlns:MyRes="clr-namespace:ChatWithoutServer.MyResourses"
+        mc:Ignorable="d"
+        Title="{x:Static MyRes:Texts.ClientHeader}" Height="350" Width="525">
+    <WrapPanel>
+        <StackPanel>
+            <WrapPanel>
+                <Label Content="{x:Static MyRes:Texts.ClientName}"></Label>
+            </WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.PlaceForMessage}"></Label>
+            <TextBox Width="240" Height="250" Name="MessageTextBox"></TextBox>
+        </StackPanel>
+    </WrapPanel>
+</Window>
