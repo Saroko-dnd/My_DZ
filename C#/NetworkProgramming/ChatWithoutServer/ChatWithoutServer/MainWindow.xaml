@@ -6,14 +6,55 @@
         xmlns:local="clr-namespace:ChatWithoutServer"
         xmlns:MyRes="clr-namespace:ChatWithoutServer.MyResourses"
         mc:Ignorable="d"
-        Title="{x:Static MyRes:Texts.ClientHeader}" Height="350" Width="525">
+        Title="{x:Static MyRes:Texts.ClientHeader}" Height="350" Width="800" Name="ClientMainWindow">
+    <Window.Resources>
+        <local:HeightConverter x:Key="HeightConverter"></local:HeightConverter>
+        <local:HeightConverterChat x:Key="HeightConverterChat"></local:HeightConverterChat>
+        <local:WidthConverter x:Key="WidthConverter"></local:WidthConverter>
+    </Window.Resources>
     <WrapPanel>
         <StackPanel>
             <WrapPanel>
                 <Label Content="{x:Static MyRes:Texts.ClientName}"></Label>
+                <TextBox Width="150" Name="ClientNameTextBox"></TextBox>
             </WrapPanel>
             <Label Content="{x:Static MyRes:Texts.PlaceForMessage}"></Label>
-            <TextBox Width="240" Height="250" Name="MessageTextBox"></TextBox>
+            <TextBox Width="{Binding ElementName=ClientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Height="{Binding  ElementName=ClientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" Name="MessageTextBox"></TextBox>
+        </StackPanel>
+        <StackPanel>
+            <Label Content="{x:Static MyRes:Texts.ThisIsBroadcastGroup}"></Label>
+            <ComboBox Name="BroadcastGroupComboBox"></ComboBox>
+            <WrapPanel>
+                <Button Content="{x:Static MyRes:Texts.AddNewIP}" Name="AddNewIPButton" Click="AddNewIPButton_Click"></Button>
+                <TextBox Width="150" Name="NewIPTextBox"></TextBox>
+            </WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.ChatMessages}"></Label>
+            <ListBox    ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+                        MaxWidth="{Binding ElementName=ClientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}"
+                        MaxHeight="{Binding  ElementName=ClientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverterChat}}"
+                        Width="{Binding ElementName=ClientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" 
+                        Height="{Binding  ElementName=ClientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverterChat}}" Name="ChatListBox">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <Label Content="{Binding Path=ClientName}"></Label>
+                            <Label Content="{Binding Path=ClientMessage}"></Label>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel>
+            <WrapPanel>
+                <Label></Label>
+                <TextBox></TextBox>
+            </WrapPanel>
+            <WrapPanel>
+                <Label></Label>
+                <TextBox></TextBox>
+            </WrapPanel>
         </StackPanel>
     </WrapPanel>
 </Window>

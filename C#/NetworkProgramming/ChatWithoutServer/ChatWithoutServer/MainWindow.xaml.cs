@@ -23,25 +23,22 @@ namespace ChatWithoutServer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public bool NewIPwasAdded = false;
         public UdpClient ClientForSending = null;
         public UdpClient ClientListener = null;
         public IPAddress BroadCastIP = null;
+        List<IPAddress> BroadcastIPlist = new List<IPAddress>();
+        public char CharSeparator = '#';
 
         public MainWindow()
         {
             InitializeComponent();
 
-            try
-            {
-                BroadCastIP = GetBroadcastAddress(IPAddress.Parse("192.168.100.2"), GetSubnetMask(IPAddress.Parse("192.168.100.2")));
-            }
-            catch (Exception CurrentException)
-            {
-                MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            int fgf = 99;
-
+            ClientNameTextBox.PreviewTextInput += CharsKiller.InputValidationNames;
+            NewIPTextBox.PreviewTextInput += CharsKiller.InputValidationForIP;
+            BroadcastGroupComboBox.ItemsSource = BroadcastIPlist;
         }
+
 
         public static IPAddress GetBroadcastAddress(IPAddress address, IPAddress subnetMask)
         {
@@ -88,6 +85,31 @@ namespace ChatWithoutServer
                 }
             }
             throw new Exception(MyResourses.Texts.LocalIpNotFound);
+        }
+
+        private void AddNewIPButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                lock (BroadcastIPlist)
+                {
+                    IPAddress NewIPaddress = IPAddress.Parse(NewIPTextBox.Text);
+                    foreach (IPAddress CurrentIPadress in BroadcastIPlist)
+                    {
+                        if (CurrentIPadress.ToString() == NewIPaddress.ToString())
+                        {
+                            MessageBox.Show(MyResourses.Texts.CantAddCurrentIP, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    BroadcastIPlist.Add(NewIPaddress);
+                    NewIPwasAdded = true;
+                }
+            }
+            catch
+            {
+                MessageBox.Show(MyResourses.Texts.CantParseIP, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }       
         }
     }
 }

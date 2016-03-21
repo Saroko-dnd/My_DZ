@@ -117,8 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddNewIP" xml:space="preserve">
+    <value>Добавить новый IP.</value>
+  </data>
+  <data name="CantAddCurrentIP" xml:space="preserve">
+    <value>Вы уже добавили этот IP в список!</value>
+  </data>
   <data name="CantFindSubNetMask" xml:space="preserve">
     <value>Не удалось найти маску подсети для локального IP!</value>
+  </data>
+  <data name="CantParseIP" xml:space="preserve">
+    <value>Неверно введен новый IP адрес!</value>
+  </data>
+  <data name="ChatMessages" xml:space="preserve">
+    <value>Сообщения чата</value>
   </data>
   <data name="ClientHeader" xml:space="preserve">
     <value>Клиент для чата без сервера (UDP)</value>
@@ -137,5 +149,8 @@
   </data>
   <data name="PlaceForMessage" xml:space="preserve">
     <value>Текст сообщения</value>
+  </data>
+  <data name="ThisIsBroadcastGroup" xml:space="preserve">
+    <value>Список IP для рассылки сообщений.</value>
   </data>
 </root>
