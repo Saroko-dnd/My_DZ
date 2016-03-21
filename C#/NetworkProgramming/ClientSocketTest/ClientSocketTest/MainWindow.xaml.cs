@@ -23,6 +23,8 @@ namespace ClientSocketTest
     /// </summary>
     public partial class MainWindow : Window
     {
+        public int StringCounter = 0;
+        public int MaxAmountOfStrings = 100;
         public IPEndPoint ClientEndPoint;
         public IPEndPoint ServerEndPoint;
         public int PortNumber = -1;
@@ -60,6 +62,7 @@ namespace ClientSocketTest
             ServerUDPportTextBox.PreviewKeyDown += CharsKiller.SpaceBarKillerPreviewKeyDown;
             
             this.Closing += CloseSockets;
+            ThreadPool.QueueUserWorkItem(o => ClearingConsole());
         }
 
         public void CloseSockets(object Sender,EventArgs e)
@@ -86,6 +89,22 @@ namespace ClientSocketTest
                         ConnectionToServer.Close();
                     UdpClientForTimeSync.Close();
                 }
+            }
+        }
+
+        public void ClearingConsole()
+        {
+            while (true)
+            {
+                lock (MainBuilderForTextBox)
+                {
+                    if (StringCounter > MaxAmountOfStrings)
+                    {
+                        StringCounter = 0;
+                        MainBuilderForTextBox.Clear();
+                    }
+                }
+                Thread.Sleep(1000);
             }
         }
 
@@ -132,6 +151,7 @@ namespace ClientSocketTest
                     MessageBox.Show(MyResourses.Texts.ServerUnavailable, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     lock (MainBuilderForTextBox)
                     {
+                        ++StringCounter;
                         MainBuilderForTextBox.AppendLine(MyResourses.Texts.ConnectionFail);
                         Application.Current.Dispatcher.Invoke(new Action(() => MessagesFromServerTextBox.Text = MainBuilderForTextBox.ToString()));
                     }
@@ -158,6 +178,7 @@ namespace ClientSocketTest
                 }
                 lock (MainBuilderForTextBox)
                 {
+                    ++StringCounter;
                     MainBuilderForTextBox.AppendLine(MyResourses.Texts.ConnectionSuccess);
                     Application.Current.Dispatcher.Invoke(new Action(() => MessagesFromServerTextBox.Text = MainBuilderForTextBox.ToString()));
                 }
@@ -190,6 +211,7 @@ namespace ClientSocketTest
                     {
                         lock (MainBuilderForTextBox)
                         {
+                            ++StringCounter;
                             MainBuilderForTextBox.AppendLine(MyResourses.Texts.ServerShutDown);
                             Application.Current.Dispatcher.Invoke(new Action(() => MessagesFromServerTextBox.Text = MainBuilderForTextBox.ToString()));
                         }
@@ -208,6 +230,7 @@ namespace ClientSocketTest
                         string MessageItself = MessageFromServer.Split(CharSeparator)[1];
                         lock (MainBuilderForTextBox)
                         {
+                            ++StringCounter;
                             MainBuilderForTextBox.AppendLine(MyResourses.Texts.MessageFrom + " " + SenderName);
                             MainBuilderForTextBox.AppendLine(MessageItself);
                             Application.Current.Dispatcher.Invoke(new Action(() => MessagesFromServerTextBox.Text = MainBuilderForTextBox.ToString()));
@@ -278,6 +301,7 @@ namespace ClientSocketTest
                         ClientListenSocket.Listen(1);
                         lock (MainBuilderForTextBox)
                         {
+                            ++StringCounter;
                             MainBuilderForTextBox.AppendLine(MyResourses.Texts.TryingToConnect);
                             MessagesFromServerTextBox.Text = MainBuilderForTextBox.ToString();
                         }
@@ -315,6 +339,7 @@ namespace ClientSocketTest
 
                 lock(MainBuilderForTextBox)
                 {
+                    ++StringCounter;
                     MainBuilderForTextBox.AppendLine(MyResourses.Texts.ConnectionOffByClient);
                     MessagesFromServerTextBox.Text = MainBuilderForTextBox.ToString();
                 }
@@ -343,6 +368,7 @@ namespace ClientSocketTest
                         }
                         lock (MainBuilderForTextBox)
                         {
+                            ++StringCounter;
                             MainBuilderForTextBox.AppendLine(MyResourses.Texts.MessageWasSendToServer);
                             MessagesFromServerTextBox.Text = MainBuilderForTextBox.ToString();
                         }

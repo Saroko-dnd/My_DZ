@@ -117,7 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CheckEnteredParametres" xml:space="preserve">
+    <value>Неправильно введены параметры!</value>
+  </data>
+  <data name="ClientWindowHeader" xml:space="preserve">
+    <value>Клиент принимающий скриншоты рабочего стола сервера</value>
+  </data>
+  <data name="ConnectionAlreadyExist" xml:space="preserve">
+    <value>Соединение с сервером уже установлено!</value>
+  </data>
+  <data name="ConnectionFailed" xml:space="preserve">
+    <value>Не удалось соединиться с сервером!</value>
+  </data>
+  <data name="Disconnect" xml:space="preserve">
+    <value>Отъсоединиться</value>
+  </data>
+  <data name="DisconnectImpossible" xml:space="preserve">
+    <value>Соединение с сервером отсутствует!</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
+  </data>
+  <data name="Launcher" xml:space="preserve">
+    <value>Запустить клиент</value>
+  </data>
+  <data name="LocalIpNotFound" xml:space="preserve">
+    <value>Невозможно запустить клиент, так как не найден локальный IP!</value>
+  </data>
+  <data name="ServerIP" xml:space="preserve">
+    <value>IP сервера:</value>
+  </data>
+  <data name="TCPportNumberForReceivingScreenshots" xml:space="preserve">
+    <value>Номер порта для приема скриншотов:</value>
   </data>
 </root>

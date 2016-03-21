@@ -22,7 +22,7 @@ namespace ClientReceiveScreenShot.MyResourses {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Texts {
+    public class Texts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace ClientReceiveScreenShot.MyResourses {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ClientReceiveScreenShot.MyResourses.Texts", typeof(Texts).Assembly);
@@ -51,7 +51,7 @@ namespace ClientReceiveScreenShot.MyResourses {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,11 +61,101 @@ namespace ClientReceiveScreenShot.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Неправильно введены параметры!.
+        /// </summary>
+        public static string CheckEnteredParametres {
+            get {
+                return ResourceManager.GetString("CheckEnteredParametres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Клиент принимающий скриншоты рабочего стола сервера.
+        /// </summary>
+        public static string ClientWindowHeader {
+            get {
+                return ResourceManager.GetString("ClientWindowHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Соединение с сервером уже установлено!.
+        /// </summary>
+        public static string ConnectionAlreadyExist {
+            get {
+                return ResourceManager.GetString("ConnectionAlreadyExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Не удалось соединиться с сервером!.
+        /// </summary>
+        public static string ConnectionFailed {
+            get {
+                return ResourceManager.GetString("ConnectionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отъсоединиться.
+        /// </summary>
+        public static string Disconnect {
+            get {
+                return ResourceManager.GetString("Disconnect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Соединение с сервером отсутствует!.
+        /// </summary>
+        public static string DisconnectImpossible {
+            get {
+                return ResourceManager.GetString("DisconnectImpossible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ошибка.
         /// </summary>
-        internal static string Error {
+        public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Запустить клиент.
+        /// </summary>
+        public static string Launcher {
+            get {
+                return ResourceManager.GetString("Launcher", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Невозможно запустить клиент, так как не найден локальный IP!.
+        /// </summary>
+        public static string LocalIpNotFound {
+            get {
+                return ResourceManager.GetString("LocalIpNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IP сервера:.
+        /// </summary>
+        public static string ServerIP {
+            get {
+                return ResourceManager.GetString("ServerIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Номер порта для приема скриншотов:.
+        /// </summary>
+        public static string TCPportNumberForReceivingScreenshots {
+            get {
+                return ResourceManager.GetString("TCPportNumberForReceivingScreenshots", resourceCulture);
             }
         }
     }

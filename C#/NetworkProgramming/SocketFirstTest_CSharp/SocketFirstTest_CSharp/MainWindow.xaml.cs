@@ -24,6 +24,8 @@ namespace SocketFirstTest_CSharp
     /// //SERVER side
     public partial class MainWindow : Window
     {
+        public int StringCounter = 0;
+        public int MaxAmountOfStrings = 100;//Максимальное количество строк в консоли
         public StringBuilder MainStringBuilder = new StringBuilder(); 
         public Socket ServerSocket;
         public UdpClient TimeMessaging;
@@ -68,6 +70,7 @@ namespace SocketFirstTest_CSharp
                     ServerSocket.Listen(10);
                     ThreadPool.SetMinThreads(2, 2);
                     ThreadPool.QueueUserWorkItem(o => RunServer());
+                    ThreadPool.QueueUserWorkItem(o => ClearingConsole());
                     this.Closing += ShutDownServer;
                 }
             }
@@ -76,6 +79,22 @@ namespace SocketFirstTest_CSharp
                 MessageBox.Show(MyResourses.Texts.ServerAlreadyRunning, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 InstanceOfServerAlreadyRunning = true;
                 this.Close();
+            }
+        }
+
+        public void ClearingConsole()
+        {
+            while (true)
+            {
+                lock (MainStringBuilder)
+                {
+                    if (StringCounter > MaxAmountOfStrings)
+                    {
+                        MainStringBuilder.Clear();
+                        StringCounter = 0;
+                    }
+                }
+                Thread.Sleep(1000);
             }
         }
 
@@ -124,6 +143,7 @@ namespace SocketFirstTest_CSharp
                                 DeleteList.Add(CurrentMessage);
                                 lock (MainStringBuilder)
                                 {
+                                    ++StringCounter;
                                     MainStringBuilder.AppendLine(BuilderForTextBox.ToString());
                                     Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                                 }
@@ -301,6 +321,7 @@ namespace SocketFirstTest_CSharp
                 BuilderForTextBox.AppendLine(SocketForClient.RemoteEndPoint.ToString());
                 lock (MainStringBuilder)
                 {
+                    ++StringCounter;
                     MainStringBuilder.AppendLine(BuilderForTextBox.ToString());
                     Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                 }
@@ -335,6 +356,7 @@ namespace SocketFirstTest_CSharp
                         BuilderForTextBox.Append(" " + CurrentClientName);
                         lock (MainStringBuilder)
                         {
+                            ++StringCounter;
                             MainStringBuilder.AppendLine(BuilderForTextBox.ToString());
                             Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                         }
@@ -356,6 +378,7 @@ namespace SocketFirstTest_CSharp
                             }
                             lock (MainStringBuilder)
                             {
+                                ++StringCounter;
                                 MainStringBuilder.AppendLine(BuilderForTextBox.ToString());
                                 Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                             }
