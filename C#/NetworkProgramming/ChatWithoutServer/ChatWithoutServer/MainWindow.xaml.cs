@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
 using System.Net.NetworkInformation;
+using System.Threading;
 
 namespace ChatWithoutServer
 {
@@ -23,11 +24,16 @@ namespace ChatWithoutServer
     /// </summary>
     public partial class MainWindow : Window
     {
-        public bool NewIPwasAdded = false;
+        public static object RefreshConsoleGate = new object();
+        public List<ClientAndMessage> AllMessages = new List<ClientAndMessage>();
+        public bool ClientShutDown = false;
+        public bool ClientWorking = false;
         public UdpClient ClientForSending = null;
+        public IPEndPoint EndPointForMulticastIP = null;
         public UdpClient ClientListener = null;
-        public IPAddress BroadCastIP = null;
-        List<IPAddress> BroadcastIPlist = new List<IPAddress>();
+        public int SendingPort = -1;
+        public int RecevingPort = -1;
+        public IPAddress MulticastIP = null;
         public char CharSeparator = '#';
 
         public MainWindow()
@@ -35,10 +41,26 @@ namespace ChatWithoutServer
             InitializeComponent();
 
             ClientNameTextBox.PreviewTextInput += CharsKiller.InputValidationNames;
-            NewIPTextBox.PreviewTextInput += CharsKiller.InputValidationForIP;
-            BroadcastGroupComboBox.ItemsSource = BroadcastIPlist;
+            MulticastIPtextBox.PreviewTextInput += CharsKiller.InputValidationForIP;
+            PortListenerTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            PortSendingTextBox.PreviewTextInput += CharsKiller.InputValidation;
+            MessageTextBox.PreviewTextInput += CharsKiller.InputValidationNames;
+
+            ChatListBox.ItemsSource = AllMessages;
         }
 
+        public void ShutDown(object sender, EventArgs e)
+        {
+            ClientShutDown = true;
+            if (ClientForSending != null)
+            {
+                ClientForSending.Close();
+            }
+            if (ClientListener != null)
+            {
+                ClientListener.Close();
+            }
+        }
 
         public static IPAddress GetBroadcastAddress(IPAddress address, IPAddress subnetMask)
         {
@@ -87,29 +109,141 @@ namespace ChatWithoutServer
             throw new Exception(MyResourses.Texts.LocalIpNotFound);
         }
 
-        private void AddNewIPButton_Click(object sender, RoutedEventArgs e)
+        public void AddMessageToConsole(byte[] MessageInBytes)
         {
             try
             {
-                lock (BroadcastIPlist)
+                string Message = Encoding.UTF8.GetString(MessageInBytes);
+                lock (AllMessages)
                 {
-                    IPAddress NewIPaddress = IPAddress.Parse(NewIPTextBox.Text);
-                    foreach (IPAddress CurrentIPadress in BroadcastIPlist)
-                    {
-                        if (CurrentIPadress.ToString() == NewIPaddress.ToString())
-                        {
-                            MessageBox.Show(MyResourses.Texts.CantAddCurrentIP, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                            return;
-                        }
-                    }
-                    BroadcastIPlist.Add(NewIPaddress);
-                    NewIPwasAdded = true;
+                    AllMessages.Add(new ClientAndMessage(Message.Split(CharSeparator)[0], Message.Split(CharSeparator)[1]));
+                }
+                lock (RefreshConsoleGate)
+                {
+                    Application.Current.Dispatcher.Invoke(new Action(() => ChatListBox.Items.Refresh()));
                 }
             }
-            catch
+            catch (Exception CurrentException)
             {
-                MessageBox.Show(MyResourses.Texts.CantParseIP, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-            }       
+                if (!ClientShutDown)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        public void ListenForMessages()
+        {
+            try
+            {
+                IPEndPoint localEp = new IPEndPoint(IPAddress.Any, 0);
+                while (true)
+                {
+                    byte[] BufferForMessage = ClientListener.Receive(ref localEp);
+                    ThreadPool.QueueUserWorkItem(o => AddMessageToConsole(BufferForMessage));
+                }
+            }
+            catch (Exception CurrentException)
+            {
+                if (!ClientShutDown)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void StartClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ClientWorking)
+            {
+                try
+                {
+                    MulticastIP = IPAddress.Parse(MulticastIPtextBox.Text);
+                    SendingPort = Int32.Parse(PortSendingTextBox.Text);
+                    RecevingPort = Int32.Parse(PortListenerTextBox.Text);
+                }
+                catch
+                {
+                    MessageBox.Show(MyResourses.Texts.CheckEnteredParametres, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MulticastIP = null;
+                    SendingPort = -1;
+                    RecevingPort = -1;
+                    return;
+                }
+                try
+                {
+                    ClientListener = new UdpClient();
+                    ClientListener.ExclusiveAddressUse = false;
+                    IPEndPoint localEp = new IPEndPoint(IPAddress.Any, SendingPort);
+                    ClientListener.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+                    ClientListener.ExclusiveAddressUse = false;
+                    ClientListener.Client.Bind(localEp);
+                    ClientListener.JoinMulticastGroup(MulticastIP);
+
+                    ClientForSending = new UdpClient();
+                    ClientForSending.JoinMulticastGroup(MulticastIP);
+                    ClientForSending.MulticastLoopback = true;
+                    EndPointForMulticastIP = new IPEndPoint(MulticastIP, SendingPort);
+                }
+                catch (Exception CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    if (ClientListener != null)
+                    {
+                        ClientListener.Close();
+                        ClientListener = null;
+                    }
+                    if (ClientForSending != null)
+                    {
+                        ClientForSending.Close();
+                        ClientForSending = null;
+                    }
+                    EndPointForMulticastIP = null;
+                    return;
+                }
+                ThreadPool.QueueUserWorkItem(o => ListenForMessages());
+                ClientStatusLabel.Content = MyResourses.Texts.Working;
+                ClientWorking = true;
+            }
+            else
+            {
+                MessageBox.Show(MyResourses.Texts.ClientAlreadyRunning, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void SendMessage()
+        {
+            try
+            {
+                Application.Current.Dispatcher.Invoke(new Action(() => ClientForSending.Send(Encoding.UTF8.GetBytes(ClientNameTextBox.Text + CharSeparator + MessageTextBox.Text), 
+                    Encoding.UTF8.GetBytes(ClientNameTextBox.Text + CharSeparator + MessageTextBox.Text).Length, EndPointForMulticastIP)));
+            }
+            catch (Exception CurrentException)
+            {
+                if (!ClientShutDown)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private void SendMessageButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientWorking)
+            {
+                if(ClientNameTextBox.Text != string.Empty)
+                {
+                    ThreadPool.QueueUserWorkItem(o => SendMessage());
+                }
+                else
+                {
+                    MessageBox.Show(MyResourses.Texts.ClientNameError, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show(MyResourses.Texts.ClinentNotWorkingYet, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

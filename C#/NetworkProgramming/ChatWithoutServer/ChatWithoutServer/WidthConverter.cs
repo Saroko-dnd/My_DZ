@@ -12,7 +12,7 @@ namespace ChatWithoutServer
         public object Convert(object value, Type targetType, object parameter,
             System.Globalization.CultureInfo culture)
         {
-            double BufForResult = (((double)value)/3);
+            double BufForResult = (((double)value)/2) - 50.0;
             return BufForResult;
         }
 

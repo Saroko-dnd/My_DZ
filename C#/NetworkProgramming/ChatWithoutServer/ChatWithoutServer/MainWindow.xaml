@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ChatWithoutServer"
         xmlns:MyRes="clr-namespace:ChatWithoutServer.MyResourses"
         mc:Ignorable="d"
-        Title="{x:Static MyRes:Texts.ClientHeader}" Height="350" Width="800" Name="ClientMainWindow">
+        Title="{x:Static MyRes:Texts.ClientHeader}" Height="350" Width="850" Name="ClientMainWindow">
     <Window.Resources>
         <local:HeightConverter x:Key="HeightConverter"></local:HeightConverter>
         <local:HeightConverterChat x:Key="HeightConverterChat"></local:HeightConverterChat>
@@ -20,13 +20,20 @@
             </WrapPanel>
             <Label Content="{x:Static MyRes:Texts.PlaceForMessage}"></Label>
             <TextBox Width="{Binding ElementName=ClientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Height="{Binding  ElementName=ClientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" Name="MessageTextBox"></TextBox>
+            <Button Content="{x:Static MyRes:Texts.SendMessage}"  Name="SendMessageButton" Click="SendMessageButton_Click"></Button>
         </StackPanel>
         <StackPanel>
-            <Label Content="{x:Static MyRes:Texts.ThisIsBroadcastGroup}"></Label>
-            <ComboBox Name="BroadcastGroupComboBox"></ComboBox>
             <WrapPanel>
-                <Button Content="{x:Static MyRes:Texts.AddNewIP}" Name="AddNewIPButton" Click="AddNewIPButton_Click"></Button>
-                <TextBox Width="150" Name="NewIPTextBox"></TextBox>
+                <Label Content="{x:Static MyRes:Texts.MulticastIP}"></Label>
+                <TextBox Text="{x:Static MyRes:Texts.DefaultMulticastIP}" Width="150" Name="MulticastIPtextBox"></TextBox>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="{x:Static MyRes:Texts.PortListener}"></Label>
+                <TextBox Text="{x:Static MyRes:Texts.DefaultReceivingPort}" Width="60" Name="PortListenerTextBox"></TextBox>
+            </WrapPanel>
+            <WrapPanel>
+                <Label Content="{x:Static MyRes:Texts.PortForSending}"></Label>
+                <TextBox Text="{x:Static MyRes:Texts.DefaultSendingPort}" Width="60" Name="PortSendingTextBox"></TextBox>
             </WrapPanel>
             <Label Content="{x:Static MyRes:Texts.ChatMessages}"></Label>
             <ListBox    ScrollViewer.CanContentScroll="True"
@@ -47,14 +54,10 @@
             </ListBox>
         </StackPanel>
         <StackPanel>
-            <WrapPanel>
-                <Label></Label>
-                <TextBox></TextBox>
-            </WrapPanel>
-            <WrapPanel>
-                <Label></Label>
-                <TextBox></TextBox>
-            </WrapPanel>
+            <Button Name="StartClientButton" Content="{x:Static MyRes:Texts.StartClient}" Click="StartClientButton_Click"></Button>
+            <Button Name="OffClientButton" Content="{x:Static MyRes:Texts.OffClient}"></Button>
+            <Label Content="{x:Static MyRes:Texts.Status}"></Label>
+            <Label Name="ClientStatusLabel" Content="{x:Static MyRes:Texts.NotWorking}"></Label>
         </StackPanel>
     </WrapPanel>
 </Window>
