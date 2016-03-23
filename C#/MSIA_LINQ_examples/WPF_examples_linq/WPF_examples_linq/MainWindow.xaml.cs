@@ -63,6 +63,12 @@ namespace WPF_examples_linq
             QueryResultDataGrid.ItemsSource = DataStorage.Join(DataStorage_2, Original => Original.RelatedCommand,Addon => Addon.CommandName,
                 (Original, Addon) => new {SuperName = Original.Name, Addon.Popularity}).ToList();
 
+            string MaxYear = (from people in DataStorage join ComData in DataStorage_2 on people.RelatedCommand equals ComData.CommandName where people.RelatedCommand == "Geeks" select people.Year).
+                Max().ToString();
+            StringBuikderForTextBox.AppendLine("Результат использования запроса (не расширяющие методы):");
+            StringBuikderForTextBox.Append("Наибольший возраст игроков (Geeks only): ");
+            StringBuikderForTextBox.Append(MaxYear);
+            ConsoleTextBox.Text = StringBuikderForTextBox.ToString();
         }
     }
 }
