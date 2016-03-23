@@ -28,11 +28,7 @@
                 <TextBox Text="{x:Static MyRes:Texts.DefaultMulticastIP}" Width="150" Name="MulticastIPtextBox"></TextBox>
             </WrapPanel>
             <WrapPanel>
-                <Label Content="{x:Static MyRes:Texts.PortListener}"></Label>
-                <TextBox Text="{x:Static MyRes:Texts.DefaultReceivingPort}" Width="60" Name="PortListenerTextBox"></TextBox>
-            </WrapPanel>
-            <WrapPanel>
-                <Label Content="{x:Static MyRes:Texts.PortForSending}"></Label>
+                <Label Content="{x:Static MyRes:Texts.ChatPort}"></Label>
                 <TextBox Text="{x:Static MyRes:Texts.DefaultSendingPort}" Width="60" Name="PortSendingTextBox"></TextBox>
             </WrapPanel>
             <Label Content="{x:Static MyRes:Texts.ChatMessages}"></Label>
@@ -55,7 +51,7 @@
         </StackPanel>
         <StackPanel>
             <Button Name="StartClientButton" Content="{x:Static MyRes:Texts.StartClient}" Click="StartClientButton_Click"></Button>
-            <Button Name="OffClientButton" Content="{x:Static MyRes:Texts.OffClient}"></Button>
+            <Button Name="OffClientButton" Content="{x:Static MyRes:Texts.OffClient}" Click="OffClientButton_Click"></Button>
             <Label Content="{x:Static MyRes:Texts.Status}"></Label>
             <Label Name="ClientStatusLabel" Content="{x:Static MyRes:Texts.NotWorking}"></Label>
         </StackPanel>

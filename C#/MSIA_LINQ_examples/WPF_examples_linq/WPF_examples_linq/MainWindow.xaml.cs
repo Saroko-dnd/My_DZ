@@ -21,6 +21,7 @@ namespace WPF_examples_linq
     /// </summary>
     public partial class MainWindow : Window
     {
+        public StringBuilder StringBuikderForTextBox = new StringBuilder();
         public List<DataClass> DataStorage = new List<DataClass>();
         public List<DataClass_2> DataStorage_2 = new List<DataClass_2>();
 
@@ -46,20 +47,21 @@ namespace WPF_examples_linq
 
             //пример GroupBy
             var Result = DataStorage.GroupBy(res => { if (res.Year < 40) return "Young"; else return "Old"; });
-            StringBuilder MainBuilder = new StringBuilder();
 
+            StringBuikderForTextBox.Append("Результат группировки:");
+            StringBuikderForTextBox.AppendLine();
             foreach (var GroupedData in Result)
             {
-                MainBuilder.Append(GroupedData.Key);
-                MainBuilder.Append(" ");
-                MainBuilder.Append(GroupedData.Count().ToString());
-                MainBuilder.AppendLine();
+                StringBuikderForTextBox.Append(GroupedData.Key);
+                StringBuikderForTextBox.Append(" ");
+                StringBuikderForTextBox.Append(GroupedData.Count().ToString());
+                StringBuikderForTextBox.AppendLine();
             }
-            ConsoleTextBox.Text = MainBuilder.ToString();
+            ConsoleTextBox.Text = StringBuikderForTextBox.ToString();
 
             //пример join
             QueryResultDataGrid.ItemsSource = DataStorage.Join(DataStorage_2, Original => Original.RelatedCommand,Addon => Addon.CommandName,
-                (Original, Addon) => new { Original.Name, Addon.Popularity }).ToList();
+                (Original, Addon) => new {SuperName = Original.Name, Addon.Popularity}).ToList();
 
         }
     }

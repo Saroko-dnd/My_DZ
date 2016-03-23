@@ -117,91 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddNewIP" xml:space="preserve">
-    <value>Добавить новый IP.</value>
+  <data name="CantSendRequestNow" xml:space="preserve">
+    <value>Вы не можете послать еще один запрос, пока программа не закончит обработку текущего запроса!</value>
   </data>
-  <data name="CantAddCurrentIP" xml:space="preserve">
-    <value>Вы уже добавили этот IP в список!</value>
-  </data>
-  <data name="CantFindSubNetMask" xml:space="preserve">
-    <value>Не удалось найти маску подсети для локального IP!</value>
-  </data>
-  <data name="CantParseIP" xml:space="preserve">
-    <value>Неверно введен новый IP адрес!</value>
-  </data>
-  <data name="ChatMessages" xml:space="preserve">
-    <value>Сообщения чата</value>
-  </data>
-  <data name="ChatPort" xml:space="preserve">
-    <value>Номер порта для чата:</value>
-  </data>
-  <data name="CheckEnteredParametres" xml:space="preserve">
-    <value>Введены недопустимые параметры!</value>
-  </data>
-  <data name="ClientAlreadyNotWorking" xml:space="preserve">
-    <value>Вы не можете отключить клиента, так как он уже отключен!</value>
-  </data>
-  <data name="ClientAlreadyRunning" xml:space="preserve">
-    <value>Клиент уже запущен!</value>
-  </data>
-  <data name="ClientHeader" xml:space="preserve">
-    <value>Клиент для чата без сервера (UDP)</value>
-  </data>
-  <data name="ClientName" xml:space="preserve">
-    <value>Имя клиента:</value>
-  </data>
-  <data name="ClientNameError" xml:space="preserve">
-    <value>Чтобы отправить сообщение необходимо указать имя клиента!</value>
-  </data>
-  <data name="ClinentNotWorkingYet" xml:space="preserve">
-    <value>Вы не можете послать сообщение, так как клиент еще не запущен!</value>
-  </data>
-  <data name="DefaultMulticastIP" xml:space="preserve">
-    <value>239.0.0.222</value>
-  </data>
-  <data name="DefaultSendingPort" xml:space="preserve">
-    <value>8000</value>
+  <data name="Count" xml:space="preserve">
+    <value>Количество</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
   </data>
-  <data name="LocalIpNotFound" xml:space="preserve">
-    <value>Невозможно запустить клиент, так как не найден локальный IP!</value>
+  <data name="HTTPrequestHere" xml:space="preserve">
+    <value>HTTP запрос:</value>
   </data>
-  <data name="MaskAndIPnotMatch" xml:space="preserve">
-    <value>Невозможно запустить клиент! Причина: невозможно установить IP  для массовой рассылки, так как  длина IP адреса и маски подсети не совпадают.</value>
-  </data>
-  <data name="MulticastIP" xml:space="preserve">
-    <value>IP для рассылки:</value>
-  </data>
-  <data name="NotWorking" xml:space="preserve">
-    <value>Отключен</value>
-  </data>
-  <data name="OffClient" xml:space="preserve">
-    <value>Отключить</value>
-  </data>
-  <data name="PlaceForMessage" xml:space="preserve">
-    <value>Текст сообщения</value>
-  </data>
-  <data name="PortForSending" xml:space="preserve">
-    <value>Порт для отправления сообщений:</value>
-  </data>
-  <data name="PortListener" xml:space="preserve">
-    <value>Порт для получения сообщений:</value>
-  </data>
-  <data name="SendMessage" xml:space="preserve">
-    <value>Отправить сообщение</value>
-  </data>
-  <data name="StartClient" xml:space="preserve">
-    <value>Запустить</value>
+  <data name="SendRequest" xml:space="preserve">
+    <value>Отправить запрос</value>
   </data>
   <data name="Status" xml:space="preserve">
-    <value>Состояние:</value>
+    <value>Состояние программы:</value>
   </data>
-  <data name="ThisIsBroadcastGroup" xml:space="preserve">
-    <value>Список IP для рассылки сообщений.</value>
+  <data name="StatusBusy" xml:space="preserve">
+    <value>обработка запроса</value>
   </data>
-  <data name="Working" xml:space="preserve">
-    <value>Работает</value>
+  <data name="StatusFree" xml:space="preserve">
+    <value>бездействие</value>
+  </data>
+  <data name="WerParserHeader" xml:space="preserve">
+    <value>Парсер веб страниц</value>
+  </data>
+  <data name="Word" xml:space="preserve">
+    <value>Слово</value>
   </data>
 </root>

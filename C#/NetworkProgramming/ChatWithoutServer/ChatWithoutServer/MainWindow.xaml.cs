@@ -31,8 +31,7 @@ namespace ChatWithoutServer
         public UdpClient ClientForSending = null;
         public IPEndPoint EndPointForMulticastIP = null;
         public UdpClient ClientListener = null;
-        public int SendingPort = -1;
-        public int RecevingPort = -1;
+        public int PortForChat = -1;
         public IPAddress MulticastIP = null;
         public char CharSeparator = '#';
 
@@ -42,7 +41,6 @@ namespace ChatWithoutServer
 
             ClientNameTextBox.PreviewTextInput += CharsKiller.InputValidationNames;
             MulticastIPtextBox.PreviewTextInput += CharsKiller.InputValidationForIP;
-            PortListenerTextBox.PreviewTextInput += CharsKiller.InputValidation;
             PortSendingTextBox.PreviewTextInput += CharsKiller.InputValidation;
             MessageTextBox.PreviewTextInput += CharsKiller.InputValidationNames;
 
@@ -55,10 +53,12 @@ namespace ChatWithoutServer
             if (ClientForSending != null)
             {
                 ClientForSending.Close();
+                ClientForSending = null;
             }
             if (ClientListener != null)
             {
                 ClientListener.Close();
+                ClientListener = null;
             }
         }
 
@@ -159,31 +159,27 @@ namespace ChatWithoutServer
                 try
                 {
                     MulticastIP = IPAddress.Parse(MulticastIPtextBox.Text);
-                    SendingPort = Int32.Parse(PortSendingTextBox.Text);
-                    RecevingPort = Int32.Parse(PortListenerTextBox.Text);
+                    PortForChat = Int32.Parse(PortSendingTextBox.Text);
                 }
                 catch
                 {
                     MessageBox.Show(MyResourses.Texts.CheckEnteredParametres, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                     MulticastIP = null;
-                    SendingPort = -1;
-                    RecevingPort = -1;
+                    PortForChat = -1;
                     return;
                 }
                 try
                 {
                     ClientListener = new UdpClient();
-                    ClientListener.ExclusiveAddressUse = false;
-                    IPEndPoint localEp = new IPEndPoint(IPAddress.Any, SendingPort);
+                    IPEndPoint localEp = new IPEndPoint(IPAddress.Any, PortForChat);
                     ClientListener.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-                    ClientListener.ExclusiveAddressUse = false;
                     ClientListener.Client.Bind(localEp);
                     ClientListener.JoinMulticastGroup(MulticastIP);
 
                     ClientForSending = new UdpClient();
                     ClientForSending.JoinMulticastGroup(MulticastIP);
                     ClientForSending.MulticastLoopback = true;
-                    EndPointForMulticastIP = new IPEndPoint(MulticastIP, SendingPort);
+                    EndPointForMulticastIP = new IPEndPoint(MulticastIP, PortForChat);
                 }
                 catch (Exception CurrentException)
                 {
@@ -204,6 +200,7 @@ namespace ChatWithoutServer
                 ThreadPool.QueueUserWorkItem(o => ListenForMessages());
                 ClientStatusLabel.Content = MyResourses.Texts.Working;
                 ClientWorking = true;
+                ClientShutDown = false;
             }
             else
             {
@@ -243,6 +240,20 @@ namespace ChatWithoutServer
             else
             {
                 MessageBox.Show(MyResourses.Texts.ClinentNotWorkingYet, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void OffClientButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientWorking)
+            {
+                ClientWorking = false;
+                ShutDown(null, null);
+                ClientStatusLabel.Content = MyResourses.Texts.NotWorking;
+            }
+            else
+            {
+                MessageBox.Show(MyResourses.Texts.ClientAlreadyNotWorking, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

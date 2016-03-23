@@ -106,11 +106,29 @@ namespace ChatWithoutServer.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Номер порта для чата:.
+        /// </summary>
+        public static string ChatPort {
+            get {
+                return ResourceManager.GetString("ChatPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Введены недопустимые параметры!.
         /// </summary>
         public static string CheckEnteredParametres {
             get {
                 return ResourceManager.GetString("CheckEnteredParametres", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы не можете отключить клиента, так как он уже отключен!.
+        /// </summary>
+        public static string ClientAlreadyNotWorking {
+            get {
+                return ResourceManager.GetString("ClientAlreadyNotWorking", resourceCulture);
             }
         }
         
@@ -165,15 +183,6 @@ namespace ChatWithoutServer.MyResourses {
         public static string DefaultMulticastIP {
             get {
                 return ResourceManager.GetString("DefaultMulticastIP", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 8001.
-        /// </summary>
-        public static string DefaultReceivingPort {
-            get {
-                return ResourceManager.GetString("DefaultReceivingPort", resourceCulture);
             }
         }
         
