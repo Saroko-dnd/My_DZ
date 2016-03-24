@@ -16,6 +16,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.IO;
 using CsQuery;
+using System.Threading;
 
 namespace ProgramForDownloadingWebSites
 {
@@ -27,10 +28,23 @@ namespace ProgramForDownloadingWebSites
         public bool ProgramShutDown = false;
         public bool ProgramBusy = false;
         public StringBuilder MainStringBuilder = new StringBuilder();
+
         public MainWindow()
         {
             InitializeComponent();
-            Downloading("https://habrahabr.ru/");
+        }
+
+        public void SaveText(string NameOfPart, string PartItself)
+        {
+
+        }
+
+        public void SaveImage(string FileNameForImage, string URLtoImage)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                webClient.DownloadFile(URLtoImage, FileNameForImage);
+            }
         }
 
         public void Downloading(string CurrentURL)
@@ -40,18 +54,7 @@ namespace ProgramForDownloadingWebSites
                 HttpWebRequest MainRequest = (HttpWebRequest)HttpWebRequest.Create(CurrentURL);
                 HttpWebResponse MainResponse = (HttpWebResponse)MainRequest.GetResponse();
                 StreamReader MainStreamReader = new StreamReader(MainResponse.GetResponseStream(), true);
-                if (File.Exists(CurrentURL.Replace("https://","").Replace("/","") + MyResourses.Texts.html))
-                {
-                    throw new Exception(MyResourses.Texts.SiteAlreadyWasDownload);
-                }
-                else
-                {
-                    using (FileStream StreamForMainPage = File.Create(CurrentURL.Replace("https://", "").Replace("/", "") + MyResourses.Texts.html, 4000))
-                    {
-                        Byte[] MainPageInBytes = new UTF8Encoding(true).GetBytes(MainStreamReader.ReadToEnd());
-                        StreamForMainPage.Write(MainPageInBytes, 0, MainPageInBytes.Length);
-                    }
-                }
+
                 //File.Create(FilePath,);
                 List<string> MainListOReferences = new List<string>();
                 CQ ObjectCQ = CQ.Create(MainStreamReader);
@@ -63,6 +66,7 @@ namespace ProgramForDownloadingWebSites
                 {
                     MainListOReferences.Add(CurObject.GetAttribute("src"));
                 }
+
                 int fff = 0;
             }
             catch (Exception CurrentException)
@@ -77,6 +81,7 @@ namespace ProgramForDownloadingWebSites
                 ProgramBusy = false;
             }
         }
+
         private void StartSiteDownloadButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ProgramBusy)
