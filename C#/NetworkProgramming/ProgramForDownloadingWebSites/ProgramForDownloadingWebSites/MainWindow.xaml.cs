@@ -28,7 +28,9 @@ namespace ProgramForDownloadingWebSites
     {
         public string CurrentDirectoryFullName = Directory.GetCurrentDirectory();
         public List<WebElement> AllWebElements = new List<WebElement>();
+        public List<string> AllProtocols = new List<string>();
         public Regex FileCheck = new Regex(".(jpg|png|bmp|gif|pcx|tga|jpeg|ico|js|css)");
+        public Regex ImageCheck = new Regex(".(jpg|png|bmp|gif|pcx|tga|jpeg|ico)");
         public bool ProgramShutDown = false;
         public bool ProgramBusy = false;
         public StringBuilder MainStringBuilder = new StringBuilder();
@@ -40,6 +42,9 @@ namespace ProgramForDownloadingWebSites
             AllWebElements.Add(new WebElement("img", "src"));
             AllWebElements.Add(new WebElement("script", "src"));
             AllWebElements.Add(new WebElement("link ", "href"));
+
+            AllProtocols.Add("https:");
+            AllProtocols.Add("http:");
         }
 
         public void SaveFile(string FileName, string URLtoFile, string ResDirectoryPath)
@@ -70,16 +75,17 @@ namespace ProgramForDownloadingWebSites
             }
         }
 
-        public void Downloading(string CurrentURL, string DirectoryName, string ResDirectoryName)
+        public void Downloading(string CurrentURL, string CurrentProtocol, string DirectoryName, string ResDirectoryName)
         {
             try
             {
+                string AddonForNamelessURL = string.Empty;
+                Application.Current.Dispatcher.Invoke(new Action (() => AddonForNamelessURL = URLtextBox.Text.Split('/')[0] + "//" + URLtextBox.Text.Split('/')[2]));
                 string MainPage = string.Empty;
                 using (WebClient MainWebClient = new WebClient())
                 {
                     MainPage = MainWebClient.DownloadString(CurrentURL);
                 }
-
                 List<string> MainListOReferences = new List<string>();
                 CQ ObjectCQ = CQ.Create(MainPage);
                 foreach (WebElement CurrentElement in AllWebElements)
@@ -89,7 +95,6 @@ namespace ProgramForDownloadingWebSites
                         MainListOReferences.Add(CurObject.GetAttribute(CurrentElement.ReferencePartName));
                     }
                 }
-                string FileName = string.Empty;
                 string NewRefValue = string.Empty;
                 foreach (string CurrentReference in MainListOReferences)
                 {
@@ -97,35 +102,66 @@ namespace ProgramForDownloadingWebSites
                     {
                         if (FileCheck.IsMatch(CurrentReference))
                         {
-                            FileName = CurrentReference.Split('/')[CurrentReference.Split('/').Length - 1];
-                            FileName = FileName.Split('?')[0]; //избавляемся от неопределенности в формате данных
-                            NewRefValue = "./" + MyResourses.Texts.ResFolder + "/" + FileName;
-                            if (CurrentReference.Contains("http"))
+                            bool ItIsDone = false;
+                            string OldFileName = CurrentReference.Split('/')[CurrentReference.Split('/').Length - 1];
+                            string NewFileName = string.Empty;
+                            if (ImageCheck.IsMatch(CurrentReference))
                             {
-                                SaveFile(FileName, CurrentReference, ResDirectoryName); 
+                                NewFileName = OldFileName.Split('?')[0]; //избавляемся от неопределенности в формате данных
                             }
                             else
                             {
-                                if (CurrentReference.Contains("//"))
+                                NewFileName = OldFileName;
+                            }
+                            string BufForReference = CurrentReference.Replace(OldFileName, NewFileName);
+
+                            NewRefValue = "./" + MyResourses.Texts.ResFolder + "/" + NewFileName;
+                            foreach (string CurProtocol in AllProtocols)
+                            {
+                                if (BufForReference.Contains(CurProtocol))
                                 {
-                                    SaveFile(FileName, "https:" + CurrentReference, ResDirectoryName);
+                                    SaveFile(NewFileName, BufForReference, ResDirectoryName);
+                                    ItIsDone = true;
+                                    break;
+                                }
+                            }
+                            if (!ItIsDone)
+                            {
+                                if (BufForReference.Contains(CurrentProtocol))
+                                {
+                                    SaveFile(NewFileName, BufForReference, ResDirectoryName);
                                 }
                                 else
                                 {
-                                    SaveFile(FileName, "https://" + CurrentURL.Replace("https://", "").Replace("/","") + CurrentReference, ResDirectoryName);
+                                    if (CurrentReference.Contains("//"))
+                                    {
+                                        SaveFile(NewFileName, CurrentProtocol + BufForReference, ResDirectoryName);
+                                    }
+                                    else
+                                    {
+                                        SaveFile(NewFileName, CurrentProtocol + "//" + AddonForNamelessURL.Replace(CurrentProtocol + "//", "").Replace("/", "") + BufForReference, ResDirectoryName);
+                                    }
                                 }
                             }
                             MainPage = MainPage.Replace(CurrentReference, NewRefValue);
                         }
                     }
                 }
+                string NewNameForPage = CurrentURL.Replace(CurrentProtocol,"");
+                foreach (string CurProt in AllProtocols)
+                {
+                    NewNameForPage = NewNameForPage.Replace(CurProt, "");
+                }
+                
+                NewNameForPage = NewNameForPage.Replace("/","_");
+                File.WriteAllText(DirectoryName + "\\" + NewNameForPage + ".html", MainPage, Encoding.UTF8);
                 MessageBox.Show(MyResourses.Texts.Done, MyResourses.Texts.Message, MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             catch (Exception CurrentException)
             {
                 if (!ProgramShutDown)
                 {
-                    MessageBox.Show(CurrentException.Message + "downnloading", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(CurrentException.Message + " !downnloading thread!", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             finally
@@ -148,10 +184,11 @@ namespace ProgramForDownloadingWebSites
                     {
                         ProgramBusy = true;
                         string NewUrl = URLtextBox.Text;
-                        string ResDirectoryPath = Directory.GetCurrentDirectory() + "\\" + NewUrl.Replace("https:", "").Replace("/", "_") + "\\" + MyResourses.Texts.ResFolder;
-                        string MainDirectoryPath = Directory.GetCurrentDirectory() + "\\" + NewUrl.Replace("https:", "").Replace("/", "_");
+                        string CurrentProtocol = NewUrl.Split('/')[0];
+                        string ResDirectoryPath = Directory.GetCurrentDirectory() + "\\" + NewUrl.Replace(CurrentProtocol, "").Replace("/", "_") + "\\" + MyResourses.Texts.ResFolder;
+                        string MainDirectoryPath = Directory.GetCurrentDirectory() + "\\" + NewUrl.Replace(CurrentProtocol, "").Replace("/", "_");
                         Directory.CreateDirectory(ResDirectoryPath);
-                        ThreadPool.QueueUserWorkItem(o => Downloading(NewUrl, MainDirectoryPath, ResDirectoryPath));
+                        ThreadPool.QueueUserWorkItem(o => Downloading(NewUrl, CurrentProtocol, MainDirectoryPath, ResDirectoryPath));
                     }
                 }
                 else
