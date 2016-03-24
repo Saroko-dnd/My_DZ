@@ -147,4 +147,16 @@
   <data name="URLtext" xml:space="preserve">
     <value>Введите URL сайта для скачивания:</value>
   </data>
+  <data name="URLempty" xml:space="preserve">
+    <value>Вы не указали url сайта для скачивания!</value>
+  </data>
+  <data name="ResFolder" xml:space="preserve">
+    <value>Resourses</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Загрузка завершена!</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
 </root>
