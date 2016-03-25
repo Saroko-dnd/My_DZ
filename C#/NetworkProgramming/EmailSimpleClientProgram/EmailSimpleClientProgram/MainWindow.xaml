@@ -1,0 +1,24 @@
+﻿<Window x:Class="EmailSimpleClientProgram.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MyRes="clr-namespace:EmailSimpleClientProgram.MyResourses"
+        xmlns:Local="clr-namespace:EmailSimpleClientProgram"
+        Title="{x:Static MyRes:Texts.ProgramHeader}" Height="350" Width="525" Name="SMTPclientMainWindow">
+    <Window.Resources>
+        <Local:WidthConverter x:Key="WidthConverter"></Local:WidthConverter>
+        <Local:HeightConverter x:Key="HeightConverter"></Local:HeightConverter>
+    </Window.Resources>       
+    <StackPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.EmailAddress}"></Label>
+            <TextBox Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Name="EmailTextBox"></TextBox>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.Status}"></Label>
+            <Label Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Content="{x:Static MyRes:Texts.StatusFree}" Name="StatusLabel"></Label>
+        </WrapPanel>
+        <Label Width="170" Content="{x:Static MyRes:Texts.TextBoxForMessage}"></Label>
+        <TextBox Height="{Binding  ElementName=SMTPclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" Name="MessageTextBox"></TextBox>
+        <Button Name="SendEmailButton" Content="{x:Static MyRes:Texts.SendMessageButton}" Click="SendEmailButton_Click"></Button>
+    </StackPanel>
+</Window>

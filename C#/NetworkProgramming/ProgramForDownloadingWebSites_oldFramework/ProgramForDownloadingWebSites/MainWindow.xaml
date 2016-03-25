@@ -1,0 +1,30 @@
+﻿<Window x:Class="ProgramForDownloadingWebSites.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MyRes="clr-namespace:ProgramForDownloadingWebSites.MyResourses"
+        xmlns:local="clr-namespace:ProgramForDownloadingWebSites"
+        Title="{x:Static MyRes:Texts.ProgramTitle}" Height="350" Width="525" Name="DownloaderOfWebsitesMainWindow">
+    <Window.Resources>
+        <local:WidthConverter x:Key="WidthConverter"></local:WidthConverter>
+        <local:HeightConverter x:Key="HeightConverter"></local:HeightConverter>
+    </Window.Resources>
+    <StackPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.URLtext}"></Label>
+            <TextBox Width="{Binding  ElementName=DownloaderOfWebsitesMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Name="URLtextBox"></TextBox>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.MaxAmountOfPagesForLoading}"></Label>
+            <TextBox FontSize="16" Text="50" Width="100" Name="AmountOfPagesTextBox"></TextBox>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.Status}"></Label>
+            <Label Width="200" Name="StatusLabel" Content="{x:Static MyRes:Texts.StatusFree}"></Label>
+            <Label Content="{x:Static MyRes:Texts.DownloadsAmount}"></Label>
+            <Label Content="0" FontSize="16" Width="100" Name="PagesCountLabel"></Label>
+        </WrapPanel>
+        <TextBox ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="{Binding ElementName=DownloaderOfWebsitesMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" Name="ConsoleTextBox"></TextBox>
+        <Button Name="StartSiteDownloadButton" Content="{x:Static MyRes:Texts.StartDownload}" Click="StartSiteDownloadButton_Click"></Button>
+        
+    </StackPanel>
+</Window>
