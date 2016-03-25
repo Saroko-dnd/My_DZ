@@ -17,7 +17,7 @@
             <Label Content="{x:Static MyRes:Texts.Status}"></Label>
             <Label Width="200" Name="StatusLabel" Content="{x:Static MyRes:Texts.StatusFree}"></Label>
         </WrapPanel>
-        <TextBox Height="{Binding ElementName=DownloaderOfWebsitesMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" Name="ConsoleTextBox"></TextBox>
+        <TextBox ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" Height="{Binding ElementName=DownloaderOfWebsitesMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" Name="ConsoleTextBox"></TextBox>
         <Button Name="StartSiteDownloadButton" Content="{x:Static MyRes:Texts.StartDownload}" Click="StartSiteDownloadButton_Click"></Button>
     </StackPanel>
 </Window>

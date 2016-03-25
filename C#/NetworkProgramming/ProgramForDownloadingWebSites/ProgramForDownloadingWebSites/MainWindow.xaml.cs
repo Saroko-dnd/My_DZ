@@ -26,6 +26,11 @@ namespace ProgramForDownloadingWebSites
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<string> SymbolsToErase = new List<string>();
+        public List<string> ListOfLoadedURL = new List<string>();
+        public int MainCounterForRecursion = 0;
+        public int MaxAmountOfWebPages = 1000;
+        public string CopyOfCurrentURL = string.Empty;
         public string CurrentDirectoryFullName = Directory.GetCurrentDirectory();
         public List<WebElement> AllWebElements = new List<WebElement>();
         public List<string> AllProtocols = new List<string>();
@@ -38,13 +43,22 @@ namespace ProgramForDownloadingWebSites
         public MainWindow()
         {
             InitializeComponent();
-
+            AllWebElements.Add(new WebElement("a", "href"));
             AllWebElements.Add(new WebElement("img", "src"));
             AllWebElements.Add(new WebElement("script", "src"));
             AllWebElements.Add(new WebElement("link ", "href"));
 
             AllProtocols.Add("https:");
             AllProtocols.Add("http:");
+
+            SymbolsToErase.Add("*");
+            SymbolsToErase.Add("|");
+            SymbolsToErase.Add("/");
+            SymbolsToErase.Add(":");
+            SymbolsToErase.Add("\"");
+            SymbolsToErase.Add(">");
+            SymbolsToErase.Add("<");
+            SymbolsToErase.Add("?");
         }
 
         public void SaveFile(string FileName, string URLtoFile, string ResDirectoryPath)
@@ -56,12 +70,16 @@ namespace ProgramForDownloadingWebSites
                     try
                     {
                         webClient.DownloadFile(URLtoFile, ResDirectoryPath + "\\" + FileName);
+                        MainStringBuilder.AppendLine(MyResourses.Texts.FileSaved + " " + FileName);
+                        Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                     }
                     catch (Exception CurrentException)
                     {
                         if (!ProgramShutDown)
                         {
-                            MessageBox.Show(CurrentException.Message + FileName + " " + URLtoFile, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                            //MessageBox.Show(CurrentException.Message + FileName + " " + URLtoFile, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                            MainStringBuilder.AppendLine(CurrentException.Message + MyResourses.Texts.FileName + FileName + " " + MyResourses.Texts.URLtoFile + " " + URLtoFile);
+                            Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                         }
                     }
                 }
@@ -70,20 +88,27 @@ namespace ProgramForDownloadingWebSites
             {
                 if (!ProgramShutDown)
                 {
-                    MessageBox.Show(CurrentException.Message + FileName +  " " + URLtoFile, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    /*MessageBox.Show(CurrentException.Message + MyResourses.Texts.FileName + FileName + " " + MyResourses.Texts.URLtoFile + " " + URLtoFile, 
+                        MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);*/
+                    MainStringBuilder.AppendLine(CurrentException.Message + MyResourses.Texts.FileName + FileName + " " + MyResourses.Texts.URLtoFile + " " + URLtoFile);
+                    Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                 }
             }
         }
 
         public void Downloading(string CurrentURL, string CurrentProtocol, string DirectoryName, string ResDirectoryName)
         {
+            ++MainCounterForRecursion;
             try
             {
+                ListOfLoadedURL.Add(CurrentURL);
+                MainStringBuilder.Clear();
                 string AddonForNamelessURL = string.Empty;
                 Application.Current.Dispatcher.Invoke(new Action (() => AddonForNamelessURL = URLtextBox.Text.Split('/')[0] + "//" + URLtextBox.Text.Split('/')[2]));
                 string MainPage = string.Empty;
                 using (WebClient MainWebClient = new WebClient())
                 {
+                    MainWebClient.Encoding = Encoding.UTF8;
                     MainPage = MainWebClient.DownloadString(CurrentURL);
                 }
                 List<string> MainListOReferences = new List<string>();
@@ -98,52 +123,50 @@ namespace ProgramForDownloadingWebSites
                 string NewRefValue = string.Empty;
                 foreach (string CurrentReference in MainListOReferences)
                 {
-                    if (CurrentReference != null)
+                    if (CurrentReference != null && CurrentReference != string.Empty)
                     {
                         if (FileCheck.IsMatch(CurrentReference))
                         {
                             bool ItIsDone = false;
                             string OldFileName = CurrentReference.Split('/')[CurrentReference.Split('/').Length - 1];
-                            string NewFileName = string.Empty;
-                            if (ImageCheck.IsMatch(CurrentReference))
+                            if (OldFileName != null && OldFileName != string.Empty)
                             {
+                                string NewFileName = string.Empty;
                                 NewFileName = OldFileName.Split('?')[0]; //избавляемся от неопределенности в формате данных
-                            }
-                            else
-                            {
-                                NewFileName = OldFileName;
-                            }
-                            string BufForReference = CurrentReference.Replace(OldFileName, NewFileName);
 
-                            NewRefValue = "./" + MyResourses.Texts.ResFolder + "/" + NewFileName;
-                            foreach (string CurProtocol in AllProtocols)
-                            {
-                                if (BufForReference.Contains(CurProtocol))
+                                string BufForReference = CurrentReference.Replace(OldFileName, NewFileName);
+
+                                NewRefValue = "./" + MyResourses.Texts.ResFolder + "/" + NewFileName;
+
+                                foreach (string CurProtocol in AllProtocols)
                                 {
-                                    SaveFile(NewFileName, BufForReference, ResDirectoryName);
-                                    ItIsDone = true;
-                                    break;
-                                }
-                            }
-                            if (!ItIsDone)
-                            {
-                                if (BufForReference.Contains(CurrentProtocol))
-                                {
-                                    SaveFile(NewFileName, BufForReference, ResDirectoryName);
-                                }
-                                else
-                                {
-                                    if (CurrentReference.Contains("//"))
+                                    if (BufForReference.Contains(CurProtocol))
                                     {
-                                        SaveFile(NewFileName, CurrentProtocol + BufForReference, ResDirectoryName);
+                                        SaveFile(NewFileName, BufForReference, ResDirectoryName);
+                                        ItIsDone = true;
+                                        break;
+                                    }
+                                }
+                                if (!ItIsDone)
+                                {
+                                    if (BufForReference.Contains(CurrentProtocol))
+                                    {
+                                        SaveFile(NewFileName, BufForReference, ResDirectoryName);
                                     }
                                     else
                                     {
-                                        SaveFile(NewFileName, CurrentProtocol + "//" + AddonForNamelessURL.Replace(CurrentProtocol + "//", "").Replace("/", "") + BufForReference, ResDirectoryName);
+                                        if (CurrentReference.Contains("//"))
+                                        {
+                                            SaveFile(NewFileName, CurrentProtocol + BufForReference, ResDirectoryName);
+                                        }
+                                        else
+                                        {
+                                            SaveFile(NewFileName, CurrentProtocol + "//" + AddonForNamelessURL.Replace(CurrentProtocol + "//", "").Replace("/", "") + BufForReference, ResDirectoryName);
+                                        }
                                     }
                                 }
-                            }
-                            MainPage = MainPage.Replace(CurrentReference, NewRefValue);
+                                MainPage = MainPage.Replace(CurrentReference, NewRefValue);
+                            }                         
                         }
                     }
                 }
@@ -153,9 +176,62 @@ namespace ProgramForDownloadingWebSites
                     NewNameForPage = NewNameForPage.Replace(CurProt, "");
                 }
                 
-                NewNameForPage = NewNameForPage.Replace("/","_");
+                foreach (string Symbol in SymbolsToErase)
+                {
+                    NewNameForPage = NewNameForPage.Replace(Symbol, "_");
+                }
+                
                 File.WriteAllText(DirectoryName + "\\" + NewNameForPage + ".html", MainPage, Encoding.UTF8);
-                MessageBox.Show(MyResourses.Texts.Done, MyResourses.Texts.Message, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                bool ThisLinkMustBeDownload = true;
+
+                foreach (string CurrentLink in MainListOReferences)
+                {
+                    if (CurrentLink != null && CurrentLink != string.Empty)
+                    {
+                        if (!FileCheck.IsMatch(CurrentLink) && CurrentLink.Contains(CopyOfCurrentURL))
+                        {
+                            string CurLinkProtocol = CurrentLink.Split('/')[0];
+                            if (ListOfLoadedURL.Where(res => res == CurrentLink).Count() == 0)
+                            {
+                                Downloading(CurrentLink, CurLinkProtocol, DirectoryName, ResDirectoryName);
+                            }
+                        }
+                        else if (!FileCheck.IsMatch(CurrentLink))
+                        {
+                            foreach (string Protokol in AllProtocols)
+                            {
+                                if (CurrentLink.Contains(Protokol))
+                                {
+                                    ThisLinkMustBeDownload = false;
+                                    break;
+                                }
+                            }
+                            if (ThisLinkMustBeDownload)
+                            {
+                                string CurLinkProtocol = CurrentProtocol;
+                                string ProperCurrentLink = string.Empty;
+                                if (CurrentLink.Contains("//"))
+                                {
+                                    ProperCurrentLink = CurrentProtocol + CurrentLink;
+                                }
+                                else
+                                {
+                                    ProperCurrentLink = CurrentProtocol + "//" + AddonForNamelessURL.Replace(CurrentProtocol + "//", "").Replace("/", "") + CurrentLink;
+                                }
+                                if (ListOfLoadedURL.Where(res => res == ProperCurrentLink).Count() == 0)
+                                {
+                                    Downloading(ProperCurrentLink, CurLinkProtocol, DirectoryName, ResDirectoryName);
+                                }
+                            }
+                            else
+                            {
+                                ThisLinkMustBeDownload = true;
+                            }
+                        }
+                    }
+                }
+
+                //
             }
             catch (Exception CurrentException)
             {
@@ -166,7 +242,12 @@ namespace ProgramForDownloadingWebSites
             }
             finally
             {
-                ProgramBusy = false;
+                --MainCounterForRecursion;
+                if (MainCounterForRecursion == 0)
+                {
+                    ProgramBusy = false;
+                    MessageBox.Show(MyResourses.Texts.Done, MyResourses.Texts.Message, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
             }
         }
 
@@ -182,8 +263,10 @@ namespace ProgramForDownloadingWebSites
                     }
                     else
                     {
+                        MainStringBuilder.Clear();
                         ProgramBusy = true;
                         string NewUrl = URLtextBox.Text;
+                        CopyOfCurrentURL = NewUrl;
                         string CurrentProtocol = NewUrl.Split('/')[0];
                         string ResDirectoryPath = Directory.GetCurrentDirectory() + "\\" + NewUrl.Replace(CurrentProtocol, "").Replace("/", "_") + "\\" + MyResourses.Texts.ResFolder;
                         string MainDirectoryPath = Directory.GetCurrentDirectory() + "\\" + NewUrl.Replace(CurrentProtocol, "").Replace("/", "_");

@@ -88,6 +88,24 @@ namespace ProgramForDownloadingWebSites.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Имя файла: .
+        /// </summary>
+        public static string FileName {
+            get {
+                return ResourceManager.GetString("FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Загружен файл:.
+        /// </summary>
+        public static string FileSaved {
+            get {
+                return ResourceManager.GetString("FileSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на .html.
         /// </summary>
         public static string html {
@@ -183,6 +201,15 @@ namespace ProgramForDownloadingWebSites.MyResourses {
         public static string URLtext {
             get {
                 return ResourceManager.GetString("URLtext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ссылка на этот файл:.
+        /// </summary>
+        public static string URLtoFile {
+            get {
+                return ResourceManager.GetString("URLtoFile", resourceCulture);
             }
         }
     }

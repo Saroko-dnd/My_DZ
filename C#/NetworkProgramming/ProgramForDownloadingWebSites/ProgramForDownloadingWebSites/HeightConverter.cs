@@ -12,7 +12,7 @@ namespace ProgramForDownloadingWebSites
         public object Convert(object value, Type targetType, object parameter,
             System.Globalization.CultureInfo culture)
         {
-            double BufForResult = ((double)value) - 110.0;
+            double BufForResult = ((double)value) - 120.0;
             return BufForResult;
         }
 

@@ -159,4 +159,13 @@
   <data name="Message" xml:space="preserve">
     <value>Сообщение</value>
   </data>
+  <data name="FileName" xml:space="preserve">
+    <value>Имя файла: </value>
+  </data>
+  <data name="FileSaved" xml:space="preserve">
+    <value>Загружен файл:</value>
+  </data>
+  <data name="URLtoFile" xml:space="preserve">
+    <value>Ссылка на этот файл:</value>
+  </data>
 </root>
