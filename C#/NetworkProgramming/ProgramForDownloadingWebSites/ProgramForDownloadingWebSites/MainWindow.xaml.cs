@@ -36,6 +36,7 @@ namespace ProgramForDownloadingWebSites
         public List<string> AllProtocols = new List<string>();
         public Regex FileCheck = new Regex(".(jpg|png|bmp|gif|pcx|tga|jpeg|ico|js|css)");
         public Regex ImageCheck = new Regex(".(jpg|png|bmp|gif|pcx|tga|jpeg|ico)");
+        public Regex WebPageCheck = new Regex(".html");
         public bool ProgramShutDown = false;
         public bool ProgramBusy = false;
         public StringBuilder MainStringBuilder = new StringBuilder();
@@ -155,18 +156,177 @@ namespace ProgramForDownloadingWebSites
                                     }
                                     else
                                     {
-                                        if (CurrentReference.Contains("//"))
+                                        int CounterForDeleteParts = 0;
+                                        string[] AllPartsOfLink = BufForReference.Split('/');
+                                        foreach (string CurrentPartOfLink in AllPartsOfLink)
+                                        {
+                                            if (CurrentPartOfLink == "..")
+                                            {
+                                                ++CounterForDeleteParts;
+                                            }
+                                            else if (CurrentPartOfLink != string.Empty)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                        //Код до звездочек выполняется если скачиваемый файл находиться на одну или более папок выше текущей ссылки
+                                        if (CounterForDeleteParts > 0)
+                                        {
+                                            char[] ArrayOfCharsForLink = CurrentURL.ToCharArray();
+                                            int LastIndexOfCharArray = ArrayOfCharsForLink.Length - 1;
+                                            int CounterOfDividers = 0;
+                                            while (CounterOfDividers != (CounterForDeleteParts + 1))
+                                            {
+                                                if (ArrayOfCharsForLink[LastIndexOfCharArray] == '/')
+                                                {
+                                                    ++CounterOfDividers;
+                                                }
+                                                if (CounterOfDividers != (CounterForDeleteParts + 1))
+                                                {
+                                                    --LastIndexOfCharArray;
+                                                }
+                                            }
+                                            StringBuilder StringBuilderForNewLink = new StringBuilder();
+                                            int CharIndexSecond = 0;
+                                            while (CharIndexSecond <= LastIndexOfCharArray)
+                                            {
+                                                StringBuilderForNewLink.Append(ArrayOfCharsForLink[CharIndexSecond]);
+                                                ++CharIndexSecond;
+                                            }
+                                            string ProperBufForReference = StringBuilderForNewLink.ToString() + BufForReference.Replace("../","");
+                                            SaveFile(NewFileName, ProperBufForReference, ResDirectoryName);
+                                        }
+                                        //**********************************************************************************************************
+                                        else if (CurrentReference.Contains("//"))
                                         {
                                             SaveFile(NewFileName, CurrentProtocol + BufForReference, ResDirectoryName);
                                         }
                                         else
                                         {
-                                            SaveFile(NewFileName, CurrentProtocol + "//" + AddonForNamelessURL.Replace(CurrentProtocol + "//", "").Replace("/", "") + BufForReference, ResDirectoryName);
+                                            if (CurrentReference.ToCharArray()[0] != '/')
+                                            {
+                                                char[] CurrentURLcharArray = CurrentURL.ToCharArray();
+                                                int LastIndexOfCharArray = CurrentURLcharArray.Length - 1;
+                                                int LocalCounterOfDividers = 0;
+                                                while (LocalCounterOfDividers != 1)
+                                                {
+                                                    if (CurrentURLcharArray[LastIndexOfCharArray] == '/')
+                                                    {
+                                                        ++LocalCounterOfDividers;
+                                                    }
+                                                    if (LocalCounterOfDividers != 1)
+                                                    {
+                                                        --LastIndexOfCharArray;
+                                                    }
+                                                }
+                                                StringBuilder SecondLocalStringBuilder = new StringBuilder();
+                                                int CounterAndIndex = 0;
+                                                foreach (char CurrentSymbol in CurrentURLcharArray)
+                                                {
+                                                    SecondLocalStringBuilder.Append(CurrentSymbol);
+                                                    ++CounterAndIndex;
+                                                    if (CounterAndIndex > LastIndexOfCharArray)
+                                                    {
+                                                        break;
+                                                    }
+                                                }
+                                                SaveFile(NewFileName, SecondLocalStringBuilder.ToString() + BufForReference, ResDirectoryName);
+                                            }
+                                            else
+                                            {
+                                                SaveFile(NewFileName, CurrentProtocol + "//" + AddonForNamelessURL.Replace(CurrentProtocol + "//", "").Replace("/", "") + BufForReference, ResDirectoryName);
+                                            }
                                         }
                                     }
                                 }
                                 MainPage = MainPage.Replace(CurrentReference, NewRefValue);
                             }                         
+                        }
+                        else
+                        {
+                            string NewValueForLink = string.Empty;
+                            bool ThisLinkMustBeDownload = true;
+                            if (!FileCheck.IsMatch(CurrentReference) && CurrentReference.Contains(CopyOfCurrentURL))
+                            {
+                                NewValueForLink = CurrentReference;
+                                //*******************************************************
+                            }
+                            else if (!FileCheck.IsMatch(CurrentReference))
+                            {
+                                foreach (string Protokol in AllProtocols)
+                                {
+                                    if (CurrentReference.Contains(Protokol))
+                                    {
+                                        ThisLinkMustBeDownload = false;
+                                        break;
+                                    }
+                                }
+                                if (ThisLinkMustBeDownload)
+                                {
+                                    string CurLinkProtocol = CurrentProtocol;
+                                    string ProperCurrentLink = string.Empty;
+                                    if (CurrentReference.Contains("//"))
+                                    {
+                                        ProperCurrentLink = CurrentProtocol + CurrentReference;
+                                    }
+                                    else if (CurrentReference.ToCharArray()[0] == '/')
+                                    {
+                                        ProperCurrentLink = CurrentProtocol + "//" + AddonForNamelessURL.Replace(CurrentProtocol + "//", "").Replace("/", "") + CurrentReference;
+                                    }
+                                    else if (WebPageCheck.IsMatch(CurrentReference))
+                                    {
+                                        char[] CurrentURLcharArray = CurrentURL.ToCharArray();
+                                        int LastIndexOfCharArray = CurrentURLcharArray.Length - 1;
+                                        int LocalCounterOfDividers = 0;
+                                        while (LocalCounterOfDividers != 1)
+                                        {
+                                            if (CurrentURLcharArray[LastIndexOfCharArray] == '/')
+                                            {
+                                                ++LocalCounterOfDividers;
+                                            }
+                                            if (LocalCounterOfDividers != 1)
+                                            {
+                                                --LastIndexOfCharArray;
+                                            }
+                                        }
+                                        StringBuilder ThirdLocalStringBuilder = new StringBuilder();
+                                        int CounterAndIndex = 0;
+                                        foreach (char CurrentSymbol in CurrentURLcharArray)
+                                        {
+                                            ThirdLocalStringBuilder.Append(CurrentSymbol);
+                                            ++CounterAndIndex;
+                                            if (CounterAndIndex > LastIndexOfCharArray)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                        ProperCurrentLink = ThirdLocalStringBuilder.ToString() + CurrentReference;
+                                    }
+                                    //*****************************************************************************
+                                    NewValueForLink = ProperCurrentLink;
+                                }
+                            }
+                            string FinalNewValueForLink = NewValueForLink.Replace(CurrentProtocol, "");
+                            foreach (string CurProt in AllProtocols)
+                            {
+                                FinalNewValueForLink = FinalNewValueForLink.Replace(CurProt, "");
+                            }
+
+                            foreach (string Symbol in SymbolsToErase)
+                            {
+                                FinalNewValueForLink = FinalNewValueForLink.Replace(Symbol, "_");
+                            }
+                            if (FinalNewValueForLink != string.Empty)
+                            {
+                                if (WebPageCheck.IsMatch(NewValueForLink))
+                                {
+                                    MainPage = MainPage.Replace("\"" + CurrentReference + "\"", "\"" + FinalNewValueForLink + "\"");
+                                }
+                                else
+                                {
+                                    MainPage = MainPage.Replace("\"" + CurrentReference + "\"", "\"" + FinalNewValueForLink + ".html\"");
+                                }
+                            }
                         }
                     }
                 }
@@ -180,12 +340,19 @@ namespace ProgramForDownloadingWebSites
                 {
                     NewNameForPage = NewNameForPage.Replace(Symbol, "_");
                 }
-                
-                File.WriteAllText(DirectoryName + "\\" + NewNameForPage + ".html", MainPage, Encoding.UTF8);
-                bool ThisLinkMustBeDownload = true;
 
+                if (WebPageCheck.IsMatch(NewNameForPage))
+                {
+                    File.WriteAllText(DirectoryName + "\\" + NewNameForPage, MainPage, Encoding.UTF8);
+                }
+                else
+                {
+                    File.WriteAllText(DirectoryName + "\\" + NewNameForPage + ".html", MainPage, Encoding.UTF8);
+                }
+                
                 foreach (string CurrentLink in MainListOReferences)
                 {
+                    bool ThisLinkMustBeDownload = true;
                     if (CurrentLink != null && CurrentLink != string.Empty)
                     {
                         if (!FileCheck.IsMatch(CurrentLink) && CurrentLink.Contains(CopyOfCurrentURL))
@@ -214,18 +381,43 @@ namespace ProgramForDownloadingWebSites
                                 {
                                     ProperCurrentLink = CurrentProtocol + CurrentLink;
                                 }
-                                else
+                                else if (CurrentLink.ToCharArray()[0] == '/')
                                 {
                                     ProperCurrentLink = CurrentProtocol + "//" + AddonForNamelessURL.Replace(CurrentProtocol + "//", "").Replace("/", "") + CurrentLink;
                                 }
-                                if (ListOfLoadedURL.Where(res => res == ProperCurrentLink).Count() == 0)
+                                else if (WebPageCheck.IsMatch(CurrentLink))
+                                {
+                                    char[] CurrentURLcharArray = CurrentURL.ToCharArray();
+                                    int LastIndexOfCharArray = CurrentURLcharArray.Length - 1;
+                                    int LocalCounterOfDividers = 0;
+                                    while (LocalCounterOfDividers != 1)
+                                    {
+                                        if (CurrentURLcharArray[LastIndexOfCharArray] == '/')
+                                        {
+                                            ++LocalCounterOfDividers;
+                                        }
+                                        if (LocalCounterOfDividers != 1)
+                                        {
+                                            --LastIndexOfCharArray;
+                                        }
+                                    }
+                                    StringBuilder ThirdLocalStringBuilder = new StringBuilder();
+                                    int CounterAndIndex = 0;
+                                    foreach (char CurrentSymbol in CurrentURLcharArray)
+                                    {
+                                        ThirdLocalStringBuilder.Append(CurrentSymbol);
+                                        ++CounterAndIndex;
+                                        if (CounterAndIndex > LastIndexOfCharArray)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    ProperCurrentLink = ThirdLocalStringBuilder.ToString() + CurrentLink;
+                                }
+                                if (ProperCurrentLink != string.Empty && ListOfLoadedURL.Where(res => res == ProperCurrentLink).Count() == 0)
                                 {
                                     Downloading(ProperCurrentLink, CurLinkProtocol, DirectoryName, ResDirectoryName);
                                 }
-                            }
-                            else
-                            {
-                                ThisLinkMustBeDownload = true;
                             }
                         }
                     }
