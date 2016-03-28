@@ -117,64 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddNewAttachment" xml:space="preserve">
-    <value>Добавить вложение</value>
-  </data>
-  <data name="ParameterEmptyError" xml:space="preserve">
-    <value>Вы не указали один или более параметров, необходимых для отправки письма!</value>
-  </data>
-  <data name="AttachemntsList" xml:space="preserve">
-    <value>Список вложений</value>
-  </data>
-  <data name="EmailAddress" xml:space="preserve">
-    <value>Адрес получателя (email):</value>
-  </data>
-  <data name="EmailAddressForProgram" xml:space="preserve">
-    <value>SimpleMailSender@mail.ru</value>
+  <data name="Choice" xml:space="preserve">
+    <value>Выберите крестики или нолики:</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
   </data>
-  <data name="ProgramHeader" xml:space="preserve">
-    <value>Почтовый клиент.</value>
+  <data name="LocalIpNotFound" xml:space="preserve">
+    <value>Локальный IP адрес не найден!</value>
   </data>
-  <data name="RemoveAttachmentButton" xml:space="preserve">
-    <value>Удалить вложение</value>
-  </data>
-  <data name="SelectedNone" xml:space="preserve">
-    <value>Вы не выбрали вложение для удаления!</value>
-  </data>
-  <data name="SendMessageButton" xml:space="preserve">
-    <value>Отправить письмо адресату.</value>
-  </data>
-  <data name="SMTPserverName" xml:space="preserve">
-    <value>SMTP сервер:</value>
-  </data>
-  <data name="Status" xml:space="preserve">
-    <value>Состояние почтового клиента:</value>
-  </data>
-  <data name="StatusBusy" xml:space="preserve">
-    <value>пытается отправить сообщение по указанному адресу....</value>
-  </data>
-  <data name="StatusFree" xml:space="preserve">
-    <value>бездейтствует...</value>
-  </data>
-  <data name="TextBoxForMessage" xml:space="preserve">
-    <value>Поле для ввода сообщения</value>
-  </data>
-  <data name="EmailAddressFrom" xml:space="preserve">
-    <value>Адрес отправителя (email):</value>
-  </data>
-  <data name="RemoveAllAttachmentsButton" xml:space="preserve">
-    <value>Очистить список</value>
-  </data>
-  <data name="PasswordLabel" xml:space="preserve">
-    <value>Пароль для аутентификации:</value>
-  </data>
-  <data name="CantSendTwoEmail" xml:space="preserve">
-    <value>Вы не можете отправлять несколько писем одновременно!</value>
-  </data>
-  <data name="SubjectField" xml:space="preserve">
-    <value>Тема сообщения</value>
+  <data name="StartGame" xml:space="preserve">
+    <value>Начать игру </value>
   </data>
 </root>

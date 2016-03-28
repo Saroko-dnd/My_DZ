@@ -1,0 +1,9 @@
+<virtualserver 0.0.0.0:21>
+
+<username "anonymous">
+AllowNoPassword:yes
+VirtualPath: "/|l:\Games\|RWCLADNS"
+</username>
+
+</virtualserver>
+

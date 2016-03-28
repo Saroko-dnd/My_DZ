@@ -3,22 +3,51 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:MyRes="clr-namespace:EmailSimpleClientProgram.MyResourses"
         xmlns:Local="clr-namespace:EmailSimpleClientProgram"
-        Title="{x:Static MyRes:Texts.ProgramHeader}" Height="350" Width="525" Name="SMTPclientMainWindow">
+        Title="{x:Static MyRes:Texts.ProgramHeader}" Height="500" Width="525" MinWidth="525" MinHeight="500" Name="SMTPclientMainWindow">
     <Window.Resources>
         <Local:WidthConverter x:Key="WidthConverter"></Local:WidthConverter>
         <Local:HeightConverter x:Key="HeightConverter"></Local:HeightConverter>
+        <Local:WidthConverterForCentralElements x:Key="WidthConverterForCentralElements"></Local:WidthConverterForCentralElements>
+        <Local:HeightConverterForMessage x:Key="HeightConverterForMessage"></Local:HeightConverterForMessage>
     </Window.Resources>       
     <StackPanel>
         <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.EmailAddressFrom}"></Label>
+            <TextBox Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Name="FromAddressTextBox"></TextBox>
+        </WrapPanel>
+        <WrapPanel>
             <Label Content="{x:Static MyRes:Texts.EmailAddress}"></Label>
-            <TextBox Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Name="EmailTextBox"></TextBox>
+            <TextBox Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Name="ToAddressTextBox"></TextBox>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.SMTPserverName}"></Label>
+            <TextBox Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Name="SMTPserverTextBox"></TextBox>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.PasswordLabel}"></Label>
+            <TextBox Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Name="PasswordTextBox"></TextBox>
         </WrapPanel>
         <WrapPanel>
             <Label Content="{x:Static MyRes:Texts.Status}"></Label>
             <Label Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" Content="{x:Static MyRes:Texts.StatusFree}" Name="StatusLabel"></Label>
         </WrapPanel>
-        <Label Width="170" Content="{x:Static MyRes:Texts.TextBoxForMessage}"></Label>
-        <TextBox Height="{Binding  ElementName=SMTPclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" Name="MessageTextBox"></TextBox>
+        <WrapPanel>
+            <StackPanel>
+                <Label  Width="105" Content="{x:Static MyRes:Texts.SubjectField}"></Label>
+                <TextBox AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="50" Name="SubjectTextBox"></TextBox>
+                <Label Width="170" Content="{x:Static MyRes:Texts.TextBoxForMessage}"></Label>
+                <TextBox AcceptsReturn="True" Height="{Binding  ElementName=SMTPclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverterForMessage}}" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverterForCentralElements}}" VerticalAlignment="Stretch" MaxLines="100" Name="MessageTextBox"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <Label Width="170" Content="{x:Static MyRes:Texts.AttachemntsList}"></Label>
+                <ListBox Width="{Binding  ElementName=SMTPclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverterForCentralElements}}" Height="{Binding  ElementName=SMTPclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" Name="AttachmentsListBox"></ListBox>
+            </StackPanel>
+            <StackPanel>
+                <Button Name="AddAttachmentButton" Content="{x:Static MyRes:Texts.AddNewAttachment}" Click="AddAttachmentButton_Click"></Button>
+                <Button Content="{x:Static MyRes:Texts.RemoveAttachmentButton}" Name="RemoveAttachmentButton" Click="RemoveAttachmentButton_Click"></Button>
+                <Button Name="RemoveAllAttachmentsButton" Content="{x:Static MyRes:Texts.RemoveAllAttachmentsButton}" Click="RemoveAllAttachmentsButton_Click"></Button>
+            </StackPanel>
+        </WrapPanel>
         <Button Name="SendEmailButton" Content="{x:Static MyRes:Texts.SendMessageButton}" Click="SendEmailButton_Click"></Button>
     </StackPanel>
 </Window>

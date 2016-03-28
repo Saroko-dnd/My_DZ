@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace EmailSimpleClientProgram
+namespace EmailSimpleClientProgram 
 {
-    public class WidthConverter : IValueConverter
+    public class WidthConverterForCentralElements : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
             System.Globalization.CultureInfo culture)
         {
-            double BufForResult = ((double)value) - 200.0;
+            double BufForResult = (((double)value)/2) - 75.0;
             return BufForResult;
         }
 

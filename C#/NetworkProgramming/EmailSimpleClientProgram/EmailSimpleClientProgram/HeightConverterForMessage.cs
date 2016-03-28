@@ -7,12 +7,12 @@ using System.Windows.Data;
 
 namespace EmailSimpleClientProgram
 {
-    public class WidthConverter : IValueConverter
+    public class HeightConverterForMessage : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter,
-            System.Globalization.CultureInfo culture)
+        System.Globalization.CultureInfo culture)
         {
-            double BufForResult = ((double)value) - 200.0;
+            double BufForResult = ((double)value) - 320.0;
             return BufForResult;
         }
 
