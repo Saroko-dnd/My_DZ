@@ -2,6 +2,8 @@
 
 <username "anonymous">
 AllowNoPassword:yes
+MaxConnections:5
+MaxConnPerIP:5
 VirtualPath: "/|l:\Games\|RWCLADNS"
 </username>
 

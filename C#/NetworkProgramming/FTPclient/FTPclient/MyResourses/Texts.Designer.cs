@@ -61,6 +61,24 @@ namespace FTPclient.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось отправить данные на FTP сервер!.
+        /// </summary>
+        public static string CantAppendFile {
+            get {
+                return ResourceManager.GetString("CantAppendFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось создать файл GameInfo.txt на FTP сервере!.
+        /// </summary>
+        public static string CantGetFile {
+            get {
+                return ResourceManager.GetString("CantGetFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Выберите крестики или нолики:.
         /// </summary>
         public static string Choice {
@@ -79,6 +97,33 @@ namespace FTPclient.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Данные отправлены!.
+        /// </summary>
+        public static string GameStatusDataWasSend {
+            get {
+                return ResourceManager.GetString("GameStatusDataWasSend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Игра не началась.
+        /// </summary>
+        public static string GameStatusNone {
+            get {
+                return ResourceManager.GetString("GameStatusNone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Подождите....
+        /// </summary>
+        public static string GameStatusWait {
+            get {
+                return ResourceManager.GetString("GameStatusWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Локальный IP адрес не найден!.
         /// </summary>
         public static string LocalIpNotFound {
@@ -88,11 +133,65 @@ namespace FTPclient.MyResourses {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Начать игру .
+        ///   Ищет локализованную строку, похожую на Игра завершена.
+        /// </summary>
+        public static string Result {
+            get {
+                return ResourceManager.GetString("Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Начать новую  игру .
         /// </summary>
         public static string StartGame {
             get {
                 return ResourceManager.GetString("StartGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дождитесь ответного хода противника!.
+        /// </summary>
+        public static string WaitForAnswerError {
+            get {
+                return ResourceManager.GetString("WaitForAnswerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ждать хода противника.
+        /// </summary>
+        public static string WaitForOpponentButton {
+            get {
+                return ResourceManager.GetString("WaitForOpponentButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы проиграли!.
+        /// </summary>
+        public static string YouLose {
+            get {
+                return ResourceManager.GetString("YouLose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы должны сначала выбрать крестики или нолики!.
+        /// </summary>
+        public static string YouMustSelectChar {
+            get {
+                return ResourceManager.GetString("YouMustSelectChar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы победили!.
+        /// </summary>
+        public static string YouWin {
+            get {
+                return ResourceManager.GetString("YouWin", resourceCulture);
             }
         }
     }

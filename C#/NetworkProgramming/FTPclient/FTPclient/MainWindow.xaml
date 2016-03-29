@@ -6,13 +6,29 @@
         xmlns:MyRes="clr-namespace:FTPclient.MyResourses"
         xmlns:local="clr-namespace:FTPclient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="325"  ResizeMode="NoResize">
+        Title="MainWindow" Height="370" Width="260"  ResizeMode="NoResize">
     <StackPanel>
-        <Button Name="StartFtpRequestButton" Content="{x:Static MyRes:Texts.StartGame}" Click="StartFtpRequestButton_Click"></Button>
-        <TextBox Height="250" MaxLines="10"  IsReadOnly="True" Name="GameFieldTextBox"></TextBox>
+        <Button Content="{x:Static MyRes:Texts.WaitForOpponentButton}" Name="WaitForOpponentButton" Click="WaitForOpponentButton_Click"></Button>
+        <Button Name="StartNewGameButton" Content="{x:Static MyRes:Texts.StartGame}" Click="StartNewGameButton_Click"></Button>
+        <WrapPanel>
+            <Button FontSize="60" Width="80" Height="80" Name="Button_1"></Button>
+            <Button FontSize="60" Width="80" Height="80" Name="Button_2"></Button>
+            <Button FontSize="60" Width="80" Height="80" Name="Button_3"></Button>
+        </WrapPanel>
+        <WrapPanel>
+            <Button FontSize="60" Width="80" Height="80" Name="Button_4"></Button>
+            <Button FontSize="60" Width="80" Height="80" Name="Button_5"></Button>
+            <Button FontSize="60" Width="80" Height="80" Name="Button_6"></Button>
+        </WrapPanel>
+        <WrapPanel>
+            <Button FontSize="60" Width="80" Height="80" Name="Button_7"></Button>
+            <Button FontSize="60" Width="80" Height="80" Name="Button_8"></Button>
+            <Button FontSize="60" Width="80" Height="80" Name="Button_9"></Button>
+        </WrapPanel>
         <WrapPanel>
             <Label Content="{x:Static MyRes:Texts.Choice}"></Label>
             <ComboBox Name="ChooseSymbolComboBox"></ComboBox>
         </WrapPanel>
+        <Label Content="{x:Static MyRes:Texts.GameStatusNone}" Name="GameStatusLabel"></Label>
     </StackPanel>
 </Window>

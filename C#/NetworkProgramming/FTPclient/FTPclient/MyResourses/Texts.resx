@@ -117,16 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CantAppendFile" xml:space="preserve">
+    <value>Не удалось отправить данные на FTP сервер!</value>
+  </data>
+  <data name="CantGetFile" xml:space="preserve">
+    <value>Не удалось создать файл GameInfo.txt на FTP сервере!</value>
+  </data>
   <data name="Choice" xml:space="preserve">
     <value>Выберите крестики или нолики:</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
   </data>
+  <data name="GameStatusDataWasSend" xml:space="preserve">
+    <value>Данные отправлены!</value>
+  </data>
+  <data name="GameStatusNone" xml:space="preserve">
+    <value>Игра не началась</value>
+  </data>
+  <data name="GameStatusWait" xml:space="preserve">
+    <value>Подождите...</value>
+  </data>
   <data name="LocalIpNotFound" xml:space="preserve">
     <value>Локальный IP адрес не найден!</value>
   </data>
+  <data name="Result" xml:space="preserve">
+    <value>Игра завершена</value>
+  </data>
   <data name="StartGame" xml:space="preserve">
-    <value>Начать игру </value>
+    <value>Начать новую  игру </value>
+  </data>
+  <data name="WaitForAnswerError" xml:space="preserve">
+    <value>Дождитесь ответного хода противника!</value>
+  </data>
+  <data name="WaitForOpponentButton" xml:space="preserve">
+    <value>Ждать хода противника</value>
+  </data>
+  <data name="YouLose" xml:space="preserve">
+    <value>Вы проиграли!</value>
+  </data>
+  <data name="YouMustSelectChar" xml:space="preserve">
+    <value>Вы должны сначала выбрать крестики или нолики!</value>
+  </data>
+  <data name="YouWin" xml:space="preserve">
+    <value>Вы победили!</value>
   </data>
 </root>
