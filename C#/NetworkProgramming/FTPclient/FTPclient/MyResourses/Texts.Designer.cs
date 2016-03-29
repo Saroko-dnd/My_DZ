@@ -133,6 +133,15 @@ namespace FTPclient.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Игрок.
+        /// </summary>
+        public static string Player {
+            get {
+                return ResourceManager.GetString("Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Игра завершена.
         /// </summary>
         public static string Result {

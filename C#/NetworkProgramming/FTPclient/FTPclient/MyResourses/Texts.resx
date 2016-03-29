@@ -141,6 +141,9 @@
   <data name="LocalIpNotFound" xml:space="preserve">
     <value>Локальный IP адрес не найден!</value>
   </data>
+  <data name="Player" xml:space="preserve">
+    <value>Игрок</value>
+  </data>
   <data name="Result" xml:space="preserve">
     <value>Игра завершена</value>
   </data>

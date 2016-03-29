@@ -48,6 +48,7 @@ namespace FTPclient
             foreach (Button CurrentButton in GameFieldButtons)
             {
                 CurrentButton.Click += TicTacToe.Play;
+                CurrentButton.Content = string.Empty;
             }
 
             TicTacToe.GameStatusLabel = GameStatusLabel;
@@ -137,6 +138,7 @@ namespace FTPclient
                     else if (Int32.Parse(Answer.Split(' ')[0]) != TicTacToe.NumberOfLastPressedButton)
                     {
                         Application.Current.Dispatcher.Invoke(new Action(() => GameFieldButtons.Where(res => res.Name.EndsWith(Answer.Split(' ')[0])).First().Content = CharToPutInButton));
+                        Application.Current.Dispatcher.Invoke(new Action(() => TicTacToe.CheckWin()));
                         TicTacToe.WaitForAnswer = false;
                     }
 
