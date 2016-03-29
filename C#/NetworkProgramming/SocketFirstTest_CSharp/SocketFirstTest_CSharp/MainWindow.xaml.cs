@@ -44,7 +44,7 @@ namespace SocketFirstTest_CSharp
         public MainWindow()
         {
             InitializeComponent();
-
+            string TestString = GetLocalIPAddress();
 
             Mutex.TryOpenExisting(MyResourses.Texts.MutexName, out OnlyOneServerGate);
 

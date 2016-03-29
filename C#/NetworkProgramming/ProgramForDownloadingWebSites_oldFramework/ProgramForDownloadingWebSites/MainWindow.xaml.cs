@@ -84,7 +84,6 @@ namespace ProgramForDownloadingWebSites
                     {
                         if (!ProgramShutDown)
                         {
-                            //MessageBox.Show(CurrentException.Message + FileName + " " + URLtoFile, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
                             MainStringBuilder.AppendLine(CurrentException.Message + MyResourses.Texts.FileName + FileName + " " + MyResourses.Texts.URLtoFile + " " + URLtoFile);
                             Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                         }
@@ -95,22 +94,95 @@ namespace ProgramForDownloadingWebSites
             {
                 if (!ProgramShutDown)
                 {
-                    /*MessageBox.Show(CurrentException.Message + MyResourses.Texts.FileName + FileName + " " + MyResourses.Texts.URLtoFile + " " + URLtoFile, 
-                        MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);*/
                     MainStringBuilder.AppendLine(CurrentException.Message + MyResourses.Texts.FileName + FileName + " " + MyResourses.Texts.URLtoFile + " " + URLtoFile);
                     Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = MainStringBuilder.ToString()));
                 }
             }
         }
 
-        public void SavePagesConnectedToCurrentPage(List<string> MainListOReferences, string DirectoryName, string ResDirectoryName, string CurrentProtocol, 
-            string CurrentURL, string AddonForNamelessURL)
+        public void Downloading(string CurrentURL, string CurrentProtocol, string DirectoryName, string ResDirectoryName)
+        {
+            if (MainCounterForRecursion == MaxAmountOfWebPages || Limit)
+            {
+                Limit = true;
+                return;
+            }
+            ++MainCounterForRecursion;
+            try
+            {
+                ListOfLoadedURL.Add(CurrentURL);
+                MainStringBuilder.Clear();
+                string AddonForNamelessURL = string.Empty;
+                Application.Current.Dispatcher.Invoke(new Action (() => AddonForNamelessURL = URLtextBox.Text.Split('/')[0] + "//" + URLtextBox.Text.Split('/')[2]));
+                string MainPage = string.Empty;
+                using (WebClient MainWebClient = new WebClient())
+                {
+                    MainWebClient.Encoding = Encoding.UTF8;
+                    MainPage = MainWebClient.DownloadString(CurrentURL);
+                }
+                List<string> MainListOReferences = new List<string>();
+                CQ ObjectCQ = CQ.Create(MainPage);
+                foreach (WebElement CurrentElement in AllWebElements)
+                {
+                    foreach (IDomObject CurObject in ObjectCQ.Find(CurrentElement.ElementName))
+                    {
+                        MainListOReferences.Add(CurObject.GetAttribute(CurrentElement.ReferencePartName));
+                    }
+                }
+                //Вызываем функцию, которая сохранит все файлы текущей страницы
+                MainPage = SaveFilesConnectedToCurrenePage(CurrentURL, CurrentProtocol, ResDirectoryName, AddonForNamelessURL, MainPage, MainListOReferences);
+
+                string NewNameForPage = CurrentURL.Replace(CurrentProtocol,"");
+                foreach (string CurProt in AllProtocols)
+                {
+                    NewNameForPage = NewNameForPage.Replace(CurProt, "");
+                }
+                
+                foreach (string Symbol in SymbolsToErase)
+                {
+                    NewNameForPage = NewNameForPage.Replace(Symbol, "_");
+                }
+
+                if (WebPageCheck.IsMatch(NewNameForPage))
+                {
+                    File.WriteAllText(DirectoryName + "\\" + NewNameForPage, MainPage, Encoding.UTF8);
+                }
+                else
+                {
+                    File.WriteAllText(DirectoryName + "\\" + NewNameForPage + ".html", MainPage, Encoding.UTF8);
+                }
+                ++CounterForDownload;
+                Application.Current.Dispatcher.Invoke(new Action(() => PagesCountLabel.Content = CounterForDownload.ToString()));
+
+                //Вызываем функцию, которая сохранит все страницы , на которые имелись ссылки на текущей странице (рекурсия начинается здесь)
+                SavePagesConnectedToCurrentPage(CurrentURL, CurrentProtocol, DirectoryName, ResDirectoryName, AddonForNamelessURL, MainListOReferences);
+            }
+            catch (Exception CurrentException)
+            {
+                if (!ProgramShutDown)
+                {
+                    MessageBox.Show(CurrentException.Message + " !downnloading thread!", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            finally
+            {
+                if (Limit && !MessageWasMade)
+                {
+                    MessageWasMade = true;
+                    ProgramBusy = false;
+                    MessageBox.Show(MyResourses.Texts.Done, MyResourses.Texts.Message, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
+                }
+            }
+        }
+
+        private void SavePagesConnectedToCurrentPage(string CurrentURL, string CurrentProtocol, string DirectoryName, string ResDirectoryName, string AddonForNamelessURL, List<string> MainListOReferences)
         {
             foreach (string CurrentLink in MainListOReferences)
             {
                 if (Limit)
                 {
-                    return;
+                    break;
                 }
                 bool ThisLinkMustBeDownload = true;
                 if (CurrentLink != null && CurrentLink != string.Empty)
@@ -184,17 +256,11 @@ namespace ProgramForDownloadingWebSites
             }
         }
 
-
-        public string SaveFilesConnectedToCurrentPage(List<string> MainListOReferences, string ResDirectoryName, string CurrentProtocol, string CurrentURL,
-            string AddonForNamelessURL, string MainPage)
+        private string SaveFilesConnectedToCurrenePage(string CurrentURL, string CurrentProtocol, string ResDirectoryName, string AddonForNamelessURL, string MainPage, List<string> MainListOReferences)
         {
             string NewRefValue = string.Empty;
             foreach (string CurrentReference in MainListOReferences)
             {
-                if (CurrentReference.Contains("js"))
-                {
-                    int rrr = 0;
-                }
                 if (CurrentReference != null && CurrentReference != string.Empty)
                 {
                     if (FileCheck.IsMatch(CurrentReference))
@@ -243,29 +309,7 @@ namespace ProgramForDownloadingWebSites
                                     //Код до звездочек выполняется если скачиваемый файл находиться на одну или более папок выше текущей ссылки
                                     if (CounterForDeleteParts > 0)
                                     {
-                                        char[] ArrayOfCharsForLink = CurrentURL.ToCharArray();
-                                        int LastIndexOfCharArray = ArrayOfCharsForLink.Length - 1;
-                                        int CounterOfDividers = 0;
-                                        while (CounterOfDividers != (CounterForDeleteParts + 1))
-                                        {
-                                            if (ArrayOfCharsForLink[LastIndexOfCharArray] == '/')
-                                            {
-                                                ++CounterOfDividers;
-                                            }
-                                            if (CounterOfDividers != (CounterForDeleteParts + 1))
-                                            {
-                                                --LastIndexOfCharArray;
-                                            }
-                                        }
-                                        StringBuilder StringBuilderForNewLink = new StringBuilder();
-                                        int CharIndexSecond = 0;
-                                        while (CharIndexSecond <= LastIndexOfCharArray)
-                                        {
-                                            StringBuilderForNewLink.Append(ArrayOfCharsForLink[CharIndexSecond]);
-                                            ++CharIndexSecond;
-                                        }
-                                        string ProperBufForReference = StringBuilderForNewLink.ToString() + BufForReference.Replace("../", "");
-                                        SaveFile(NewFileName, ProperBufForReference, ResDirectoryName);
+                                        SaveFileIfRefferenceHasPoints(CurrentURL, ResDirectoryName, NewFileName, BufForReference, CounterForDeleteParts);
                                     }
                                     //**********************************************************************************************************
                                     else if (CurrentReference.Contains("//"))
@@ -404,159 +448,31 @@ namespace ProgramForDownloadingWebSites
             return MainPage;
         }
 
-        public void Downloading(string CurrentURL, string CurrentProtocol, string DirectoryName, string ResDirectoryName)
+        private void SaveFileIfRefferenceHasPoints(string CurrentURL, string ResDirectoryName, string NewFileName, string BufForReference, int CounterForDeleteParts)
         {
-            if (MainCounterForRecursion == MaxAmountOfWebPages || Limit)
+            char[] ArrayOfCharsForLink = CurrentURL.ToCharArray();
+            int LastIndexOfCharArray = ArrayOfCharsForLink.Length - 1;
+            int CounterOfDividers = 0;
+            while (CounterOfDividers != (CounterForDeleteParts + 1))
             {
-                Limit = true;
-                return;
-            }
-            ++MainCounterForRecursion;
-            try
-            {
-                ListOfLoadedURL.Add(CurrentURL);
-                MainStringBuilder.Clear();
-                string AddonForNamelessURL = string.Empty;
-                Application.Current.Dispatcher.Invoke(new Action (() => AddonForNamelessURL = URLtextBox.Text.Split('/')[0] + "//" + URLtextBox.Text.Split('/')[2]));
-                string MainPage = string.Empty;
-                using (WebClient MainWebClient = new WebClient())
+                if (ArrayOfCharsForLink[LastIndexOfCharArray] == '/')
                 {
-                    MainWebClient.Encoding = Encoding.UTF8;
-                    MainPage = MainWebClient.DownloadString(CurrentURL);
+                    ++CounterOfDividers;
                 }
-                List<string> MainListOReferences = new List<string>();
-                CQ ObjectCQ = CQ.Create(MainPage);
-                foreach (WebElement CurrentElement in AllWebElements)
+                if (CounterOfDividers != (CounterForDeleteParts + 1))
                 {
-                    foreach (IDomObject CurObject in ObjectCQ.Find(CurrentElement.ElementName))
-                    {
-                        MainListOReferences.Add(CurObject.GetAttribute(CurrentElement.ReferencePartName));
-                    }
-                }
-                //Вызываем функцию, которая сохранит все файлы текущей страницы
-                MainPage = SaveFilesConnectedToCurrentPage(MainListOReferences, ResDirectoryName, CurrentProtocol, CurrentURL, AddonForNamelessURL, MainPage);
-
-                string NewNameForPage = CurrentURL.Replace(CurrentProtocol,"");
-                foreach (string CurProt in AllProtocols)
-                {
-                    NewNameForPage = NewNameForPage.Replace(CurProt, "");
-                }
-                
-                foreach (string Symbol in SymbolsToErase)
-                {
-                    NewNameForPage = NewNameForPage.Replace(Symbol, "_");
-                }
-
-                if (WebPageCheck.IsMatch(NewNameForPage))
-                {
-                    File.WriteAllText(DirectoryName + "\\" + NewNameForPage, MainPage, Encoding.UTF8);
-                }
-                else
-                {
-                    File.WriteAllText(DirectoryName + "\\" + NewNameForPage + ".html", MainPage, Encoding.UTF8);
-                }
-                ++CounterForDownload;
-                Application.Current.Dispatcher.Invoke(new Action(() => PagesCountLabel.Content = CounterForDownload.ToString()));
-
-                //Вызываем функцию, которая сохранит все страницы , на которые имелись ссылки на текущей странице (рекурсия начинается здесь)
-                SavePagesConnectedToCurrentPage(MainListOReferences, DirectoryName, ResDirectoryName, CurrentProtocol, CurrentURL, AddonForNamelessURL);
-
-                /*foreach (string CurrentLink in MainListOReferences)
-                {
-                    if (Limit)
-                    {
-                        return;
-                    }
-                    bool ThisLinkMustBeDownload = true;
-                    if (CurrentLink != null && CurrentLink != string.Empty)
-                    {
-                        if (!FileCheck.IsMatch(CurrentLink) && CurrentLink.Contains(CopyOfCurrentURL))
-                        {
-                            string CurLinkProtocol = CurrentLink.Split('/')[0];
-                            if (ListOfLoadedURL.Where(res => res == CurrentLink).Count() == 0)
-                            {
-                                Downloading(CurrentLink, CurLinkProtocol, DirectoryName, ResDirectoryName);
-                            }
-                        }
-                        else if (!FileCheck.IsMatch(CurrentLink))
-                        {
-                            foreach (string Protokol in AllProtocols)
-                            {
-                                if (CurrentLink.Contains(Protokol))
-                                {
-                                    ThisLinkMustBeDownload = false;
-                                    break;
-                                }
-                            }
-                            if (ThisLinkMustBeDownload)
-                            {
-                                string CurLinkProtocol = CurrentProtocol;
-                                string ProperCurrentLink = string.Empty;
-                                if (CurrentLink.Contains("//"))
-                                {
-                                    ProperCurrentLink = CurrentProtocol + CurrentLink;
-                                }
-                                else if (CurrentLink.ToCharArray()[0] == '/')
-                                {
-                                    ProperCurrentLink = CurrentProtocol + "//" + AddonForNamelessURL.Replace(CurrentProtocol + "//", "").Replace("/", "") + CurrentLink;
-                                }
-                                else if (WebPageCheck.IsMatch(CurrentLink))
-                                {
-                                    char[] CurrentURLcharArray = CurrentURL.ToCharArray();
-                                    int LastIndexOfCharArray = CurrentURLcharArray.Length - 1;
-                                    int LocalCounterOfDividers = 0;
-                                    while (LocalCounterOfDividers != 1)
-                                    {
-                                        if (CurrentURLcharArray[LastIndexOfCharArray] == '/')
-                                        {
-                                            ++LocalCounterOfDividers;
-                                        }
-                                        if (LocalCounterOfDividers != 1)
-                                        {
-                                            --LastIndexOfCharArray;
-                                        }
-                                    }
-                                    StringBuilder ThirdLocalStringBuilder = new StringBuilder();
-                                    int CounterAndIndex = 0;
-                                    foreach (char CurrentSymbol in CurrentURLcharArray)
-                                    {
-                                        ThirdLocalStringBuilder.Append(CurrentSymbol);
-                                        ++CounterAndIndex;
-                                        if (CounterAndIndex > LastIndexOfCharArray)
-                                        {
-                                            break;
-                                        }
-                                    }
-                                    ProperCurrentLink = ThirdLocalStringBuilder.ToString() + CurrentLink;
-                                }
-                                if (ProperCurrentLink != string.Empty && ListOfLoadedURL.Where(res => res == ProperCurrentLink).Count() == 0)
-                                {
-                                    Downloading(ProperCurrentLink, CurLinkProtocol, DirectoryName, ResDirectoryName);
-                                }
-                            }
-                        }
-                    }
-                }*/
-
-                //
-            }
-            catch (Exception CurrentException)
-            {
-                if (!ProgramShutDown)
-                {
-                    MessageBox.Show(CurrentException.Message + " !downnloading thread!", MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    --LastIndexOfCharArray;
                 }
             }
-            finally
+            StringBuilder StringBuilderForNewLink = new StringBuilder();
+            int CharIndexSecond = 0;
+            while (CharIndexSecond <= LastIndexOfCharArray)
             {
-                if (Limit && !MessageWasMade)
-                {
-                    MessageWasMade = true;
-                    ProgramBusy = false;
-                    MessageBox.Show(MyResourses.Texts.Done, MyResourses.Texts.Message, MessageBoxButton.OK, MessageBoxImage.Exclamation);
-                    Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
-                }
+                StringBuilderForNewLink.Append(ArrayOfCharsForLink[CharIndexSecond]);
+                ++CharIndexSecond;
             }
+            string ProperBufForReference = StringBuilderForNewLink.ToString() + BufForReference.Replace("../", "");
+            SaveFile(NewFileName, ProperBufForReference, ResDirectoryName);
         }
 
         private void StartSiteDownloadButton_Click(object sender, RoutedEventArgs e)

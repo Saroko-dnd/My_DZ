@@ -1,0 +1,9 @@
+<virtualserver 192.168.56.1:21>
+
+<username "anonymous">
+AllowNoPassword:yes
+VirtualPath: "/|d:\USERS\Saroko_P31014\My_DZ\C#\NetworkProgramming\FTPserver\|RWCLADNS"
+</username>
+
+</virtualserver>
+
