@@ -20,9 +20,18 @@ namespace DynamicLINQexample
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<int> TestCollection = new List<int>() { 23, 78, 9, 66, 5, 8, 6 };
+        public StringBuilder ConsoleStringBuilder = new StringBuilder();
+
         public MainWindow()
         {
             InitializeComponent();
+
+            foreach (int CurrentInt in TestCollection.Where(DynamicLINQbuilder.WhereMethod<int>(null, 10)))
+            {
+                ConsoleStringBuilder.AppendLine(CurrentInt.ToString());
+            }
+            ConsoleTextBox.Text = ConsoleStringBuilder.ToString();
         }
     }
 }
