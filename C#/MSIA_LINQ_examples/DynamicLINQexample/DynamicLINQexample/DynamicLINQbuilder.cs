@@ -12,10 +12,21 @@ namespace DynamicLINQexample
     {
         public static Func<Tin, bool> WhereMethod<Tin>(string PropertyName,object Constant)
         {
-                ParameterExpression VariableResultParam = Expression.Variable(typeof(Tin));
-                ConstantExpression SecondConstant = Expression.Constant(Constant);
-                BinaryExpression CurrentBinaryExpression = Expression.GreaterThan(VariableResultParam, SecondConstant);
-                return Expression<Func<Tin, bool>>.Lambda<Func<Tin, bool>>(CurrentBinaryExpression, VariableResultParam).Compile();
+            ConstantExpression RightConstant = Expression.Constant(Constant);
+            if (PropertyName == null)
+            {
+                ParameterExpression LeftVariable = Expression.Variable(typeof(Tin));
+                BinaryExpression CurrentBinaryExpression = Expression.GreaterThan(LeftVariable, RightConstant);
+                return Expression<Func<Tin, bool>>.Lambda<Func<Tin, bool>>(CurrentBinaryExpression, LeftVariable).Compile();
+            }
+            else
+            {
+                ParameterExpression LeftObject = Expression.Parameter(typeof(Tin));
+                MemberInfo LeftPropertyInfo = typeof(Tin).GetProperty(PropertyName);
+                MemberExpression LeftProperty = Expression.MakeMemberAccess(LeftObject, LeftPropertyInfo);
+                BinaryExpression CurrentBinaryExpression = Expression.GreaterThan(LeftProperty, RightConstant);
+                return Expression<Func<Tin, bool>>.Lambda<Func<Tin, bool>>(CurrentBinaryExpression, LeftObject).Compile();
+            }
         }
     }
 }
