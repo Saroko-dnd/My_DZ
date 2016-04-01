@@ -1,0 +1,9 @@
+﻿<Window x:Class="ClientForDiskDataProvider.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MyRes="clr-namespace:ClientForDiskDataProvider.MyResourses"
+        Title="{x:Static MyRes:Texts.ClientHeader}" Height="350" Width="525">
+    <TextBox Name="ConsoleTextBox">
+
+    </TextBox>
+</Window>

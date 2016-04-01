@@ -13,7 +13,7 @@ namespace TestApplication
         {
             Type serviceType = typeof(SubstructClass);
             ServiceHost host = new ServiceHost(serviceType);
-            host.AddServiceEndpoint(typeof(MyServiceInterfface), new NetHttpBinding(), "http://localhost:8080/TestService/EndPoint_1");
+            //host.AddServiceEndpoint(typeof(MyServiceInterfface), new NetHttpBinding(), "http://localhost:8080/TestService/EndPoint_1");
             host.Open();
 
             Console.ReadKey();
