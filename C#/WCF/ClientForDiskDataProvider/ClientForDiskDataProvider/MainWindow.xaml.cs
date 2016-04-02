@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.ServiceModel;
 using System.Threading;
+using ClientForDiskDataProvider.DiskInfoService;
 
 namespace ClientForDiskDataProvider
 {
@@ -32,11 +33,14 @@ namespace ClientForDiskDataProvider
 
         public void GetDiskInfoFromService()
         {
-            ChannelFactory<IDiskInfo> TestChannelFactory = new ChannelFactory<IDiskInfo>(new NetHttpBinding(), new EndpointAddress("http://localhost:8080/DiskInfoService/EndPoint_1"));
-            IDiskInfo ChannelToService = TestChannelFactory.CreateChannel();
+            //Без прокси
+            /*ChannelFactory<IDiskInfo> TestChannelFactory = new ChannelFactory<IDiskInfo>(new NetHttpBinding(), new EndpointAddress("http://localhost:8080/DiskInfoService/EndPoint_1"));
+            IDiskInfo ChannelToService = TestChannelFactory.CreateChannel();*/
+            //С прокси
+            DiskInfoClient ClientProxy = new DiskInfoClient();
             while (true)
             {
-                Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = ChannelToService.GetDriversData()));
+                Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = ClientProxy.GetDriversData()));
                 Thread.Sleep(2000);
             }
         }

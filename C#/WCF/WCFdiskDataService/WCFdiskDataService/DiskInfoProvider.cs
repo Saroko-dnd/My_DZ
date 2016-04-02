@@ -14,7 +14,7 @@ namespace WCFdiskDataService
             StringBuilder BuilderForDriversData = new StringBuilder();
             try
             {
-                DriveInfo[] AllDrivers = DriveInfo.GetDrives();
+                DriveInfo[] AllDrivers = DriveInfo.GetDrives().Where(res => res.IsReady).ToArray();
                 foreach (DriveInfo CurrentDriverInfo in AllDrivers)
                 {
                     BuilderForDriversData.Append(MyResourses.Texts.DiskName + CurrentDriverInfo.Name + " " + MyResourses.Texts.FreeAvailable + " " + CurrentDriverInfo.AvailableFreeSpace.ToString() + " " +
