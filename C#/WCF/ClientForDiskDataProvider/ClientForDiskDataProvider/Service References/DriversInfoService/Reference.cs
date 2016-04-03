@@ -8,11 +8,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClientForDiskDataProvider.DiskInfoService {
+namespace ClientForDiskDataProvider.DriversInfoService {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="DiskInfoService.IDiskInfo")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="DriversInfoService.IDiskInfo")]
     public interface IDiskInfo {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDiskInfo/GetDriversData", ReplyAction="http://tempuri.org/IDiskInfo/GetDriversDataResponse")]
@@ -23,12 +23,12 @@ namespace ClientForDiskDataProvider.DiskInfoService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IDiskInfoChannel : ClientForDiskDataProvider.DiskInfoService.IDiskInfo, System.ServiceModel.IClientChannel {
+    public interface IDiskInfoChannel : ClientForDiskDataProvider.DriversInfoService.IDiskInfo, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class DiskInfoClient : System.ServiceModel.ClientBase<ClientForDiskDataProvider.DiskInfoService.IDiskInfo>, ClientForDiskDataProvider.DiskInfoService.IDiskInfo {
+    public partial class DiskInfoClient : System.ServiceModel.ClientBase<ClientForDiskDataProvider.DriversInfoService.IDiskInfo>, ClientForDiskDataProvider.DriversInfoService.IDiskInfo {
         
         public DiskInfoClient() {
         }

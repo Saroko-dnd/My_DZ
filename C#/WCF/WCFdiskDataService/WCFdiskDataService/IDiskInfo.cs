@@ -12,5 +12,7 @@ namespace WCFdiskDataService
     {
         [OperationContract]
         string GetDriversData();
+        [OperationContract]
+        string GetOneDriverData();
     }
 }

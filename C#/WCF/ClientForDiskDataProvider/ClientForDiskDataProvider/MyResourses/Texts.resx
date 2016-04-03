@@ -120,4 +120,10 @@
   <data name="ClientHeader" xml:space="preserve">
     <value>Клиент для службы возвращающей информацию о диске</value>
   </data>
+  <data name="EndPoint_1" xml:space="preserve">
+    <value>ep_1</value>
+  </data>
+  <data name="EndPoint_2" xml:space="preserve">
+    <value>ep_2</value>
+  </data>
 </root>
