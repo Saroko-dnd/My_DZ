@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AutoDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TAuto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Marka" Type="nvarchar" MaxLength="50" />
+          <Property Name="Speed" Type="int" />
+          <Property Name="Fuel" Type="float" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="TMotor">
+          <Key>
+            <PropertyRef Name="IDD" />
+          </Key>
+          <Property Name="IDD" Type="int" Nullable="false" />
+          <Property Name="Marka" Type="nvarchar" MaxLength="50" />
+          <Property Name="Power" Type="float" />
+          <Property Name="Country" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'D:\USERS\SAROKO_P31014\MY_DZ\C#\WCF\WINDOWSFORMSAPPLICATION1\WINDOWSFORMSAPPLICATION1\AUTODATABASE.MDF.dbo.TOwner' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TOwner">
+          <Key>
+            <PropertyRef Name="IDO" />
+          </Key>
+          <Property Name="IDO" Type="int" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="15" />
+          <Property Name="Opyt" Type="float" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_TMotor_TAuto">
+          <End Role="TAuto" Type="Self.TAuto" Multiplicity="1" />
+          <End Role="TMotor" Type="Self.TMotor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TAuto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TMotor">
+              <PropertyRef Name="IDD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TOwner_TAuto">
+          <End Role="TAuto" Type="Self.TAuto" Multiplicity="1" />
+          <End Role="TOwner" Type="Self.TOwner" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TAuto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TOwner">
+              <PropertyRef Name="IDO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AutoDataBaseModelStoreContainer">
+          <EntitySet Name="TAuto" EntityType="Self.TAuto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TMotor" EntityType="Self.TMotor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TOwner" EntityType="Self.TOwner" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TOwner].[IDO] AS [IDO], 
+    [TOwner].[LastName] AS [LastName], 
+    [TOwner].[Opyt] AS [Opyt], 
+    [TOwner].[Date] AS [Date]
+    FROM [dbo].[TOwner] AS [TOwner]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_TMotor_TAuto" Association="Self.FK_TMotor_TAuto">
+            <End Role="TAuto" EntitySet="TAuto" />
+            <End Role="TMotor" EntitySet="TMotor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TOwner_TAuto" Association="Self.FK_TOwner_TAuto">
+            <End Role="TAuto" EntitySet="TAuto" />
+            <End Role="TOwner" EntitySet="TOwner" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AutoDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TAuto">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Marka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Speed" Type="Int32" />
+          <Property Name="Fuel" Type="Double" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TMotor" Relationship="Self.FK_TMotor_TAuto" FromRole="TAuto" ToRole="TMotor" />
+          <NavigationProperty Name="TOwner" Relationship="Self.FK_TOwner_TAuto" FromRole="TAuto" ToRole="TOwner" />
+        </EntityType>
+        <EntityType Name="TMotor">
+          <Key>
+            <PropertyRef Name="IDD" />
+          </Key>
+          <Property Name="IDD" Type="Int32" Nullable="false" />
+          <Property Name="Marka" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Power" Type="Double" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TAuto" Relationship="Self.FK_TMotor_TAuto" FromRole="TMotor" ToRole="TAuto" />
+        </EntityType>
+        <EntityType Name="TOwner">
+          <Key>
+            <PropertyRef Name="IDO" />
+          </Key>
+          <Property Name="IDO" Type="Int32" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Opyt" Type="Double" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TAuto" Relationship="Self.FK_TOwner_TAuto" FromRole="TOwner" ToRole="TAuto" />
+        </EntityType>
+        <Association Name="FK_TMotor_TAuto">
+          <End Role="TAuto" Type="Self.TAuto" Multiplicity="1" />
+          <End Role="TMotor" Type="Self.TMotor" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TAuto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TMotor">
+              <PropertyRef Name="IDD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TOwner_TAuto">
+          <End Role="TAuto" Type="Self.TAuto" Multiplicity="1" />
+          <End Role="TOwner" Type="Self.TOwner" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TAuto">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TOwner">
+              <PropertyRef Name="IDO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AutoDataBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TAuto" EntityType="Self.TAuto" />
+          <EntitySet Name="TMotor" EntityType="Self.TMotor" />
+          <EntitySet Name="TOwner" EntityType="Self.TOwner" />
+          <AssociationSet Name="FK_TMotor_TAuto" Association="Self.FK_TMotor_TAuto">
+            <End Role="TAuto" EntitySet="TAuto" />
+            <End Role="TMotor" EntitySet="TMotor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TOwner_TAuto" Association="Self.FK_TOwner_TAuto">
+            <End Role="TAuto" EntitySet="TAuto" />
+            <End Role="TOwner" EntitySet="TOwner" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AutoDataBaseModelStoreContainer" CdmEntityContainer="AutoDataBaseEntities">
+          <EntitySetMapping Name="TAuto">
+            <EntityTypeMapping TypeName="AutoDataBaseModel.TAuto">
+              <MappingFragment StoreEntitySet="TAuto">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Marka" ColumnName="Marka" />
+                <ScalarProperty Name="Speed" ColumnName="Speed" />
+                <ScalarProperty Name="Fuel" ColumnName="Fuel" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TMotor">
+            <EntityTypeMapping TypeName="AutoDataBaseModel.TMotor">
+              <MappingFragment StoreEntitySet="TMotor">
+                <ScalarProperty Name="IDD" ColumnName="IDD" />
+                <ScalarProperty Name="Marka" ColumnName="Marka" />
+                <ScalarProperty Name="Power" ColumnName="Power" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TOwner">
+            <EntityTypeMapping TypeName="AutoDataBaseModel.TOwner">
+              <MappingFragment StoreEntitySet="TOwner">
+                <ScalarProperty Name="IDO" ColumnName="IDO" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Opyt" ColumnName="Opyt" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

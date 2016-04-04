@@ -144,8 +144,14 @@
   <data name="GetCommonInfoAboutDriversButton" xml:space="preserve">
     <value>Получить информацию о всех дисках</value>
   </data>
+  <data name="GetCommonInfoAboutDriversButtonAsync" xml:space="preserve">
+    <value>Получить информацию о всех дисках (асинхронно)</value>
+  </data>
   <data name="GetDriveInfoButton" xml:space="preserve">
     <value>Инфо о диске</value>
+  </data>
+  <data name="GetDriversNamesButton" xml:space="preserve">
+    <value>Получить список дисков</value>
   </data>
   <data name="GigaByte" xml:space="preserve">
     <value>Гб</value>

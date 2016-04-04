@@ -121,6 +121,9 @@
     <None Include="Service References\DriversInfoService\DiskInfoService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\DriversInfoService\DiskInfoService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

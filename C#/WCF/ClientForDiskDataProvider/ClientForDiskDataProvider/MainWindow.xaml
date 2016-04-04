@@ -19,7 +19,12 @@
         </WrapPanel>
         <WrapPanel>
             <Button Name="GetAllDriversInfoButton" Content="{x:Static MyRes:Texts.GetCommonInfoAboutDriversButton}" Click="GetAllDriversInfoButton_Click"></Button>
+            <Button Name="GetAllDriversInfoAsyncButton" Content="{x:Static MyRes:Texts.GetCommonInfoAboutDriversButtonAsync}" Click="GetAllDriversInfoAsyncButton_Click"></Button>
         </WrapPanel>
         <TextBox Height="{Binding ElementName=ClientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" Name="ConsoleTextBox"></TextBox>
+        <WrapPanel>
+            <Button Content="{x:Static MyRes:Texts.GetDriversNamesButton}"  Name="GetDriversNamesButton" Click="GetDriversNamesButton_Click"></Button>
+            <Label Name="DriversNamesLabel"></Label>
+        </WrapPanel>
     </StackPanel>
 </Window>

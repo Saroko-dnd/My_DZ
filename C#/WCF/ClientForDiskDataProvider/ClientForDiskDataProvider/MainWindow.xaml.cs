@@ -16,6 +16,7 @@ using System.IO;
 using System.ServiceModel;
 using System.Threading;
 using ClientForDiskDataProvider.DriversInfoService;
+using System.Windows.Threading;
 
 namespace ClientForDiskDataProvider
 {
@@ -48,6 +49,44 @@ namespace ClientForDiskDataProvider
             {
 
             }
+        }
+
+        public async void GetDiskInfoFromServiceAsync()
+        {
+            //Без прокси
+            /*ChannelFactory<IDiskInfo> TestChannelFactory = new ChannelFactory<IDiskInfo>(new NetHttpBinding(), new EndpointAddress("http://localhost:8080/DiskInfoService/EndPoint_1"));
+            IDiskInfo ChannelToService = TestChannelFactory.CreateChannel();*/
+            //С прокси
+                DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_2);
+                try
+                {                
+                    ConsoleTextBox.Text = await ClientProxy.GetDriversDataAsync();
+                    ClientProxy.Close();
+                }
+                catch (FaultException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                catch (CommunicationException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                catch (TimeoutException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                finally
+                {
+                    lock (StatusChangeGate)
+                    {
+                        if (!ShutDown)
+                            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
+                        ClientBusy = false;
+                    }
+                }
         }
 
         public void GetDiskInfoFromService()
@@ -139,6 +178,51 @@ namespace ClientForDiskDataProvider
             }
         }
 
+        public void GetDriversNames()
+        {
+            lock (SafeProgramClosingGate)
+            {
+                //Ниже использован рекомендуемый способ закрытия прокси клиента
+                DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_1);
+                try
+                {
+
+                    List<string> CurrentDrivers = ClientProxy.GetDriversNames();
+                    StringBuilder ListOfDrivers = new StringBuilder();
+                    foreach (string DriveName in CurrentDrivers)
+                    {
+                        ListOfDrivers.Append(DriveName + " ");
+                    }
+                    Application.Current.Dispatcher.Invoke(new Action(() => DriversNamesLabel.Content = ListOfDrivers));
+                    ClientProxy.Close();
+                }
+                catch (FaultException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                catch (CommunicationException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                catch (TimeoutException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                finally
+                {
+                    lock (StatusChangeGate)
+                    {
+                        if (!ShutDown)
+                            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
+                        ClientBusy = false;
+                    }
+                }
+            }
+        }
+
         private void GetOneDriveInfoButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ClientBusy)
@@ -161,6 +245,34 @@ namespace ClientForDiskDataProvider
                 ClientBusy = true;
                 StatusLabel.Content = MyResourses.Texts.StatusBusy;
                 ThreadPool.QueueUserWorkItem(o => GetDiskInfoFromService());
+            }
+            else
+            {
+                MessageBox.Show(MyResourses.Texts.ProgramBusyError, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void GetDriversNamesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ClientBusy)
+            {
+                ClientBusy = true;
+                StatusLabel.Content = MyResourses.Texts.StatusBusy;
+                ThreadPool.QueueUserWorkItem(o => GetDriversNames());
+            }
+            else
+            {
+                MessageBox.Show(MyResourses.Texts.ProgramBusyError, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void GetAllDriversInfoAsyncButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ClientBusy)
+            {
+                ClientBusy = true;
+                StatusLabel.Content = MyResourses.Texts.StatusBusy;
+                GetDiskInfoFromServiceAsync();
             }
             else
             {

@@ -5,6 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel;
 
+using System.Windows;
+using System.IO;
+using System.Threading;
+
 namespace WCFdiskDataService
 {
     class Program

@@ -43,5 +43,10 @@ namespace WCFdiskDataService
                 return new MainDriveInfo(((double)CurrentDriveInfo.AvailableFreeSpace / GigabyteInBytes).ToString(), ((double)CurrentDriveInfo.TotalSize / GigabyteInBytes).ToString(), CurrentDriveInfo.Name);
             }
         }
+
+        public List<string> GetDriversNames()
+        {
+            return DriveInfo.GetDrives().Where(res => res.IsReady == true).Select(res => res.Name).ToList();
+        }
     }
 }
