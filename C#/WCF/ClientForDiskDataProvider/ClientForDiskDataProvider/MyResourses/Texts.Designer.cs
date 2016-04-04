@@ -187,6 +187,15 @@ namespace ClientForDiskDataProvider.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Завершение работы клиента....
+        /// </summary>
+        public static string StatusClosing {
+            get {
+                return ResourceManager.GetString("StatusClosing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Бездействие....
         /// </summary>
         public static string StatusFree {

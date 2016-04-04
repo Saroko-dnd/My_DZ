@@ -26,11 +26,28 @@ namespace ClientForDiskDataProvider
     {
 
         public bool ClientBusy = false;
+        private object SafeProgramClosingGate = new object();
+        private object StatusChangeGate = new object();
+        public bool ShutDown = false;
 
         public MainWindow()
         {
             InitializeComponent();
             ThreadPool.SetMinThreads(4,4);
+            this.Closing += OnClientShutDown;
+        }
+
+        public void OnClientShutDown(object sender, EventArgs e)
+        {
+            ShutDown = true;
+            lock (StatusChangeGate)
+            {
+                StatusLabel.Content = MyResourses.Texts.StatusClosing;
+            }
+            lock (SafeProgramClosingGate)
+            {
+
+            }
         }
 
         public void GetDiskInfoFromService()
@@ -39,72 +56,86 @@ namespace ClientForDiskDataProvider
             /*ChannelFactory<IDiskInfo> TestChannelFactory = new ChannelFactory<IDiskInfo>(new NetHttpBinding(), new EndpointAddress("http://localhost:8080/DiskInfoService/EndPoint_1"));
             IDiskInfo ChannelToService = TestChannelFactory.CreateChannel();*/
             //С прокси
-            DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_2);
-            try
+            lock (SafeProgramClosingGate)
             {
-                Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = ClientProxy.GetDriversData()));
-                ClientProxy.Close();
-            }
-            catch (FaultException CurrentException)
-            {
-                MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                ClientProxy.Abort();
-            }
-            catch (CommunicationException CurrentException)
-            {
-                MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                ClientProxy.Abort();
-            }
-            catch (TimeoutException CurrentException)
-            {
-                MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                ClientProxy.Abort();
-            }
-            finally
-            {
-                Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
-                ClientBusy = false;
+                DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_2);
+                try
+                {
+                    Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = ClientProxy.GetDriversData()));
+                    ClientProxy.Close();
+                }
+                catch (FaultException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                catch (CommunicationException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                catch (TimeoutException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                finally
+                {
+                    lock (StatusChangeGate)
+                    {
+                        if (!ShutDown)
+                        Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
+                        ClientBusy = false;
+                    }
+                }
             }
         }
 
         public void GetDriveInfoFromService(string DriveName)
         {
-            //Ниже использован рекомендуемый способ закрытия прокси клиента
-            DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_1);
-            try
+            lock (SafeProgramClosingGate)
             {
+                //Ниже использован рекомендуемый способ закрытия прокси клиента
+                DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_1);
+                try
+                {
 
-                MainDriveInfo CurrentDriveInfo = ClientProxy.GetOneDriveData(DriveName);
-                if (CurrentDriveInfo != null)
-                {
-                    Application.Current.Dispatcher.Invoke(new Action(() => DriveInfoLabel.Content = CurrentDriveInfo.Name + " " + MyResourses.Texts.Free + " " + 
-                        CurrentDriveInfo.AvailableSpace + " " + MyResourses.Texts.GigaByte + " " + MyResourses.Texts.From + " " + CurrentDriveInfo.TotalSpace + " " + MyResourses.Texts.GigaByte));
+                    MainDriveInfo CurrentDriveInfo = ClientProxy.GetOneDriveData(DriveName);
+                    if (CurrentDriveInfo != null)
+                    {
+                        Application.Current.Dispatcher.Invoke(new Action(() => DriveInfoLabel.Content = CurrentDriveInfo.Name + " " + MyResourses.Texts.Free + " " +
+                            CurrentDriveInfo.AvailableSpace + " " + MyResourses.Texts.GigaByte + " " + MyResourses.Texts.From + " " + CurrentDriveInfo.TotalSpace + " " + MyResourses.Texts.GigaByte));
+                    }
+                    else
+                    {
+                        Application.Current.Dispatcher.Invoke(new Action(() => DriveInfoLabel.Content = MyResourses.Texts.CantFindDriveByName));
+                    }
+                    ClientProxy.Close();
                 }
-                else
+                catch (FaultException CurrentException)
                 {
-                    Application.Current.Dispatcher.Invoke(new Action(() => DriveInfoLabel.Content = MyResourses.Texts.CantFindDriveByName));
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
                 }
-                ClientProxy.Close();
-            }
-            catch (FaultException CurrentException)
-            {
-                MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                ClientProxy.Abort();
-            }
-            catch (CommunicationException CurrentException)
-            {
-                MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                ClientProxy.Abort();
-            }
-            catch (TimeoutException CurrentException)
-            {
-                MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
-                ClientProxy.Abort();
-            }
-            finally
-            {
-                Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
-                ClientBusy = false;
+                catch (CommunicationException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                catch (TimeoutException CurrentException)
+                {
+                    MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ClientProxy.Abort();
+                }
+                finally
+                {
+                    lock (StatusChangeGate)
+                    {
+                        if (!ShutDown)
+                            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
+                        ClientBusy = false;
+                    }
+                }
             }
         }
 

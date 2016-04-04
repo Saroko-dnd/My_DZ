@@ -9,7 +9,7 @@ namespace WCFdiskDataService
 {
     public class DiskInfoProvider : IDiskInfo
     {
-        private readonly int GigabyteInBytes = 1073741824;
+        private readonly double GigabyteInBytes = 1073741824.0;
 
         public string GetDriversData()
         {
@@ -40,7 +40,7 @@ namespace WCFdiskDataService
             }
             else
             {
-                return new MainDriveInfo((CurrentDriveInfo.AvailableFreeSpace / GigabyteInBytes).ToString(), (CurrentDriveInfo.TotalSize / GigabyteInBytes).ToString(), CurrentDriveInfo.Name);
+                return new MainDriveInfo(((double)CurrentDriveInfo.AvailableFreeSpace / GigabyteInBytes).ToString(), ((double)CurrentDriveInfo.TotalSize / GigabyteInBytes).ToString(), CurrentDriveInfo.Name);
             }
         }
     }

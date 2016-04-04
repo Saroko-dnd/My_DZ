@@ -159,6 +159,9 @@
   <data name="StatusBusy" xml:space="preserve">
     <value>Выполнение пользовательского запроса к службе...</value>
   </data>
+  <data name="StatusClosing" xml:space="preserve">
+    <value>Завершение работы клиента...</value>
+  </data>
   <data name="StatusFree" xml:space="preserve">
     <value>Бездействие...</value>
   </data>
