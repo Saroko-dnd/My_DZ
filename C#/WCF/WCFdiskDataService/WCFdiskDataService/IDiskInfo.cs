@@ -13,6 +13,6 @@ namespace WCFdiskDataService
         [OperationContract]
         string GetDriversData();
         [OperationContract]
-        string GetOneDriverData();
+        MainDriveInfo GetOneDriveData(string DriveName);
     }
 }

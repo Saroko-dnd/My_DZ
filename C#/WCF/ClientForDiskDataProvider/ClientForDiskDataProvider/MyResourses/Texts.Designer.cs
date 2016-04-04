@@ -61,11 +61,29 @@ namespace ClientForDiskDataProvider.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось найти диск  с таким именем.
+        /// </summary>
+        public static string CantFindDriveByName {
+            get {
+                return ResourceManager.GetString("CantFindDriveByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Клиент для службы возвращающей информацию о диске.
         /// </summary>
         public static string ClientHeader {
             get {
                 return ResourceManager.GetString("ClientHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Общая информация о всех дисках.
+        /// </summary>
+        public static string CommonDriversInfo {
+            get {
+                return ResourceManager.GetString("CommonDriversInfo", resourceCulture);
             }
         }
         
@@ -84,6 +102,96 @@ namespace ClientForDiskDataProvider.MyResourses {
         public static string EndPoint_2 {
             get {
                 return ResourceManager.GetString("EndPoint_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на свободно.
+        /// </summary>
+        public static string Free {
+            get {
+                return ResourceManager.GetString("Free", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на из.
+        /// </summary>
+        public static string From {
+            get {
+                return ResourceManager.GetString("From", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Получить информацию о всех дисках.
+        /// </summary>
+        public static string GetCommonInfoAboutDriversButton {
+            get {
+                return ResourceManager.GetString("GetCommonInfoAboutDriversButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Инфо о диске.
+        /// </summary>
+        public static string GetDriveInfoButton {
+            get {
+                return ResourceManager.GetString("GetDriveInfoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Гб.
+        /// </summary>
+        public static string GigaByte {
+            get {
+                return ResourceManager.GetString("GigaByte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дождитесь окончания обработки предыдущего запроса!.
+        /// </summary>
+        public static string ProgramBusyError {
+            get {
+                return ResourceManager.GetString("ProgramBusyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Состояние клиента:.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выполнение пользовательского запроса к службе....
+        /// </summary>
+        public static string StatusBusy {
+            get {
+                return ResourceManager.GetString("StatusBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Бездействие....
+        /// </summary>
+        public static string StatusFree {
+            get {
+                return ResourceManager.GetString("StatusFree", resourceCulture);
             }
         }
     }

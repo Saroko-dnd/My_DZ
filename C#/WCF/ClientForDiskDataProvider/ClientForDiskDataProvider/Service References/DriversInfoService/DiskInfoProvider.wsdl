@@ -41,6 +41,7 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8080/DiskInfoService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8080/DiskInfoService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8080/DiskInfoService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFdiskDataService" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IDiskInfo_GetDriversData_InputMessage">
@@ -49,10 +50,20 @@
   <wsdl:message name="IDiskInfo_GetDriversData_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDriversDataResponse" />
   </wsdl:message>
+  <wsdl:message name="IDiskInfo_GetOneDriveData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOneDriveData" />
+  </wsdl:message>
+  <wsdl:message name="IDiskInfo_GetOneDriveData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOneDriveDataResponse" />
+  </wsdl:message>
   <wsdl:portType name="IDiskInfo">
     <wsdl:operation name="GetDriversData">
       <wsdl:input wsaw:Action="http://tempuri.org/IDiskInfo/GetDriversData" message="tns:IDiskInfo_GetDriversData_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IDiskInfo/GetDriversDataResponse" message="tns:IDiskInfo_GetDriversData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOneDriveData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDiskInfo/GetOneDriveData" message="tns:IDiskInfo_GetOneDriveData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDiskInfo/GetOneDriveDataResponse" message="tns:IDiskInfo_GetOneDriveData_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ep_1" type="tns:IDiskInfo">
@@ -67,12 +78,30 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetOneDriveData">
+      <soap12:operation soapAction="http://tempuri.org/IDiskInfo/GetOneDriveData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="ep_2" type="tns:IDiskInfo">
     <wsp:PolicyReference URI="#ep_2_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="GetDriversData">
       <soap12:operation soapAction="http://tempuri.org/IDiskInfo/GetDriversData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOneDriveData">
+      <soap12:operation soapAction="http://tempuri.org/IDiskInfo/GetOneDriveData" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -56,6 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="HeightConverter.cs" />
     <Compile Include="Service References\DriversInfoService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,11 +108,17 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\DriversInfoService\ClientForDiskDataProvider.DriversInfoService.MainDriveInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\DriversInfoService\DiskInfoProvider.wsdl" />
     <None Include="Service References\DriversInfoService\DiskInfoService.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\DriversInfoService\DiskInfoService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DriversInfoService\DiskInfoService2.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

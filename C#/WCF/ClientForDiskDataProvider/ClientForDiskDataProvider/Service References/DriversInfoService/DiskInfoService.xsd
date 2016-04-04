@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8080/DiskInfoService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFdiskDataService" />
   <xs:element name="GetDriversData">
     <xs:complexType>
       <xs:sequence />
@@ -9,6 +10,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="GetDriversDataResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOneDriveData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DriveName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOneDriveDataResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/WCFdiskDataService" minOccurs="0" name="GetOneDriveDataResult" nillable="true" type="q1:MainDriveInfo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

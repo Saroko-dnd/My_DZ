@@ -117,13 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CantFindDriveByName" xml:space="preserve">
+    <value>Не удалось найти диск  с таким именем</value>
+  </data>
   <data name="ClientHeader" xml:space="preserve">
     <value>Клиент для службы возвращающей информацию о диске</value>
+  </data>
+  <data name="CommonDriversInfo" xml:space="preserve">
+    <value>Общая информация о всех дисках</value>
   </data>
   <data name="EndPoint_1" xml:space="preserve">
     <value>ep_1</value>
   </data>
   <data name="EndPoint_2" xml:space="preserve">
     <value>ep_2</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>свободно</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>из</value>
+  </data>
+  <data name="GetCommonInfoAboutDriversButton" xml:space="preserve">
+    <value>Получить информацию о всех дисках</value>
+  </data>
+  <data name="GetDriveInfoButton" xml:space="preserve">
+    <value>Инфо о диске</value>
+  </data>
+  <data name="GigaByte" xml:space="preserve">
+    <value>Гб</value>
+  </data>
+  <data name="ProgramBusyError" xml:space="preserve">
+    <value>Дождитесь окончания обработки предыдущего запроса!</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Состояние клиента:</value>
+  </data>
+  <data name="StatusBusy" xml:space="preserve">
+    <value>Выполнение пользовательского запроса к службе...</value>
+  </data>
+  <data name="StatusFree" xml:space="preserve">
+    <value>Бездействие...</value>
   </data>
 </root>
