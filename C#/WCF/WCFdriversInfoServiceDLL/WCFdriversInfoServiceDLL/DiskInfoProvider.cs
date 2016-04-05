@@ -50,5 +50,13 @@ namespace WCFdriversInfoServiceDLL
         {
             return DriveInfo.GetDrives().Where(res => res.IsReady == true).Select(res => res.Name).ToList();
         }
+
+        public void SaveDataInLog(string ClientName)
+        {
+            using (StreamWriter LogStreamWriter = new StreamWriter(@"D:\USERS\WcfLog.txt"))
+            {
+                LogStreamWriter.Write(ClientName + " " + DateTime.Now.ToString());
+            }          
+        }
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ClientForDiskDataProvider.DriversInfoService {
+namespace ClientForDiskDataProvider.ServiceReference1 {
     using System.Runtime.Serialization;
     using System;
     
@@ -91,7 +91,7 @@ namespace ClientForDiskDataProvider.DriversInfoService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="DriversInfoService.IDiskInfo")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IDiskInfo")]
     public interface IDiskInfo {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDiskInfo/GetDriversData", ReplyAction="http://tempuri.org/IDiskInfo/GetDriversDataResponse")]
@@ -101,16 +101,16 @@ namespace ClientForDiskDataProvider.DriversInfoService {
         System.Threading.Tasks.Task<string> GetDriversDataAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDiskInfo/GetOneDriveData", ReplyAction="http://tempuri.org/IDiskInfo/GetOneDriveDataResponse")]
-        ClientForDiskDataProvider.DriversInfoService.MainDriveInfo GetOneDriveData(string DriveName);
+        ClientForDiskDataProvider.ServiceReference1.MainDriveInfo GetOneDriveData(string DriveName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDiskInfo/GetOneDriveData", ReplyAction="http://tempuri.org/IDiskInfo/GetOneDriveDataResponse")]
-        System.Threading.Tasks.Task<ClientForDiskDataProvider.DriversInfoService.MainDriveInfo> GetOneDriveDataAsync(string DriveName);
+        System.Threading.Tasks.Task<ClientForDiskDataProvider.ServiceReference1.MainDriveInfo> GetOneDriveDataAsync(string DriveName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDiskInfo/GetDriversNames", ReplyAction="http://tempuri.org/IDiskInfo/GetDriversNamesResponse")]
-        System.Collections.Generic.List<string> GetDriversNames();
+        string[] GetDriversNames();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDiskInfo/GetDriversNames", ReplyAction="http://tempuri.org/IDiskInfo/GetDriversNamesResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetDriversNamesAsync();
+        System.Threading.Tasks.Task<string[]> GetDriversNamesAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IDiskInfo/SaveDataInLog")]
         void SaveDataInLog(string ClientName);
@@ -120,12 +120,12 @@ namespace ClientForDiskDataProvider.DriversInfoService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IDiskInfoChannel : ClientForDiskDataProvider.DriversInfoService.IDiskInfo, System.ServiceModel.IClientChannel {
+    public interface IDiskInfoChannel : ClientForDiskDataProvider.ServiceReference1.IDiskInfo, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class DiskInfoClient : System.ServiceModel.ClientBase<ClientForDiskDataProvider.DriversInfoService.IDiskInfo>, ClientForDiskDataProvider.DriversInfoService.IDiskInfo {
+    public partial class DiskInfoClient : System.ServiceModel.ClientBase<ClientForDiskDataProvider.ServiceReference1.IDiskInfo>, ClientForDiskDataProvider.ServiceReference1.IDiskInfo {
         
         public DiskInfoClient() {
         }
@@ -154,19 +154,19 @@ namespace ClientForDiskDataProvider.DriversInfoService {
             return base.Channel.GetDriversDataAsync();
         }
         
-        public ClientForDiskDataProvider.DriversInfoService.MainDriveInfo GetOneDriveData(string DriveName) {
+        public ClientForDiskDataProvider.ServiceReference1.MainDriveInfo GetOneDriveData(string DriveName) {
             return base.Channel.GetOneDriveData(DriveName);
         }
         
-        public System.Threading.Tasks.Task<ClientForDiskDataProvider.DriversInfoService.MainDriveInfo> GetOneDriveDataAsync(string DriveName) {
+        public System.Threading.Tasks.Task<ClientForDiskDataProvider.ServiceReference1.MainDriveInfo> GetOneDriveDataAsync(string DriveName) {
             return base.Channel.GetOneDriveDataAsync(DriveName);
         }
         
-        public System.Collections.Generic.List<string> GetDriversNames() {
+        public string[] GetDriversNames() {
             return base.Channel.GetDriversNames();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<string>> GetDriversNamesAsync() {
+        public System.Threading.Tasks.Task<string[]> GetDriversNamesAsync() {
             return base.Channel.GetDriversNamesAsync();
         }
         

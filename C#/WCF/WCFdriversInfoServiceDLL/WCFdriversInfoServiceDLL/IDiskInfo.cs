@@ -17,6 +17,9 @@ namespace WCFdriversInfoServiceDLL
         MainDriveInfo GetOneDriveData(string DriveName);
         [OperationContract]
         List<string> GetDriversNames();
+        //Этот метод записывает в лог файл имя клиента и дату подключения к WCF службе
+        [OperationContract(IsOneWay = true)]
+        void SaveDataInLog(string ClientName);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.
