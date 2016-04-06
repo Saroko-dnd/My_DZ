@@ -8,40 +8,69 @@ namespace DynamicLINQexample
 {
     public class TestDataClass
     {
-        private int age;
+        private DateTime testDate;
+        private int temperature;
+        private double stress;
+        private double deflection;
 
-        public int Age
+        public DateTime TestDate
         {
             get
             {
-                return age;
+                return testDate;
             }
 
             set
             {
-                age = value;
+                testDate = value;
             }
         }
 
-        private string name;
-
-        public string Name
+        public int Temperature
         {
             get
             {
-                return name;
+                return temperature;
             }
 
             set
             {
-                name = value;
+                temperature = value;
             }
         }
 
-        public TestDataClass(int NewAge, string NewName)
+        public double Stress
         {
-            Age = NewAge;
-            Name = NewName;
+            get
+            {
+                return stress;
+            }
+
+            set
+            {
+                stress = value;
+            }
+        }
+
+        public double Deflection
+        {
+            get
+            {
+                return deflection;
+            }
+
+            set
+            {
+                deflection = value;
+            }
+        }
+
+        public TestDataClass(DateTime NewTestDate, int NewTemperature, double NewStress, double NewDeflection)
+        {
+            TestDate = NewTestDate;
+            Temperature = NewTemperature;
+            stress = NewStress;
+            deflection = NewDeflection;
         }
     }
 }

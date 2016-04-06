@@ -27,11 +27,6 @@ namespace DynamicLINQexample
         {
             InitializeComponent();
 
-            foreach (int CurrentInt in TestCollection.Where(DynamicLINQbuilder.WhereMethod<int>(null, 10)))
-            {
-                ConsoleStringBuilder.AppendLine(CurrentInt.ToString());
-            }
-            ConsoleTextBox.Text = ConsoleStringBuilder.ToString();
         }
     }
 }
