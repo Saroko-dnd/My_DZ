@@ -17,6 +17,7 @@ using System.ServiceModel;
 using System.Threading;
 using ClientForDiskDataProvider.DriversInfoService;
 using System.Windows.Threading;
+using System.Configuration;
 
 namespace ClientForDiskDataProvider
 {
@@ -36,6 +37,38 @@ namespace ClientForDiskDataProvider
             InitializeComponent();
             ThreadPool.SetMinThreads(4,4);
             this.Closing += OnClientShutDown;
+            /*string TestString = ConfigurationManager.GetSection("Name") as string;
+            int fff = 9;*/           
+        }
+
+        public void SendMessageToWcfService()
+        {
+            using (DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_1))
+            {
+                lock (SafeProgramClosingGate)
+                {
+                    try
+                    {
+                        ClientProxy.SaveDataInLog(ClientNameTextBox.Text);
+                        MessageBox.Show(MyResourses.Texts.MessageWasSent, MyResourses.Texts.Message, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    catch (FaultException CurrentException)
+                    {
+                        MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        ClientProxy.Abort();
+                    }
+                    catch (CommunicationException CurrentException)
+                    {
+                        MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        ClientProxy.Abort();
+                    }
+                    catch (TimeoutException CurrentException)
+                    {
+                        MessageBox.Show(CurrentException.Message, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                        ClientProxy.Abort();
+                    }
+                }
+            }     
         }
 
         public void OnClientShutDown(object sender, EventArgs e)
@@ -57,7 +90,7 @@ namespace ClientForDiskDataProvider
             /*ChannelFactory<IDiskInfo> TestChannelFactory = new ChannelFactory<IDiskInfo>(new NetHttpBinding(), new EndpointAddress("http://localhost:8080/DiskInfoService/EndPoint_1"));
             IDiskInfo ChannelToService = TestChannelFactory.CreateChannel();*/
             //С прокси
-                DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_2);
+                DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_1);
                 try
                 {                
                     ConsoleTextBox.Text = await ClientProxy.GetDriversDataAsync();
@@ -97,7 +130,7 @@ namespace ClientForDiskDataProvider
             //С прокси
             lock (SafeProgramClosingGate)
             {
-                DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_2);
+                DiskInfoClient ClientProxy = new DiskInfoClient(MyResourses.Texts.EndPoint_1);
                 try
                 {
                     Application.Current.Dispatcher.Invoke(new Action(() => ConsoleTextBox.Text = ClientProxy.GetDriversData()));
@@ -278,6 +311,11 @@ namespace ClientForDiskDataProvider
             {
                 MessageBox.Show(MyResourses.Texts.ProgramBusyError, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void LogClientNameButton_Click(object sender, RoutedEventArgs e)
+        {
+            SendMessageToWcfService();
         }
     }
 }

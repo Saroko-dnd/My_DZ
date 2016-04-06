@@ -123,6 +123,9 @@
   <data name="ClientHeader" xml:space="preserve">
     <value>Клиент для службы возвращающей информацию о диске</value>
   </data>
+  <data name="ClientName" xml:space="preserve">
+    <value>Имя клиента:</value>
+  </data>
   <data name="CommonDriversInfo" xml:space="preserve">
     <value>Общая информация о всех дисках</value>
   </data>
@@ -155,6 +158,15 @@
   </data>
   <data name="GigaByte" xml:space="preserve">
     <value>Гб</value>
+  </data>
+  <data name="LogClientNameButton" xml:space="preserve">
+    <value>Сообщить службе о подключенном клиенте</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="MessageWasSent" xml:space="preserve">
+    <value>Сообщение отправлено WCF службе</value>
   </data>
   <data name="ProgramBusyError" xml:space="preserve">
     <value>Дождитесь окончания обработки предыдущего запроса!</value>

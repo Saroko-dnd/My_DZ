@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:MyRes="clr-namespace:ClientForDiskDataProvider.MyResourses"
         xmlns:local="clr-namespace:ClientForDiskDataProvider"
-        Title="{x:Static MyRes:Texts.ClientHeader}" Height="350" Width="525" Name="ClientMainWindow">
+        Title="{x:Static MyRes:Texts.ClientHeader}" Height="400" Width="600" Name="ClientMainWindow" ResizeMode="NoResize">
     <Window.Resources>
         <local:HeightConverter x:Key="HeightConverter"></local:HeightConverter>
     </Window.Resources>
@@ -25,6 +25,11 @@
         <WrapPanel>
             <Button Content="{x:Static MyRes:Texts.GetDriversNamesButton}"  Name="GetDriversNamesButton" Click="GetDriversNamesButton_Click"></Button>
             <Label Name="DriversNamesLabel"></Label>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.ClientName}"></Label>
+            <TextBox Name="ClientNameTextBox" Width="200"></TextBox>
+            <Button Name="LogClientNameButton" Content="{x:Static MyRes:Texts.LogClientNameButton}" Click="LogClientNameButton_Click"></Button>
         </WrapPanel>
     </StackPanel>
 </Window>

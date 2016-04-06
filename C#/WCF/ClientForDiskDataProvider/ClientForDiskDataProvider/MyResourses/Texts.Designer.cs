@@ -79,6 +79,15 @@ namespace ClientForDiskDataProvider.MyResourses {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Имя клиента:.
+        /// </summary>
+        public static string ClientName {
+            get {
+                return ResourceManager.GetString("ClientName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Общая информация о всех дисках.
         /// </summary>
         public static string CommonDriversInfo {
@@ -174,6 +183,33 @@ namespace ClientForDiskDataProvider.MyResourses {
         public static string GigaByte {
             get {
                 return ResourceManager.GetString("GigaByte", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сообщить службе о подключенном клиенте.
+        /// </summary>
+        public static string LogClientNameButton {
+            get {
+                return ResourceManager.GetString("LogClientNameButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сообщение.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сообщение отправлено WCF службе.
+        /// </summary>
+        public static string MessageWasSent {
+            get {
+                return ResourceManager.GetString("MessageWasSent", resourceCulture);
             }
         }
         

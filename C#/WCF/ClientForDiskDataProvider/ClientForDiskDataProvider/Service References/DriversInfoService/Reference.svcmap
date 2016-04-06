@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a6c6566a-47cf-4a48-9548-bb4de1ee376b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="81c23bd6-56e9-4ccb-a111-4f5932f65c8d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -24,12 +24,12 @@
     <MetadataSource Address="http://localhost:8080/DiskInfoService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="DiskInfoService.xsd" MetadataType="Schema" ID="56062212-fcd8-4de1-91a5-0de4333711f5" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?xsd=xsd0" />
-    <MetadataFile FileName="DiskInfoService.disco" MetadataType="Disco" ID="ad68121c-0e48-4e20-8795-4551c9edc52c" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?disco" />
-    <MetadataFile FileName="DiskInfoService1.xsd" MetadataType="Schema" ID="199e3d8f-643b-4f5e-ad91-4acbe7401509" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?xsd=xsd1" />
-    <MetadataFile FileName="DiskInfoService2.xsd" MetadataType="Schema" ID="24da9227-a206-476e-8ffe-08495c9878ac" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?xsd=xsd2" />
-    <MetadataFile FileName="DiskInfoService3.xsd" MetadataType="Schema" ID="22611a9a-9ca5-4123-add6-1e4b103d9b4c" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?xsd=xsd3" />
-    <MetadataFile FileName="DiskInfoProvider.wsdl" MetadataType="Wsdl" ID="8a7d6a94-1ede-49e5-adf1-8a3295b1d871" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?wsdl" />
+    <MetadataFile FileName="DiskInfoService.xsd" MetadataType="Schema" ID="606325af-a831-43e6-8e17-6fd133eeb3ca" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?xsd=xsd0" />
+    <MetadataFile FileName="DiskInfoService.disco" MetadataType="Disco" ID="1acacffa-0a36-40f4-85e5-49d2808ae74b" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?disco" />
+    <MetadataFile FileName="DiskInfoService1.xsd" MetadataType="Schema" ID="e25f89fa-5a79-49b4-b9e1-a904abc19ca6" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?xsd=xsd1" />
+    <MetadataFile FileName="DiskInfoService2.xsd" MetadataType="Schema" ID="be3ba1a1-78ac-4eb9-a914-ba234941d05c" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?xsd=xsd2" />
+    <MetadataFile FileName="DiskInfoService3.xsd" MetadataType="Schema" ID="0cdb53f7-df1f-4471-ad05-59fcc9a3efc3" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?xsd=xsd3" />
+    <MetadataFile FileName="DiskInfoProvider.wsdl" MetadataType="Wsdl" ID="1c4edd0f-75e6-4c00-a384-338708be5223" SourceId="1" SourceUrl="http://localhost:8080/DiskInfoService?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
