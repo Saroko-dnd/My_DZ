@@ -14,10 +14,12 @@ namespace WcfServiceDateTimeInfo
 
         public void ReturnTime(int Period, int Number)
         {
+            IClientCallback TestCallback = OperationContext.Current.GetCallbackChannel<IClientCallback>();
+            //null reference в  ThreadPool.QueueUserWorkItem
             ThreadPool.QueueUserWorkItem(o => MessagingToClient(Period, Number, OperationContext.Current.GetCallbackChannel<IClientCallback>()));
         }
 
-        public void MessagingToClient(int Period, int Number, IClientCallback CurrentCallback)
+        public static void MessagingToClient(int Period, int Number, IClientCallback CurrentCallback)
         {
             for (int counter = 0; counter < Period; ++counter)
             {
