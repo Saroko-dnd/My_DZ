@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="341a560a-4ce5-4433-b19e-ae40bdf2eb13" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/WCFduplexFolderInfo" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="WCFduplexFolderInfo.xsd" MetadataType="Schema" ID="c0a98694-51aa-40df-947c-69e335873535" SourceId="1" SourceUrl="http://localhost:8733/WCFduplexFolderInfo?xsd=xsd2" />
+    <MetadataFile FileName="FolderInfoProvider.wsdl" MetadataType="Wsdl" ID="b094db7c-1ef2-443a-a7e9-2aab8736a6b7" SourceId="1" SourceUrl="http://localhost:8733/WCFduplexFolderInfo?wsdl" />
+    <MetadataFile FileName="WCFduplexFolderInfo1.xsd" MetadataType="Schema" ID="11240dfb-e96f-41d6-8762-b7ad1b93347c" SourceId="1" SourceUrl="http://localhost:8733/WCFduplexFolderInfo?xsd=xsd1" />
+    <MetadataFile FileName="WCFduplexFolderInfo2.xsd" MetadataType="Schema" ID="642280da-1c7c-4e35-b5ea-b8bd50ae06ce" SourceId="1" SourceUrl="http://localhost:8733/WCFduplexFolderInfo?xsd=xsd0" />
+    <MetadataFile FileName="WCFduplexFolderInfo.disco" MetadataType="Disco" ID="817002ca-99db-457c-911a-f260e48a947e" SourceId="1" SourceUrl="http://localhost:8733/WCFduplexFolderInfo?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

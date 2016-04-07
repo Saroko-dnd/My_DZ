@@ -16,7 +16,8 @@ namespace WcfServiceDateTimeInfo
         {
             IClientCallback TestCallback = OperationContext.Current.GetCallbackChannel<IClientCallback>();
             //null reference в  ThreadPool.QueueUserWorkItem
-            ThreadPool.QueueUserWorkItem(o => MessagingToClient(Period, Number, OperationContext.Current.GetCallbackChannel<IClientCallback>()));
+            IClientCallback CurrentClientCallback = OperationContext.Current.GetCallbackChannel<IClientCallback>();
+            ThreadPool.QueueUserWorkItem(o => MessagingToClient(Period, Number, CurrentClientCallback));
         }
 
         public static void MessagingToClient(int Period, int Number, IClientCallback CurrentCallback)
