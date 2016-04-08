@@ -13,6 +13,8 @@ namespace ClientForWCFchat
     {
 
         public static ListBox ListOfClientsInChat;
+        public static TextBox PublicChatTextBox;
+        public static TextBox PrivateChatTextBox;
 
         public static InstanceContext CurrentContext = new InstanceContext(new CallBackHandler());
         public static ChatServiceClient Proxy = new ChatServiceClient(CurrentContext);
@@ -21,7 +23,7 @@ namespace ClientForWCFchat
         {
             lock (MainWindow.AllClientsInChat)
             {
-                MainWindow.AllClientsInChat.Add(NewClientName);
+                MainWindow.AllClientsInChat.Add(new ClientName(NewClientName));
                 ListOfClientsInChat.Items.Refresh();
             }
         }
@@ -30,27 +32,35 @@ namespace ClientForWCFchat
         {
             lock (MainWindow.AllClientsInChat)
             {
-                MainWindow.AllClientsInChat.Remove(MainWindow.AllClientsInChat.Where(res => res == NewClientName).First());
+                MainWindow.AllClientsInChat.Remove(MainWindow.AllClientsInChat.Where(res => res.CurrentClientName == NewClientName).First());
                 ListOfClientsInChat.Items.Refresh();
             }
         }
 
         public void ReceivePrivateMessage(string NewMessage, string ClientSenderName)
         {
-            throw new NotImplementedException();
+            lock (MainWindow.BuilderForPrivateChat)
+            {
+                MainWindow.BuilderForPrivateChat.AppendLine(ClientSenderName.ToUpper() + ": " + NewMessage);
+                PrivateChatTextBox.Text = MainWindow.BuilderForPrivateChat.ToString();
+            }
         }
 
-        public void ReceivePublicMessage(string NewMessage)
+        public void ReceivePublicMessage(string NewMessage, string ClientName)
         {
-            throw new NotImplementedException();
+            lock (MainWindow.BuilderForPublicChat)
+            {
+                MainWindow.BuilderForPublicChat.AppendLine(ClientName.ToUpper() + ": " + NewMessage);
+                PublicChatTextBox.Text = MainWindow.BuilderForPublicChat.ToString();
+            }
         }
 
         public void ReceiveListOfClientsInChat(string[] AllClients)
         {
             lock (MainWindow.AllClientsInChat)
-            {                
-                MainWindow.AllClientsInChat = AllClients.ToList();
-                ListOfClientsInChat.Items.Refresh();
+            {
+                MainWindow.AllClientsInChat = AllClients.Select(res => new ClientName(res)).ToList();
+                ListOfClientsInChat.ItemsSource = MainWindow.AllClientsInChat;
             }
         }
     }

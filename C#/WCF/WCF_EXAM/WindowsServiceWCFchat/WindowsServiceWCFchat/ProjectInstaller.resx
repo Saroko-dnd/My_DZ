@@ -117,49 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClientInChatLabel" xml:space="preserve">
-    <value>Сейчас в чате:</value>
-  </data>
-  <data name="ClientNameEmptyError" xml:space="preserve">
-    <value>Имя клиента не может быть пустым!</value>
-  </data>
-  <data name="ClientNameLabel" xml:space="preserve">
-    <value>Имя клиента:</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Ошибка</value>
-  </data>
-  <data name="InvalidClientNameError" xml:space="preserve">
-    <value>Имя вашего клиента уже используется!</value>
-  </data>
-  <data name="JoinChatButton" xml:space="preserve">
-    <value>Подключиться к чату</value>
-  </data>
-  <data name="NotInChatError" xml:space="preserve">
-    <value>Вы еще не вошли в чат!</value>
-  </data>
-  <data name="PrivateChatLabel" xml:space="preserve">
-    <value>Личные сообщения</value>
-  </data>
-  <data name="PrivateMessageTabItem" xml:space="preserve">
-    <value>Личное сообщение</value>
-  </data>
-  <data name="PublicChatLabel" xml:space="preserve">
-    <value>Общий чат</value>
-  </data>
-  <data name="PublicMessageTabItem" xml:space="preserve">
-    <value>Публичное сообщение</value>
-  </data>
-  <data name="ReceiverLabel" xml:space="preserve">
-    <value>Получатель:</value>
-  </data>
-  <data name="ReceiverUnknown" xml:space="preserve">
-    <value>Вы не указали имя клиента, который должен получить приватное сообщение!</value>
-  </data>
-  <data name="SendMessageButton" xml:space="preserve">
-    <value>Отправить сообщение</value>
-  </data>
-  <data name="YouAlreadyInChatError" xml:space="preserve">
-    <value>Нельзя дважы подключить один клиент к чату!</value>
-  </data>
+  <metadata name="serviceProcessInstaller1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="serviceInstaller1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>196, 17</value>
+  </metadata>
+  <metadata name="$this.TrayLargeIcon" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
 </root>

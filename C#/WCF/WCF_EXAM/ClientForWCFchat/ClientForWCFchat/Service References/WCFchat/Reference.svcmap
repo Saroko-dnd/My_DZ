@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d7921ea1-e840-4fcd-b8cf-2c8c64211f4b" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="01a4e0c4-3365-4da9-ae8e-7670b0697779" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:8733/WcfChatService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="WcfChatService.xsd" MetadataType="Schema" ID="068c4c54-ec6b-4a7b-9dd5-2f95443f7623" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?xsd=xsd0" />
-    <MetadataFile FileName="WcfChatService.disco" MetadataType="Disco" ID="1fb57dc6-34cc-456f-87e8-051f56996f11" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?disco" />
-    <MetadataFile FileName="ChatServiceProvider.wsdl" MetadataType="Wsdl" ID="edb54184-25a4-4224-a548-03bf1b00dec3" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?wsdl" />
-    <MetadataFile FileName="WcfChatService1.xsd" MetadataType="Schema" ID="99733c21-828f-4360-bb8e-3fe33b367c2e" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?xsd=xsd1" />
-    <MetadataFile FileName="WcfChatService2.xsd" MetadataType="Schema" ID="b5db80e6-ff37-43e5-aa5a-50d7c67a629f" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?xsd=xsd2" />
+    <MetadataFile FileName="WcfChatService.xsd" MetadataType="Schema" ID="0bb7928a-64d3-46fc-8941-7ff48beddd26" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?xsd=xsd0" />
+    <MetadataFile FileName="WcfChatService.disco" MetadataType="Disco" ID="74e39aa6-3352-4652-9357-8ab87b264441" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?disco" />
+    <MetadataFile FileName="ChatServiceProvider.wsdl" MetadataType="Wsdl" ID="3766c215-84af-4c9c-abbd-3e2dcc6ff1d4" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?wsdl" />
+    <MetadataFile FileName="WcfChatService1.xsd" MetadataType="Schema" ID="aa643b21-babb-49b1-9dcf-982a986afc3f" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?xsd=xsd1" />
+    <MetadataFile FileName="WcfChatService2.xsd" MetadataType="Schema" ID="c922ab91-e3d4-4a44-b1f4-58534bdbfe11" SourceId="1" SourceUrl="http://localhost:8733/WcfChatService?xsd=xsd2" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

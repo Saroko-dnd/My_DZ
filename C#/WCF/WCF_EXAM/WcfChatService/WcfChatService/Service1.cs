@@ -54,7 +54,7 @@ namespace WcfChatService
             }
         }
 
-        public void Message(string CurrentMessage)
+        public void Message(string CurrentMessage, string ClientName)
         {
             lock (AllClientsCallbacks)
             {
@@ -64,7 +64,7 @@ namespace WcfChatService
                 {
                     try
                     {
-                        CurrentClientInfo.CurrentClientCallback.ReceivePublicMessage(CurrentMessage);
+                        CurrentClientInfo.CurrentClientCallback.ReceivePublicMessage(CurrentMessage, ClientName);
                     }
                     catch
                     {

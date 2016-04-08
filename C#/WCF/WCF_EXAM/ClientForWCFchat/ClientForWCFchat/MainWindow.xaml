@@ -45,7 +45,15 @@
             <StackPanel>
                 <Label Content="{x:Static MyRes:Texts.ClientInChatLabel}"></Label>
                 <ListBox Name="ClientsInChatListBox"
-                         Height="{Binding ElementName=WCFclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}"></ListBox>
+                         Height="{Binding ElementName=WCFclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <TextBox Text="{Binding CurrentClientName}" IsReadOnly="True"></TextBox>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </StackPanel>
         </DockPanel>
         <TabControl>

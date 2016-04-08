@@ -15,7 +15,7 @@ namespace WcfChatService
         bool Join(string ClientName);
 
         [OperationContract(IsOneWay = true, IsInitiating = false, IsTerminating = false)]
-        void Message(string CurrentMessage);
+        void Message(string CurrentMessage, string ClientName);
 
         [OperationContract(IsOneWay = true, IsInitiating = false, IsTerminating = false)]
         void SendMessageTo(string CurrentMessage, string ClientReceiver, string ClientSender);
@@ -35,7 +35,7 @@ namespace WcfChatService
         [OperationContract(IsOneWay = true)]
         void AnotherClientLeft(string NewClientName);
         [OperationContract(IsOneWay = true)]
-        void ReceivePublicMessage(string NewMessage);
+        void ReceivePublicMessage(string NewMessage, string ClientName);
         [OperationContract(IsOneWay = true)]
         void ReceivePrivateMessage(string NewMessage, string ClientSenderName);
         [OperationContract(IsOneWay = true)]

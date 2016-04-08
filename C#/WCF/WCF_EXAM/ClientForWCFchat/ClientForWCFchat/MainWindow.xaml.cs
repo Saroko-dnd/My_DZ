@@ -20,7 +20,9 @@ namespace ClientForWCFchat
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static List<string> AllClientsInChat = new List<string>();
+        public static List<ClientName> AllClientsInChat = new List<ClientName>();
+        public static StringBuilder BuilderForPublicChat = new StringBuilder();
+        public static StringBuilder BuilderForPrivateChat = new StringBuilder();
 
         public MainWindow()
         {
@@ -30,6 +32,8 @@ namespace ClientForWCFchat
 
             ClientsInChatListBox.ItemsSource = AllClientsInChat;
             CallBackHandler.ListOfClientsInChat = ClientsInChatListBox;
+            CallBackHandler.PublicChatTextBox = PublicChatTextBox;
+            CallBackHandler.PrivateChatTextBox = PrivateChatTextBox;
         }
 
         private void ClientShutDown(object sender, EventArgs e)
@@ -42,12 +46,26 @@ namespace ClientForWCFchat
 
         private void SendpublicMessageButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ClientNameTextBox.IsReadOnly)
+            {
+                CallBackHandler.Proxy.Message(PublicMessageTextBox.Text, ClientNameTextBox.Text);
+            }
+            else
+            {
+                MessageBox.Show(MyResourses.Texts.NotInChatError, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void SendPrivateMessageButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ReceiverNameTextBox.Text != string.Empty)
+            {
+                CallBackHandler.Proxy.SendMessageTo(PrivateMessageTextBox.Text, ReceiverNameTextBox.Text, ClientNameTextBox.Text);
+            }
+            else
+            {
+                MessageBox.Show(MyResourses.Texts.ReceiverUnknown, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void JoinChatButton_Click(object sender, RoutedEventArgs e)
