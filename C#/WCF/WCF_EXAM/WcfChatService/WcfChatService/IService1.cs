@@ -18,7 +18,7 @@ namespace WcfChatService
         void Message(string CurrentMessage);
 
         [OperationContract(IsOneWay = true, IsInitiating = false, IsTerminating = false)]
-        void SendMessageTo(string CurrentMessage, string ClientReceiver);
+        void SendMessageTo(string CurrentMessage, string ClientReceiver, string ClientSender);
 
         [OperationContract(IsOneWay = true, IsInitiating = false, IsTerminating = true)]
         void CloseConnection(string ClientName);

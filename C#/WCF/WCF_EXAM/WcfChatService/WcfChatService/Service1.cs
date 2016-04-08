@@ -13,18 +13,43 @@ namespace WcfChatService
     public class ChatServiceProvider : IChatService
     {
         public static List<ClientJoinInfo> AllClientsCallbacks = new List<ClientJoinInfo>();
+
         public void Join(string ClientName)
         {
             lock (AllClientsCallbacks)
             {
+                List<int> PositionsForRemove = new List<int>();
+                int counter = 0;
+                foreach (ClientJoinInfo CurrentClientInfo in AllClientsCallbacks)
+                {
+                    try
+                    {
+                        CurrentClientInfo.CurrentClientCallback.AnotherClientJoin(ClientName);
+                    }
+                    catch
+                    {
+                        //Удаляем из списка недоступного клиента
+                        PositionsForRemove.Add(counter);
+                    }
+                    finally
+                    {
+                        ++counter;
+                    }
+                    foreach (int CurrentRemovePosition in PositionsForRemove)
+                    {
+                        AllClientsCallbacks[CurrentRemovePosition].CurrentClientCallback = null;
+                    }
+                    AllClientsCallbacks = AllClientsCallbacks.Where(res => res.CurrentClientCallback != null).ToList();
+                }
                 AllClientsCallbacks.Add(new ClientJoinInfo(ClientName, OperationContext.Current.GetCallbackChannel<IClientCallback>()));
             }
         }
+
         public void Message(string CurrentMessage)
         {
-            List<int> PositionsForRemove = new List<int>();
             lock (AllClientsCallbacks)
             {
+                List<int> PositionsForRemove = new List<int>();
                 int counter = 0;
                 foreach (ClientJoinInfo CurrentClientInfo in AllClientsCallbacks)
                 {
@@ -49,11 +74,16 @@ namespace WcfChatService
                 AllClientsCallbacks = AllClientsCallbacks.Where(res => res.CurrentClientCallback != null).ToList();
             }
         }
-        public void SendMessageTo(string CurrentMessage, string ClientReceiver)
+
+        public void SendMessageTo(string CurrentMessage, string ClientReceiver, string ClientSender)
         {
             lock (AllClientsCallbacks)
             {
-                AllClientsCallbacks.Where(res => res.CurrentClientName == ClientReceiver).First().CurrentClientCallback.ReceivePrivateMessage(CurrentMessage, ClientReceiver);
+                ClientJoinInfo CurrentReceiver = AllClientsCallbacks.Where(res => res.CurrentClientName == ClientReceiver).FirstOrDefault();
+                if (CurrentReceiver != null)
+                {
+                    CurrentReceiver.CurrentClientCallback.ReceivePrivateMessage(CurrentMessage, ClientSender);
+                }
             }
         }
 
@@ -62,6 +92,29 @@ namespace WcfChatService
             lock (AllClientsCallbacks)
             {
                 AllClientsCallbacks.Remove(AllClientsCallbacks.Where(res => res.CurrentClientName == ClientName).First());
+                List<int> PositionsForRemove = new List<int>();
+                int counter = 0;
+                foreach (ClientJoinInfo CurrentClientInfo in AllClientsCallbacks)
+                {
+                    try
+                    {
+                        CurrentClientInfo.CurrentClientCallback.AnotherClientLeft(ClientName);
+                    }
+                    catch
+                    {
+                        //Удаляем из списка недоступного клиента
+                        PositionsForRemove.Add(counter);
+                    }
+                    finally
+                    {
+                        ++counter;
+                    }
+                    foreach (int CurrentRemovePosition in PositionsForRemove)
+                    {
+                        AllClientsCallbacks[CurrentRemovePosition].CurrentClientCallback = null;
+                    }
+                    AllClientsCallbacks = AllClientsCallbacks.Where(res => res.CurrentClientCallback != null).ToList();
+                }
             }
         }
 
