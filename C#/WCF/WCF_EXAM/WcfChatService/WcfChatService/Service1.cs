@@ -14,34 +14,43 @@ namespace WcfChatService
     {
         public static List<ClientJoinInfo> AllClientsCallbacks = new List<ClientJoinInfo>();
 
-        public void Join(string ClientName)
+        public bool Join(string ClientName)
         {
             lock (AllClientsCallbacks)
             {
-                List<int> PositionsForRemove = new List<int>();
-                int counter = 0;
-                foreach (ClientJoinInfo CurrentClientInfo in AllClientsCallbacks)
+
+                if (AllClientsCallbacks.Where(res => res.CurrentClientName == ClientName).FirstOrDefault() != null)
                 {
-                    try
-                    {
-                        CurrentClientInfo.CurrentClientCallback.AnotherClientJoin(ClientName);
-                    }
-                    catch
-                    {
-                        //Удаляем из списка недоступного клиента
-                        PositionsForRemove.Add(counter);
-                    }
-                    finally
-                    {
-                        ++counter;
-                    }
-                    foreach (int CurrentRemovePosition in PositionsForRemove)
-                    {
-                        AllClientsCallbacks[CurrentRemovePosition].CurrentClientCallback = null;
-                    }
-                    AllClientsCallbacks = AllClientsCallbacks.Where(res => res.CurrentClientCallback != null).ToList();
+                    return false;
                 }
-                AllClientsCallbacks.Add(new ClientJoinInfo(ClientName, OperationContext.Current.GetCallbackChannel<IClientCallback>()));
+                else
+                {
+                    List<int> PositionsForRemove = new List<int>();
+                    int counter = 0;
+                    foreach (ClientJoinInfo CurrentClientInfo in AllClientsCallbacks)
+                    {
+                        try
+                        {
+                            CurrentClientInfo.CurrentClientCallback.AnotherClientJoin(ClientName);
+                        }
+                        catch
+                        {
+                            //Удаляем из списка недоступного клиента
+                            PositionsForRemove.Add(counter);
+                        }
+                        finally
+                        {
+                            ++counter;
+                        }
+                        foreach (int CurrentRemovePosition in PositionsForRemove)
+                        {
+                            AllClientsCallbacks[CurrentRemovePosition].CurrentClientCallback = null;
+                        }
+                        AllClientsCallbacks = AllClientsCallbacks.Where(res => res.CurrentClientCallback != null).ToList();
+                    }
+                    AllClientsCallbacks.Add(new ClientJoinInfo(ClientName, OperationContext.Current.GetCallbackChannel<IClientCallback>()));
+                    return true;
+                }
             }
         }
 
@@ -118,6 +127,14 @@ namespace WcfChatService
             }
         }
 
+        public void GetListOfClientsInChat()
+        {
+            lock (AllClientsCallbacks)
+            {
+                OperationContext.Current.GetCallbackChannel<IClientCallback>().ReceiveListOfClientsInChat(AllClientsCallbacks.Select(res => res.CurrentClientName).ToArray());
+
+            }
+        }
     }
 
 }

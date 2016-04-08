@@ -4,9 +4,81 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientForWCFchat"
+        xmlns:MyRes="clr-namespace:ClientForWCFchat.MyResourses"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="350" Width="525" Name="WCFclientMainWindow">
+    <Window.Resources>
+        <local:HeightConverter x:Key="HeightConverter"></local:HeightConverter>
+        <local:WidthConverter x:Key="WidthConverter"></local:WidthConverter>
+        <local:HeightConverterForMessageTextBox x:Key="HeightConverterForMessageTextBox"></local:HeightConverterForMessageTextBox>
+        <local:WidthConverterForMessageTextBox x:Key="WidthConverterForMessageTextBox"></local:WidthConverterForMessageTextBox>
+        <sys:Int32 x:Key="MaxLinesForMessage">10</sys:Int32>
+    </Window.Resources>
+    <StackPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.ClientNameLabel}"></Label>
+            <TextBox Name="ClientNameTextBox" Width="200"></TextBox>
+            <Button Name="JoinChatButton" Content="{x:Static MyRes:Texts.JoinChatButton}" Click="JoinChatButton_Click"></Button>
+        </WrapPanel>
+        <DockPanel>
+            <StackPanel>
+                <Label Content="{x:Static MyRes:Texts.PublicChatLabel}"></Label>
+                <TextBox Height="{Binding ElementName=WCFclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}" 
+                         Width="{Binding ElementName=WCFclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverter}}" 
+                         Name="PublicChatTextBox"
+                         ScrollViewer.CanContentScroll="True"
+                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         IsReadOnly="True"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="{x:Static MyRes:Texts.PrivateChatLabel}"></Label>
+                <TextBox Height="{Binding ElementName=WCFclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}"
+                         Width="125"
+                         Name="PrivateChatTextBox"
+                         ScrollViewer.CanContentScroll="True"
+                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         IsReadOnly="True"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="{x:Static MyRes:Texts.ClientInChatLabel}"></Label>
+                <ListBox Name="ClientsInChatListBox"
+                         Height="{Binding ElementName=WCFclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverter}}"></ListBox>
+            </StackPanel>
+        </DockPanel>
+        <TabControl>
+            <TabItem Header="{x:Static MyRes:Texts.PublicMessageTabItem}">
+                <WrapPanel>
+                    <TextBox Name="PublicMessageTextBox"
+                         ScrollViewer.CanContentScroll="True"
+                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         MaxLines="{StaticResource MaxLinesForMessage}"
+                         Height="{Binding ElementName=WCFclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverterForMessageTextBox}}"
+                         Width="{Binding ElementName=WCFclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverterForMessageTextBox}}"></TextBox>
+                    <StackPanel>
+                        <Button Content="{x:Static MyRes:Texts.SendMessageButton}" Name="SendPublicMessageButton" Click="SendpublicMessageButton_Click"></Button>
+                    </StackPanel>
+                </WrapPanel>
+            </TabItem>
+            <TabItem Header="{x:Static MyRes:Texts.PrivateMessageTabItem}">
+                <WrapPanel>
+                    <TextBox Name="PrivateMessageTextBox"
+                         ScrollViewer.CanContentScroll="True"
+                         ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         MaxLines="{StaticResource MaxLinesForMessage}"
+                         Height="{Binding ElementName=WCFclientMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverterForMessageTextBox}}"
+                         Width="{Binding ElementName=WCFclientMainWindow, Path=ActualWidth, Converter={StaticResource WidthConverterForMessageTextBox}}"></TextBox>
+                    <StackPanel>
+                        <Button Content="{x:Static MyRes:Texts.SendMessageButton}" Name="SendPrivateMessageButton" Click="SendPrivateMessageButton_Click"></Button>
+                        <Label Content="{x:Static MyRes:Texts.ReceiverLabel}"></Label>
+                        <TextBox Name="ReceiverNameTextBox"></TextBox>
+                    </StackPanel>                    
+                </WrapPanel>
+            </TabItem>
+        </TabControl>
+    </StackPanel>
 </Window>

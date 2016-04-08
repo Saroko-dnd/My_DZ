@@ -8,11 +8,11 @@ using System.Text;
 namespace WcfChatService
 {
 
-    [ServiceContract(CallbackContract = typeof(IClientCallback))]
+    [ServiceContract(CallbackContract = typeof(IClientCallback), SessionMode = SessionMode.Required)]
     public interface IChatService
     {
-        [OperationContract(IsOneWay = true, IsInitiating = true, IsTerminating = false)]
-        void Join(string ClientName);
+        [OperationContract(IsOneWay = false, IsInitiating = true, IsTerminating = false)]
+        bool Join(string ClientName);
 
         [OperationContract(IsOneWay = true, IsInitiating = false, IsTerminating = false)]
         void Message(string CurrentMessage);
@@ -22,6 +22,10 @@ namespace WcfChatService
 
         [OperationContract(IsOneWay = true, IsInitiating = false, IsTerminating = true)]
         void CloseConnection(string ClientName);
+
+        [OperationContract(IsOneWay = true, IsInitiating = false, IsTerminating = false)]
+        void GetListOfClientsInChat();
+
     }
 
     public interface IClientCallback
@@ -34,6 +38,9 @@ namespace WcfChatService
         void ReceivePublicMessage(string NewMessage);
         [OperationContract(IsOneWay = true)]
         void ReceivePrivateMessage(string NewMessage, string ClientSenderName);
+        [OperationContract(IsOneWay = true)]
+        void ReceiveListOfClientsInChat(string[] AllClients);
+
     }
 
 
