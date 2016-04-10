@@ -22,7 +22,7 @@ namespace DynamicLINQexample.MyResourses {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Texts {
+    public class Texts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace DynamicLINQexample.MyResourses {
         ///   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DynamicLINQexample.MyResourses.Texts", typeof(Texts).Assembly);
@@ -51,7 +51,7 @@ namespace DynamicLINQexample.MyResourses {
         ///   обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,11 +61,110 @@ namespace DynamicLINQexample.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Деформация:.
+        /// </summary>
+        public static string DeflactionLabel {
+            get {
+                return ResourceManager.GetString("DeflactionLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Деформация.
+        /// </summary>
+        public static string DeflectionColumn {
+            get {
+                return ResourceManager.GetString("DeflectionColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Фильтры:.
+        /// </summary>
+        public static string Filters {
+            get {
+                return ResourceManager.GetString("Filters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Давление.
+        /// </summary>
+        public static string StressColumn {
+            get {
+                return ResourceManager.GetString("StressColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Давление:.
+        /// </summary>
+        public static string StressLabel {
+            get {
+                return ResourceManager.GetString("StressLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Температура.
+        /// </summary>
+        public static string TemperatureColumn {
+            get {
+                return ResourceManager.GetString("TemperatureColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Температура:.
+        /// </summary>
+        public static string TemperatureLabel {
+            get {
+                return ResourceManager.GetString("TemperatureLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Дата проведения теста:.
+        /// </summary>
+        public static string TestDateColumn {
+            get {
+                return ResourceManager.GetString("TestDateColumn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Число:.
+        /// </summary>
+        public static string TestDayLabel {
+            get {
+                return ResourceManager.GetString("TestDayLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Месяц:.
+        /// </summary>
+        public static string TestMonthLabel {
+            get {
+                return ResourceManager.GetString("TestMonthLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Результаты тестов.
         /// </summary>
-        internal static string TestResults {
+        public static string TestResults {
             get {
                 return ResourceManager.GetString("TestResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Год:.
+        /// </summary>
+        public static string TestYearLabel {
+            get {
+                return ResourceManager.GetString("TestYearLabel", resourceCulture);
             }
         }
     }

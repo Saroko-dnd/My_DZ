@@ -5,13 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DynamicLINQexample"
         xmlns:MyRes="clr-namespace:DynamicLINQexample.MyResourses"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" Name="ExampleMainWindow">
     <Window.Resources>
+        <x:Array Type="sys:String" x:Key="BinaryOperators">
+            <sys:String>&lt;</sys:String>
+            <sys:String>&gt;</sys:String>
+            <sys:String>==</sys:String>
+            <sys:String>нет фильтра</sys:String>
+        </x:Array>
+        <sys:Double x:Key="TextBoxWidthForSmallNumbers">25.0</sys:Double>
+        <sys:Double x:Key="TextBoxWidthForDoubleNumbers">150.0</sys:Double>
         <local:HeightConverterForDataGrid x:Key="HeightConverterForDataGrid"></local:HeightConverterForDataGrid>
     </Window.Resources>
     <StackPanel>
         <Label Content="{x:Static MyRes:Texts.TestResults}"></Label>
         <DataGrid IsReadOnly="True" MaxHeight="{Binding ElementName=ExampleMainWindow, Path=ActualHeight, Converter={StaticResource HeightConverterForDataGrid}}" Name="TestsDataGrid"></DataGrid>
+        <Label Content="{x:Static MyRes:Texts.Filters}"></Label>
+        <WrapPanel>
+            <StackPanel>
+                <Label Content="{x:Static MyRes:Texts.TestDateColumn}"></Label>
+            </StackPanel>
+            <StackPanel>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.TestDayLabel}"></Label>
+                    <ComboBox ItemsSource="{StaticResource BinaryOperators}" Name="BinaryOperatorsForTestDayComboBox"></ComboBox>
+                    <TextBox Name="DayTextBox" Width="{StaticResource TextBoxWidthForSmallNumbers}" ></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.TestMonthLabel}"></Label>
+                    <ComboBox ItemsSource="{StaticResource BinaryOperators}" Name="BinaryOperatorsForTestMonthComboBox"></ComboBox>
+                    <TextBox Name="MonthTextBox" Width="{StaticResource TextBoxWidthForSmallNumbers}"></TextBox>
+                </WrapPanel>
+                <WrapPanel>
+                    <Label Content="{x:Static MyRes:Texts.TestYearLabel}"></Label>
+                    <ComboBox ItemsSource="{StaticResource BinaryOperators}" Name="BinaryOperatorsForTestYearComboBox"></ComboBox>
+                    <TextBox Name="YearTextBox" Width="50"></TextBox>
+                </WrapPanel>
+            </StackPanel>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.TemperatureLabel}"></Label>
+            <ComboBox ItemsSource="{StaticResource BinaryOperators}" Name="BinaryOperatorsForTestTemperatureComboBox"></ComboBox>
+            <TextBox  Width="100" Name="TemperatureTextBox"></TextBox>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.StressLabel}"></Label>
+            <ComboBox ItemsSource="{StaticResource BinaryOperators}" Name="BinaryOperatorsForTestStressComboBox"></ComboBox>
+            <TextBox  Width="{StaticResource TextBoxWidthForDoubleNumbers}" Name="StressTextBox"></TextBox>
+        </WrapPanel>
+        <WrapPanel>
+            <Label Content="{x:Static MyRes:Texts.DeflactionLabel}"></Label>
+            <ComboBox ItemsSource="{StaticResource BinaryOperators}" Name="BinaryOperatorsForTestDeflactionComboBox"></ComboBox>
+            <TextBox  Width="{StaticResource TextBoxWidthForDoubleNumbers}" Name="DeflactionTextBox"></TextBox>
+        </WrapPanel>
     </StackPanel>
 </Window>

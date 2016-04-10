@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace DynamicLINQexample
 {
@@ -71,6 +72,26 @@ namespace DynamicLINQexample
             Temperature = NewTemperature;
             stress = NewStress;
             deflection = NewDeflection;
+        }
+
+        public static void DataGridAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyName == "TestDate")
+            {
+                e.Column.Header = MyResourses.Texts.TestDateColumn;
+            }
+            else if (e.PropertyName == "Temperature")
+            {
+                e.Column.Header = MyResourses.Texts.TemperatureColumn;
+            }
+            else if (e.PropertyName == "Stress")
+            {
+                e.Column.Header = MyResourses.Texts.StressColumn;
+            }
+            else if (e.PropertyName == "Deflection")
+            {
+                e.Column.Header = MyResourses.Texts.DeflectionColumn;
+            }
         }
     }
 }

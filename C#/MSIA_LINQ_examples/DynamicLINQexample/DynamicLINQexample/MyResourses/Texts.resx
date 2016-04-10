@@ -117,7 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="DeflactionLabel" xml:space="preserve">
+    <value>Деформация:</value>
+  </data>
+  <data name="DeflectionColumn" xml:space="preserve">
+    <value>Деформация</value>
+  </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Фильтры:</value>
+  </data>
+  <data name="StressColumn" xml:space="preserve">
+    <value>Давление</value>
+  </data>
+  <data name="StressLabel" xml:space="preserve">
+    <value>Давление:</value>
+  </data>
+  <data name="TemperatureColumn" xml:space="preserve">
+    <value>Температура</value>
+  </data>
+  <data name="TemperatureLabel" xml:space="preserve">
+    <value>Температура:</value>
+  </data>
+  <data name="TestDateColumn" xml:space="preserve">
+    <value>Дата проведения теста:</value>
+  </data>
+  <data name="TestDayLabel" xml:space="preserve">
+    <value>Число:</value>
+  </data>
+  <data name="TestMonthLabel" xml:space="preserve">
+    <value>Месяц:</value>
+  </data>
   <data name="TestResults" xml:space="preserve">
     <value>Результаты тестов</value>
+  </data>
+  <data name="TestYearLabel" xml:space="preserve">
+    <value>Год:</value>
   </data>
 </root>
