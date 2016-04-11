@@ -1,0 +1,17 @@
+UML Основы
+http://rutracker.org/forum/viewtopic.php?t=3692669
+
+Применение UML 2.0 и шаблонов проектирования. Практическое руководство
+http://rutracker.org/forum/viewtopic.php?t=4750760
+
+Освой самостоятельно UML за 24 часа
+http://rutracker.org/forum/viewtopic.php?t=4735255
+
+UML. Специальный справочник. Грэди Буч, Айвар Якобсон, Джеймс Рамбо
+http://rutracker.org/forum/viewtopic.php?t=4734305
+
+Язык UML. Руководство пользователя. Буч Г., Рамбо Д., Якобсон И.
+http://rutracker.org/forum/viewtopic.php?t=4452001
+
+UML 2.0 Объектно-ориентированное моделирование и разработка
+http://rutracker.org/forum/viewtopic.php?t=3775630
