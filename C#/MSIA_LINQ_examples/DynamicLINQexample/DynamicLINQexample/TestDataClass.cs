@@ -74,6 +74,19 @@ namespace DynamicLINQexample
             deflection = NewDeflection;
         }
 
+        private static Random RandomGenerator = new Random();
+
+        public static List<TestDataClass> GenerateRandomListOfData(int AmountOfData)
+        {
+            List<TestDataClass> NewRandomListOfData = new List<TestDataClass>();
+            for (int counter = 0; counter < AmountOfData; ++counter)
+            {
+                NewRandomListOfData.Add(new TestDataClass(new DateTime(RandomGenerator.Next(2000,2016), RandomGenerator.Next(1, 12), RandomGenerator.Next(1, 30)), RandomGenerator.Next(-500, 100000),
+                    RandomGenerator.Next(100000), RandomGenerator.Next(100000)));
+            }
+            return NewRandomListOfData;
+        }
+
         public static void DataGridAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             if (e.PropertyName == "TestDate")

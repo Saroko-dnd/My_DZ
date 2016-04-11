@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BinaryOperator.cs" />
     <Compile Include="CharsKiller.cs" />
     <Compile Include="HeightConverterForDataGrid.cs" />
     <Compile Include="MyResourses\Texts.Designer.cs">

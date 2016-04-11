@@ -7,11 +7,13 @@
         xmlns:MyRes="clr-namespace:DynamicLINQexample.MyResourses"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Name="ExampleMainWindow">
+        Title="MainWindow" Height="700" Width="525" Name="ExampleMainWindow" ResizeMode="NoResize">
     <Window.Resources>
         <x:Array Type="sys:String" x:Key="BinaryOperators">
             <sys:String>&lt;</sys:String>
+            <sys:String>&lt;=</sys:String>
             <sys:String>&gt;</sys:String>
+            <sys:String>&gt;=</sys:String>
             <sys:String>==</sys:String>
             <sys:String>нет фильтра</sys:String>
         </x:Array>
@@ -60,5 +62,12 @@
             <ComboBox ItemsSource="{StaticResource BinaryOperators}" Name="BinaryOperatorsForTestDeflactionComboBox"></ComboBox>
             <TextBox  Width="{StaticResource TextBoxWidthForDoubleNumbers}" Name="DeflactionTextBox"></TextBox>
         </WrapPanel>
+        <Border BorderThickness="1" BorderBrush="DeepPink">
+            <WrapPanel>
+                <Label Content="{x:Static MyRes:Texts.StatusLabel}"></Label>
+                <Label Content="{x:Static MyRes:Texts.StatusFree}" Name="StatusLabel"></Label>
+            </WrapPanel>
+        </Border>
+        <Button Name="ApplyFiltersButton" Content="{x:Static MyRes:Texts.ApplyFiltersButton}" Click="ApplyFiltersButton_Click"></Button>
     </StackPanel>
 </Window>

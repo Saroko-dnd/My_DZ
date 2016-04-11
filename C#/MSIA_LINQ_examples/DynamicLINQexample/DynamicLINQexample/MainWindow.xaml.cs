@@ -20,6 +20,7 @@ namespace DynamicLINQexample
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static bool ProgramBusy = false;
         public static List<TestDataClass> AllTestDataList = new List<TestDataClass>() { new TestDataClass(DateTime.Now, 40, 34.9, 432.98) };
 
         public MainWindow()
@@ -27,13 +28,20 @@ namespace DynamicLINQexample
             InitializeComponent();
 
             TestsDataGrid.AutoGeneratingColumn += TestDataClass.DataGridAutoGeneratingColumn;
-            TestsDataGrid.ItemsSource = AllTestDataList;
+            TestsDataGrid.ItemsSource = TestDataClass.GenerateRandomListOfData(30);
 
             DayTextBox.PreviewTextInput += CharsKiller.OnlyNumbersPreviewTextInput;
             MonthTextBox.PreviewTextInput += CharsKiller.OnlyNumbersPreviewTextInput;
             YearTextBox.PreviewTextInput += CharsKiller.OnlyNumbersPreviewTextInput;
             TemperatureTextBox.PreviewTextInput += CharsKiller.OnlyNumbersPreviewTextInput;
             StressTextBox.PreviewTextInput += CharsKiller.OnlyDoublePreviewTextInput;
+            DeflactionTextBox.PreviewTextInput += CharsKiller.OnlyDoublePreviewTextInput;
+
+        }
+
+        private void ApplyFiltersButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

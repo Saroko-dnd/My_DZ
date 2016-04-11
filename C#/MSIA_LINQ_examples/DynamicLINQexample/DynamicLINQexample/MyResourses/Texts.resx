@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ApplyFiltersButton" xml:space="preserve">
+    <value>Применить фильтры</value>
+  </data>
   <data name="DeflactionLabel" xml:space="preserve">
     <value>Деформация:</value>
   </data>
@@ -125,6 +128,15 @@
   </data>
   <data name="Filters" xml:space="preserve">
     <value>Фильтры:</value>
+  </data>
+  <data name="StatusBusy" xml:space="preserve">
+    <value>Обработка запроса...</value>
+  </data>
+  <data name="StatusFree" xml:space="preserve">
+    <value>Бездействие</value>
+  </data>
+  <data name="StatusLabel" xml:space="preserve">
+    <value>Состояние программы:</value>
   </data>
   <data name="StressColumn" xml:space="preserve">
     <value>Давление</value>

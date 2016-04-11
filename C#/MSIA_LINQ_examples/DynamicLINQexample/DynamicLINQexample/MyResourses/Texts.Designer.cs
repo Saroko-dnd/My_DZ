@@ -61,6 +61,15 @@ namespace DynamicLINQexample.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Применить фильтры.
+        /// </summary>
+        public static string ApplyFiltersButton {
+            get {
+                return ResourceManager.GetString("ApplyFiltersButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Деформация:.
         /// </summary>
         public static string DeflactionLabel {
@@ -84,6 +93,33 @@ namespace DynamicLINQexample.MyResourses {
         public static string Filters {
             get {
                 return ResourceManager.GetString("Filters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Обработка запроса....
+        /// </summary>
+        public static string StatusBusy {
+            get {
+                return ResourceManager.GetString("StatusBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Бездействие.
+        /// </summary>
+        public static string StatusFree {
+            get {
+                return ResourceManager.GetString("StatusFree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Состояние программы:.
+        /// </summary>
+        public static string StatusLabel {
+            get {
+                return ResourceManager.GetString("StatusLabel", resourceCulture);
             }
         }
         

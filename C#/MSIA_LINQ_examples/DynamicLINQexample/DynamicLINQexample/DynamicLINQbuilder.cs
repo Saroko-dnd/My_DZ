@@ -10,13 +10,25 @@ namespace DynamicLINQexample
 {
     public static class DynamicLINQbuilder
     {
-        public static Func<Tin, bool> WhereMethod<Tin>(string PropertyName,object Constant)
+        public static Func<Tin, bool> WhereMethod<Tin>(string PropertyName,object Constant, string BinaryOperator)
         {
             ConstantExpression RightConstant = Expression.Constant(Constant);
             if (PropertyName == null)
             {
                 ParameterExpression LeftVariable = Expression.Variable(typeof(Tin));
-                BinaryExpression CurrentBinaryExpression = Expression.GreaterThan(LeftVariable, RightConstant);
+                BinaryExpression CurrentBinaryExpression = null;
+                if (BinaryOperator == ">")
+                {
+                    CurrentBinaryExpression = Expression.GreaterThan(LeftVariable, RightConstant);
+                }
+                else if (BinaryOperator == "<")
+                {
+                    CurrentBinaryExpression = Expression.LessThan(LeftVariable, RightConstant);
+                }
+                else if (BinaryOperator == "==")
+                {
+                    CurrentBinaryExpression = Expression.Equal(LeftVariable, RightConstant);
+                }
                 return Expression<Func<Tin, bool>>.Lambda<Func<Tin, bool>>(CurrentBinaryExpression, LeftVariable).Compile();
             }
             else
@@ -24,7 +36,19 @@ namespace DynamicLINQexample
                 ParameterExpression LeftObject = Expression.Parameter(typeof(Tin));
                 MemberInfo LeftPropertyInfo = typeof(Tin).GetProperty(PropertyName);
                 MemberExpression LeftProperty = Expression.MakeMemberAccess(LeftObject, LeftPropertyInfo);
-                BinaryExpression CurrentBinaryExpression = Expression.GreaterThan(LeftProperty, RightConstant);
+                BinaryExpression CurrentBinaryExpression = null;
+                if (BinaryOperator == ">")
+                {
+                    CurrentBinaryExpression = Expression.GreaterThan(LeftProperty, RightConstant);
+                }
+                else if (BinaryOperator == "<")
+                {
+                    CurrentBinaryExpression = Expression.LessThan(LeftProperty, RightConstant);
+                }
+                else if (BinaryOperator == "==")
+                {
+                    CurrentBinaryExpression = Expression.Equal(LeftProperty, RightConstant);
+                }
                 return Expression<Func<Tin, bool>>.Lambda<Func<Tin, bool>>(CurrentBinaryExpression, LeftObject).Compile();
             }
         }
