@@ -7,18 +7,13 @@ using System.Text;
 /**
  * 
  */
-public class Loader : Person {
+public class Loader : Employee {
 
     /**
      * 
      */
     public Loader() {
     }
-
-    /**
-     * 
-     */
-    public static int Salary;
 
 
     /**
@@ -44,9 +39,10 @@ public class Loader : Person {
     /**
      * @param NewFirstName 
      * @param NewSecondName 
-     * @param NewAge
+     * @param NewAge 
+     * @param NewSalary
      */
-    public void Loader(string NewFirstName, string NewSecondName, int NewAge) {
+    public void Loader(string NewFirstName, string NewSecondName, int NewAge, int NewSalary) {
         // TODO implement here
     }
 

@@ -26,10 +26,32 @@ public abstract class Flight {
     public string To;
 
     /**
-     * @param NewSourceTown 
-     * @param NewDestinationTown
+     * 
      */
-    protected void Flight(string NewSourceTown, string NewDestinationTown) {
+    public Airplane CurrentAirplane;
+
+    /**
+     * 
+     */
+    public TimeSpan DepartureTime;
+
+    /**
+     * 
+     */
+    public TimeSpan ArrivalTime;
+
+    /**
+     * 
+     */
+    public char[] FlightID;
+
+    /**
+     * @param NewID 
+     * @param NewSourceTown 
+     * @param NewDestinationTown 
+     * @param CurrentAirplane
+     */
+    protected void Flight(char[] NewID, string NewSourceTown, string NewDestinationTown, Airplane CurrentAirplane) {
         // TODO implement here
     }
 

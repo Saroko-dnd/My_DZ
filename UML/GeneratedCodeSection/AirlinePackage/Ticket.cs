@@ -23,7 +23,7 @@ public class Ticket {
     /**
      * 
      */
-    public PassengerFlight CurrentFlight;
+    public char[] CurrentFlightID;
 
     /**
      * 

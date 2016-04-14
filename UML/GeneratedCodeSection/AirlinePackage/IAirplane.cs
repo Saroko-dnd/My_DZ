@@ -31,4 +31,30 @@ public class IAirplane {
         return False;
     }
 
+    /**
+     * @param NewCrewMember 
+     * @return
+     */
+    public void AddCrewMember(CrewMember NewCrewMember) {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @param UnwantedCrewMember 
+     * @return
+     */
+    public void RemoveCrewMember(CrewMember UnwantedCrewMember) {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @param TimeOfFlight 
+     * @param ReturnType
+     */
+    public void Flight(TimeSpan TimeOfFlight, void ReturnType) {
+        // TODO implement here
+    }
+
 }

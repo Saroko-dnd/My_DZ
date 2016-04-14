@@ -55,6 +55,21 @@ public class Airline {
      */
     public HashSet<List<Loader>> ListOfLoaders;
 
+    /**
+     * 
+     */
+    public HashSet<List<Airplane>> ListOfAirplanes;
+
+    /**
+     * 
+     */
+    public HashSet<List<Flight>> ListOfFlights;
+
+    /**
+     * 
+     */
+    public HashSet<List<IEmployee>> ListOfEmployees;
+
 
 
 
@@ -106,6 +121,40 @@ public class Airline {
     public void SellCargoAirplane(Airline Customer, CargoAirplane CargoAirplaneForSelling) {
         // TODO implement here
         return null;
+    }
+
+    /**
+     * @param NewFlight 
+     * @return
+     */
+    public void AddNewFlight(Flight NewFlight) {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @param CurrentFlight 
+     * @return
+     */
+    public void RemoveFlight(Flight CurrentFlight) {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @param NewEmployee 
+     * @return
+     */
+    public void HireNewEmployee(IEmployee NewEmployee) {
+        // TODO implement here
+        return null;
+    }
+
+    /**
+     * @param CurrentEmployee
+     */
+    public void FireEmployee(IEmployee CurrentEmployee) {
+        // TODO implement here
     }
 
 }

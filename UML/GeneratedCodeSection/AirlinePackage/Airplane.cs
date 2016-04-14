@@ -36,6 +36,12 @@ public abstract class Airplane : IAirplane {
     public long Cost;
 
     /**
+     * 
+     */
+    public CrewMember FlightCrew;
+
+
+    /**
      * @param NewName 
      * @param NewFuelUsePerKilometer 
      * @param NewDistanceOfFlight 
