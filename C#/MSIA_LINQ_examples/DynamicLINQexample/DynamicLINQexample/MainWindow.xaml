@@ -15,6 +15,7 @@
             <sys:String>&gt;</sys:String>
             <sys:String>&gt;=</sys:String>
             <sys:String>==</sys:String>
+            <sys:String>!=</sys:String>
             <sys:String>нет фильтра</sys:String>
         </x:Array>
         <sys:Double x:Key="TextBoxWidthForSmallNumbers">25.0</sys:Double>
@@ -50,7 +51,7 @@
         <WrapPanel>
             <Label Content="{x:Static MyRes:Texts.TemperatureLabel}"></Label>
             <ComboBox ItemsSource="{StaticResource BinaryOperators}" Name="BinaryOperatorsForTestTemperatureComboBox"></ComboBox>
-            <TextBox  Width="100" Name="TemperatureTextBox"></TextBox>
+            <TextBox Width="100" Name="TemperatureTextBox"></TextBox>
         </WrapPanel>
         <WrapPanel>
             <Label Content="{x:Static MyRes:Texts.StressLabel}"></Label>

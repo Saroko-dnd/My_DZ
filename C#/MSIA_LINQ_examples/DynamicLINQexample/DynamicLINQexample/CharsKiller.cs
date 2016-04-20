@@ -23,6 +23,19 @@ namespace DynamicLINQexample
             }
         }
 
+        public static void OnlyNumbersSignedPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex CheckForCharsRegex = new Regex(@"^[\d-]*$");
+            if (CheckForCharsRegex.IsMatch(e.Text))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
         public static void OnlyDoublePreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex CheckForCharsRegex = new Regex(@"^[\d,]*$");

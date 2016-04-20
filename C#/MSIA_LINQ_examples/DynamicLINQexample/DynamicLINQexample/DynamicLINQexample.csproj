@@ -58,7 +58,13 @@
     <Compile Include="BinaryOperator.cs" />
     <Compile Include="BinaryOperators.cs" />
     <Compile Include="CharsKiller.cs" />
+    <Compile Include="DataFilter.cs" />
     <Compile Include="HeightConverterForDataGrid.cs" />
+    <Compile Include="MyResourses\BinaryOperatorsValues.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BinaryOperatorsValues.resx</DependentUpon>
+    </Compile>
     <Compile Include="MyResourses\Texts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -93,6 +99,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="MyResourses\BinaryOperatorsValues.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BinaryOperatorsValues.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="MyResourses\Texts.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
