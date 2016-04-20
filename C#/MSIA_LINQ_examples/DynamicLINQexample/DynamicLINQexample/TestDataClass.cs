@@ -9,23 +9,12 @@ namespace DynamicLINQexample
 {
     public class TestDataClass
     {
-        private DateTime testDate;
+        private int dayOfTest;
+        private int monthOfTest;
+        private int yearOfTest;
         private int temperature;
         private double stress;
         private double deflection;
-
-        public DateTime TestDate
-        {
-            get
-            {
-                return testDate;
-            }
-
-            set
-            {
-                testDate = value;
-            }
-        }
 
         public int Temperature
         {
@@ -66,9 +55,50 @@ namespace DynamicLINQexample
             }
         }
 
-        public TestDataClass(DateTime NewTestDate, int NewTemperature, double NewStress, double NewDeflection)
+        public int DayOfTest
         {
-            TestDate = NewTestDate;
+            get
+            {
+                return dayOfTest;
+            }
+
+            set
+            {
+                dayOfTest = value;
+            }
+        }
+
+        public int MonthOfTest
+        {
+            get
+            {
+                return monthOfTest;
+            }
+
+            set
+            {
+                monthOfTest = value;
+            }
+        }
+
+        public int YearOfTest
+        {
+            get
+            {
+                return yearOfTest;
+            }
+
+            set
+            {
+                yearOfTest = value;
+            }
+        }
+
+        public TestDataClass(int NewDayOfTest, int NewMonthOfTest, int NewYearOfTest, int NewTemperature, double NewStress, double NewDeflection)
+        {
+            DayOfTest = NewDayOfTest;
+            MonthOfTest = NewMonthOfTest;
+            YearOfTest = NewYearOfTest;
             Temperature = NewTemperature;
             stress = NewStress;
             deflection = NewDeflection;
@@ -81,7 +111,7 @@ namespace DynamicLINQexample
             List<TestDataClass> NewRandomListOfData = new List<TestDataClass>();
             for (int counter = 0; counter < AmountOfData; ++counter)
             {
-                NewRandomListOfData.Add(new TestDataClass(new DateTime(RandomGenerator.Next(2000,2016), RandomGenerator.Next(1, 12), RandomGenerator.Next(1, 28)), RandomGenerator.Next(-500, 100000),
+                NewRandomListOfData.Add(new TestDataClass(RandomGenerator.Next(1,28), RandomGenerator.Next(1,12), RandomGenerator.Next(2000, 2016), RandomGenerator.Next(-500, 100000),
                     RandomGenerator.Next(100000), RandomGenerator.Next(100000)));
             }
             return NewRandomListOfData;
@@ -89,9 +119,17 @@ namespace DynamicLINQexample
 
         public static void DataGridAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            if (e.PropertyName == "TestDate")
+            if (e.PropertyName == "DayOfTest")
             {
-                e.Column.Header = MyResourses.Texts.TestDateColumn;
+                e.Column.Header = MyResourses.Texts.TestDayLabel;
+            }
+            else if (e.PropertyName == "MonthOfTest")
+            {
+                e.Column.Header = MyResourses.Texts.TestMonthLabel;
+            }
+            else if (e.PropertyName == "YearOfTest")
+            {
+                e.Column.Header = MyResourses.Texts.TestYearLabel;
             }
             else if (e.PropertyName == "Temperature")
             {

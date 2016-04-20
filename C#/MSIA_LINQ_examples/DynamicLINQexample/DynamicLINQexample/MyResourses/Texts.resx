@@ -129,6 +129,9 @@
   <data name="Filters" xml:space="preserve">
     <value>Фильтры:</value>
   </data>
+  <data name="NoFilter" xml:space="preserve">
+    <value>нет фильтра</value>
+  </data>
   <data name="StatusBusy" xml:space="preserve">
     <value>Обработка запроса...</value>
   </data>

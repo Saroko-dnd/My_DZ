@@ -97,6 +97,15 @@ namespace DynamicLINQexample.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на нет фильтра.
+        /// </summary>
+        public static string NoFilter {
+            get {
+                return ResourceManager.GetString("NoFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Обработка запроса....
         /// </summary>
         public static string StatusBusy {

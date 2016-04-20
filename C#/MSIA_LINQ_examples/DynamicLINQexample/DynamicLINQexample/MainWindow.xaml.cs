@@ -39,6 +39,19 @@ namespace DynamicLINQexample
             TemperatureTextBox.PreviewTextInput += CharsKiller.OnlyNumbersSignedPreviewTextInput;
             StressTextBox.PreviewTextInput += CharsKiller.OnlyDoublePreviewTextInput;
             DeflactionTextBox.PreviewTextInput += CharsKiller.OnlyDoublePreviewTextInput;
+            DayTextBox.TextChanged += FilterTextBoxTextChanged;
+            MonthTextBox.TextChanged += FilterTextBoxTextChanged;
+            YearTextBox.TextChanged += FilterTextBoxTextChanged;
+            TemperatureTextBox.TextChanged += FilterTextBoxTextChanged;
+            StressTextBox.TextChanged += FilterTextBoxTextChanged;
+            DeflactionTextBox.TextChanged += FilterTextBoxTextChanged;
+
+            BinaryOperatorsForTestDayComboBox.SelectionChanged += FilterComboBoxSelectionChanged;
+            BinaryOperatorsForTestMonthComboBox.SelectionChanged += FilterComboBoxSelectionChanged;
+            BinaryOperatorsForTestYearComboBox.SelectionChanged += FilterComboBoxSelectionChanged;
+            BinaryOperatorsForTestTemperatureComboBox.SelectionChanged += FilterComboBoxSelectionChanged;
+            BinaryOperatorsForTestStressComboBox.SelectionChanged += FilterComboBoxSelectionChanged;
+            BinaryOperatorsForTestDeflactionComboBox.SelectionChanged += FilterComboBoxSelectionChanged;
 
             ListOfIntTextBoxNames.Add(DayTextBox.Name);
             ListOfIntTextBoxNames.Add(MonthTextBox.Name);
@@ -53,7 +66,12 @@ namespace DynamicLINQexample
 
         public void RegistrationOfFilters()
         {
-
+            AllFilters.Add(new DataFilter("DayOfTest", null, null, "DayTextBox", "BinaryOperatorsForTestDayComboBox"));
+            AllFilters.Add(new DataFilter("MonthOfTest", null, null, "MonthTextBox", "BinaryOperatorsForTestMonthComboBox"));
+            AllFilters.Add(new DataFilter("YearOfTest", null, null, "YearTextBox", "BinaryOperatorsForTestYearComboBox"));
+            AllFilters.Add(new DataFilter("Temperature", null, null, "TemperatureTextBox", "BinaryOperatorsForTestTemperatureComboBox"));
+            AllFilters.Add(new DataFilter("Stress", null, null, "StressTextBox", "BinaryOperatorsForTestStressComboBox"));
+            AllFilters.Add(new DataFilter("Deflection", null, null, "DeflactionTextBox", "BinaryOperatorsForTestDeflactionComboBox"));
         }
 
         private void ApplyFiltersButton_Click(object sender, RoutedEventArgs e)
@@ -65,9 +83,50 @@ namespace DynamicLINQexample
         private void FilterTextBoxTextChanged(object sender, TextChangedEventArgs e)
         {
             string CurrentTextBoxName = (sender as TextBox).Name;
+            string NumberInTextBox = (sender as TextBox).Text;
             if (ListOfIntTextBoxNames.Where(res => res == CurrentTextBoxName).FirstOrDefault() != null)
             {
-                AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = Int32.Parse((sender as TextBox).Text);
+                try
+                {
+                    AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = Int32.Parse(NumberInTextBox);
+                }
+                catch(FormatException CurrentException)
+                {
+                    AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = null;
+                }
+                catch (OverflowException CurrentException)
+                {
+                    AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = null;
+                }
+            }
+            else if (ListOfDoubleTextBoxNames.Where(res => res == CurrentTextBoxName).FirstOrDefault() != null)
+            {
+                try
+                {
+                    AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = Double.Parse(NumberInTextBox);
+                }
+                catch (FormatException CurrentException)
+                {
+                    AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = null;
+                }
+                catch (OverflowException CurrentException)
+                {
+                    AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = null;
+                }
+            }
+        }
+
+        private void FilterComboBoxSelectionChanged(object sender, EventArgs e)
+        {
+            string CurrentComboBoxName = (sender as ComboBox).Name;
+            if ((sender as ComboBox).SelectedItem.ToString() != MyResourses.Texts.NoFilter)
+            {
+                BinaryOperator SelectedOperator = new BinaryOperator((sender as ComboBox).SelectedItem.ToString());
+                AllFilters.Where(res => res.NameOfFilterComboBox == CurrentComboBoxName).First().CurrentBinaryOperator = SelectedOperator;
+            }
+            else
+            {
+                AllFilters.Where(res => res.NameOfFilterComboBox == CurrentComboBoxName).First().CurrentBinaryOperator = null;
             }
         }
     }
