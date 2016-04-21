@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace DynamicLINQexample
 {
@@ -29,6 +30,8 @@ namespace DynamicLINQexample
         public MainWindow()
         {
             InitializeComponent();
+
+            ThreadPool.SetMinThreads(4, 4);
 
             TestsDataGrid.AutoGeneratingColumn += TestDataClass.DataGridAutoGeneratingColumn;
             TestsDataGrid.ItemsSource = AllTestDataList;
@@ -76,8 +79,14 @@ namespace DynamicLINQexample
 
         private void ApplyFiltersButton_Click(object sender, RoutedEventArgs e)
         {
+
             int TestInt = Int32.Parse(TemperatureTextBox.Text);
             TestsDataGrid.ItemsSource = AllTestDataList.Where(DynamicLINQbuilder.WhereMethod<TestDataClass>("Temperature", TestInt, BinaryOperators.GreaterThan));
+        }
+
+        private void ApplyAllFilters()
+        {
+
         }
 
         private void FilterTextBoxTextChanged(object sender, TextChangedEventArgs e)
