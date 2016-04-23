@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
+using System.Reflection;
 
 namespace DynamicLINQexample
 {
@@ -79,14 +80,33 @@ namespace DynamicLINQexample
 
         private void ApplyFiltersButton_Click(object sender, RoutedEventArgs e)
         {
-
-            int TestInt = Int32.Parse(TemperatureTextBox.Text);
-            TestsDataGrid.ItemsSource = AllTestDataList.Where(DynamicLINQbuilder.WhereMethod<TestDataClass>("Temperature", TestInt, BinaryOperators.GreaterThan));
+            StatusLabel.Content = MyResourses.Texts.StatusBusy;
+            ThreadPool.QueueUserWorkItem(o => ApplyAllFilters());
         }
 
         private void ApplyAllFilters()
         {
-
+            bool FirstTime = true;
+            List<TestDataClass> BufferForItemsSource = null;
+            foreach (DataFilter CurrentFilter in AllFilters)
+            {
+                if (CurrentFilter.CurrentBinaryOperator != null && CurrentFilter.Constant != null)
+                {
+                    if (FirstTime)
+                    {
+                        BufferForItemsSource = AllTestDataList.Where(DynamicLINQbuilder.WhereMethod<TestDataClass>(CurrentFilter.PropertyName, CurrentFilter.Constant, 
+                            CurrentFilter.CurrentBinaryOperator)).ToList();
+                        FirstTime = false;
+                    }
+                    else
+                    {
+                        BufferForItemsSource = BufferForItemsSource.Where(DynamicLINQbuilder.WhereMethod<TestDataClass>(CurrentFilter.PropertyName, CurrentFilter.Constant,
+                            CurrentFilter.CurrentBinaryOperator)).ToList();
+                    }
+                }
+            }
+            Application.Current.Dispatcher.Invoke(new Action(() => TestsDataGrid.ItemsSource = BufferForItemsSource));
+            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
         }
 
         private void FilterTextBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -98,14 +118,17 @@ namespace DynamicLINQexample
                 try
                 {
                     AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = Int32.Parse(NumberInTextBox);
+                    (sender as TextBox).BorderBrush = Brushes.Black;
                 }
                 catch(FormatException CurrentException)
                 {
                     AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = null;
+                    (sender as TextBox).BorderBrush = Brushes.Red;
                 }
                 catch (OverflowException CurrentException)
                 {
                     AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = null;
+                    (sender as TextBox).BorderBrush = Brushes.Red;
                 }
             }
             else if (ListOfDoubleTextBoxNames.Where(res => res == CurrentTextBoxName).FirstOrDefault() != null)
@@ -113,14 +136,17 @@ namespace DynamicLINQexample
                 try
                 {
                     AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = Double.Parse(NumberInTextBox);
+                    (sender as TextBox).BorderBrush = Brushes.Black;
                 }
                 catch (FormatException CurrentException)
                 {
                     AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = null;
+                    (sender as TextBox).BorderBrush = Brushes.Red;
                 }
                 catch (OverflowException CurrentException)
                 {
                     AllFilters.Where(res => res.NameOfFilterTextBox == CurrentTextBoxName).First().Constant = null;
+                    (sender as TextBox).BorderBrush = Brushes.Red;
                 }
             }
         }
