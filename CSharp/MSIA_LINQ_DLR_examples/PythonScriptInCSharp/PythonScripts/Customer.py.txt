@@ -1,0 +1,19 @@
+﻿class Customer:
+    def __init__(self, id, name, telephone):
+        self.custID = id
+        self.custName = name
+        self.custTelephone = telephone
+
+    def __str__(self):
+        return str.format(
+                            "ID: {0}\tName: {1}\tTelephone: {2}", self.custID,
+                            self.custName, self.custTelephone
+                        )
+
+
+def GetNewCustomer(id, name, telephone):
+    return Customer(id, name, telephone)
+
+
+def PrintHelloFromPython():
+    return 'Hello from Python!'
