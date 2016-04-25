@@ -17,3 +17,6 @@ def GetNewCustomer(id, name, telephone):
 
 def PrintHelloFromPython():
     return 'Hello from Python!'
+
+
+myList = [1, 2, 3, 4, 5, 6]

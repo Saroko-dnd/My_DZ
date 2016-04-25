@@ -24,7 +24,7 @@ namespace PythonScriptInCSharp
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        private StringBuilder BuilderForTextBox = new StringBuilder();
 
         public MainWindow()
         {
@@ -35,8 +35,14 @@ namespace PythonScriptInCSharp
             dynamic PythonScript = PythonEngine.ExecuteFile("Customer.py.txt");
             //Получаем объект класса описанного в скрипте 
             dynamic customer = PythonScript.GetNewCustomer(99, "Fred", "111");
-            //Получение строки из скрипта
-            PythonTextBox.Text = PythonScript.PrintHelloFromPython();
+            //Получение чисел из массива в Python
+            foreach (int CurrentInt in PythonScript.myList)
+            {
+                BuilderForTextBox.Append("\r\n" + CurrentInt.ToString());
+            }
+
+            PythonTextBox.Text = PythonScript.PrintHelloFromPython() + "\r\n\r\nInt array from Python:" + BuilderForTextBox.ToString();
+
         }
     }
 }
