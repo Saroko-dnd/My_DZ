@@ -1,0 +1,14 @@
+Книги:
+(oreilly) Паттерны проектирования
+http://forcoder.ru/developing/patterny-proektirovaniya-1117
+
+Приемы объектно-ориентированного проектирования. Паттерны проектирования(классика)
+http://forcoder.ru/developing/priemy-obektno-orientirovannogo-proektirovaniya-patterny-proektirovaniya-768
+
+Статьи:
+http://forcoder.ru/developing/priemy-obektno-orientirovannogo-proektirovaniya-patterny-proektirovaniya-768
+http://habrahabr.ru/post/129494/
+http://habrahabr.ru/post/210288/
+http://habrahabr.ru/post/129494/
+https://ru.wikipedia.org/wiki/Design_Patterns
+http://stackoverflow.com/questions/1008019/c-singleton-design-pattern
