@@ -30,14 +30,13 @@ namespace FiguresForTetrisFactoryMethod.Figures
             {
                 lock (GateToFactory)
                 {
-                    FactoryInstance = new FactoryOfFirstFigures();
-                    return FactoryInstance;
+                    if (FactoryInstance == null)
+                    {
+                        FactoryInstance = new FactoryOfFirstFigures();
+                    }
                 }
             }
-            else
-            {
-                return FactoryInstance;
-            }
+            return FactoryInstance;
         }
 
         public Figure CreateFigure()
@@ -59,14 +58,13 @@ namespace FiguresForTetrisFactoryMethod.Figures
             {
                 lock (GateToFactory)
                 {
-                    FactoryInstance = new FactoryOfSecondFigures();
-                    return FactoryInstance;
+                    if (FactoryInstance == null)
+                    {
+                        FactoryInstance = new FactoryOfSecondFigures();
+                    }
                 }
             }
-            else
-            {
-                return FactoryInstance;
-            }
+            return FactoryInstance;
         }
 
         public Figure CreateFigure()
@@ -88,14 +86,13 @@ namespace FiguresForTetrisFactoryMethod.Figures
             {
                 lock (GateToFactory)
                 {
-                    FactoryInstance = new FactoryOfThirdFigures();
-                    return FactoryInstance;
+                    if (FactoryInstance == null)
+                    {
+                        FactoryInstance = new FactoryOfThirdFigures();
+                    }
                 }
             }
-            else
-            {
-                return FactoryInstance;
-            }
+            return FactoryInstance;
         }
 
         public Figure CreateFigure()
@@ -117,14 +114,13 @@ namespace FiguresForTetrisFactoryMethod.Figures
             {
                 lock (GateToFactory)
                 {
-                    FactoryInstance = new FactoryOfFouthFigures();
-                    return FactoryInstance;
+                    if (FactoryInstance == null)
+                    {
+                        FactoryInstance = new FactoryOfFouthFigures();
+                    }
                 }
             }
-            else
-            {
-                return FactoryInstance;
-            }
+            return FactoryInstance;
         }
 
         public Figure CreateFigure()
@@ -146,14 +142,13 @@ namespace FiguresForTetrisFactoryMethod.Figures
             {
                 lock (GateToFactory)
                 {
-                    FactoryInstance = new FactoryOfFifthFigures();
-                    return FactoryInstance;
+                    if (FactoryInstance == null)
+                    {
+                        FactoryInstance = new FactoryOfFifthFigures();
+                    }
                 }
             }
-            else
-            {
-                return FactoryInstance;
-            }
+            return FactoryInstance;
         }
 
         public Figure CreateFigure()
@@ -175,14 +170,13 @@ namespace FiguresForTetrisFactoryMethod.Figures
             {
                 lock (GateToFactory)
                 {
-                    FactoryInstance = new FactoryOfSixthFigures();
-                    return FactoryInstance;
+                    if (FactoryInstance == null)
+                    {
+                        FactoryInstance = new FactoryOfSixthFigures();
+                    }
                 }
             }
-            else
-            {
-                return FactoryInstance;
-            }
+            return FactoryInstance;
         }
 
         public Figure CreateFigure()
