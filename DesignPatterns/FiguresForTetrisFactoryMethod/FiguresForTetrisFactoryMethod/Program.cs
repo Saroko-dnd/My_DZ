@@ -29,27 +29,27 @@ namespace FiguresForTetrisFactoryMethod
                 RandomValue = MainRandom.Next(1, 7);
                 if (RandomValue == 1)
                 {
-                    AllFigures.Add(new Figures.FirstFigure());
+                    AllFigures.Add(Figures.FactoryOfFirstFigures.GetFactory().CreateFigure());
                 }
                 else if(RandomValue == 2)
                 {
-                    AllFigures.Add(new Figures.SecondFigure());
+                    AllFigures.Add(Figures.FactoryOfSecondFigures.GetFactory().CreateFigure());
                 }
                 else if (RandomValue == 3)
                 {
-                    AllFigures.Add(new Figures.ThirdFigure());
+                    AllFigures.Add(Figures.FactoryOfThirdFigures.GetFactory().CreateFigure());
                 }
                 else if (RandomValue == 4)
                 {
-                    AllFigures.Add(new Figures.FourthFigure());
+                    AllFigures.Add(Figures.FactoryOfFouthFigures.GetFactory().CreateFigure());
                 }
                 else if (RandomValue == 5)
                 {
-                    AllFigures.Add(new Figures.FifthFigure());
+                    AllFigures.Add(Figures.FactoryOfFifthFigures.GetFactory().CreateFigure());
                 }
                 else if (RandomValue == 6)
                 {
-                    AllFigures.Add(new Figures.SixthFigure());
+                    AllFigures.Add(Figures.FactoryOfSixthFigures.GetFactory().CreateFigure());
                 }
             }
         }
