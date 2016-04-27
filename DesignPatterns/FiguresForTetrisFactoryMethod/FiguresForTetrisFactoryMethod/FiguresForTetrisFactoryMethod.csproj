@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Figures\FactoryOfFigures.cs" />
     <Compile Include="Figures\FifthFigure.cs" />
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\FirstFigure.cs" />
