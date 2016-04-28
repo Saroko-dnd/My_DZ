@@ -67,4 +67,35 @@ namespace AnimalWorldAbstractFactory.AbstractFabric
 
         }
     }
+
+    public class Eurasia : Continent, IContinent
+    {
+        public static IContinent Create()
+        {
+            if (ContinentInstance == null)
+            {
+                lock (GateToCarnivorousInstance)
+                {
+                    if (ContinentInstance == null)
+                    {
+                        ContinentInstance = new Eurasia();
+                    }
+                }
+            }
+            return ContinentInstance;
+        }
+        public Carnivorous GetСarnivorous()
+        {
+            return new Carnivorous("Tiger");
+        }
+        public Herbivorous GetHerbivorous()
+        {
+            return new Herbivorous("Elk");
+        }
+
+        private Eurasia()
+        {
+
+        }
+    }
 }
