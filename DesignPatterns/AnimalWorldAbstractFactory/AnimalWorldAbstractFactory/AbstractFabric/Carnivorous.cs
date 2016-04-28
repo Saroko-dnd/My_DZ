@@ -8,6 +8,12 @@ namespace AnimalWorldAbstractFactory.AbstractFabric
 {
     public class Carnivorous
     {
+
+        public void PrintInfo()
+        {
+            Console.WriteLine(Name + " strength " + Strength.ToString() + "\r\n");
+        }
+
         string name;
 
         public string Name
@@ -33,6 +39,8 @@ namespace AnimalWorldAbstractFactory.AbstractFabric
             {
                 strength += 10;
             }
+
+            CurrentHerbivorous.Alive = false;
         }
 
         public Carnivorous(string NewName)

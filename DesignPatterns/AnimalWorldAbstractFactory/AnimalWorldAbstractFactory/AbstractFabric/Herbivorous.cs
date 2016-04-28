@@ -8,6 +8,11 @@ namespace AnimalWorldAbstractFactory.AbstractFabric
 {
     public class Herbivorous
     {
+        public void PrintInfo()
+        {
+            Console.WriteLine(Name + " weight " + Weight.ToString() + "\r\n");
+        }
+
         string name;
 
         public string Name
@@ -33,7 +38,7 @@ namespace AnimalWorldAbstractFactory.AbstractFabric
         }
         public void EatGrass()
         {
-            Weight = weight + 10;
+            Weight += 10;
         }
 
         public Herbivorous(string NewName)

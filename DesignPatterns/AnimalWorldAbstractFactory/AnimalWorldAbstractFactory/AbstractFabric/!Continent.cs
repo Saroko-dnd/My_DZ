@@ -16,9 +16,5 @@ namespace AnimalWorldAbstractFactory.AbstractFabric
     {
         protected static IContinent ContinentInstance;
         protected static Object GateToCarnivorousInstance = new object();
-        protected Continent()
-        {
-
-        }
     }
 }

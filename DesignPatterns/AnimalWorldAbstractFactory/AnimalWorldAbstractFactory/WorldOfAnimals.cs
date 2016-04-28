@@ -15,6 +15,7 @@ namespace AnimalWorldAbstractFactory
 
         public void FeedingHerbivores()
         {
+            AllHerbivorous = AllHerbivorous.Where(res => res.Alive).ToList();
             foreach (Herbivorous CurrentHerbivorous in AllHerbivorous)
             {
                 CurrentHerbivorous.EatGrass();
@@ -27,6 +28,7 @@ namespace AnimalWorldAbstractFactory
             {
                 CurrentCarnivorous.EatHerbivorous(AllHerbivorous[Program.MainRandom.Next() % AllHerbivorous.Count]);
             }
+            AllCarnivorous = AllCarnivorous.Where(res => res.Strength > 0).ToList();
         }
 
         public void Simulation(int AmountOfRounds)
@@ -36,10 +38,15 @@ namespace AnimalWorldAbstractFactory
                 FeedingHerbivores();
                 FeedingCarnivorous();
             }
-        }
 
-        public void CreateAnimals(int AmountOfCarnivorous, int AmountOfHerbivorous)
-        {
+            foreach (Carnivorous CurrentCarnivorous in AllCarnivorous)
+            {
+                CurrentCarnivorous.PrintInfo();
+            }
+            foreach (Herbivorous CurrentHerbivorous in AllHerbivorous)
+            {
+                CurrentHerbivorous.PrintInfo();
+            }
 
         }
 

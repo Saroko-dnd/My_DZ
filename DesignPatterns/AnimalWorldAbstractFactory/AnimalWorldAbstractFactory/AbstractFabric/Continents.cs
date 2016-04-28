@@ -30,6 +30,11 @@ namespace AnimalWorldAbstractFactory.AbstractFabric
         {
             return new Herbivorous("Wildebeest");
         }
+
+        private Africa()
+        {
+
+        }
     }
 
     public class NorthAmerica : Continent, IContinent
@@ -55,6 +60,11 @@ namespace AnimalWorldAbstractFactory.AbstractFabric
         public Herbivorous GetHerbivorous()
         {
             return new Herbivorous("Wolf");
+        }
+
+        private NorthAmerica()
+        {
+
         }
     }
 }
