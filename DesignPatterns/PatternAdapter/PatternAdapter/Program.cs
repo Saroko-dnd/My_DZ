@@ -13,7 +13,7 @@ namespace PatternAdapter
 
         static void Main(string[] args)
         {
-            AdapterForUserInterface CurrentUserInterface = new AdapterForUserInterface(new LibraryImplementation());
+            IUser CurrentUserInterface = new AdapterForUserInterface(new LibraryImplementation());
             Console.WriteLine("***the game has begun***");
             int RemainingBowls = 10;
             bool FirstTime = true;
