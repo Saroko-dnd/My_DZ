@@ -9,6 +9,7 @@ namespace PatternAdapter
     public interface ILibrary
     {        
         int Math(int AmountOf);
+        int GetCurrentIndex();
     }
 
     public class LibraryImplementation : ILibrary
@@ -18,6 +19,11 @@ namespace PatternAdapter
         int CurrentIndex = 0;
         bool FirstThrow = true;
         int[] ResultArray = new int[12];
+
+        public int GetCurrentIndex()
+        {
+            return CurrentIndex;
+        }
 
         public int Math(int AmountOfBowls)
         {
