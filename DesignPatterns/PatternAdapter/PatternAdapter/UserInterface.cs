@@ -13,11 +13,36 @@ namespace PatternAdapter
 
     public class AdapterForUserInterface : IUser
     {
-        ILibrary CurrentLibInterface;
-        public int ThrowBall(int AmountOfBowls)
+        private int currentFrameBowls = 10;
+        private int LastIndexOfRound = 0;
+        private ILibrary CurrentLibInterface;
+
+        public int CurrentFrameBowls
         {
+            get
+            {
+                return currentFrameBowls;
+            }
+
+            set
+            {
+                currentFrameBowls = value;
+            }
+        }
+
+        public void RefreshFrame()
+        {
+            CurrentFrameBowls = 10;
+        }
+
+        public int ThrowBall(int AmountOfBowls)
+        {   
             return CurrentLibInterface.Math(AmountOfBowls);
         }
 
+        public AdapterForUserInterface(ILibrary CurrentGameLibrary)
+        {
+            CurrentLibInterface = CurrentGameLibrary;
+        }
     }
 }
