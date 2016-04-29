@@ -21,7 +21,7 @@ namespace PatternAdapter
             Console.WriteLine("Frame " + CurrentFrame.ToString());
             while (true)
             {
-                int AmountOfBowls = 5;// MainRandom.Next(0, RemainingBowls + 1);
+                int AmountOfBowls = MainRandom.Next(0, RemainingBowls + 1);
                 RemainingBowls -= AmountOfBowls;
                 int ThrowResult = CurrentUserInterface.ThrowBall(AmountOfBowls);
                 if (ThrowResult == -1)
