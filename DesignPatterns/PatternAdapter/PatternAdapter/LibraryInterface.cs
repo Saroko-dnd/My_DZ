@@ -9,7 +9,7 @@ namespace PatternAdapter
     public interface ILibrary
     {        
         int Math(int AmountOf);
-        int GetCurrentIndex();
+        int GetFrame();
     }
 
     public class LibraryImplementation : ILibrary
@@ -20,9 +20,9 @@ namespace PatternAdapter
         bool FirstThrow = true;
         int[] ResultArray = new int[12];
 
-        public int GetCurrentIndex()
+        public int GetFrame()
         {
-            return CurrentIndex;
+            return CurrentIndex + 1;
         }
 
         public int Math(int AmountOfBowls)
@@ -40,6 +40,8 @@ namespace PatternAdapter
             }
             if (FirstThrow && AmountOfBowls == 10 && CurrentIndex == 9)
             {
+                OneThrow = true;
+                ++CurrentIndex;
                 PrizeThrows = 2;
             }
             else if (!FirstThrow && CurrentIndex == 9 && ResultArray[CurrentIndex] == 10)

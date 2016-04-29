@@ -16,18 +16,21 @@ namespace PatternAdapter
             IUser CurrentUserInterface = new AdapterForUserInterface(new LibraryImplementation());
             Console.WriteLine("***the game has begun***");
             int LastFrame = 0;
+            int RemainingBowls = 10;
             while (true)
             {
-                int AmountOfBowls = MainRandom.Next(0, CurrentUserInterface.GetRemainingBowls() + 1);
+                if (CurrentUserInterface.GetCurrentFrame() > LastFrame)
+                {
+                    LastFrame = CurrentUserInterface.GetCurrentFrame();
+                    RemainingBowls = 10;
+                    Console.WriteLine("Frame " + LastFrame.ToString());
+                }
+                int AmountOfBowls = MainRandom.Next(0, RemainingBowls + 1);
+                RemainingBowls -= AmountOfBowls;
                 int ThrowResult = CurrentUserInterface.ThrowBall(AmountOfBowls);
                 if (ThrowResult == -1)
                 {
                     break;
-                }
-                if (CurrentUserInterface.GetCurrentFrame() > LastFrame)
-                {
-                    LastFrame = CurrentUserInterface.GetCurrentFrame();
-                    Console.WriteLine("Frame " + LastFrame.ToString());
                 }
                 Console.WriteLine("Player knocked " + AmountOfBowls.ToString() + " bowls Score: " + ThrowResult.ToString());
             }
