@@ -1,0 +1,30 @@
+﻿<Window x:Class="ComposerPatternWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ComposerPatternWPF"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:converters="clr-namespace:ComposerPatternWPF.ConvertersForBinding"
+        xmlns:MyRes="clr-namespace:ComposerPatternWPF.Resourses"
+        mc:Ignorable="d"
+        Title="{x:Static MyRes:Texts.MainWindowTitle}" Height="350" Width="525" Name="PatternComposerMainWindow">
+    <Window.Resources>
+        <sys:Int32 x:Key="MaxAmountOfRowsForTextBoxes">50</sys:Int32>
+        <converters:TextBoxHeightConverter x:Key="TextBoxHeightConverter"></converters:TextBoxHeightConverter>
+        <converters:TextBoxWidthConverter x:Key="TextBoxWidthConverter"></converters:TextBoxWidthConverter>
+    </Window.Resources>
+    <StackPanel>
+        <WrapPanel>
+            <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" MaxLines="{StaticResource MaxAmountOfRowsForTextBoxes}" Width="{Binding  ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  Height="{Binding  ElementName=PatternComposerMainWindow, Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="NewTextBox" BorderBrush="DeepPink"></TextBox>
+        </WrapPanel>
+        <WrapPanel>
+            <Button Content="{x:Static MyRes:Texts.PrintTextButton}" Name="DisplayTextButton" Click="DisplayTextButton_Click"></Button>
+            <Button Content="{x:Static MyRes:Texts.PrintSentencesButton}" Name="PrintAllSentencesButton" Click="PrintAllSentencesButton_Click"></Button>
+            <Button Content="{x:Static MyRes:Texts.PrintWordsButton}" Name="PrintAllWordsButton" Click="PrintAllWordsButton_Click"></Button>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" MaxLines="{StaticResource MaxAmountOfRowsForTextBoxes}" Width="{Binding  ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  Height="{Binding  ElementName=PatternComposerMainWindow, Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="ResultTextBox" BorderBrush="DarkOrange"></TextBox>
+        </WrapPanel>
+    </StackPanel>
+</Window>
