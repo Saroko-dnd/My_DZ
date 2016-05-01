@@ -12,7 +12,7 @@ namespace СomposerPattern.ComposerClasses
 
         public abstract List<IComponent> PrintAllSentences();
 
-        public abstract string PrintAllWords();
+        public abstract string ChangeAllWords();
 
         public abstract void Parse(string NewString);
 

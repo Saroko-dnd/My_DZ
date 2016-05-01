@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using СomposerPattern.ComposerClasses;
 
 namespace ComposerPatternWPF
 {
@@ -20,6 +21,8 @@ namespace ComposerPatternWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static Text TestObjectOfTextClass;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,7 +40,12 @@ namespace ComposerPatternWPF
 
         private void DisplayTextButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (NewTextBox.Text != string.Empty)
+            {
+                TestObjectOfTextClass = new Text();
+                TestObjectOfTextClass.Parse(NewTextBox.Text);
+                ResultTextBox.Text = TestObjectOfTextClass.TextToString();
+            }
         }
     }
 }

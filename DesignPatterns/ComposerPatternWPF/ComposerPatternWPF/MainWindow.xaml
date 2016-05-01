@@ -16,7 +16,7 @@
     </Window.Resources>
     <StackPanel>
         <WrapPanel>
-            <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" MaxLines="{StaticResource MaxAmountOfRowsForTextBoxes}" Width="{Binding  ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  Height="{Binding  ElementName=PatternComposerMainWindow, Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="NewTextBox" BorderBrush="DeepPink"></TextBox>
+            <TextBox AcceptsTab="True" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Width="{Binding  ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  Height="{Binding  ElementName=PatternComposerMainWindow, Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="NewTextBox" BorderBrush="DeepPink"></TextBox>
         </WrapPanel>
         <WrapPanel>
             <Button Content="{x:Static MyRes:Texts.PrintTextButton}" Name="DisplayTextButton" Click="DisplayTextButton_Click"></Button>
@@ -24,7 +24,7 @@
             <Button Content="{x:Static MyRes:Texts.PrintWordsButton}" Name="PrintAllWordsButton" Click="PrintAllWordsButton_Click"></Button>
         </WrapPanel>
         <WrapPanel>
-            <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" MaxLines="{StaticResource MaxAmountOfRowsForTextBoxes}" Width="{Binding  ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  Height="{Binding  ElementName=PatternComposerMainWindow, Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="ResultTextBox" BorderBrush="DarkOrange"></TextBox>
+            <TextBox AcceptsTab="True" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Width="{Binding  ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  Height="{Binding  ElementName=PatternComposerMainWindow, Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="ResultTextBox" BorderBrush="DarkOrange"></TextBox>
         </WrapPanel>
     </StackPanel>
 </Window>
