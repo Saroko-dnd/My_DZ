@@ -117,11 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ChangeWordsLabel" xml:space="preserve">
+    <value>Удаляет все последующие вхождения 
+первой буквы каждого слова</value>
+  </data>
+  <data name="DeleteWordsLabel" xml:space="preserve">
+    <value>Удаляет слова заданной длины,
+начинающиеся с согласной буквы</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
   <data name="FieldForTextLabel" xml:space="preserve">
     <value>Поле для ввода текста</value>
   </data>
+  <data name="LengthError" xml:space="preserve">
+    <value>Неверно указана длина слов для удаления!</value>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Парсер</value>
+  </data>
+  <data name="PrintLabel" xml:space="preserve">
+    <value>Выводит на экран копию 
+сохраненного текста</value>
   </data>
   <data name="PrintTextButton" xml:space="preserve">
     <value>Вывести текст на экран</value>
@@ -134,5 +152,18 @@
   </data>
   <data name="ResultTextFieldLabel" xml:space="preserve">
     <value>Поле для результатов обработки текста</value>
+  </data>
+  <data name="StatusBusy" xml:space="preserve">
+    <value>Выполнение запроса...</value>
+  </data>
+  <data name="StatusFree" xml:space="preserve">
+    <value>Бездействие</value>
+  </data>
+  <data name="StatusLabel" xml:space="preserve">
+    <value>Состояние программы:</value>
+  </data>
+  <data name="WordsLengthLabel" xml:space="preserve">
+    <value>Длина слов для  печати
+с удалением слов</value>
   </data>
 </root>

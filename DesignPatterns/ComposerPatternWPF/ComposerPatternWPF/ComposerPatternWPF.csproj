@@ -63,7 +63,7 @@
     <Compile Include="ComposerClasses\SentenceComponent.cs" />
     <Compile Include="ComposerClasses\TextComponent.cs" />
     <Compile Include="ComposerClasses\WordComponent.cs" />
-    <Compile Include="Resourses\Texts.Designer.cs">
+    <Compile Include="MyResourses\Texts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Texts.resx</DependentUpon>
@@ -101,7 +101,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resourses\Texts.resx">
+    <EmbeddedResource Include="MyResourses\Texts.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
     </EmbeddedResource>

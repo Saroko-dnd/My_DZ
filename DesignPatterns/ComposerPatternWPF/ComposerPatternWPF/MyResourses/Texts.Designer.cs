@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ComposerPatternWPF.Resourses {
+namespace ComposerPatternWPF.MyResourses {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ComposerPatternWPF.Resourses {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ComposerPatternWPF.Resourses.Texts", typeof(Texts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ComposerPatternWPF.MyResourses.Texts", typeof(Texts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,6 +61,35 @@ namespace ComposerPatternWPF.Resourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Удаляет все последующие вхождения 
+        ///первой буквы каждого слова.
+        /// </summary>
+        public static string ChangeWordsLabel {
+            get {
+                return ResourceManager.GetString("ChangeWordsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Удаляет слова заданной длины,
+        ///начинающиеся с согласной буквы.
+        /// </summary>
+        public static string DeleteWordsLabel {
+            get {
+                return ResourceManager.GetString("DeleteWordsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Поле для ввода текста.
         /// </summary>
         public static string FieldForTextLabel {
@@ -70,11 +99,30 @@ namespace ComposerPatternWPF.Resourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Неверно указана длина слов для удаления!.
+        /// </summary>
+        public static string LengthError {
+            get {
+                return ResourceManager.GetString("LengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Парсер.
         /// </summary>
         public static string MainWindowTitle {
             get {
                 return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выводит на экран копию 
+        ///сохраненного текста.
+        /// </summary>
+        public static string PrintLabel {
+            get {
+                return ResourceManager.GetString("PrintLabel", resourceCulture);
             }
         }
         
@@ -111,6 +159,43 @@ namespace ComposerPatternWPF.Resourses {
         public static string ResultTextFieldLabel {
             get {
                 return ResourceManager.GetString("ResultTextFieldLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выполнение запроса....
+        /// </summary>
+        public static string StatusBusy {
+            get {
+                return ResourceManager.GetString("StatusBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Бездействие.
+        /// </summary>
+        public static string StatusFree {
+            get {
+                return ResourceManager.GetString("StatusFree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Состояние программы:.
+        /// </summary>
+        public static string StatusLabel {
+            get {
+                return ResourceManager.GetString("StatusLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Длина слов для  печати
+        ///с удалением слов.
+        /// </summary>
+        public static string WordsLengthLabel {
+            get {
+                return ResourceManager.GetString("WordsLengthLabel", resourceCulture);
             }
         }
     }

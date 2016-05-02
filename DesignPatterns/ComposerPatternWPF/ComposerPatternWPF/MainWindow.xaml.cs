@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,31 +23,71 @@ namespace ComposerPatternWPF
     public partial class MainWindow : Window
     {
         public static Text TestObjectOfTextClass;
+        public static bool ProgramBusy = false;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            ThreadPool.SetMinThreads(4,4);
+
             LengthOfWordsTextBox.PreviewTextInput += CharsKiller.InputValidationOnlyInt;
+        }
+
+        public void DisplayTextAsync(string CurrentText)
+        {
+            TestObjectOfTextClass = new Text();
+            TestObjectOfTextClass.Parse(CurrentText);
+            string TextFromParser = TestObjectOfTextClass.TextToString();
+            Application.Current.Dispatcher.Invoke(new Action(() => ResultTextBox.Text = TextFromParser));
+            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
+            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Foreground = Brushes.Green));
+            ProgramBusy = false;
+        }
+
+        public void ChangeWordsAsync(string CurrentText)
+        {
+            TestObjectOfTextClass = new Text();
+            TestObjectOfTextClass.Parse(CurrentText);
+            string TextFromParser = TestObjectOfTextClass.ChangeAllWords();
+            Application.Current.Dispatcher.Invoke(new Action(() => ResultTextBox.Text = TextFromParser));
+            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
+            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Foreground = Brushes.Green));
+            ProgramBusy = false;
+        }
+
+        public void DeleteWordsAsync(string CurrentText, int LengthOfWords )
+        {
+            TestObjectOfTextClass = new Text();
+            TestObjectOfTextClass.Parse(CurrentText);
+            string TextFromParser = TestObjectOfTextClass.DeleteAllWords(LengthOfWords);
+            Application.Current.Dispatcher.Invoke(new Action(() => ResultTextBox.Text = TextFromParser));
+            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Content = MyResourses.Texts.StatusFree));
+            Application.Current.Dispatcher.Invoke(new Action(() => StatusLabel.Foreground = Brushes.Green));
+            ProgramBusy = false;
         }
 
         private void DisplayTextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NewTextBox.Text != string.Empty)
+            if (NewTextBox.Text != string.Empty && !ProgramBusy)
             {
-                TestObjectOfTextClass = new Text();
-                TestObjectOfTextClass.Parse(NewTextBox.Text);
-                ResultTextBox.Text = TestObjectOfTextClass.TextToString();
+                string CurrentText = NewTextBox.Text;
+                ProgramBusy = true;
+                StatusLabel.Content = MyResourses.Texts.StatusBusy;
+                StatusLabel.Foreground = Brushes.Red;
+                ThreadPool.QueueUserWorkItem(o => DisplayTextAsync(CurrentText));
             }
         }
 
         private void PrintWithChangeWordsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NewTextBox.Text != string.Empty)
+            if (NewTextBox.Text != string.Empty && !ProgramBusy)
             {
-                TestObjectOfTextClass = new Text();
-                TestObjectOfTextClass.Parse(NewTextBox.Text);
-                ResultTextBox.Text = TestObjectOfTextClass.ChangeAllWords();
+                string CurrentText = NewTextBox.Text;
+                ProgramBusy = true;
+                StatusLabel.Content = MyResourses.Texts.StatusBusy;
+                StatusLabel.Foreground = Brushes.Red;
+                ThreadPool.QueueUserWorkItem(o => ChangeWordsAsync(CurrentText));
             }
         }
 
@@ -54,9 +95,19 @@ namespace ComposerPatternWPF
         {
             if (NewTextBox.Text != string.Empty)
             {
-                TestObjectOfTextClass = new Text();
-                TestObjectOfTextClass.Parse(NewTextBox.Text);
-                ResultTextBox.Text = TestObjectOfTextClass.DeleteAllWords(Int32.Parse(LengthOfWordsTextBox.Text));
+                string CurrentText = NewTextBox.Text;
+                try
+                {
+                    int LengthOfWords = Int32.Parse(LengthOfWordsTextBox.Text);
+                    ProgramBusy = true;
+                    StatusLabel.Content = MyResourses.Texts.StatusBusy;
+                    StatusLabel.Foreground = Brushes.Red;
+                    ThreadPool.QueueUserWorkItem(o => DeleteWordsAsync(CurrentText, LengthOfWords));
+                }
+                catch
+                {
+                    MessageBox.Show(MyResourses.Texts.LengthError, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

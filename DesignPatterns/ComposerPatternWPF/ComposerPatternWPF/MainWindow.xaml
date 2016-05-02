@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:ComposerPatternWPF"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:converters="clr-namespace:ComposerPatternWPF.ConvertersForBinding"
-        xmlns:MyRes="clr-namespace:ComposerPatternWPF.Resourses"
+        xmlns:MyRes="clr-namespace:ComposerPatternWPF.MyResourses"
         mc:Ignorable="d"
-        Title="{x:Static MyRes:Texts.MainWindowTitle}" Height="350" Width="600" Name="PatternComposerMainWindow" MinWidth="600" MinHeight="350">
+        Title="{x:Static MyRes:Texts.MainWindowTitle}" Height="500" Width="1000" Name="PatternComposerMainWindow" MinWidth="1000" MinHeight="500">
     <Window.Resources>
         <sys:Int32 x:Key="MaxAmountOfRowsForTextBoxes">50</sys:Int32>
         <converters:TextBoxHeightConverter x:Key="TextBoxHeightConverter"></converters:TextBoxHeightConverter>
@@ -16,18 +16,43 @@
     </Window.Resources>
     <StackPanel>
         <WrapPanel>
-            <Label Content="{x:Static MyRes:Texts.FieldForTextLabel}"></Label>
-            <TextBox TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Width="{Binding  ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  Height="{Binding  ElementName=PatternComposerMainWindow, Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="NewTextBox" BorderBrush="DeepPink"></TextBox>
+            <StackPanel>
+                <Label FontWeight="Bold"  Foreground="DeepPink" Content="{x:Static MyRes:Texts.FieldForTextLabel}"></Label>
+                <TextBox    TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Width="{Binding  
+                            ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  Height="{Binding  ElementName=PatternComposerMainWindow, 
+                            Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="NewTextBox" BorderBrush="DeepPink"></TextBox>
+            </StackPanel>
         </WrapPanel>
         <WrapPanel>
-            <Button Content="{x:Static MyRes:Texts.PrintTextButton}" Name="DisplayTextButton" Click="DisplayTextButton_Click"></Button>
-            <Button Content="{x:Static MyRes:Texts.PrintWithChangeWordsButton}" Name="PrintWithChangeWordsButton" Click="PrintWithChangeWordsButton_Click"></Button>
-            <Button Content="{x:Static MyRes:Texts.PrintWithDeleteWordsButton}" Name="PrintWithDeleteWordsButton" Click="PrintWithDeleteWordsButton_Click"></Button>
-            <TextBox Name="LengthOfWordsTextBox" Width="100"></TextBox>
+            <StackPanel>
+                <Label Content="{x:Static MyRes:Texts.PrintLabel}"></Label>
+                <Button Content="{x:Static MyRes:Texts.PrintTextButton}" Name="DisplayTextButton" Click="DisplayTextButton_Click"></Button>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="{x:Static MyRes:Texts.ChangeWordsLabel}"></Label>
+                <Button Content="{x:Static MyRes:Texts.PrintWithChangeWordsButton}" Name="PrintWithChangeWordsButton" Click="PrintWithChangeWordsButton_Click"></Button>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="{x:Static MyRes:Texts.DeleteWordsLabel}"></Label>
+                <Button Content="{x:Static MyRes:Texts.PrintWithDeleteWordsButton}" Name="PrintWithDeleteWordsButton" Click="PrintWithDeleteWordsButton_Click"></Button>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="{x:Static MyRes:Texts.WordsLengthLabel}"></Label>
+                <TextBox BorderBrush="Red" Name="LengthOfWordsTextBox" Width="100"></TextBox>
+            </StackPanel>
         </WrapPanel>
         <WrapPanel>
-            <Label Content="{x:Static MyRes:Texts.ResultTextFieldLabel}"></Label>
-            <TextBox IsReadOnly="True" IsReadOnlyCaretVisible="True" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Width="{Binding  ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  Height="{Binding  ElementName=PatternComposerMainWindow, Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="ResultTextBox" BorderBrush="DarkOrange"></TextBox>
+            <StackPanel>
+                <Label FontWeight="Bold" Foreground="DarkOrange" Content="{x:Static MyRes:Texts.ResultTextFieldLabel}"></Label>
+                <TextBox IsReadOnly="True" IsReadOnlyCaretVisible="True" TextWrapping="Wrap" AcceptsTab="True" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                         ScrollViewer.CanContentScroll="True" Width="{Binding  ElementName=PatternComposerMainWindow, Path=ActualWidth, Converter={StaticResource TextBoxWidthConverter}}"  
+                         Height="{Binding  ElementName=PatternComposerMainWindow, Path=ActualHeight, Converter={StaticResource TextBoxHeightConverter}}" Name="ResultTextBox" 
+                         BorderBrush="DarkOrange"></TextBox>
+            </StackPanel>
+        </WrapPanel>
+        <WrapPanel>
+            <Label FontWeight="Bold"  Foreground="DarkBlue"  Content="{x:Static MyRes:Texts.StatusLabel}"></Label>
+            <Label Name="StatusLabel" FontWeight="Bold" Foreground="Green" Content="{x:Static MyRes:Texts.StatusFree}"></Label>
         </WrapPanel>
     </StackPanel>
 </Window>
