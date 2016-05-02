@@ -9,10 +9,10 @@ namespace СomposerPattern.ComposerClasses
     public interface IComponent
     {
         /// <summary>
-        /// Выводит все предложения текста в порядке возрастания количества слов в них
+        /// Удаляет все слова заданной длины, начинающиеся на согласную букву
         /// </summary>
         /// <returns></returns>
-        List<IComponent> PrintAllSentences();
+        string DeleteAllWords(int WordLength);
         /// <summary>
         /// Удаляет из каждого слова в тексте последующие вхождения первой буквы слова
         /// </summary>

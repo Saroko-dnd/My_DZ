@@ -117,16 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FieldForTextLabel" xml:space="preserve">
+    <value>Поле для ввода текста</value>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Парсер</value>
-  </data>
-  <data name="PrintSentencesButton" xml:space="preserve">
-    <value>Вывести предложения на экран</value>
   </data>
   <data name="PrintTextButton" xml:space="preserve">
     <value>Вывести текст на экран</value>
   </data>
-  <data name="PrintWordsButton" xml:space="preserve">
-    <value>Вывести слова на экран</value>
+  <data name="PrintWithChangeWordsButton" xml:space="preserve">
+    <value>Печать с измененными словами</value>
+  </data>
+  <data name="PrintWithDeleteWordsButton" xml:space="preserve">
+    <value>Печать с удалением слов</value>
+  </data>
+  <data name="ResultTextFieldLabel" xml:space="preserve">
+    <value>Поле для результатов обработки текста</value>
   </data>
 </root>

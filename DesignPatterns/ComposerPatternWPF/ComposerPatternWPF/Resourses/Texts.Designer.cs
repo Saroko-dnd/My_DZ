@@ -61,20 +61,20 @@ namespace ComposerPatternWPF.Resourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Поле для ввода текста.
+        /// </summary>
+        public static string FieldForTextLabel {
+            get {
+                return ResourceManager.GetString("FieldForTextLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Парсер.
         /// </summary>
         public static string MainWindowTitle {
             get {
                 return ResourceManager.GetString("MainWindowTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Вывести предложения на экран.
-        /// </summary>
-        public static string PrintSentencesButton {
-            get {
-                return ResourceManager.GetString("PrintSentencesButton", resourceCulture);
             }
         }
         
@@ -88,11 +88,29 @@ namespace ComposerPatternWPF.Resourses {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Вывести слова на экран.
+        ///   Ищет локализованную строку, похожую на Печать с измененными словами.
         /// </summary>
-        public static string PrintWordsButton {
+        public static string PrintWithChangeWordsButton {
             get {
-                return ResourceManager.GetString("PrintWordsButton", resourceCulture);
+                return ResourceManager.GetString("PrintWithChangeWordsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Печать с удалением слов.
+        /// </summary>
+        public static string PrintWithDeleteWordsButton {
+            get {
+                return ResourceManager.GetString("PrintWithDeleteWordsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Поле для результатов обработки текста.
+        /// </summary>
+        public static string ResultTextFieldLabel {
+            get {
+                return ResourceManager.GetString("ResultTextFieldLabel", resourceCulture);
             }
         }
     }

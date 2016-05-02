@@ -23,9 +23,9 @@ namespace СomposerPattern.ComposerClasses
             }
         }
 
-        public override List<IComponent> PrintAllSentences()
+        public override string DeleteAllWords(int WordLength)
         {
-            return null;
+            return Value.ToString();
         }
 
         public override string ChangeAllWords()

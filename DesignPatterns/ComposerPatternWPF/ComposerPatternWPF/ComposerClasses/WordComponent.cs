@@ -8,25 +8,59 @@ namespace СomposerPattern.ComposerClasses
 {
     class WordComponent : AbstractComponent
     {
-        public override List<IComponent> PrintAllSentences()
-        {
-            return null;
+        private static readonly List<char> EnglishConsonants = new List<char>() { 'Q', 'W', 'R', 'T', 'P', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M' };
+        private static readonly List<char> RussianConsonants = new List<char>() { 'Й', 'Ц', 'К', 'Н', 'Г', 'Ш', 'Щ', 'З', 'Х', 'Ф', 'В', 'П', 'Р', 'Л', 'Д', 'Ж', 'Ч', 'С', 'М', 'Т','Б' };
+
+        public override string DeleteAllWords(int WordLength)
+        {           
+            StringBuilder BulderForWord = new StringBuilder();
+            foreach (IComponent CurrentComponent in ChildComponents)
+            {
+                BulderForWord.Append(CurrentComponent.DeleteAllWords(WordLength));
+            }
+            string CurrentWord = BulderForWord.ToString();
+            string CurrentWordUpperCase = CurrentWord.ToUpper();
+            if (CurrentWord.Length == WordLength)
+            {
+                foreach (char CurrentEnglishConsonant in EnglishConsonants)
+                {
+                    if (CurrentWordUpperCase.StartsWith(CurrentEnglishConsonant.ToString()))
+                    {
+                        CurrentWord = string.Empty;
+                        break;
+                    }
+                }
+                if (CurrentWord != string.Empty)
+                {
+                    foreach (char CurrentRussianConsonant in RussianConsonants)
+                    {
+                        if (CurrentWordUpperCase.StartsWith(CurrentRussianConsonant.ToString()))
+                        {
+                            CurrentWord = string.Empty;
+                            break;
+                        }
+                    }
+                }
+            }
+            return CurrentWord;
         }
 
         public override string ChangeAllWords()
         {
             StringBuilder BulderForWord = new StringBuilder();
-            string LetterForDelete = string.Empty;
+            string LetterForDeleteLowerCase = string.Empty;
+            string LetterForDeleteUpperCase = string.Empty;
             foreach (IComponent CurrentComponent in ChildComponents)
             {
-                if (LetterForDelete == string.Empty)
+                if (LetterForDeleteLowerCase == string.Empty)
                 {
-                    LetterForDelete = CurrentComponent.ChangeAllWords();
+                    LetterForDeleteLowerCase = CurrentComponent.ChangeAllWords().ToLower();
+                    LetterForDeleteUpperCase = CurrentComponent.ChangeAllWords();
                     BulderForWord.Append(CurrentComponent.ChangeAllWords());
                 }
                 else
                 {
-                    if (CurrentComponent.ChangeAllWords() != LetterForDelete)
+                    if (CurrentComponent.ChangeAllWords() != LetterForDeleteLowerCase && CurrentComponent.ChangeAllWords() != LetterForDeleteUpperCase)
                     {
                         BulderForWord.Append(CurrentComponent.ChangeAllWords());
                     }

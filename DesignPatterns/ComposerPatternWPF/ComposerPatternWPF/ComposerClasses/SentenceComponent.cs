@@ -9,9 +9,15 @@ namespace СomposerPattern.ComposerClasses
 {
     public class SentenceComponent : AbstractComponent
     {
-        public override List<IComponent> PrintAllSentences()
+        public override string DeleteAllWords(int WordLength)
         {
-            return null;
+            StringBuilder BulderForSentence = new StringBuilder();
+
+            foreach (IComponent CurrentComponent in ChildComponents)
+            {
+                BulderForSentence.Append(CurrentComponent.DeleteAllWords(WordLength));
+            }
+            return BulderForSentence.ToString();
         }
 
         public override string ChangeAllWords()

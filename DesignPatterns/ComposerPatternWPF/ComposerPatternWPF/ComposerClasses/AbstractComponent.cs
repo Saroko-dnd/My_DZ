@@ -10,7 +10,7 @@ namespace СomposerPattern.ComposerClasses
     {
         public List<IComponent> ChildComponents = new List<IComponent>();
 
-        public abstract List<IComponent> PrintAllSentences();
+        public abstract string DeleteAllWords(int WordLength);
 
         public abstract string ChangeAllWords();
 

@@ -26,16 +26,8 @@ namespace ComposerPatternWPF
         public MainWindow()
         {
             InitializeComponent();
-        }
 
-        private void PrintAllWordsButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void PrintAllSentencesButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            LengthOfWordsTextBox.PreviewTextInput += CharsKiller.InputValidationOnlyInt;
         }
 
         private void DisplayTextButton_Click(object sender, RoutedEventArgs e)
@@ -45,6 +37,26 @@ namespace ComposerPatternWPF
                 TestObjectOfTextClass = new Text();
                 TestObjectOfTextClass.Parse(NewTextBox.Text);
                 ResultTextBox.Text = TestObjectOfTextClass.TextToString();
+            }
+        }
+
+        private void PrintWithChangeWordsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NewTextBox.Text != string.Empty)
+            {
+                TestObjectOfTextClass = new Text();
+                TestObjectOfTextClass.Parse(NewTextBox.Text);
+                ResultTextBox.Text = TestObjectOfTextClass.ChangeAllWords();
+            }
+        }
+
+        private void PrintWithDeleteWordsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (NewTextBox.Text != string.Empty)
+            {
+                TestObjectOfTextClass = new Text();
+                TestObjectOfTextClass.Parse(NewTextBox.Text);
+                ResultTextBox.Text = TestObjectOfTextClass.DeleteAllWords(Int32.Parse(LengthOfWordsTextBox.Text));
             }
         }
     }

@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CharsKiller.cs" />
     <Compile Include="ComposerClasses\AbstractComponent.cs" />
     <Compile Include="ComposerClasses\CharComponent.cs" />
     <Compile Include="ComposerClasses\IComponent.cs" />

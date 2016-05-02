@@ -10,14 +10,14 @@ namespace СomposerPattern.ComposerClasses
     public class Text : AbstractComponent
     {
         //Выводит все предложения в порядке количества слов в них
-        public override List<IComponent> PrintAllSentences()
+        public override string DeleteAllWords(int WordLength)
         {
-            StringBuilder CurrentStringBuilder = new StringBuilder();
-            foreach (IComponent ChildComponent in ChildComponents)
+            StringBuilder BulderForText = new StringBuilder();
+            foreach (IComponent CurrentComponent in ChildComponents)
             {
-                CurrentStringBuilder.Append(ChildComponent.PrintAllSentences());
+                BulderForText.Append(CurrentComponent.DeleteAllWords(WordLength));
             }
-            return null;
+            return BulderForText.ToString();
         }
 
         public override string ChangeAllWords()
@@ -32,18 +32,12 @@ namespace СomposerPattern.ComposerClasses
 
         public override void Parse(string NewString)
         {
-            //Regex ParagraphRegex = new Regex(@"(\t)(\S+?)($|\t)", RegexOptions.Singleline);
-            string[] ListOfParagraphs = NewString.Split('\t').Where(res => res != string.Empty).ToArray();
-            foreach (string CurrentParagraph in ListOfParagraphs)
-            {
-                ChildComponents.Add(new ParagraphComponent());
-                ChildComponents.Last().Parse(CurrentParagraph);
-            }
-            /*foreach (Match CurrentMatch in ParagraphRegex.Matches(NewString))
+            Regex ParagraphRegex = new Regex(@"[\t\S\r\n ]+?((\r\n){2,}|$|(\r\n\t))");
+            foreach (Match CurrentMatch in ParagraphRegex.Matches(NewString))
             {
                 ChildComponents.Add(new ParagraphComponent());
                 ChildComponents.Last().Parse(CurrentMatch.Value);
-            }*/
+            }
         }
 
         public override string TextToString()

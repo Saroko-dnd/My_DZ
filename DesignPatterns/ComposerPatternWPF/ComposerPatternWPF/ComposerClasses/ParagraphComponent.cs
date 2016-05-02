@@ -10,31 +10,29 @@ namespace СomposerPattern.ComposerClasses
     public class ParagraphComponent : AbstractComponent
     {
 
-        public override List<IComponent> PrintAllSentences()
+        public override string DeleteAllWords(int WordLength)
         {
-            StringBuilder CurrentStringBuilder = new StringBuilder();
-            foreach (IComponent ChildComponent in ChildComponents)
+            StringBuilder BulderForParagraph = new StringBuilder();
+            foreach (IComponent CurrentComponent in ChildComponents)
             {
-                CurrentStringBuilder.Append(ChildComponent.PrintAllSentences());
+                BulderForParagraph.Append(CurrentComponent.DeleteAllWords(WordLength));
             }
-            return null;
+            return BulderForParagraph.ToString();
         }
 
         public override string ChangeAllWords()
         {
             StringBuilder BulderForParagraph = new StringBuilder();
-            BulderForParagraph.Append("\t");
             foreach (IComponent CurrentComponent in ChildComponents)
             {
                 BulderForParagraph.Append(CurrentComponent.ChangeAllWords());
             }
-            BulderForParagraph.Append("\r\n");
             return BulderForParagraph.ToString();
         }
 
         public override void Parse(string NewString)
         {
-            Regex SentencesRegex = new Regex(@"(\S.+?[.!?])(\s+|$|(\r\n))", RegexOptions.Singleline);
+            Regex SentencesRegex = new Regex(@"([\t\S.\r\n ]+?[.!?])(\s+|$)(\r\n)*", RegexOptions.Singleline);
             bool FirstTime = true;
             foreach (Match CurrentMatch in SentencesRegex.Matches(NewString))
             {
@@ -54,12 +52,10 @@ namespace СomposerPattern.ComposerClasses
         public override string TextToString()
         {
             StringBuilder BulderForParagraph = new StringBuilder();
-            BulderForParagraph.Append("\t");
             foreach (IComponent CurrentComponent in ChildComponents)
             {
                 BulderForParagraph.Append(CurrentComponent.TextToString());
             }
-            BulderForParagraph.Append("\r\n");
             return BulderForParagraph.ToString();
         }
 
