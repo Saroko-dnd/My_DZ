@@ -9,7 +9,7 @@ namespace СomposerPattern.ComposerClasses
 {
     public class ParagraphComponent : AbstractComponent
     {
-
+        private bool Code = false;
         public override string DeleteAllWords(int WordLength)
         {
             StringBuilder BulderForParagraph = new StringBuilder();
@@ -32,19 +32,42 @@ namespace СomposerPattern.ComposerClasses
 
         public override void Parse(string NewString)
         {
-            Regex SentencesRegex = new Regex(@"([\t\S.\r\n ]+?[.!?])(\s+|$)(\r\n)*", RegexOptions.Singleline);
-            bool FirstTime = true;
-            foreach (Match CurrentMatch in SentencesRegex.Matches(NewString))
+            Regex CodeStartRegex = new Regex(@"(.+?({(\s)*?((\r\n)+|(\r\n)*$)))", RegexOptions.Singleline);
+            Regex CodeEndRegex = new Regex(@"(\s)*?[}](\s)*?(\r\n)*", RegexOptions.Singleline);
+            if (CodeStartRegex.IsMatch(NewString))
+            {
+                Code = true;
+                ChildComponents.Add(new SentenceComponent());
+                ChildComponents.Last().Parse(NewString);
+            }
+            else if (CodeEndRegex.IsMatch(NewString))
+            {
+                Code = false;
+                ChildComponents.Add(new SentenceComponent());
+                ChildComponents.Last().Parse(NewString);
+            }
+            else if (Code)
             {
                 ChildComponents.Add(new SentenceComponent());
-                if (FirstTime)
+                ChildComponents.Last().Parse(NewString);
+            }
+            else
+            {
+                Regex SentencesRegex = new Regex(@"(([\t\S.\r\n ]+?[.!?])(\s+)((\r\n)*|$))|(.+?((\r\n)+|$))", RegexOptions.Singleline);
+
+                bool FirstTime = true;
+                foreach (Match CurrentMatch in SentencesRegex.Matches(NewString))
                 {
-                    ChildComponents.Last().Parse(CurrentMatch.Value);
-                    FirstTime = false;
-                }
-                else
-                {
-                    ChildComponents.Last().Parse(" " + CurrentMatch.Value);
+                    ChildComponents.Add(new SentenceComponent());
+                    if (FirstTime)
+                    {
+                        ChildComponents.Last().Parse(CurrentMatch.Value);
+                        FirstTime = false;
+                    }
+                    else
+                    {
+                        ChildComponents.Last().Parse(" " + CurrentMatch.Value);
+                    }
                 }
             }
         }

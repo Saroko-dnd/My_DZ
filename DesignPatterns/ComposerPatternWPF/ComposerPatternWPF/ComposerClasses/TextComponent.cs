@@ -32,7 +32,7 @@ namespace СomposerPattern.ComposerClasses
 
         public override void Parse(string NewString)
         {
-            Regex ParagraphRegex = new Regex(@"[\t\S\r\n ]+?((\r\n){2,}|$|(\r\n\t))");
+            Regex ParagraphRegex = new Regex(@".+?((\r\n)+|$)");
             foreach (Match CurrentMatch in ParagraphRegex.Matches(NewString))
             {
                 ChildComponents.Add(new ParagraphComponent());
