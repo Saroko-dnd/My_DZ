@@ -34,7 +34,7 @@ namespace СomposerPattern.ComposerClasses
         {
             Regex CodeStartRegex = new Regex(@"(.+?({(\s)*?((\r\n)+|(\r\n)*$)))", RegexOptions.Singleline);
             Regex CodeEndRegex = new Regex(@"(\s)*?[}](\s)*?((\r\n)+|$)", RegexOptions.Singleline);
-            Regex TitleRegex = new Regex(@"(\d+[.])+[\t \w]([^.!?])*?(\r\n)*$", RegexOptions.Singleline);
+            Regex TitleRegex = new Regex(@"^(\d+[.])+[\t ]([^.!?])*?(\r\n)*$", RegexOptions.Singleline);
 
             if (TitleRegex.IsMatch(NewString))
             {
@@ -60,8 +60,7 @@ namespace СomposerPattern.ComposerClasses
             }
             else
             {
-                Regex SentencesRegex = new Regex(@"(([\t\S.\r\n ]+?[.!?])(\s*)((\r\n)*|$))|[^.!?]+?(\r\n)*$", RegexOptions.Singleline);
-
+                Regex SentencesRegex = new Regex(@"(([\t\S\r\n ]+?[.!?]+)(\s*)((\r\n)*|$))|[^.!?]+?(\r\n)*$", RegexOptions.Singleline);
                 bool FirstTime = true;
                 foreach (Match CurrentMatch in SentencesRegex.Matches(NewString))
                 {

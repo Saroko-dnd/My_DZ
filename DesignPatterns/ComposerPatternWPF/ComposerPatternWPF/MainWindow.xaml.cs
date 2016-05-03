@@ -69,7 +69,11 @@ namespace ComposerPatternWPF
 
         private void DisplayTextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NewTextBox.Text != string.Empty && !ProgramBusy)
+            if (ProgramBusy)
+            {
+                MessageBox.Show(MyResourses.Texts.ProgramBusyError, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (NewTextBox.Text != string.Empty)
             {
                 string CurrentText = NewTextBox.Text;
                 ProgramBusy = true;
@@ -81,7 +85,11 @@ namespace ComposerPatternWPF
 
         private void PrintWithChangeWordsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NewTextBox.Text != string.Empty && !ProgramBusy)
+            if (ProgramBusy)
+            {
+                MessageBox.Show(MyResourses.Texts.ProgramBusyError, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (NewTextBox.Text != string.Empty)
             {
                 string CurrentText = NewTextBox.Text;
                 ProgramBusy = true;
@@ -93,7 +101,11 @@ namespace ComposerPatternWPF
 
         private void PrintWithDeleteWordsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (NewTextBox.Text != string.Empty)
+            if (ProgramBusy)
+            {
+                MessageBox.Show(MyResourses.Texts.ProgramBusyError, MyResourses.Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (NewTextBox.Text != string.Empty)
             {
                 string CurrentText = NewTextBox.Text;
                 try

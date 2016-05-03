@@ -154,6 +154,15 @@ namespace ComposerPatternWPF.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не закончена обработка последнего запроса!.
+        /// </summary>
+        public static string ProgramBusyError {
+            get {
+                return ResourceManager.GetString("ProgramBusyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Поле для результатов обработки текста.
         /// </summary>
         public static string ResultTextFieldLabel {

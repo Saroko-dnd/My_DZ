@@ -150,6 +150,9 @@
   <data name="PrintWithDeleteWordsButton" xml:space="preserve">
     <value>Печать с удалением слов</value>
   </data>
+  <data name="ProgramBusyError" xml:space="preserve">
+    <value>Не закончена обработка последнего запроса!</value>
+  </data>
   <data name="ResultTextFieldLabel" xml:space="preserve">
     <value>Поле для результатов обработки текста</value>
   </data>
