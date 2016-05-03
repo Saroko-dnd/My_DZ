@@ -9,7 +9,7 @@ namespace СomposerPattern.ComposerClasses
 {
     public class ParagraphComponent : AbstractComponent
     {
-        private bool Code = false;
+        private static bool Code = false;
         public override string DeleteAllWords(int WordLength)
         {
             StringBuilder BulderForParagraph = new StringBuilder();
@@ -33,8 +33,15 @@ namespace СomposerPattern.ComposerClasses
         public override void Parse(string NewString)
         {
             Regex CodeStartRegex = new Regex(@"(.+?({(\s)*?((\r\n)+|(\r\n)*$)))", RegexOptions.Singleline);
-            Regex CodeEndRegex = new Regex(@"(\s)*?[}](\s)*?(\r\n)*", RegexOptions.Singleline);
-            if (CodeStartRegex.IsMatch(NewString))
+            Regex CodeEndRegex = new Regex(@"(\s)*?[}](\s)*?((\r\n)+|$)", RegexOptions.Singleline);
+            Regex TitleRegex = new Regex(@"(\d+[.])+[\t \w]([^.!?])*?(\r\n)*$", RegexOptions.Singleline);
+
+            if (TitleRegex.IsMatch(NewString))
+            {
+                ChildComponents.Add(new SentenceComponent());
+                ChildComponents.Last().Parse(NewString);
+            }
+            else if (CodeStartRegex.IsMatch(NewString))
             {
                 Code = true;
                 ChildComponents.Add(new SentenceComponent());
@@ -53,7 +60,7 @@ namespace СomposerPattern.ComposerClasses
             }
             else
             {
-                Regex SentencesRegex = new Regex(@"(([\t\S.\r\n ]+?[.!?])(\s+)((\r\n)*|$))|(.+?((\r\n)+|$))", RegexOptions.Singleline);
+                Regex SentencesRegex = new Regex(@"(([\t\S.\r\n ]+?[.!?])(\s*)((\r\n)*|$))|[^.!?]+?(\r\n)*$", RegexOptions.Singleline);
 
                 bool FirstTime = true;
                 foreach (Match CurrentMatch in SentencesRegex.Matches(NewString))
