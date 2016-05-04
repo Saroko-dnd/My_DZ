@@ -12,7 +12,7 @@ namespace TemplateMethodPattern.ConvertersForBinding
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (double)value-70.0;
+            return (double)value - 100.0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

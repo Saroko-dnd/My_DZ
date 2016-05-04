@@ -11,5 +11,9 @@
         <TextBox TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="{Binding ElementName=MainWindowOfProgram, Path=ActualHeight, 
                 Converter={StaticResource TextBoxHeightConverter}}" Name="ConsoleTextBox"></TextBox>
         <Button Name="PrintResultsOfTestsButton" Content="{ x:Static MyRes:Texts.PrintResultsOfTestsButton}" Click="PrintResultsOfTestsButton_Click"></Button>
+        <WrapPanel>
+            <Label Content="{ x:Static MyRes:Texts.StatusLabel}"></Label>
+            <Label Name="StatusLabel" Content="{ x:Static MyRes:Texts.StatusFree}"></Label>
+        </WrapPanel>
     </StackPanel>
 </Window>

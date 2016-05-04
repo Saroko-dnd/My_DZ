@@ -13,6 +13,7 @@ namespace TemplateMethodPattern.TestClasses
 
         public StringBuilder PerformTest()
         {
+            Result = new StringBuilder();
             StartTest();
             TestItself();
             TestResults();

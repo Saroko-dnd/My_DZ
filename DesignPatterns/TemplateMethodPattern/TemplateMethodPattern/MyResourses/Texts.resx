@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Error" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>Тестирование паттерна "шаблонный метод"</value>
   </data>
   <data name="PrintResultsOfTestsButton" xml:space="preserve">
     <value>Выполнить тесты</value>
+  </data>
+  <data name="ProgramBusyError" xml:space="preserve">
+    <value>Программа не закончила выполнение последнего запроса!</value>
+  </data>
+  <data name="StatusBusy" xml:space="preserve">
+    <value>выполнение запроса...</value>
+  </data>
+  <data name="StatusFree" xml:space="preserve">
+    <value>бездействие</value>
+  </data>
+  <data name="StatusLabel" xml:space="preserve">
+    <value>Состояние программы:</value>
   </data>
 </root>

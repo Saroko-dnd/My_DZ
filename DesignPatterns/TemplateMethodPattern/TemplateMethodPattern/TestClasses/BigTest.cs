@@ -10,17 +10,17 @@ namespace TemplateMethodPattern.TestClasses
     {
         protected override void StartTest()
         {
-            Result.Append("Preparation for big test");
+            Result.Append("Preparation for big test\r\n");
         }
 
         protected override void TestItself()
         {
-            Result.Append("Performing big test");
+            Result.Append("Performing big test\r\n");
         }
 
         protected override void TestResults()
         {
-            Result.Append("Getting big test results");
+            Result.Append("Getting big test results\r\n\r\n");
         }
     }
 }

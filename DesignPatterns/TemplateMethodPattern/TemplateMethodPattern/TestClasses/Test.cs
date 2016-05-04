@@ -12,17 +12,17 @@ namespace TemplateMethodPattern.TestClasses
     {
         protected override void StartTest()
         {
-            Result.Append("Preparation for the test");
+            Result.Append("Preparation for the test\r\n");
         }
 
         protected override void TestItself()
         {
-            Result.Append("Performing test");
+            Result.Append("Performing test\r\n");
         }
 
         protected override void TestResults()
         {
-            Result.Append("Getting test results");
+            Result.Append("Getting test results\r\n\r\n");
         } 
     }
 }

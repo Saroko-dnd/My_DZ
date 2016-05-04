@@ -61,6 +61,15 @@ namespace TemplateMethodPattern.MyResourses {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Тестирование паттерна &quot;шаблонный метод&quot;.
         /// </summary>
         public static string MainWindowTitle {
@@ -75,6 +84,42 @@ namespace TemplateMethodPattern.MyResourses {
         public static string PrintResultsOfTestsButton {
             get {
                 return ResourceManager.GetString("PrintResultsOfTestsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Программа не закончила выполнение последнего запроса!.
+        /// </summary>
+        public static string ProgramBusyError {
+            get {
+                return ResourceManager.GetString("ProgramBusyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на выполнение запроса....
+        /// </summary>
+        public static string StatusBusy {
+            get {
+                return ResourceManager.GetString("StatusBusy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на бездействие.
+        /// </summary>
+        public static string StatusFree {
+            get {
+                return ResourceManager.GetString("StatusFree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Состояние программы:.
+        /// </summary>
+        public static string StatusLabel {
+            get {
+                return ResourceManager.GetString("StatusLabel", resourceCulture);
             }
         }
     }
