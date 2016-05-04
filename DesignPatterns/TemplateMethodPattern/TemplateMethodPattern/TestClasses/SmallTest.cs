@@ -3,26 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 
 namespace TemplateMethodPattern.TestClasses
 {
-    class Test : AbstractTest
+    class SmallTest : AbstractTest
     {
         protected override void StartTest()
         {
-            Result.Append("Preparation for the test");
+            Result.Append("Preparation for small test");
         }
 
         protected override void TestItself()
         {
-            Result.Append("Performing test");
+            Result.Append("Performing small test");
         }
 
         protected override void TestResults()
         {
-            Result.Append("Getting test results");
-        } 
+            Result.Append("Getting small test results");
+        }
     }
 }

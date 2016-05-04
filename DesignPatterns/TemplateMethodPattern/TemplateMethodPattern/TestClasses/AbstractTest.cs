@@ -9,12 +9,14 @@ namespace TemplateMethodPattern.TestClasses
 {
     public abstract class AbstractTest
     {
-        protected int ResultValue;
-        public void PerformTest()
+        protected StringBuilder Result;
+
+        public StringBuilder PerformTest()
         {
             StartTest();
             TestItself();
             TestResults();
+            return Result;
         }
 
         protected abstract void StartTest();

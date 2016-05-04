@@ -1,8 +1,15 @@
 ﻿<Window x:Class="TemplateMethodPattern.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <DockPanel>
-        <TextBox Name="ConsoleTextBox"></TextBox>
-    </DockPanel>
+        xmlns:MyRes="clr-namespace:TemplateMethodPattern.MyResourses"
+        xmlns:Converters="clr-namespace:TemplateMethodPattern.ConvertersForBinding"
+        Title="{x:Static MyRes:Texts.MainWindowTitle}" Height="350" Width="525" Name="MainWindowOfProgram">
+    <Window.Resources>
+        <Converters:TextBoxHeightConverter x:Key="TextBoxHeightConverter"></Converters:TextBoxHeightConverter>
+    </Window.Resources>
+    <StackPanel>
+        <TextBox TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="{Binding ElementName=MainWindowOfProgram, Path=ActualHeight, 
+                Converter={StaticResource TextBoxHeightConverter}}" Name="ConsoleTextBox"></TextBox>
+        <Button Name="PrintResultsOfTestsButton" Content="{ x:Static MyRes:Texts.PrintResultsOfTestsButton}" Click="PrintResultsOfTestsButton_Click"></Button>
+    </StackPanel>
 </Window>

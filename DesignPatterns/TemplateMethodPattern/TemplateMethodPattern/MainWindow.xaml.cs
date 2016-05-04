@@ -25,7 +25,11 @@ namespace TemplateMethodPattern
         public MainWindow()
         {
             InitializeComponent();
-            new Test().PerformTest();
+        }
+
+        private void PrintResultsOfTestsButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
