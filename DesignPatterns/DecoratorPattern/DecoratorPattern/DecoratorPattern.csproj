@@ -62,15 +62,30 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DecoratorClasses\Elf.cs" />
-    <Compile Include="DecoratorClasses\Human.cs" />
-    <Compile Include="DecoratorClasses\AbstractPerson.cs" />
+    <Compile Include="Components\AbstractPerson.cs" />
+    <Compile Include="Components\Elf.cs" />
+    <Compile Include="Components\Human.cs" />
+    <Compile Include="Decorators\ElfArbalester.cs" />
+    <Compile Include="Decorators\ElfMage.cs" />
+    <Compile Include="Decorators\ElfWarrior.cs" />
+    <Compile Include="Decorators\ElfEvilMage.cs" />
+    <Compile Include="Decorators\ElfGoodMage.cs" />
+    <Compile Include="Decorators\HumanArcher.cs" />
+    <Compile Include="Decorators\HumanRider.cs" />
+    <Compile Include="Decorators\HumanWarrior.cs" />
+    <Compile Include="Decorators\ProfessionDecorator.cs" />
+    <Compile Include="Decorators\HumanSwordmaster.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyResources\Texts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Texts.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -84,6 +99,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="MyResources\Texts.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
