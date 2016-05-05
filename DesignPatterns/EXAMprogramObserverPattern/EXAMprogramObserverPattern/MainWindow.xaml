@@ -1,0 +1,41 @@
+﻿<Window x:Class="EXAMprogramObserverPattern.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="500" Width="700" ResizeMode="NoResize">
+    <StackPanel>
+        <WrapPanel>
+            <Label Content="New newspaper"></Label>
+            <TextBox Width="150" Name="NewsPaperTextBox"></TextBox>
+            <Label Content="New journal"></Label>
+            <TextBox Width="150" Name="JournalTextBox"></TextBox>
+        </WrapPanel>
+        <Label Content="POST OFFICE DATA"></Label>
+        <WrapPanel>
+            <StackPanel>
+                <Label Content="Current newspaper"></Label>
+                <TextBox Width="200" Name="PostOfficeNewspaperTextBox"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Current journal"></Label>
+                <TextBox Width="200" Name="PostOfficeJournalTextBox"></TextBox>
+            </StackPanel>
+        </WrapPanel>
+        <WrapPanel>
+            <StackPanel>
+                <Label Content="First reader"></Label>
+                <ListBox Height="50" Name="FirstReaderListBox"></ListBox>
+                <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="200" Width="200" Name="FirstReaderTextBox"></TextBox>
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Second reader"></Label>
+                <ListBox Height="50" Name="SecondReaderListBox"></ListBox>
+                <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="200" Width="200" Name="SecondReaderTextBox"></TextBox>             
+            </StackPanel>
+            <StackPanel>
+                <Label Content="Third reader"></Label>
+                <ListBox Height="50" Name="ThirdReaderListBox"></ListBox>
+                <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="200" Width="200" Name="ThirdReaderTextBox"></TextBox>
+            </StackPanel>
+        </WrapPanel>
+    </StackPanel>
+</Window>
