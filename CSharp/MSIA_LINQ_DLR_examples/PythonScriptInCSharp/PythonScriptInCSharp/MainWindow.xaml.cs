@@ -16,6 +16,7 @@ using IronPython.Runtime;
 using IronPython;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using System.Reflection;
 
 namespace PythonScriptInCSharp
 {
@@ -31,6 +32,18 @@ namespace PythonScriptInCSharp
             InitializeComponent();
             //Создаем Runtime для Python
             ScriptEngine PythonEngine = Python.CreateEngine();
+            dynamic builtin = PythonEngine.GetBuiltinModule();
+            // you can store variables if you want
+            dynamic list = builtin.list;
+            dynamic itertools = PythonEngine.ImportModule("itertools");
+            var numbers = new[] { 1, 1, 2, 3, 6, 2, 2 };
+            string TestString = builtin.str(list(itertools.chain(numbers, "foobar")));
+            //Добавляем путь к стандартной библиотеке Python, чтобы импортировать модуль random
+
+            var paths = PythonEngine.GetSearchPaths();
+            paths.Add(@"C:\Program Files (x86)\IronPython 2.7\Lib");
+            PythonEngine.SetSearchPaths(paths);
+
             //Загружаем Python скрипт
             dynamic PythonScript = PythonEngine.ExecuteFile("Customer.py.txt");
             //Получаем объект класса описанного в скрипте 
@@ -41,7 +54,7 @@ namespace PythonScriptInCSharp
                 BuilderForTextBox.Append("\r\n" + CurrentInt.ToString());
             }
 
-            PythonTextBox.Text = PythonScript.PrintHelloFromPython() + "\r\n\r\nInt array from Python:" + BuilderForTextBox.ToString();
+            PythonTextBox.Text = PythonScript.PrintRandomFromPython() + "\r\n\r\nInt array from Python:" + BuilderForTextBox.ToString();
 
         }
     }
