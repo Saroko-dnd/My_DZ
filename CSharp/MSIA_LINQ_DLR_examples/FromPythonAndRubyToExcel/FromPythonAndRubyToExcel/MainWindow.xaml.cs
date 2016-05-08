@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Office.Interop;
 using Excel = Microsoft.Office.Interop.Excel;
-using FromPythonAndRubyToExcel.Python;
+using FromPythonAndRubyToExcel.PythonClasses;
 
 namespace FromPythonAndRubyToExcel
 {
@@ -28,6 +28,8 @@ namespace FromPythonAndRubyToExcel
             InitializeComponent();
 
             PythonWorker TestWorker = PythonWorker.GetPythonWorker();
+            dynamic Tests = TestWorker.GetListOfTests();
+            MessageBox.Show(Tests[0].TestName);
 
             Excel.Application xlApp;
             Excel.Workbook xlWorkBook;

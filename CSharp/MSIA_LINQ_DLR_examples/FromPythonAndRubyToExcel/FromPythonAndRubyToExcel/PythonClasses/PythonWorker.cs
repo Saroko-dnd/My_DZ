@@ -8,12 +8,14 @@ using IronPython;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
 
-namespace FromPythonAndRubyToExcel.Python
+namespace FromPythonAndRubyToExcel.PythonClasses
 {
     public class PythonWorker
     {
         private static PythonWorker SinglePythonWorker;
         private static object GateObject = new object();
+        private dynamic PythonScript;
+        private dynamic LabObject;
 
         public static PythonWorker GetPythonWorker()
         {
@@ -30,9 +32,21 @@ namespace FromPythonAndRubyToExcel.Python
             return SinglePythonWorker;
         }
 
-        private PythonWorker()
-        {           
+        public dynamic GetListOfTests()
+        {
+            return LabObject.GetTests();
+        }
 
+        private PythonWorker()
+        {
+            ScriptEngine PythonEngine = Python.CreateEngine();
+            //Добавляем путь для поиска импортируемых в Python скрипт модулей
+            var paths = PythonEngine.GetSearchPaths();
+            paths.Add(@"C:\Program Files (x86)\IronPython 2.7\Lib");
+            PythonEngine.SetSearchPaths(paths);
+
+            PythonScript = PythonEngine.ExecuteFile("PythonLabScript.py");
+            LabObject = PythonScript.GetNewLab();
         }
     }
 }
