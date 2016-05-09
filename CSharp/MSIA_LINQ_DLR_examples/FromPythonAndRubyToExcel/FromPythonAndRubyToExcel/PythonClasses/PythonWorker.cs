@@ -37,6 +37,21 @@ namespace FromPythonAndRubyToExcel.PythonClasses
             return LabObject.GetTests();
         }
 
+        public dynamic GetDatesOfTests()
+        {
+            return LabObject.GetDatesOfTests();
+        }
+
+        public dynamic GetLabName()
+        {
+            return LabObject.GetLabName();
+        }
+
+        public dynamic GetValueSeparator()
+        {
+            return LabObject.GetValueSeparator();
+        }
+
         private PythonWorker()
         {
             ScriptEngine PythonEngine = Python.CreateEngine();
@@ -45,7 +60,7 @@ namespace FromPythonAndRubyToExcel.PythonClasses
             paths.Add(@"C:\Program Files (x86)\IronPython 2.7\Lib");
             PythonEngine.SetSearchPaths(paths);
 
-            PythonScript = PythonEngine.ExecuteFile("PythonLabScript.py");
+            PythonScript = PythonEngine.ExecuteFile(@"..\..\..\PythonScripts\PythonLabScript.py");
             LabObject = PythonScript.GetNewLab();
         }
     }
