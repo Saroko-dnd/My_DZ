@@ -1,4 +1,4 @@
-﻿using FromPythonAndRubyToExcel.PythonClasses;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
+using FromPythonAndRubyToExcel.ClassesForScripts.PythonClasses;
+using FromPythonAndRubyToExcel.ClassesForScripts;
 
 namespace FromPythonAndRubyToExcel.ExcelClasses
 {
@@ -30,7 +32,7 @@ namespace FromPythonAndRubyToExcel.ExcelClasses
             return SingleGraphCreator;
         }
 
-        public void SaveDataInExcel(PythonWorker CurrentPythonWorker, string SavePath)
+        public void SaveDataInExcel(IScriptWorker CurrentScriptWorker, string SavePath)
         {
             Excel.Application xlApp;
             Excel.Workbook xlWorkBook;
@@ -42,42 +44,10 @@ namespace FromPythonAndRubyToExcel.ExcelClasses
             xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
-            xlWorkSheet.Cells[1, 1] = "";
-            dynamic DatesOfTests = CurrentPythonWorker.GetDatesOfTests();
+            int RowCounter, ColumnCounterForNamesOfTests;
+            WriteDataToWorkSheet(CurrentScriptWorker, xlWorkSheet, out RowCounter, out ColumnCounterForNamesOfTests);
 
-            int RowCounter = 2;
-            foreach (dynamic CurrentDate in DatesOfTests)
-            {
-                xlWorkSheet.Cells[RowCounter, 1] = CurrentDate;
-                ++RowCounter;
-            }
-
-            dynamic TestsForSave = CurrentPythonWorker.GetListOfTests();
-            int ColumnCounterForNamesOfTests = 2;
-            foreach (dynamic CurrentTest in TestsForSave)
-            {
-                xlWorkSheet.Cells[1, ColumnCounterForNamesOfTests] = CurrentTest.GetTestName();
-                dynamic CurrentTestResults = CurrentTest.GetValues();
-                int RowCounterForTestValues = 2;
-                foreach (dynamic CurrentValue in CurrentTestResults)
-                {
-                    xlWorkSheet.Cells[RowCounterForTestValues, ColumnCounterForNamesOfTests] = CurrentValue;
-                    ++RowCounterForTestValues;
-                }
-                ++ColumnCounterForNamesOfTests;
-            }
-
-            Excel.Range chartRange;
-            Excel.ChartObjects xlCharts = (Excel.ChartObjects)xlWorkSheet.ChartObjects(Type.Missing);
-            Excel.ChartObject myChart = xlCharts.Add(100, 200, 800, 350);
-            Excel.Chart chartPage = myChart.Chart;
-
-            chartRange = xlWorkSheet.get_Range((Excel.Range)xlWorkSheet.Cells[1, 1], (Excel.Range)xlWorkSheet.Cells[RowCounter - 1, ColumnCounterForNamesOfTests - 1]);
-            chartPage.ChartWizard(Source: chartRange,
-                Gallery: Excel.XlChartType.xlColumnClustered,
-                Title: CurrentPythonWorker.GetLabName(),
-                CategoryTitle: "Dates",
-                ValueTitle: "Results of tests");
+            CreateGraph(CurrentScriptWorker, xlWorkSheet, RowCounter, ColumnCounterForNamesOfTests);
 
             if (SavePath == null || SavePath == string.Empty)
             {
@@ -93,6 +63,49 @@ namespace FromPythonAndRubyToExcel.ExcelClasses
             releaseObject(xlApp);
 
             MessageBox.Show(MyResources.Texts.ExcelFileWasCreatedMessage + SavePath);
+        }
+
+        private void CreateGraph(IScriptWorker CurrentScriptWorker, Excel.Worksheet xlWorkSheet, int RowCounter, int ColumnCounterForNamesOfTests)
+        {
+            Excel.Range chartRange;
+            Excel.ChartObjects xlCharts = (Excel.ChartObjects)xlWorkSheet.ChartObjects(Type.Missing);
+            Excel.ChartObject myChart = xlCharts.Add(100, 200, 800, 350);
+            Excel.Chart chartPage = myChart.Chart;
+
+            chartRange = xlWorkSheet.get_Range((Excel.Range)xlWorkSheet.Cells[1, 1], (Excel.Range)xlWorkSheet.Cells[RowCounter - 1, ColumnCounterForNamesOfTests - 1]);
+            chartPage.ChartWizard(Source: chartRange,
+                Gallery: Excel.XlChartType.xlColumnClustered,
+                Title: CurrentScriptWorker.GetLabName(),
+                CategoryTitle: CurrentScriptWorker.GetValueSeparator(),
+                ValueTitle: CurrentScriptWorker.GetValueType());
+        }
+
+        private void WriteDataToWorkSheet(IScriptWorker CurrentScriptWorker, Excel.Worksheet xlWorkSheet, out int RowCounter, out int ColumnCounterForNamesOfTests)
+        {
+            xlWorkSheet.Cells[1, 1] = "";
+            dynamic DatesOfTests = CurrentScriptWorker.GetDatesOfTests();
+
+            RowCounter = 2;
+            foreach (dynamic CurrentDate in DatesOfTests)
+            {
+                xlWorkSheet.Cells[RowCounter, 1] = CurrentDate;
+                ++RowCounter;
+            }
+
+            dynamic TestsForSave = CurrentScriptWorker.GetListOfTests();
+            ColumnCounterForNamesOfTests = 2;
+            foreach (dynamic CurrentTest in TestsForSave)
+            {
+                xlWorkSheet.Cells[1, ColumnCounterForNamesOfTests] = CurrentTest.GetTestName();
+                dynamic CurrentTestResults = CurrentTest.GetValues();
+                int RowCounterForTestValues = 2;
+                foreach (dynamic CurrentValue in CurrentTestResults)
+                {
+                    xlWorkSheet.Cells[RowCounterForTestValues, ColumnCounterForNamesOfTests] = CurrentValue;
+                    ++RowCounterForTestValues;
+                }
+                ++ColumnCounterForNamesOfTests;
+            }
         }
 
         private void releaseObject(object obj)

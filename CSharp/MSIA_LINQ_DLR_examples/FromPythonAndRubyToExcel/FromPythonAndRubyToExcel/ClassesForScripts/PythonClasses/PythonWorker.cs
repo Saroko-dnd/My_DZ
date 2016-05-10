@@ -8,12 +8,12 @@ using IronPython;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
 
-namespace FromPythonAndRubyToExcel.PythonClasses
+namespace FromPythonAndRubyToExcel.ClassesForScripts.PythonClasses
 {
-    public class PythonWorker
+    public class PythonWorker : IScriptWorker
     {
         private static PythonWorker SinglePythonWorker;
-        private static object GateObject = new object();
+        private static object PythonWorkerGateObject = new object();
         private dynamic PythonScript;
         private dynamic LabObject;
 
@@ -21,7 +21,7 @@ namespace FromPythonAndRubyToExcel.PythonClasses
         {
             if (SinglePythonWorker == null)
             {
-                lock (GateObject)
+                lock (PythonWorkerGateObject)
                 {
                     if (SinglePythonWorker == null)
                     {
@@ -50,6 +50,11 @@ namespace FromPythonAndRubyToExcel.PythonClasses
         public dynamic GetValueSeparator()
         {
             return LabObject.GetValueSeparator();
+        }
+
+        public dynamic GetValueType()
+        {
+            return LabObject.GetValueType();
         }
 
         private PythonWorker()

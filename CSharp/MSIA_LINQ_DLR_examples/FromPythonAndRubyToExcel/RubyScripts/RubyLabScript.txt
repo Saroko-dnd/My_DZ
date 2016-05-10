@@ -1,0 +1,63 @@
+﻿class Test
+    def initialize(newTestName, newValues)
+        @TestName = newTestName
+        @Values = newValues
+    end
+
+    def GetValues()
+        return @Values
+    end
+
+    def GetTestName()
+        return @TestName
+    end
+end
+
+class LaboratoryInfo
+    def initialize(newName, newTests, newDatesOfTest, newValueSeparator, newValueType)
+        @LabName = NewName
+        @Tests = NewTests
+        @DatesOfTests = NewDatesOfTest
+        @ValueSeparator = NewValueSeparator
+        @ValueType = NewValueType
+    end
+
+    def GetTests()
+        return @Tests
+    end
+
+    def GetLabName()
+        return @LabName
+    end
+
+    def GetDatesOfTests()
+        return @DatesOfTests
+    end
+
+    def GetValueSeparator()
+        return @ValueSeparator
+    end
+
+    def GetValueType()
+        return @ValueType
+    end
+end
+
+def GetNewLab()
+    counter = 0
+    currentTests = Array[]
+    dates = Array[2000, 2001, 2002, 2003, 2004]
+    randomGenerator = Random.new
+    while counter != 3 do
+        currentTestValues = Array[]
+        secondCounter = 0
+        while secondCounter != 5 do
+            currentTestValues.push(randomGenerator.rand(1...100))
+            secondCounter += 1
+        end
+        newTestName = (Counter + 1).to_s + " Test"
+        currentTests.push(Test.new(newTestName, currentTestValues))
+        counter += 1
+    end
+    return LaboratoryInfo.new("Секретная лаборатория", currentTests, dates, "Год", "Значение")
+end

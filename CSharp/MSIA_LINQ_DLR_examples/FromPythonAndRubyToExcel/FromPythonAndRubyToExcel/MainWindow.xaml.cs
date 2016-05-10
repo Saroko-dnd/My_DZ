@@ -14,8 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Office.Interop;
 using Excel = Microsoft.Office.Interop.Excel;
-using FromPythonAndRubyToExcel.PythonClasses;
 using FromPythonAndRubyToExcel.ExcelClasses;
+using FromPythonAndRubyToExcel.ClassesForScripts.PythonClasses;
 
 namespace FromPythonAndRubyToExcel
 {
