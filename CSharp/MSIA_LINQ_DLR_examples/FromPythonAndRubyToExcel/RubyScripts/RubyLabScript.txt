@@ -15,11 +15,11 @@ end
 
 class LaboratoryInfo
     def initialize(newName, newTests, newDatesOfTest, newValueSeparator, newValueType)
-        @LabName = NewName
-        @Tests = NewTests
-        @DatesOfTests = NewDatesOfTest
-        @ValueSeparator = NewValueSeparator
-        @ValueType = NewValueType
+        @LabName = newName
+        @Tests = newTests
+        @DatesOfTests = newDatesOfTest
+        @ValueSeparator = newValueSeparator
+        @ValueType = newValueType
     end
 
     def GetTests()
@@ -47,15 +47,15 @@ def GetNewLab()
     counter = 0
     currentTests = Array[]
     dates = Array[2000, 2001, 2002, 2003, 2004]
-    randomGenerator = Random.new
     while counter != 3 do
         currentTestValues = Array[]
         secondCounter = 0
         while secondCounter != 5 do
-            currentTestValues.push(randomGenerator.rand(1...100))
+            currentTestValues.push(rand(100))
             secondCounter += 1
         end
-        newTestName = (Counter + 1).to_s + " Test"
+	numberOfTest = counter + 1
+        newTestName = numberOfTest.to_s + " Test"
         currentTests.push(Test.new(newTestName, currentTestValues))
         counter += 1
     end

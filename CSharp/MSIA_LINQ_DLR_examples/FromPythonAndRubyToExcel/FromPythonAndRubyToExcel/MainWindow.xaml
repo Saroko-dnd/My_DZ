@@ -4,9 +4,39 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FromPythonAndRubyToExcel"
+        xmlns:MyRes="clr-namespace:FromPythonAndRubyToExcel.MyResources"
+        xmlns:Sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:Converters="clr-namespace:FromPythonAndRubyToExcel.ConvertersForBinding"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="{x:Static MyRes:Texts.MainWindowTitle}" Height="350" Width="525" Name="MainWindowOfProgram">
+    <Window.Resources>
+        <Converters:WidthConverterForTextBox x:Key="WidthConverterForTextBox"></Converters:WidthConverterForTextBox>
+        <Sys:Double x:Key="FontSizeForTitleTextBoxes">18</Sys:Double>
+    </Window.Resources>
+    <StackPanel>
+        <Label FontWeight="Bold"  Foreground="Blue" FontSize="{StaticResource FontSizeForTitleTextBoxes}" Content="{x:Static MyRes:Texts.SaveDataFromPythonLabel}"></Label>
+        <WrapPanel>
+            <TextBox Width="{Binding ElementName=MainWindowOfProgram, Path=ActualWidth, Converter={StaticResource WidthConverterForTextBox}}" Name="PythonScriptFullNameTextBox"></TextBox>
+            <Button Content="{x:Static MyRes:Texts.FindScriptButton}" Name="SelectPythonScriptButton" Click="SelectPythonScriptButton_Click"></Button>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBox  Width="{Binding ElementName=MainWindowOfProgram, Path=ActualWidth, Converter={StaticResource WidthConverterForTextBox}}" Name="SavePathForPythonTextBox"></TextBox>
+            <Button Name="SelectFolderForPythonButton" Content="{x:Static MyRes:Texts.SelectSavePathButtons}" Click="SelectFolderForPythonButton_Click"></Button>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBox Width="{Binding ElementName=MainWindowOfProgram, Path=ActualWidth, Converter={StaticResource WidthConverterForTextBox}}" Name="PathToPythonLibraryTextBox"></TextBox>
+            <Button Name="FindPythonLibraryButton" Content="{x:Static MyRes:Texts.FindPythonLibraryButton}" Click="FindPythonLibraryButton_Click"></Button>
+        </WrapPanel>
+        <Button Name="SavePythonDataButton" Content="{x:Static MyRes:Texts.CreateAndSavePythonButton}" Click="SavePythonDataButton_Click"></Button>
+        <Label FontWeight="Bold" Foreground="Red" FontSize="{StaticResource FontSizeForTitleTextBoxes}" Content="{x:Static MyRes:Texts.SaveDataFromRubyLabel}"></Label>
+        <WrapPanel>
+            <TextBox  Width="{Binding ElementName=MainWindowOfProgram, Path=ActualWidth, Converter={StaticResource WidthConverterForTextBox}}" Name="RubyScriptFullNameTextBox"></TextBox>
+            <Button Content="{x:Static MyRes:Texts.FindScriptButton}" Name="SelectRubyScriptButton" Click="SelectRubyScriptButton_Click"></Button>
+        </WrapPanel>
+        <WrapPanel>
+            <TextBox  Width="{Binding ElementName=MainWindowOfProgram, Path=ActualWidth, Converter={StaticResource WidthConverterForTextBox}}" Name="SavePathForRubyTextBox"></TextBox>
+            <Button Name="SelectFolderForRubyButton" Content="{x:Static MyRes:Texts.SelectSavePathButtons}" Click="SelectFolderForRubyButton_Click"></Button>
+        </WrapPanel>
+        <Button Name="SaveRubyDataButton" Content="{x:Static MyRes:Texts.CreateAndSaveRubyButton}" Click="SaveRubyDataButton_Click"></Button>
+    </StackPanel>
 </Window>

@@ -22,7 +22,7 @@ namespace FromPythonAndRubyToExcel.MyResources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Texts {
+    public class Texts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace FromPythonAndRubyToExcel.MyResources {
         ///   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FromPythonAndRubyToExcel.MyResources.Texts", typeof(Texts).Assembly);
@@ -51,7 +51,7 @@ namespace FromPythonAndRubyToExcel.MyResources {
         ///   обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,29 +61,137 @@ namespace FromPythonAndRubyToExcel.MyResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Create and save Excel graph (Python).
+        /// </summary>
+        public static string CreateAndSavePythonButton {
+            get {
+                return ResourceManager.GetString("CreateAndSavePythonButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Create and save Excel graph (Ruby).
+        /// </summary>
+        public static string CreateAndSaveRubyButton {
+            get {
+                return ResourceManager.GetString("CreateAndSaveRubyButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на \ResultsOfTests.xls.
         /// </summary>
-        internal static string DefaultFileName {
+        public static string DefaultFileName {
             get {
                 return ResourceManager.GetString("DefaultFileName", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Error.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Excel file created , you can find the file .
         /// </summary>
-        internal static string ExcelFileWasCreatedMessage {
+        public static string ExcelFileWasCreatedMessage {
             get {
                 return ResourceManager.GetString("ExcelFileWasCreatedMessage", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на .xls.
+        /// </summary>
+        public static string ExtensionOfExcelFiles {
+            get {
+                return ResourceManager.GetString("ExtensionOfExcelFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Find Python Lib.
+        /// </summary>
+        public static string FindPythonLibraryButton {
+            get {
+                return ResourceManager.GetString("FindPythonLibraryButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Select script.
+        /// </summary>
+        public static string FindScriptButton {
+            get {
+                return ResourceManager.GetString("FindScriptButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Folder name:.
+        /// </summary>
+        public static string FolderName {
+            get {
+                return ResourceManager.GetString("FolderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на DLR and COM example program.
+        /// </summary>
+        public static string MainWindowTitle {
+            get {
+                return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Exception Occured while releasing object.
         /// </summary>
-        internal static string ReleaseObjectException {
+        public static string ReleaseObjectException {
             get {
                 return ResourceManager.GetString("ReleaseObjectException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Creation of Excel graph for data generated by Python script:.
+        /// </summary>
+        public static string SaveDataFromPythonLabel {
+            get {
+                return ResourceManager.GetString("SaveDataFromPythonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Creation of Excel graph for data generated by Ruby script:.
+        /// </summary>
+        public static string SaveDataFromRubyLabel {
+            get {
+                return ResourceManager.GetString("SaveDataFromRubyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Save as.
+        /// </summary>
+        public static string SelectSavePathButtons {
+            get {
+                return ResourceManager.GetString("SelectSavePathButtons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Specify the folder that contains Python libraries.
+        /// </summary>
+        public static string SpecifyPythonLibraryFolderCaption {
+            get {
+                return ResourceManager.GetString("SpecifyPythonLibraryFolderCaption", resourceCulture);
             }
         }
     }

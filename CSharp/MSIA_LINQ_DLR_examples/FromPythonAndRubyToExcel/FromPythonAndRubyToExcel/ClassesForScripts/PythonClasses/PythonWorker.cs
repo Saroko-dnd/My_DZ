@@ -57,7 +57,7 @@ namespace FromPythonAndRubyToExcel.ClassesForScripts.PythonClasses
             return LabObject.GetValueType();
         }
 
-        private PythonWorker()
+        public void LoadScript(string FullNameOfScript)
         {
             ScriptEngine PythonEngine = Python.CreateEngine();
             //Добавляем путь для поиска импортируемых в Python скрипт модулей
@@ -65,8 +65,13 @@ namespace FromPythonAndRubyToExcel.ClassesForScripts.PythonClasses
             paths.Add(@"C:\Program Files (x86)\IronPython 2.7\Lib");
             PythonEngine.SetSearchPaths(paths);
 
-            PythonScript = PythonEngine.ExecuteFile(@"..\..\..\PythonScripts\PythonLabScript.py");
+            PythonScript = PythonEngine.ExecuteFile(FullNameOfScript);
             LabObject = PythonScript.GetNewLab();
+        }
+
+        private PythonWorker()
+        {
+
         }
     }
 }

@@ -75,9 +75,9 @@ namespace FromPythonAndRubyToExcel.ExcelClasses
             chartRange = xlWorkSheet.get_Range((Excel.Range)xlWorkSheet.Cells[1, 1], (Excel.Range)xlWorkSheet.Cells[RowCounter - 1, ColumnCounterForNamesOfTests - 1]);
             chartPage.ChartWizard(Source: chartRange,
                 Gallery: Excel.XlChartType.xlColumnClustered,
-                Title: CurrentScriptWorker.GetLabName(),
-                CategoryTitle: CurrentScriptWorker.GetValueSeparator(),
-                ValueTitle: CurrentScriptWorker.GetValueType());
+                Title: (string)CurrentScriptWorker.GetLabName(),
+                CategoryTitle: (string)CurrentScriptWorker.GetValueSeparator(),
+                ValueTitle: (string)CurrentScriptWorker.GetValueType());
         }
 
         private void WriteDataToWorkSheet(IScriptWorker CurrentScriptWorker, Excel.Worksheet xlWorkSheet, out int RowCounter, out int ColumnCounterForNamesOfTests)
@@ -93,10 +93,10 @@ namespace FromPythonAndRubyToExcel.ExcelClasses
             }
 
             dynamic TestsForSave = CurrentScriptWorker.GetListOfTests();
-            ColumnCounterForNamesOfTests = 2;
+            ColumnCounterForNamesOfTests = 2;         
             foreach (dynamic CurrentTest in TestsForSave)
             {
-                xlWorkSheet.Cells[1, ColumnCounterForNamesOfTests] = CurrentTest.GetTestName();
+                xlWorkSheet.Cells[1, ColumnCounterForNamesOfTests] = (string)CurrentTest.GetTestName();
                 dynamic CurrentTestResults = CurrentTest.GetValues();
                 int RowCounterForTestValues = 2;
                 foreach (dynamic CurrentValue in CurrentTestResults)

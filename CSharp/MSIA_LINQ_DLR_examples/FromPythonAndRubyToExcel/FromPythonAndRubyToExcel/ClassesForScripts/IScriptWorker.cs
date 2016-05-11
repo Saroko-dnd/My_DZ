@@ -17,5 +17,7 @@ namespace FromPythonAndRubyToExcel.ClassesForScripts
         dynamic GetValueSeparator();
 
         dynamic GetValueType();
+
+        void LoadScript(string FullNameOfScript);
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FromPythonAndRubyToExcel.ClassesForScripts.RubyClasses
 {
-    public class RubyWorker
+    public class RubyWorker : IScriptWorker
     {
         private static RubyWorker SingleRubyWorker;
         private static object RubyWorkerGateObject = new object();
@@ -30,12 +30,42 @@ namespace FromPythonAndRubyToExcel.ClassesForScripts.RubyClasses
             return SingleRubyWorker;
         }
 
-        private RubyWorker()
+        public dynamic GetListOfTests()
+        {
+            return LabObject.GetTests();
+        }
+
+        public dynamic GetDatesOfTests()
+        {
+            return LabObject.GetDatesOfTests();
+        }
+
+        public dynamic GetLabName()
+        {
+            return LabObject.GetLabName();
+        }
+
+        public dynamic GetValueSeparator()
+        {
+            return LabObject.GetValueSeparator();
+        }
+
+        public dynamic GetValueType()
+        {
+            return LabObject.GetValueType();
+        }
+
+        public void LoadScript(string FullNameOfScript)
         {
             ScriptEngine RubyEngine = Ruby.CreateEngine();
 
-            RubyScript = RubyEngine.ExecuteFile(@"..\..\..\RubyScripts\RubyLabScript.txt");
+            RubyScript = RubyEngine.ExecuteFile(FullNameOfScript);
             LabObject = RubyScript.GetNewLab();
+        }
+
+        private RubyWorker()
+        {
+
         }
     }
 }
