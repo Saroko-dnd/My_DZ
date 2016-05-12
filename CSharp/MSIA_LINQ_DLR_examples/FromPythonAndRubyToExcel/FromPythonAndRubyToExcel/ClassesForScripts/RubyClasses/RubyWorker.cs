@@ -55,12 +55,35 @@ namespace FromPythonAndRubyToExcel.ClassesForScripts.RubyClasses
             return LabObject.GetValueType();
         }
 
-        public void LoadScript(string FullNameOfScript)
+        public void LoadScript(string FullNameOfScript, string PathToLibraries)
         {
             ScriptEngine RubyEngine = Ruby.CreateEngine();
 
-            RubyScript = RubyEngine.ExecuteFile(FullNameOfScript);
-            LabObject = RubyScript.GetNewLab();
+            if (PathToLibraries != null && PathToLibraries != string.Empty)
+            {
+                var paths = RubyEngine.GetSearchPaths();
+                paths.Add(PathToLibraries);
+                RubyEngine.SetSearchPaths(paths);
+            }
+
+            try
+            {
+                RubyScript = RubyEngine.ExecuteFile(FullNameOfScript);
+            }
+            catch (Exception CurrentException)
+            {
+                throw new Exception(MyResources.Texts.ScriptExecuteError + "\r\n\r\n" + MyResources.Texts.Details + " " + CurrentException.Message);
+            }
+
+            try
+            {
+                LabObject = RubyScript.GetNewLab();
+            }
+            catch (Exception CurrentException)
+            {
+                RubyScript = null;
+                throw new Exception(MyResources.Texts.ExecuteMethodError + "\r\n\r\n" + MyResources.Texts.Details + " " + CurrentException.Message);
+            }
         }
 
         private RubyWorker()

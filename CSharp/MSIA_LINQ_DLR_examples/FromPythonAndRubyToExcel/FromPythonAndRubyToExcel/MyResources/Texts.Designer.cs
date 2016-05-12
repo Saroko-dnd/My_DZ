@@ -88,6 +88,15 @@ namespace FromPythonAndRubyToExcel.MyResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Details:.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Error.
         /// </summary>
         public static string Error {
@@ -102,6 +111,15 @@ namespace FromPythonAndRubyToExcel.MyResources {
         public static string ExcelFileWasCreatedMessage {
             get {
                 return ResourceManager.GetString("ExcelFileWasCreatedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Program cant execute method &apos;GetNewLab()&apos; from current script!.
+        /// </summary>
+        public static string ExecuteMethodError {
+            get {
+                return ResourceManager.GetString("ExecuteMethodError", resourceCulture);
             }
         }
         
@@ -174,6 +192,15 @@ namespace FromPythonAndRubyToExcel.MyResources {
         public static string SaveDataFromRubyLabel {
             get {
                 return ResourceManager.GetString("SaveDataFromRubyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Program cant load current script!.
+        /// </summary>
+        public static string ScriptExecuteError {
+            get {
+                return ResourceManager.GetString("ScriptExecuteError", resourceCulture);
             }
         }
         

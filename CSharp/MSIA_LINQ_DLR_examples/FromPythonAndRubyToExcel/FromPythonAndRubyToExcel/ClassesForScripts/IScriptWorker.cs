@@ -18,6 +18,6 @@ namespace FromPythonAndRubyToExcel.ClassesForScripts
 
         dynamic GetValueType();
 
-        void LoadScript(string FullNameOfScript);
+        void LoadScript(string FullNameOfScript, string PathToLibraries);
     }
 }

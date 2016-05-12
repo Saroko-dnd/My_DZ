@@ -46,11 +46,11 @@ namespace FromPythonAndRubyToExcel
             TestObject.SaveDataInExcel(TestRubyWorker, Directory.GetCurrentDirectory() + @"\RubyGraph.xls");*/
         }
 
-        private void CreateGraph(IScriptWorker CurrentWorker, string ScriptFullName, string CurrentSaveFullName)
+        private void CreateGraph(IScriptWorker CurrentWorker, string ScriptFullName, string CurrentSaveFullName, string PathToLibraries)
         {
             try
             {
-                CurrentWorker.LoadScript(ScriptFullName);
+                CurrentWorker.LoadScript(ScriptFullName, PathToLibraries);
                 MainGraphCreator.SaveDataInExcel(CurrentWorker, CurrentSaveFullName);
             }
             catch (Exception CurrentException)
@@ -69,9 +69,10 @@ namespace FromPythonAndRubyToExcel
             {
                 ProgramBusy = true;
                 PythonWorker CurrentPythonWorker = PythonWorker.GetPythonWorker();
+                string PathToPythonLibraries =  PathToPythonLibraryTextBox.Text;
                 string ScriptFullName = PythonScriptFullNameTextBox.Text;
                 string SaveFileName = SavePathForPythonTextBox.Text;
-                ThreadPool.QueueUserWorkItem(o => CreateGraph(CurrentPythonWorker, ScriptFullName, SaveFileName));
+                ThreadPool.QueueUserWorkItem(o => CreateGraph(CurrentPythonWorker, ScriptFullName, SaveFileName, PathToPythonLibraries));
             }
         }
 
@@ -83,7 +84,7 @@ namespace FromPythonAndRubyToExcel
                 RubyWorker CurrentRubyWorker = RubyWorker.GetRubyWorker();
                 string ScriptFullName = RubyScriptFullNameTextBox.Text;
                 string SaveFileName = SavePathForRubyTextBox.Text;
-                ThreadPool.QueueUserWorkItem(o => CreateGraph(CurrentRubyWorker, ScriptFullName, SaveFileName));
+                ThreadPool.QueueUserWorkItem(o => CreateGraph(CurrentRubyWorker, ScriptFullName, SaveFileName, null));
             }
         }
 

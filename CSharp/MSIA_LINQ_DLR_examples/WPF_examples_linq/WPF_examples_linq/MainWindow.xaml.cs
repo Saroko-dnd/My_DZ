@@ -52,10 +52,13 @@ namespace WPF_examples_linq
             StringBuikderForTextBox.AppendLine();
             foreach (var GroupedData in Result)
             {
+                //Способ получить элементы группы
+                //List<DataClass> TestList = GroupedData.ToList();
                 StringBuikderForTextBox.Append(GroupedData.Key);
                 StringBuikderForTextBox.Append(" ");
                 StringBuikderForTextBox.Append(GroupedData.Count().ToString());
                 StringBuikderForTextBox.AppendLine();
+
             }
             ConsoleTextBox.Text = StringBuikderForTextBox.ToString();
 

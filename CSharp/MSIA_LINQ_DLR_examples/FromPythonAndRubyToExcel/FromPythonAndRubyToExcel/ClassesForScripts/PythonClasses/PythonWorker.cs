@@ -7,6 +7,7 @@ using IronPython.Runtime;
 using IronPython;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using System.Windows;
 
 namespace FromPythonAndRubyToExcel.ClassesForScripts.PythonClasses
 {
@@ -57,16 +58,35 @@ namespace FromPythonAndRubyToExcel.ClassesForScripts.PythonClasses
             return LabObject.GetValueType();
         }
 
-        public void LoadScript(string FullNameOfScript)
+        public void LoadScript(string FullNameOfScript, string PathToLibraries)
         {
             ScriptEngine PythonEngine = Python.CreateEngine();
             //Добавляем путь для поиска импортируемых в Python скрипт модулей
-            var paths = PythonEngine.GetSearchPaths();
-            paths.Add(@"C:\Program Files (x86)\IronPython 2.7\Lib");
-            PythonEngine.SetSearchPaths(paths);
+            if (PathToLibraries != null && PathToLibraries != string.Empty)
+            {
+                var paths = PythonEngine.GetSearchPaths();
+                paths.Add(PathToLibraries);
+                PythonEngine.SetSearchPaths(paths);
+            }
 
-            PythonScript = PythonEngine.ExecuteFile(FullNameOfScript);
-            LabObject = PythonScript.GetNewLab();
+            try
+            {
+                PythonScript = PythonEngine.ExecuteFile(FullNameOfScript);
+            }
+            catch (Exception CurrentException)
+            {
+                throw new Exception(MyResources.Texts.ScriptExecuteError + "\r\n\r\n" + MyResources.Texts.Details + " " + CurrentException.Message);
+            }
+
+            try
+            {
+                LabObject = PythonScript.GetNewLab();
+            }
+            catch (Exception CurrentException)
+            {
+                PythonScript = null;
+                throw new Exception(MyResources.Texts.ExecuteMethodError + "\r\n\r\n" + MyResources.Texts.Details + " " + CurrentException.Message);
+            }
         }
 
         private PythonWorker()
