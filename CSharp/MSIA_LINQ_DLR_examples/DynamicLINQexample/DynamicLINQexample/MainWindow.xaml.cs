@@ -90,6 +90,7 @@ namespace DynamicLINQexample
             List<TestDataClass> BufferForItemsSource = null;
             foreach (DataFilter CurrentFilter in AllFilters)
             {
+
                 if (CurrentFilter.CurrentBinaryOperator != null && CurrentFilter.Constant != null)
                 {
                     if (FirstTime)
