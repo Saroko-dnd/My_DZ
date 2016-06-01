@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text;
 using FirstTryUnitTestProject.MyResources;
+using FirstTryUnitTestProject;
 
 namespace RealFirstTryTestProject
 {
@@ -55,4 +56,14 @@ namespace RealFirstTryTestProject
             return TestFailDescription + " " + StringsForTests.ExpectedString + "\"" + StringForComparising + "\". " + StringsForTests.RetrievedString + "\"" + ResultString + "\".";
         }
     }
+
+    /*[TestClass]
+    public class TestClassForTestClass
+    {
+        [TestMethod]
+        public void TestForTestMethod()
+        {
+            Assert.AreEqual(TestClass.TestMethod(), true);
+        }
+    }*/
 }

@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1DB252F6-217E-4529-8BF1-A57ED16083F3}</ProjectGuid>
+    <ProjectGuid>{86F7E39F-93A1-4D6C-BA0A-168CB2E849A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FirstTryUnitTestProject</RootNamespace>
-    <AssemblyName>FirstTryUnitTestProject</AssemblyName>
+    <RootNamespace>UTPForMathClass</RootNamespace>
+    <AssemblyName>UTPForMathClass</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,19 +50,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MyResources\StringsForTests.Designer.cs">
+    <Compile Include="MathClass.cs" />
+    <Compile Include="Resources\FailMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>StringsForTests.resx</DependentUpon>
+      <DependentUpon>FailMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="TestClass.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="UnitTestForMathClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyResources\StringsForTests.resx">
+    <EmbeddedResource Include="Resources\FailMessages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>StringsForTests.Designer.cs</LastGenOutput>
+      <LastGenOutput>FailMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <Choose>
