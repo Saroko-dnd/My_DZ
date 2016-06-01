@@ -20,7 +20,8 @@ namespace RealFirstTryTestProject
         public void TestAppendMethod()
         {
             TestStringBuilderObject.Append(StringsForTests.ParameterForMethods);
-            Assert.IsTrue(TestStringBuilderObject.ToString() == StringsForTests.CheckString, StringsForTests.TestAppendMethodFail);       
+            string TestFailMessage = WrongStringMessage(StringsForTests.TestAppendMethodFail, StringsForTests.CheckString, TestStringBuilderObject.ToString());
+            Assert.IsTrue(TestStringBuilderObject.ToString() == StringsForTests.CheckString, TestFailMessage);       
         }
 
         [TestMethod]
@@ -29,14 +30,29 @@ namespace RealFirstTryTestProject
             string CurrentLineTerminator = Environment.NewLine;
             string CmpString = StringsForTests.CheckString + CurrentLineTerminator;
             TestStringBuilderObject.AppendLine(StringsForTests.ParameterForMethods);
-            Assert.IsTrue(TestStringBuilderObject.ToString() == CmpString, StringsForTests.TestAppendLineMethodFail);
+            string TestFailMessage = WrongStringMessage(StringsForTests.TestAppendLineMethodFail, CmpString, TestStringBuilderObject.ToString());
+            Assert.IsTrue(TestStringBuilderObject.ToString() == CmpString, TestFailMessage);
         }
 
         [TestMethod]
         public void TestClearMethod()
         {
             TestStringBuilderObject.Clear();
-            Assert.IsTrue(TestStringBuilderObject.ToString() == string.Empty, StringsForTests.TestClearMethodFail);
+            string TestFailMessage = WrongStringMessage(StringsForTests.TestClearMethodFail, string.Empty, TestStringBuilderObject.ToString());
+            Assert.IsTrue(TestStringBuilderObject.ToString() == string.Empty, TestFailMessage);
+        }
+
+        [TestMethod]
+        public void TestAppendFormatMethod()
+        {
+            TestStringBuilderObject.AppendFormat(StringsForTests.ParameterForMethods + " {0} {1} {2}", 5, 4.9, 'F');
+            string TestFailMessage = WrongStringMessage(StringsForTests.TestAppendFormatFail, StringsForTests.CheckStringForAppendFormat, TestStringBuilderObject.ToString());
+            Assert.IsTrue(TestStringBuilderObject.ToString() == StringsForTests.CheckStringForAppendFormat, TestFailMessage);
+        }
+
+        private string WrongStringMessage(string TestFailDescription, string StringForComparising, string ResultString)
+        {
+            return TestFailDescription + " " + StringsForTests.ExpectedString + "\"" + StringForComparising + "\". " + StringsForTests.RetrievedString + "\"" + ResultString + "\".";
         }
     }
 }

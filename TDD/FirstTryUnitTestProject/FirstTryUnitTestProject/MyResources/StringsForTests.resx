@@ -120,19 +120,31 @@
   <data name="CheckString" xml:space="preserve">
     <value>Test string!bullet</value>
   </data>
+  <data name="CheckStringForAppendFormat" xml:space="preserve">
+    <value>Test string!bullet 5 4,9 F</value>
+  </data>
+  <data name="ExpectedString" xml:space="preserve">
+    <value>Ожидаемая строка:</value>
+  </data>
   <data name="InitializingString" xml:space="preserve">
     <value>Test string!</value>
   </data>
   <data name="ParameterForMethods" xml:space="preserve">
     <value>bullet</value>
   </data>
+  <data name="RetrievedString" xml:space="preserve">
+    <value>Полученная строка:</value>
+  </data>
+  <data name="TestAppendFormatFail" xml:space="preserve">
+    <value>Тест не пройден так как строка в классе StringBuilder после вызова метода AppendFormat не соответствует ожидаемой строке.</value>
+  </data>
   <data name="TestAppendLineMethodFail" xml:space="preserve">
-    <value>Тест не пройден, так как не совпадают значения ожидаемой и полученной из класса StringBuilder строк, после вызова метода AppendLine</value>
+    <value>Тест не пройден, так как не совпадают значения ожидаемой и полученной из класса StringBuilder строк, после вызова метода AppendLine.</value>
   </data>
   <data name="TestAppendMethodFail" xml:space="preserve">
-    <value>Тест не пройден так как не совпадают ожидаемая и полученная из класса StringBuilder строка, после вызова метода Append</value>
+    <value>Тест не пройден так как не совпадают ожидаемая и полученная из класса StringBuilder строка, после вызова метода Append.</value>
   </data>
   <data name="TestClearMethodFail" xml:space="preserve">
-    <value>Тест не пройден так как строка внутри класса StringBuilder оказалась не пустой после вызова метода Clear</value>
+    <value>Тест не пройден так как строка внутри класса StringBuilder оказалась не пустой после вызова метода Clear.</value>
   </data>
 </root>

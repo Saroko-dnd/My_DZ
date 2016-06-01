@@ -70,6 +70,24 @@ namespace FirstTryUnitTestProject.MyResources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Test string!bullet 5 4,9 F.
+        /// </summary>
+        public static string CheckStringForAppendFormat {
+            get {
+                return ResourceManager.GetString("CheckStringForAppendFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ожидаемая строка:.
+        /// </summary>
+        public static string ExpectedString {
+            get {
+                return ResourceManager.GetString("ExpectedString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Test string!.
         /// </summary>
         public static string InitializingString {
@@ -88,7 +106,25 @@ namespace FirstTryUnitTestProject.MyResources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Тест не пройден, так как не совпадают значения ожидаемой и полученной из класса StringBuilder строк, после вызова метода AppendLine.
+        ///   Ищет локализованную строку, похожую на Полученная строка:.
+        /// </summary>
+        public static string RetrievedString {
+            get {
+                return ResourceManager.GetString("RetrievedString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Тест не пройден так как строка в классе StringBuilder после вызова метода AppendFormat не соответствует ожидаемой строке..
+        /// </summary>
+        public static string TestAppendFormatFail {
+            get {
+                return ResourceManager.GetString("TestAppendFormatFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Тест не пройден, так как не совпадают значения ожидаемой и полученной из класса StringBuilder строк, после вызова метода AppendLine..
         /// </summary>
         public static string TestAppendLineMethodFail {
             get {
@@ -97,7 +133,7 @@ namespace FirstTryUnitTestProject.MyResources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Тест не пройден так как не совпадают ожидаемая и полученная из класса StringBuilder строка, после вызова метода Append.
+        ///   Ищет локализованную строку, похожую на Тест не пройден так как не совпадают ожидаемая и полученная из класса StringBuilder строка, после вызова метода Append..
         /// </summary>
         public static string TestAppendMethodFail {
             get {
@@ -106,7 +142,7 @@ namespace FirstTryUnitTestProject.MyResources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Тест не пройден так как строка внутри класса StringBuilder оказалась не пустой после вызова метода Clear.
+        ///   Ищет локализованную строку, похожую на Тест не пройден так как строка внутри класса StringBuilder оказалась не пустой после вызова метода Clear..
         /// </summary>
         public static string TestClearMethodFail {
             get {
