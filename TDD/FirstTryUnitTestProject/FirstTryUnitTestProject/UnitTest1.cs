@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text;
+using FirstTryUnitTestProject.MyResources;
 
 namespace RealFirstTryTestProject
 {
@@ -8,30 +9,34 @@ namespace RealFirstTryTestProject
     public class TestForStringBuilder
     {
         public StringBuilder TestStringBuilderObject;
+
+        [TestInitialize]
+        public void BeginningOfEachTest()
+        {
+            TestStringBuilderObject = new StringBuilder(StringsForTests.InitializingString);
+        }
+
         [TestMethod]
         public void TestAppendMethod()
         {
-            TestStringBuilderObject = new StringBuilder("Test string!");
-            TestStringBuilderObject.Append("bullet");
-            Assert.IsTrue( TestStringBuilderObject.ToString() == "Test string!bullet");           
+            TestStringBuilderObject.Append(StringsForTests.ParameterForMethods);
+            Assert.IsTrue(TestStringBuilderObject.ToString() == StringsForTests.CheckString, StringsForTests.TestAppendMethodFail);       
         }
 
         [TestMethod]
         public void TestAppendLineMethod()
         {
-            TestStringBuilderObject = new StringBuilder("Test string!");
             string CurrentLineTerminator = Environment.NewLine;
-            string CmpString = "Test string!bullet" + CurrentLineTerminator;
-            TestStringBuilderObject.AppendLine("bullet");
-            Assert.IsTrue(TestStringBuilderObject.ToString() ==  CmpString);
+            string CmpString = StringsForTests.CheckString + CurrentLineTerminator;
+            TestStringBuilderObject.AppendLine(StringsForTests.ParameterForMethods);
+            Assert.IsTrue(TestStringBuilderObject.ToString() == CmpString, StringsForTests.TestAppendLineMethodFail);
         }
 
         [TestMethod]
         public void TestClearMethod()
         {
-            TestStringBuilderObject = new StringBuilder("Test string!");
             TestStringBuilderObject.Clear();
-            Assert.IsTrue(TestStringBuilderObject.ToString() == string.Empty);
+            Assert.IsTrue(TestStringBuilderObject.ToString() == string.Empty, StringsForTests.TestClearMethodFail);
         }
     }
 }
