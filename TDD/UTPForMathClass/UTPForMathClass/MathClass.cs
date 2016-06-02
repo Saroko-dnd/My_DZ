@@ -11,18 +11,53 @@ namespace UTPForMathClass
         static public double Cos(string number)
         {
             double CurrentNumber = double.Parse(number);
-            if (CurrentNumber > (2*Math.PI))
-            {
-                CurrentNumber = CurrentNumber % (2 * Math.PI);
-                if (CurrentNumber > Math.PI)
-                {
+            CurrentNumber = CurrentNumber % (2 * Math.PI);
 
+            bool Minus;
+            bool NoChangesForSign = true;
+            if (CurrentNumber > 0)
+            {
+                Minus = false;
+                while (CurrentNumber > Math.PI / 2)
+                {
+                    CurrentNumber -= Math.PI;
+                    if (Minus)
+                    {
+                        Minus = false;
+                    }
+                    else
+                    {
+                        Minus = true;
+                    }
+                    NoChangesForSign = false;
                 }
             }
+            else
+            {
+                Minus = true;
+                while (CurrentNumber < -(Math.PI / 2))
+                {
+                    CurrentNumber += Math.PI;
+                    if (Minus)
+                    {
+                        Minus = false;
+                    }
+                    else
+                    {
+                        Minus = true;
+                    }
+                    NoChangesForSign = false;
+                }
+                if (!Minus)
+                {
+                    Minus = true;
+                }
+            }
+
             double Result = 1.0;
 
             bool MinusNow = true;
-            for (int Counter = 2; Counter < 20; Counter += 2 )
+            for (byte Counter = 2; Counter < 20; Counter += 2 )
             {
                 if (MinusNow)
                 {
@@ -35,7 +70,10 @@ namespace UTPForMathClass
                     MinusNow = true;
                 }
             }
-
+            if (Minus && !NoChangesForSign)
+            {
+                Result = -Result;
+            }
             return Result;
         }
 
@@ -50,14 +88,16 @@ namespace UTPForMathClass
             return CurrentDouble;
         }
 
-        public static double Factorial(int NewNumber)
+        public static double Factorial(byte NewNumber)
         {
-            int Result = 1;
-            for (int Counter = 2; Counter <= NewNumber; ++Counter)
+            ulong Result = 1;
+            for (byte Counter = 2; Counter <= NewNumber; ++Counter)
             {
                 Result *= Counter;
             }
             return (double)Result;
         }
+
+        
     }
 }

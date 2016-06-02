@@ -7,9 +7,8 @@ namespace UTPForMathClass
     [TestClass]
     public class UnitTestForMathClass
     {
-        //static const string ggg = ;
         [TestMethod]
-        [ExpectedException(typeof(FormatException), "Тест не пройден, так как метод Cos(string) сьъел текст и не подавился, хотя должен был принимать только числа Double в текстовом виде")]
+        [ExpectedException(typeof(FormatException), "Тест не пройден, так как метод Cos(string) съел текст и не подавился, хотя должен был принимать только числа Double в текстовом виде")]
         public void TextCosWrongStringFormat()
         {
             MathClass.Cos("rel");
@@ -18,7 +17,9 @@ namespace UTPForMathClass
         [TestMethod]
         public void TestResultOfCosMethod()
         {
-            Assert.AreEqual(Math.Cos(1.1), MathClass.Cos("1,1"), 0.000001);
+            Assert.AreEqual(Math.Cos(13), MathClass.Cos("13"), 0.000001);
+            Assert.AreEqual(Math.Cos(0), MathClass.Cos("0"), 0.000001);
+            Assert.AreEqual(Math.Cos(-13), MathClass.Cos("-13"), 0.000001);
         }
 
         [TestMethod]
@@ -32,7 +33,5 @@ namespace UTPForMathClass
         {
             Assert.AreEqual((int)MathClass.RaisedToThePower(5,2), 25);
         }
-
-
     }
 }
