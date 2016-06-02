@@ -1,0 +1,27 @@
+﻿<Window x:Class="TicketBookingInterfaceTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:MyRes="clr-namespace:TicketBookingInterfaceTest.MyResources"
+        Title= "{x:Static MyRes:Texts.ApplicationName}" Height="350" Width="525">
+    <WrapPanel>
+        <WrapPanel>
+            <StackPanel>
+                <Label Content="{x:Static MyRes:Texts.LabelSelectDepartureStation}"></Label>
+                <ComboBox Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged"></ComboBox>
+                <Label Content="{x:Static MyRes:Texts.LabelSelectDestinationStation}"></Label>
+                <ComboBox Name="DestinationStationsComboBox" SelectionChanged="DestinationStationsComboBox_SelectionChanged"></ComboBox>
+            </StackPanel>
+            <DockPanel>
+                <StackPanel VerticalAlignment="Center">
+                    <WrapPanel>
+                        <Label Content="{x:Static MyRes:Texts.LabelAmountOfFreeTickets}"></Label>
+                        <Label Name="AmountOfTicketsLabel"></Label>
+                    </WrapPanel>
+                </StackPanel>
+            </DockPanel>
+        </WrapPanel>
+        <WrapPanel>
+
+        </WrapPanel>
+    </WrapPanel>
+</Window>
