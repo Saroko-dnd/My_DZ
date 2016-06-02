@@ -50,14 +50,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MathClass.cs" />
+    <Compile Include="Resources\TestStringValues.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TestStringValues.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tests\UnitTestForUsefulFunctions.cs" />
+    <Compile Include="Units\MathClass.cs" />
     <Compile Include="Resources\FailMessages.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>FailMessages.resx</DependentUpon>
     </Compile>
-    <Compile Include="DataClassForMathClassCosMethod.cs" />
-    <Compile Include="UnitTestForMathClass.cs" />
+    <Compile Include="Units\UsefulFunctions.cs" />
+    <Compile Include="Tests\UnitTestForMathClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +71,12 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>FailMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TestStringValues.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TestStringValues.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
