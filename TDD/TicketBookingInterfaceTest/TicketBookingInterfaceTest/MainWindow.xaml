@@ -7,9 +7,9 @@
         <WrapPanel>
             <StackPanel>
                 <Label Content="{x:Static MyRes:Texts.LabelSelectDepartureStation}"></Label>
-                <ComboBox Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged"></ComboBox>
+                <ComboBox IsDropDownOpen="True" IsEditable="True" Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged"></ComboBox>
                 <Label Content="{x:Static MyRes:Texts.LabelSelectDestinationStation}"></Label>
-                <ComboBox Name="DestinationStationsComboBox" SelectionChanged="DestinationStationsComboBox_SelectionChanged"></ComboBox>
+                <ComboBox IsEditable="True" Name="DestinationStationsComboBox" SelectionChanged="DestinationStationsComboBox_SelectionChanged"></ComboBox>
             </StackPanel>
             <DockPanel>
                 <StackPanel VerticalAlignment="Center">

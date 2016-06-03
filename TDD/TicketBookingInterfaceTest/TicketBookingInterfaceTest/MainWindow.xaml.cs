@@ -46,6 +46,7 @@ namespace TicketBookingInterfaceTest
                 DepartureStationsComboBox.ItemsSource = ListOfDepartureStations;
                 int fff = DepartureStationsComboBox.SelectedIndex;
                 DestinationStationsComboBox.ItemsSource = ListOfDepartureStations;
+
             }
         }
 
