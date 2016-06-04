@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,6 +26,8 @@ namespace TicketBookingInterfaceTest
         {
             InitializeComponent();
 
+            ThreadPool.SetMinThreads(4, 4);
+
             //Заполняем базу данных, если она пустая
             using (StationsDataBase OurDBContext = new StationsDataBase(ValuableStringValues.ConnectionStringName))
             {
@@ -47,7 +50,39 @@ namespace TicketBookingInterfaceTest
                 int fff = DepartureStationsComboBox.SelectedIndex;
                 DestinationStationsComboBox.ItemsSource = ListOfDepartureStations;
 
+                List<string> TestListOfStations = new List<string>() {"Минск","Гродно","Молодечно","Гомель" };
+                DepartureStationsComboBox.ItemsSource = TestListOfStations;
+
+                ThreadPool.QueueUserWorkItem(o => SleepAndOpenListsForComboBoxes());
+
+                DepartureStationsComboBox.DropDownOpened += ComboBoxMenuActivated;
+                DepartureStationsComboBox.DropDownClosed += ComboBoxMenuDeactivated;
+
+                DestinationStationsComboBox.DropDownOpened += ComboBoxMenuActivated;
+                DestinationStationsComboBox.DropDownClosed += ComboBoxMenuDeactivated;
             }
+        }
+
+        private void ComboBoxMenuActivated(Object sender, EventArgs arguments)
+        {
+            (sender as ComboBox).Text = string.Empty;
+            (sender as ComboBox).Foreground = Brushes.Black;
+        }
+
+        private void ComboBoxMenuDeactivated(Object sender, EventArgs arguments)
+        {
+            if ((sender as ComboBox).SelectedIndex < 0)
+            {
+                (sender as ComboBox).Text = Texts.ComboBoxInitText;
+                (sender as ComboBox).Foreground = Brushes.LightGray;
+            }
+        }
+
+        private void SleepAndOpenListsForComboBoxes()
+        {
+            /*Thread.Sleep(5000);
+            Application.Current.Dispatcher.Invoke(new Action(() => DepartureStationsComboBox.IsDropDownOpen = true));
+            Application.Current.Dispatcher.Invoke(new Action(() => DestinationStationsComboBox.IsDropDownOpen = true));*/
         }
 
         private void DepartureStationsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

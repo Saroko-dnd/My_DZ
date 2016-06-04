@@ -1,0 +1,7 @@
+﻿<ResourceDictionary x:Class="TicketBookingInterfaceTest.AllDictionaries.ComboBoxDictionary" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:TicketBookingInterfaceTest.MyResources.VisualElements">
+    <Style x:Key="EventSettersForComboBoxWithStations">
+        <EventSetter Event="TextBox.TextChanged" Handler="ComboBoxTextChanged" />
+    </Style>
+</ResourceDictionary>

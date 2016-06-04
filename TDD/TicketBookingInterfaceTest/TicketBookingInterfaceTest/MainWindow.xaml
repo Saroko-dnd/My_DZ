@@ -2,26 +2,29 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:MyRes="clr-namespace:TicketBookingInterfaceTest.MyResources"
-        Title= "{x:Static MyRes:Texts.ApplicationName}" Height="350" Width="525">
+        Title= "{x:Static MyRes:Texts.ApplicationName}" Height="350" Width="700">
     <WrapPanel>
-        <WrapPanel>
-            <StackPanel>
-                <Label Content="{x:Static MyRes:Texts.LabelSelectDepartureStation}"></Label>
-                <ComboBox IsDropDownOpen="True" IsEditable="True" Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged"></ComboBox>
-                <Label Content="{x:Static MyRes:Texts.LabelSelectDestinationStation}"></Label>
-                <ComboBox IsEditable="True" Name="DestinationStationsComboBox" SelectionChanged="DestinationStationsComboBox_SelectionChanged"></ComboBox>
-            </StackPanel>
+        <StackPanel>
+            <WrapPanel>
+                <StackPanel>
+                    <Label Content="{x:Static MyRes:Texts.LabelSelectDepartureStation}"></Label>
+                    <ComboBox  Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged"></ComboBox>
+                </StackPanel>
+                <StackPanel Margin="50,0,0,0">
+                    <Label Content="{x:Static MyRes:Texts.LabelSelectDestinationStation}"></Label>
+                    <ComboBox Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DestinationStationsComboBox" SelectionChanged="DestinationStationsComboBox_SelectionChanged"></ComboBox>
+                </StackPanel>
+            </WrapPanel>
             <DockPanel>
                 <StackPanel VerticalAlignment="Center">
                     <WrapPanel>
                         <Label Content="{x:Static MyRes:Texts.LabelAmountOfFreeTickets}"></Label>
-                        <Label Name="AmountOfTicketsLabel"></Label>
+                        <Label Foreground="Red" Name="AmountOfTicketsLabel" Content="{x:Static MyRes:Texts.LabelAmountOfTickets}"></Label>
                     </WrapPanel>
                 </StackPanel>
             </DockPanel>
-        </WrapPanel>
+        </StackPanel>
         <WrapPanel>
-
         </WrapPanel>
     </WrapPanel>
 </Window>
