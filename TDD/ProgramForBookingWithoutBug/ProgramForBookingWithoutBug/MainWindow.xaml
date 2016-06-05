@@ -4,9 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProgramForBookingWithoutBug"
+        xmlns:MyRes="clr-namespace:ProgramForBookingWithoutBug.Resources"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="{x:Static MyRes:Texts.ApplicationName}" Height="350" Width="700" Icon="Resources/Icons/MainWindowIcon.ico">
+    <WrapPanel>
+        <StackPanel>
+            <WrapPanel>
+                <StackPanel>
+                    <Label Content="{x:Static MyRes:Texts.LabelSelectDepartureStation}"></Label>
+                    <ComboBox  Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged"></ComboBox>
+                </StackPanel>
+                <StackPanel Margin="50,0,0,0">
+                    <Label Content="{x:Static MyRes:Texts.LabelSelectDestinationStation}"></Label>
+                    <ComboBox Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DestinationStationsComboBox" SelectionChanged="DestinationStationsComboBox_SelectionChanged"></ComboBox>
+                </StackPanel>
+            </WrapPanel>
+            <DockPanel>
+                <StackPanel VerticalAlignment="Center">
+                    <WrapPanel>
+                        <Label Content="{x:Static MyRes:Texts.LabelAmountOfFreeTicketsText}"></Label>
+                        <Label Foreground="Red" Name="AmountOfTicketsLabel" Content="{x:Static MyRes:Texts.LabelAmountOfFreeTicketsValue}"></Label>
+                    </WrapPanel>
+                </StackPanel>
+            </DockPanel>
+        </StackPanel>
+    </WrapPanel>
 </Window>

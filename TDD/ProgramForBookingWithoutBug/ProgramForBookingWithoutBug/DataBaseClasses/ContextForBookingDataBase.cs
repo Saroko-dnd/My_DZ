@@ -11,9 +11,10 @@ namespace ProgramForBookingWithoutBug.DataBaseClasses
     {
         public DbSet<Station> ListOfStations { get; set; }
         public DbSet<Train> ListOfTrains { get; set; }
-        public DbSet<StationAndRelatedTrain> StationsAndRelatedTrains { get; set; }
 
-
-
+        public ContextForBookingDataBase(string ConnectionStringName) : base(ConnectionStringName)
+        {
+            Database.SetInitializer<ContextForBookingDataBase>(new BookingDBSeeder());
+        }
     }
 }

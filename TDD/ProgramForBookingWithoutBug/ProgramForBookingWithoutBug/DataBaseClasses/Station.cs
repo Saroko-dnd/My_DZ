@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,15 @@ namespace ProgramForBookingWithoutBug.DataBaseClasses
     [Table("Stations")]
     public class Station
     {
-        public string StationID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int StationID { get; set; }
+        public string StationName { get; set; }
+
+        public virtual ICollection<Train> Trains { get; set; }
 
         public Station(string NewStationName)
         {
-            StationID = NewStationName;
+            StationName = NewStationName;
         }
 
         public Station()

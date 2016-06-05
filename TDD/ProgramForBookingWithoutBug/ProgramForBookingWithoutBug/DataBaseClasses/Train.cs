@@ -10,12 +10,19 @@ namespace ProgramForBookingWithoutBug.DataBaseClasses
     [Table("Trains")]
     public class Train
     {
-        public string TrainID { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int TrainID { get; set; }
+        public string TrainName { get; set; }
         public int AmountOfFreeTickets { get; set; }
+
+        public int? FromStationID { get; set; }
+        public int? WhereStationID { get; set; }
+
+        public virtual ICollection<Station> Stations { get; set; }
 
         public Train(string NewTrainName, int NewAmountOfFreeTickets)
         {
-            TrainID = NewTrainName;
+            TrainName = NewTrainName;
             AmountOfFreeTickets = NewAmountOfFreeTickets;
         }
 
