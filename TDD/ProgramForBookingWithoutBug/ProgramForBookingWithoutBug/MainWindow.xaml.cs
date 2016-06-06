@@ -144,7 +144,7 @@ namespace ProgramForBookingWithoutBug
         /// Кроме того 'освобождает' программу для следующего запроса на поиск поезда.
         /// </summary>
         /// <param name="FoundTrain"></param>
-        public void SearchOver(Train FoundTrain)
+        public void SearchOver(Train FoundTrain, bool DepartureStationFound, bool DestinationStationFound)
         {
             CurrentTrain = FoundTrain;
             Storyboard StoryBoardForSearchAnimation = null;
@@ -152,6 +152,29 @@ namespace ProgramForBookingWithoutBug
             StoryBoardForSearchAnimation.Stop();
             SearchDataAnimatedEllipse.Visibility = Visibility.Collapsed;
 
+            if (!DepartureStationFound)
+            {
+                DepartureStationNotFoundLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                DepartureStationNotFoundLabel.Visibility = Visibility.Collapsed;
+            }
+            if (!DestinationStationFound)
+            {
+                DestinationStationNotFoundLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                DestinationStationNotFoundLabel.Visibility = Visibility.Collapsed;
+            }
+
+            ShowInfoAboutFoundTrainToUser(FoundTrain);
+            ProgramBusy = false;
+        }
+
+        private void ShowInfoAboutFoundTrainToUser(Train FoundTrain)
+        {
             if (FoundTrain != null)
             {
                 ProgramStateLabel.Foreground = Brushes.Green;
@@ -175,7 +198,6 @@ namespace ProgramForBookingWithoutBug
                 AmountOfTicketsLabel.Content = Texts.LabelsForValuesErrorText;
                 AmountOfTicketsLabel.Foreground = Brushes.Red;
             }
-            ProgramBusy = false;
         }
 
         private void BookTicketButton_Click(object sender, RoutedEventArgs e)
@@ -183,6 +205,10 @@ namespace ProgramForBookingWithoutBug
             if (!ProgramBusy)
             {
                 ProgramBusy = true;
+                WaitUntilBookingFinishLabel.Visibility = Visibility.Visible;
+                WaitUntilBookingFinishAnimatedEllipse.Visibility = Visibility.Visible;
+                Storyboard StoryBoardForhWaitAnimation = this.FindResource("WaitUntilBookingFinishAnimationStoryBoard") as Storyboard;
+                StoryBoardForhWaitAnimation.Begin();
                 BookTicketButton.Visibility = Visibility.Collapsed;
                 CurrentTrain.AmountOfFreeTickets -= 1;
                 ThreadPool.QueueUserWorkItem(o => BookingDBworker.BookTicket(CurrentTrain));
@@ -191,6 +217,10 @@ namespace ProgramForBookingWithoutBug
 
         public void BookingReady()
         {
+            Storyboard StoryBoardForhWaitAnimation = this.FindResource("WaitUntilBookingFinishAnimationStoryBoard") as Storyboard;
+            StoryBoardForhWaitAnimation.Stop();
+            WaitUntilBookingFinishLabel.Visibility = Visibility.Collapsed;
+            WaitUntilBookingFinishAnimatedEllipse.Visibility = Visibility.Collapsed;
             MessageBox.Show(Texts.NotificationBookingReady + " " + CurrentTrainInfo + "!", Texts.Notification, MessageBoxButton.OK, MessageBoxImage.Information);
             AmountOfTicketsLabel.Content = CurrentTrain.AmountOfFreeTickets.ToString();
             if (CurrentTrain.AmountOfFreeTickets > 0)

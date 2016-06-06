@@ -26,32 +26,53 @@ namespace ProgramForBookingWithoutBug.DataBaseClasses
             int AmountOfFoundStations;
             using (ContextForBookingDataBase BookingDBcontext = new ContextForBookingDataBase(NamesOfVariables.ConnectionStringName))
             {
-                List<Train> AllTrains = new List<Train>();
-                foreach (Train CurrentTrain in BookingDBcontext.ListOfTrains)
+                bool DepartureStationExist = false;
+                bool DestinationStationExist = false;
+                if (BookingDBcontext.ListOfStations.Where((res) => res.StationName == DepartureStationName).Count() > 0)
                 {
-                    AllTrains.Add(CurrentTrain);
+                    DepartureStationExist = true;
                 }
-
-                bool TrainWasFound = false;
-
-                foreach (Train CurrentTrain in AllTrains)
+                if (BookingDBcontext.ListOfStations.Where((res) => res.StationName == DestinationStationName).Count() > 0)
                 {
-                    AmountOfFoundStations = CurrentTrain.Stations.Where((res) => res.StationName == DepartureStationName || res.StationName == DestinationStationName).Count();
-                    if (AmountOfFoundStations == 2)
+                    DestinationStationExist = true;
+                }
+                if (DepartureStationExist && DestinationStationExist)
+                {
+                    List<Train> AllTrains = new List<Train>();
+                    foreach (Train CurrentTrain in BookingDBcontext.ListOfTrains)
                     {
-                        ResultTrain = CurrentTrain;
-                        Application.Current.Dispatcher.Invoke(new Action(() => ApplicationMainWindow.SearchOver(ResultTrain)));
-                        TrainWasFound = true;
-                        break;
+                        AllTrains.Add(CurrentTrain);
+                    }
+
+                    bool TrainWasFound = false;
+
+                    foreach (Train CurrentTrain in AllTrains)
+                    {
+                        AmountOfFoundStations = CurrentTrain.Stations.Where((res) => res.StationName == DepartureStationName || res.StationName == DestinationStationName).Count();
+                        if (AmountOfFoundStations == 2)
+                        {
+                            ResultTrain = CurrentTrain;
+                            Application.Current.Dispatcher.Invoke(new Action(() => ApplicationMainWindow.SearchOver(ResultTrain, true, true)));
+                            TrainWasFound = true;
+                            break;
+                        }
+                    }
+                    if (!TrainWasFound)
+                    {
+                        Application.Current.Dispatcher.Invoke(new Action(() => ApplicationMainWindow.SearchOver(null, true, true)));
                     }
                 }
-                if (!TrainWasFound)
+                else
                 {
-                    Application.Current.Dispatcher.Invoke(new Action(() => ApplicationMainWindow.SearchOver(null)));
+                    Application.Current.Dispatcher.Invoke(new Action(() => ApplicationMainWindow.SearchOver(null, DepartureStationExist, DestinationStationExist)));
                 }
             }
         }
-
+        /// <summary>
+        /// Обращается к базе данных и находит в ней поезд, соответствующий переданному в параметре, и уменьшает у него количество билетов на 1.
+        /// После окончания этой операции вызывает у класса MainWindow метод BookingReady.
+        /// </summary>
+        /// <param name="CurrentTrain"></param>
         public static void BookTicket(Train CurrentTrain)
         {
             using (ContextForBookingDataBase BookingDBcontext = new ContextForBookingDataBase(NamesOfVariables.ConnectionStringName))

@@ -173,4 +173,7 @@
   <data name="LabelsStationNotFound" xml:space="preserve">
     <value>Станция не найдена!</value>
   </data>
+  <data name="LabelWaitUntilBookingFinish" xml:space="preserve">
+    <value>Подождите...</value>
+  </data>
 </root>

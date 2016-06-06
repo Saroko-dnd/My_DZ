@@ -207,6 +207,15 @@ namespace ProgramForBookingWithoutBug.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Подождите....
+        /// </summary>
+        public static string LabelWaitUntilBookingFinish {
+            get {
+                return ResourceManager.GetString("LabelWaitUntilBookingFinish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Уведомление.
         /// </summary>
         public static string Notification {

@@ -6,16 +6,21 @@
         xmlns:local="clr-namespace:ProgramForBookingWithoutBug"
         xmlns:MyRes="clr-namespace:ProgramForBookingWithoutBug.Resources"
         mc:Ignorable="d"
-        Title="{x:Static MyRes:Texts.ApplicationName}" Height="350" Width="700" Icon="Resources/Icons/MainWindowIcon.ico">
+        Title="{x:Static MyRes:Texts.ApplicationName}" Height="300" Width="530" Icon="Resources/Icons/MainWindowIcon.ico" ResizeMode="CanMinimize">
     <Window.Resources>
         <Storyboard x:Key="LoadingAnimationStoryBoard" RepeatBehavior="Forever">
             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="SearchDataAnimatedEllipse" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
                 <SplineDoubleKeyFrame KeyTime="00:00:02" Value="360"/>
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
+        <Storyboard x:Key="WaitUntilBookingFinishAnimationStoryBoard" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="WaitUntilBookingFinishAnimatedEllipse" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <SplineDoubleKeyFrame KeyTime="00:00:02" Value="360"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
     </Window.Resources>
-    <WrapPanel>
-        <StackPanel>
+    <DockPanel>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <WrapPanel>
                 <StackPanel>
                     <Label Content="{x:Static MyRes:Texts.LabelSelectDepartureStation}"></Label>
@@ -39,8 +44,8 @@
                 </StackPanel>
             </WrapPanel>
             <DockPanel>
-                <Label Name="DepartureStationNotFoundLabel" Foreground="Red" HorizontalAlignment="Left"></Label>
-                <Label Name="DestinationStationNotFoundLabel" Foreground="Red" HorizontalAlignment="Right"></Label>
+                <Label Name="DepartureStationNotFoundLabel" Content="{x:Static MyRes:Texts.LabelsStationNotFound}" Foreground="Red" HorizontalAlignment="Left" Visibility="Collapsed"></Label>
+                <Label Name="DestinationStationNotFoundLabel" Content="{x:Static MyRes:Texts.LabelsStationNotFound}" Foreground="Red" HorizontalAlignment="Right" Visibility="Collapsed"></Label>
             </DockPanel>
             <DockPanel>
                 <Button HorizontalAlignment="Center" Name="FindTrainButton" Content="{x:Static MyRes:Texts.ButtonFindTrain}" Click="FindTrainButton_Click"></Button>
@@ -48,7 +53,7 @@
             <DockPanel>
                 <WrapPanel HorizontalAlignment="Center">
                     <Label Name="ProgramStateLabel"></Label>
-                    <Ellipse Visibility="Collapsed"  Name="SearchDataAnimatedEllipse" Width="30" Height="30"  StrokeThickness="5" RenderTransformOrigin="0.5,0.5">
+                    <Ellipse Visibility="Collapsed"  Name="SearchDataAnimatedEllipse" Width="20" Height="20"  StrokeThickness="5" RenderTransformOrigin="0.5,0.5">
                         <Ellipse.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -78,8 +83,28 @@
                     <DockPanel>
                         <Button Visibility="Collapsed" HorizontalAlignment="Center" Name="BookTicketButton" Content="{x:Static MyRes:Texts.ButtonBookTicket}" Click="BookTicketButton_Click"></Button>
                     </DockPanel>
+                    <DockPanel>
+                        <WrapPanel HorizontalAlignment="Center">
+                            <Label Name="WaitUntilBookingFinishLabel" Content="{x:Static MyRes:Texts.LabelWaitUntilBookingFinish}" Foreground="Orange" Visibility="Collapsed"></Label>
+                            <Ellipse Visibility="Collapsed"  Name="WaitUntilBookingFinishAnimatedEllipse" Width="20" Height="20"  StrokeThickness="5" RenderTransformOrigin="0.5,0.5">
+                                <Ellipse.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                    </TransformGroup>
+                                </Ellipse.RenderTransform>
+                                <Ellipse.Stroke>
+                                    <LinearGradientBrush EndPoint="0.445,0.997" StartPoint="0.555,0.003">
+                                        <GradientStop Color="White" Offset="0"/>
+                                        <GradientStop Color="#FF1AB48A" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Ellipse.Stroke>
+                            </Ellipse>
+                        </WrapPanel>
+                    </DockPanel>
                 </StackPanel>
             </DockPanel>
         </StackPanel>
-    </WrapPanel>
+    </DockPanel>
 </Window>
