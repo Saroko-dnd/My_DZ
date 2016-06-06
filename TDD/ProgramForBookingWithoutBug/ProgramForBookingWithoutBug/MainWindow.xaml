@@ -7,24 +7,77 @@
         xmlns:MyRes="clr-namespace:ProgramForBookingWithoutBug.Resources"
         mc:Ignorable="d"
         Title="{x:Static MyRes:Texts.ApplicationName}" Height="350" Width="700" Icon="Resources/Icons/MainWindowIcon.ico">
+    <Window.Resources>
+        <Storyboard x:Key="LoadingAnimationStoryBoard" RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="SearchDataAnimatedEllipse" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)">
+                <SplineDoubleKeyFrame KeyTime="00:00:02" Value="360"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
     <WrapPanel>
         <StackPanel>
             <WrapPanel>
                 <StackPanel>
                     <Label Content="{x:Static MyRes:Texts.LabelSelectDepartureStation}"></Label>
-                    <ComboBox  Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged"></ComboBox>
+                    <ComboBox  Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged">
+                        <ComboBox.Style>
+                            <Style>
+                                <EventSetter Event="TextBox.TextChanged" Handler="ComboBoxTextChanged"></EventSetter>
+                            </Style>
+                        </ComboBox.Style>
+                    </ComboBox>
                 </StackPanel>
                 <StackPanel Margin="50,0,0,0">
                     <Label Content="{x:Static MyRes:Texts.LabelSelectDestinationStation}"></Label>
-                    <ComboBox Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DestinationStationsComboBox" SelectionChanged="DestinationStationsComboBox_SelectionChanged"></ComboBox>
+                    <ComboBox Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DestinationStationsComboBox" SelectionChanged="DestinationStationsComboBox_SelectionChanged">
+                        <ComboBox.Style>
+                            <Style>
+                                <EventSetter Event="TextBox.TextChanged" Handler="ComboBoxTextChanged"></EventSetter>
+                            </Style>
+                        </ComboBox.Style>
+                    </ComboBox>
                 </StackPanel>
             </WrapPanel>
             <DockPanel>
+                <Label Name="DepartureStationNotFoundLabel" Foreground="Red" HorizontalAlignment="Left"></Label>
+                <Label Name="DestinationStationNotFoundLabel" Foreground="Red" HorizontalAlignment="Right"></Label>
+            </DockPanel>
+            <DockPanel>
+                <Button HorizontalAlignment="Center" Name="FindTrainButton" Content="{x:Static MyRes:Texts.ButtonFindTrain}" Click="FindTrainButton_Click"></Button>
+            </DockPanel>
+            <DockPanel>
+                <WrapPanel HorizontalAlignment="Center">
+                    <Label Name="ProgramStateLabel"></Label>
+                    <Ellipse Visibility="Collapsed"  Name="SearchDataAnimatedEllipse" Width="30" Height="30"  StrokeThickness="5" RenderTransformOrigin="0.5,0.5">
+                        <Ellipse.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                            </TransformGroup>
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Stroke>
+                            <LinearGradientBrush EndPoint="0.445,0.997" StartPoint="0.555,0.003">
+                                <GradientStop Color="White" Offset="0"/>
+                                <GradientStop Color="#FF1AB48A" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Ellipse.Stroke>
+                    </Ellipse>
+                </WrapPanel>
+            </DockPanel>
+            <DockPanel>
                 <StackPanel VerticalAlignment="Center">
                     <WrapPanel>
-                        <Label Content="{x:Static MyRes:Texts.LabelAmountOfFreeTicketsText}"></Label>
-                        <Label Foreground="Red" Name="AmountOfTicketsLabel" Content="{x:Static MyRes:Texts.LabelAmountOfFreeTicketsValue}"></Label>
+                        <Label Content="{x:Static MyRes:Texts.LabelTrainText}"></Label>
+                        <Label Foreground="Red" Name="TrainInfoLabel" Content="{x:Static MyRes:Texts.LabelsForValuesErrorText}"></Label>
                     </WrapPanel>
+                    <WrapPanel>
+                        <Label Content="{x:Static MyRes:Texts.LabelAmountOfFreeTicketsText}"></Label>
+                        <Label Foreground="Red" Name="AmountOfTicketsLabel" Content="{x:Static MyRes:Texts.LabelsForValuesErrorText}"></Label>
+                    </WrapPanel>
+                    <DockPanel>
+                        <Button Visibility="Collapsed" HorizontalAlignment="Center" Name="BookTicketButton" Content="{x:Static MyRes:Texts.ButtonBookTicket}" Click="BookTicketButton_Click"></Button>
+                    </DockPanel>
                 </StackPanel>
             </DockPanel>
         </StackPanel>

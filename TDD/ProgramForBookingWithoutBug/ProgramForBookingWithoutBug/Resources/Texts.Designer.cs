@@ -70,11 +70,58 @@ namespace ProgramForBookingWithoutBug.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Забронировать билет.
+        /// </summary>
+        public static string ButtonBookTicket {
+            get {
+                return ResourceManager.GetString("ButtonBookTicket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Найти поезд.
+        /// </summary>
+        public static string ButtonFindTrain {
+            get {
+                return ResourceManager.GetString("ButtonFindTrain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Начните вводить название станции.
         /// </summary>
         public static string ComboBoxInitText {
             get {
                 return ResourceManager.GetString("ComboBoxInitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось выполнить операцию поиска, така как вы не указали все необходимые данные!
+        ///(Вы должны указать станцию отправления и станцию назначения).
+        /// </summary>
+        public static string ErrorNotEnoughData {
+            get {
+                return ResourceManager.GetString("ErrorNotEnoughData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы не можете делать несколько запросов одновременно!
+        ///(Дождитесь результата обработки текущего запроса).
+        /// </summary>
+        public static string ErrorProgramBusy {
+            get {
+                return ResourceManager.GetString("ErrorProgramBusy", resourceCulture);
             }
         }
         
@@ -88,11 +135,29 @@ namespace ProgramForBookingWithoutBug.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на не выбран маршрут!.
+        ///   Ищет локализованную строку, похожую на Поезд найден!.
         /// </summary>
-        public static string LabelAmountOfFreeTicketsValue {
+        public static string LabelProgramStateReady {
             get {
-                return ResourceManager.GetString("LabelAmountOfFreeTicketsValue", resourceCulture);
+                return ResourceManager.GetString("LabelProgramStateReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Поиск подходящего поезда....
+        /// </summary>
+        public static string LabelProgramStateSearch {
+            get {
+                return ResourceManager.GetString("LabelProgramStateSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не найден подходящий поезд!.
+        /// </summary>
+        public static string LabelProgramStateTrainNotFound {
+            get {
+                return ResourceManager.GetString("LabelProgramStateTrainNotFound", resourceCulture);
             }
         }
         
@@ -111,6 +176,51 @@ namespace ProgramForBookingWithoutBug.Resources {
         public static string LabelSelectDestinationStation {
             get {
                 return ResourceManager.GetString("LabelSelectDestinationStation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на не выбран маршрут!.
+        /// </summary>
+        public static string LabelsForValuesErrorText {
+            get {
+                return ResourceManager.GetString("LabelsForValuesErrorText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Станция не найдена!.
+        /// </summary>
+        public static string LabelsStationNotFound {
+            get {
+                return ResourceManager.GetString("LabelsStationNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Поезд:.
+        /// </summary>
+        public static string LabelTrainText {
+            get {
+                return ResourceManager.GetString("LabelTrainText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Уведомление.
+        /// </summary>
+        public static string Notification {
+            get {
+                return ResourceManager.GetString("Notification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Вы забронировали 1 билет на поезд.
+        /// </summary>
+        public static string NotificationBookingReady {
+            get {
+                return ResourceManager.GetString("NotificationBookingReady", resourceCulture);
             }
         }
     }
