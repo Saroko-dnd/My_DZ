@@ -1,8 +1,11 @@
-﻿<Window x:Class="ProgramForBookingWithoutBug.MainWindow"
+﻿<!-- Пространства имен i и ei необходимы для использования взаимодействий (например Interaction.Triggers) -->
+<Window x:Class="ProgramForBookingWithoutBug.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" 
         xmlns:local="clr-namespace:ProgramForBookingWithoutBug"
         xmlns:MyRes="clr-namespace:ProgramForBookingWithoutBug.Resources"
         mc:Ignorable="d"
@@ -24,7 +27,7 @@
             <WrapPanel>
                 <StackPanel>
                     <Label Content="{x:Static MyRes:Texts.LabelSelectDepartureStation}"></Label>
-                    <ComboBox  Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged">
+                    <ComboBox Width="225" IsTextSearchEnabled="True" Foreground="LightGray" Text="{x:Static MyRes:Texts.ComboBoxInitText}" StaysOpenOnEdit="True" IsEditable="True" Name="DepartureStationsComboBox" SelectionChanged="DepartureStationsComboBox_SelectionChanged">
                         <ComboBox.Style>
                             <Style>
                                 <EventSetter Event="TextBox.TextChanged" Handler="ComboBoxTextChanged"></EventSetter>
