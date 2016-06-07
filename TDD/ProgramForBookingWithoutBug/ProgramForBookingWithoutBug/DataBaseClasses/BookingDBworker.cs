@@ -82,5 +82,23 @@ namespace ProgramForBookingWithoutBug.DataBaseClasses
                 Application.Current.Dispatcher.Invoke(new Action(() => ApplicationMainWindow.BookingReady()));
             }
         }
+
+        /// <summary>
+        /// Возвращает список имен станций из базы данных.
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetNamesOfStations()
+        {
+            List<string> AllStations = new List<string>();
+            using (ContextForBookingDataBase BookingDBcontext = new ContextForBookingDataBase(NamesOfVariables.ConnectionStringName))
+            {
+                foreach (Station CurrentStation in BookingDBcontext.ListOfStations)
+                {
+                    AllStations.Add(CurrentStation.StationName);
+                }
+            }
+
+            return AllStations;
+        }
     }
 }

@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BookingViewModel.cs" />
     <Compile Include="DataBaseClasses\BookingDBworker.cs" />
     <Compile Include="DataBaseClasses\SeederDBClass.cs" />
     <Compile Include="Resources\NamesOfVariables.Designer.cs">

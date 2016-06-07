@@ -32,17 +32,12 @@ namespace ProgramForBookingWithoutBug
         public MainWindow()
         {
             InitializeComponent();
-            using (ContextForBookingDataBase BookingDBcontext = new ContextForBookingDataBase(NamesOfVariables.ConnectionStringName))
-            {
-                List<string> AllStations = new List<string>();
-                foreach (Station CurrentStation in BookingDBcontext.ListOfStations)
-                {
-                    AllStations.Add(CurrentStation.StationName);
-                }
 
-                DepartureStationsComboBox.ItemsSource = AllStations;
-                DestinationStationsComboBox.ItemsSource = AllStations;
-            }
+            this.DataContext = new BookingViewModel();
+
+            List<string> AllStations = BookingDBworker.GetNamesOfStations();
+            DepartureStationsComboBox.ItemsSource = AllStations;
+            DestinationStationsComboBox.ItemsSource = AllStations;
 
             DepartureStationsComboBox.PreviewTextInput += ComboBoxPreviewTextInput;
             DepartureStationsComboBox.DropDownOpened += ComboBoxMenuActivated;
