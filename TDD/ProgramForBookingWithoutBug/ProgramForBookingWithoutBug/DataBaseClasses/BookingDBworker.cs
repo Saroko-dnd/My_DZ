@@ -92,7 +92,7 @@ namespace ProgramForBookingWithoutBug.DataBaseClasses
             List<string> AllStations = new List<string>();
             using (ContextForBookingDataBase BookingDBcontext = new ContextForBookingDataBase(ConnectionStringName))
             {
-                foreach (Station CurrentStation in BookingDBcontext.ListOfStations)
+                foreach (Station CurrentStation in BookingDBcontext.ListOfStations.OrderBy((res) => res.StationName))
                 {
                     AllStations.Add(CurrentStation.StationName);
                 }
