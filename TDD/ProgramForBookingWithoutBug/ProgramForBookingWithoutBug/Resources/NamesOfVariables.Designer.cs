@@ -68,5 +68,14 @@ namespace ProgramForBookingWithoutBug.Resources {
                 return ResourceManager.GetString("ConnectionStringName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на BookingDBconnectionOldVersion.
+        /// </summary>
+        public static string OldConnectionStringName {
+            get {
+                return ResourceManager.GetString("OldConnectionStringName", resourceCulture);
+            }
+        }
     }
 }

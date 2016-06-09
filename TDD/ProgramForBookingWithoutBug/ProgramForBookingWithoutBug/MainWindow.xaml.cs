@@ -35,7 +35,20 @@ namespace ProgramForBookingWithoutBug
 
             this.DataContext = new BookingViewModel();
 
-            List<string> AllStations = BookingDBworker.GetNamesOfStations();
+            List<string> AllStations;
+
+            //********************************************************************************************
+            //Этот блок try catch отвечает за совместимость программы с более старой версией localdb сервера
+            try
+            {
+                AllStations = BookingDBworker.GetNamesOfStations(NamesOfVariables.OldConnectionStringName);
+            }
+            catch (System.Data.SqlClient.SqlException)
+            {
+                AllStations = BookingDBworker.GetNamesOfStations(NamesOfVariables.ConnectionStringName);
+            }
+            //********************************************************************************************
+
             DepartureStationsComboBox.ItemsSource = AllStations;
             DestinationStationsComboBox.ItemsSource = AllStations;
 

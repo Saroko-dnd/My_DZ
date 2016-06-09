@@ -87,10 +87,10 @@ namespace ProgramForBookingWithoutBug.DataBaseClasses
         /// Возвращает список имен станций из базы данных.
         /// </summary>
         /// <returns></returns>
-        public static List<string> GetNamesOfStations()
+        public static List<string> GetNamesOfStations(string ConnectionStringName)
         {
             List<string> AllStations = new List<string>();
-            using (ContextForBookingDataBase BookingDBcontext = new ContextForBookingDataBase(NamesOfVariables.ConnectionStringName))
+            using (ContextForBookingDataBase BookingDBcontext = new ContextForBookingDataBase(ConnectionStringName))
             {
                 foreach (Station CurrentStation in BookingDBcontext.ListOfStations)
                 {

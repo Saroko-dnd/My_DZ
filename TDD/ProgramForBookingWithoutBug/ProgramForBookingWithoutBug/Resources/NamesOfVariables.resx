@@ -120,4 +120,7 @@
   <data name="ConnectionStringName" xml:space="preserve">
     <value>BookingDBconnection</value>
   </data>
+  <data name="OldConnectionStringName" xml:space="preserve">
+    <value>BookingDBconnectionOldVersion</value>
+  </data>
 </root>
