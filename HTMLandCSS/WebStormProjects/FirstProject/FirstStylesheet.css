@@ -1,0 +1,52 @@
+.Black
+{
+    background-color: black;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
+
+.Blue
+{
+    background-color: blue;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
+
+.Green
+{
+    background-color: green;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
+
+.Gray
+{
+    background-color: gray;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
+
+.FirstFlag
+{
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    float: left;
+}
+
+.SecondFlag
+{
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    float: right;
+}
+
+body
+{
+    color: white;
+}
