@@ -96,5 +96,74 @@
             </ol>
         </li>
     </ol>
+    <div></div>
+
+    <b id="BID">Blablabla</b>
+    <b>Blablabla</b>
+    <b>Blablabla</b>
+
+    <p title="SuperText">ThisIsTexts</p>
+
+    <p>Blablabla</p>
+    <p>Blablabla</p>
+    <p>Blablabla</p>
+    <p>ThisIsTexts</p>
+    <h1 class="blblblb">This is header!</h1>
+    <!--Формы ниже-->
+    <!--Аттрибут form action содержит адрес, куда будет посылаться форма. Аттрибут form method содержит способ передачи данных.-->
+    <form action="AdressOfServerWhereThisFormWillBeSent" method="get">
+        <input type="date" />
+        <input type="email" />
+        <input type="password" />
+        <input type="url" />
+        <input type="time" />
+    </form>
+    <form>
+        <input type="button" value="Button" />
+        <input type="checkbox" />
+
+        <!--Объединив одним именем radio контролы - мы можем выбирать за раз только одну из них-->
+        <input type="radio" name="RadioButtonSet" />
+        <input type="radio" name="RadioButtonSet" />
+        <input type="radio" name="RadioButtonSet" />
+
+        <input type="range" />
+
+        <select>
+            <option>First option</option>
+            <option>Second option</option>
+            <option>Third option</option>
+        </select>
+        <input type="submit" value="Submit" />
+        <!--Кнопка с возможностью добавления внутренних тегов (В данном случае кнопка с картинкой)-->
+        <button>
+            <img src="Galaxy.jpg" />
+        </button>
+
+        <!--Неактивные контролы-->
+        <div>
+            <input type="button" disabled />
+            <input type="checkbox" disabled />
+            <input type="time" disabled />
+        </div>
+
+        <!--Необходимые для заполнения контролы-->
+        <div>
+            <input type="email" required />
+            <input type="email" required />
+            <input type="email" required />
+        </div>
+
+        <!--Контролы значения которых нельзя изменить-->
+        <div>
+            <input type="email" value="First Email" readonly />
+            <input type="email" value="Second Email" readonly />
+            <input type="email" value="Third Email" readonly />
+        </div>
+
+        <textarea contenteditable="true">
+            hyfghfghfhg
+        </textarea>
+    </form>
 </body>
 </html>
