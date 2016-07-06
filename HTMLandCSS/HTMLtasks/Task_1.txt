@@ -1,0 +1,21 @@
+﻿<ul> <ol> + css
+вложенные списки
+<table>
+	<thead> <tbody> <colgroup>
+<form>
+
+relative / absolute positioning
+вложенные блоки
+display: block, inline ..
+
+use float / clear
+
+margin / padding / border / line-height
+отрицательные margin
+
+использовать классы. НЕ используйте id
+сложные селекторы, псевдо-селекторы для css
+
+картинки
+ссылки с якорями
+header / footer / меню
