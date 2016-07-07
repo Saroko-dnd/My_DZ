@@ -1,0 +1,92 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Таблицы</title>
+    <link rel="stylesheet" href="MainStyleSheet.css">
+</head>
+
+<body>
+
+    <!--Пример якорной ссылки (ссылка на элемент этой страницы)-->
+    <a href="#TextID">Ссылка на текст</a>
+
+    <!--Тэг details скрывает, или открывает данные под ним по желанию пользователя--> 
+    <details>
+        <summary>Скрытый текст</summary>
+        <p>!!!ЭТО СКРЫТЫЙ ТЕКСТ!!!</p>
+        <p>!!!ЭТО СКРЫТЫЙ ТЕКСТ!!!</p>
+        <p>!!!ЭТО СКРЫТЫЙ ТЕКСТ!!!</p>
+        <p>!!!ЭТО СКРЫТЫЙ ТЕКСТ!!!</p>
+        <p>!!!ЭТО СКРЫТЫЙ ТЕКСТ!!!</p>
+        <p>!!!ЭТО СКРЫТЫЙ ТЕКСТ!!!</p>
+    </details>
+
+    <!--iframe позволяет просматривать страницу из другой страницы-->
+    <iframe src="http://www.tut.by/"></iframe>
+
+    <!--audio добавляет аудио файл на страницу-->
+    <audio controls="controls">
+        Тег audio не поддерживается вашим браузером!
+    </audio>
+
+    <!--video добавляет видео файл на страницу-->
+    <video controls preload="metadata">
+        <source src="movie.mp4" type="video/mp4">
+        <source src="movie.ogg" type="video/ogg">
+        Your browser does not support the video tag.
+    </video>
+
+    <!--allowfullscreen позволяет показывать на весь фрейм указанный в src елемент-->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/oWfFco7K9v8" frameborder="0" allowfullscreen></iframe>
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Книга</th>
+                    <th scope="col">Доступность</th>
+                    <th scope="col">К-во</th>
+                    <th scope="col">Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Марк Пилгрим. Погружение в HTML5</td>
+                    <td>На складе</td>
+                    <td>1</td>
+                    <td>11.50 BYN</td>
+                </tr>
+                <tr>
+                    <td>Брайан Хоган. HTML5 и CSS3. Веб-разработка по стандартам нового поколения</td>
+                    <td>В магазине</td>
+                    <td>1</td>
+                    <td>14.87 BYN</td>
+                </tr>
+                <tr>
+                    <td>Дэвид Макфарланд. Большая книга CSS3</td>
+                    <td>На складе</td>
+                    <td>2</td>
+                    <td>21.90 BYN</td>
+                </tr>
+                <tr>
+                    <td>Джереми Кит. HTML5 для веб-дизайнеров</td>
+                    <td>В магазине</td>
+                    <td>1</td>
+                    <td>17.99 BYN</td>
+                </tr>
+            </tbody>
+        </table>
+
+    <div class="GiantStructure"></div>
+    <div id="TextID">
+        <p>!!!ЭТО ТЕКСТ!!!</p>
+        <p>!!!ЭТО ТЕКСТ!!!</p>
+        <p>!!!ЭТО ТЕКСТ!!!</p>
+        <p>!!!ЭТО ТЕКСТ!!!</p>
+        <p>!!!ЭТО ТЕКСТ!!!</p>
+        <p>!!!ЭТО ТЕКСТ!!!</p>
+    </div>
+</body>
+
+</html>

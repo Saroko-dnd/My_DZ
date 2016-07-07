@@ -1,0 +1,61 @@
+﻿body {
+}
+
+tbody, td 
+{
+    border: 1px solid red;
+    border-collapse: collapse;
+}
+
+th
+{
+    color:lightgreen
+}
+
+table
+{
+    margin:auto
+}
+
+tr:nth-child(even)
+{
+    background-color:brown;
+    color:lightgreen
+}
+
+thead
+{
+    background:linear-gradient(to top, green, blue, green);
+}
+
+thead th:last-child
+{
+    border-top-right-radius: 10px; 
+}
+
+thead th:first-child
+{
+    border-top-left-radius: 10px;
+}
+
+.GiantStructure
+{
+    height:1400px
+}
+
+iframe
+{
+    width:1000px;
+    height:500px
+}
+
+video 
+{
+    width:500px;
+    height:500px
+}
+
+.DivWithImage
+{
+    background-image:url()
+}
