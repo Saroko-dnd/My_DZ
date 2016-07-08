@@ -1,0 +1,195 @@
+﻿body {
+    perspective-origin:bottom,bottom
+}
+
+.Square
+{
+    /*ANIMATION: delay keyframes duration type(linear,reverse) AnimationWillbeConstantOrNot*/
+    animation:10s MySecondMove 10s  alternate-reverse infinite;
+    text-align:center;
+    color:yellow;
+    width:300px;
+    height:300px;
+    background-color:blue;
+    position:absolute;
+    top:100px;
+    left:100px;
+    /*box-shadow(тень элемента): сдвиг по x, сдвиг по y, размытие, растяжение, цвет */
+    box-shadow:-100px -100px 10px 0 gray
+}
+
+.SecondSquare
+{
+    text-align:center;
+    color:yellow;
+    width:300px;
+    height:300px;
+    background-color:blue;
+    animation:SkewAnimation 10s alternate-reverse infinite;
+    position:absolute;
+    top:500px;
+    left:500px;
+}
+
+.ThirdSquare
+{
+    text-align:center;
+    color:yellow;
+    width:300px;
+    height:300px;
+    background-color:blue;
+    transform:translateX(100px);
+    position:absolute;
+    top:100px;
+    left:500px;
+}
+
+.FourthSquare
+{
+    text-align:center;
+    color:yellow;
+    width:300px;
+    height:300px;
+    background-color:blue;
+    transform: rotateX(45deg);
+    visibility:visible
+}
+
+.FifthSquare
+{
+    text-align:center;
+    color:yellow;
+    width:300px;
+    height:300px;
+    background-color:blue;
+    transform: rotateX(45deg);
+    visibility:visible
+}
+
+.FinalPanelForSquare
+{
+    perspective:300px;
+    width:300px;
+    height:300px;
+    position:absolute;
+    top:1000px;
+    left:100px;
+}
+
+.FinalSquare
+{
+    text-align:center;
+    color:yellow;
+    width:300px;
+    height:300px;
+    background-color:blue;
+    animation:RotationYAnimation 10s alternate-reverse infinite;
+    position:absolute;
+}
+
+.PanelForSquare
+{
+    animation:mymove 10s alternate-reverse infinite;
+    width:300px;
+    height:300px;
+    position:absolute;
+    top:100px;
+    left:1000px;
+    visibility:hidden
+}
+
+.SuperSquare
+{
+    animation:AnimationWithManyFrames 20s infinite;
+    width:300px;
+    height:300px;
+    position:absolute;
+    top:1000px;
+    left:500px;
+    background-color:black;
+}
+
+@keyframes mymove 
+{
+    from {perspective: 200px;}
+    to {perspective: 1000px;}
+}
+
+@keyframes MySecondMove
+{
+    from
+    {
+        background-color:blue;
+        transform:rotate(0deg);
+    }
+    to
+    {
+        background-color:red;
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes  SkewAnimation
+{
+    from
+    {
+        transform:skewX(0deg);
+    }
+    to
+    {
+        transform:skewX(60deg);
+    } 
+}
+
+@keyframes RotationYAnimation
+{
+    from
+    {
+        transform:rotateY(90deg)
+    }
+    to
+    {
+        transform:rotateY(0deg)
+    }
+}
+
+@keyframes AnimationWithManyFrames
+{
+    0%
+    {
+        top:1000px;
+        left:500px;
+        background-color:black;
+    }
+    20%
+    {
+        top:1000px;
+        left:1000px;
+        background-color:blue;
+    }
+    40%
+    {
+        background-color:red;
+        top:1000px;
+        left:1000px;
+    }
+    60%
+    {
+        top:1000px;
+        left:500px;
+        background-color:red;
+    }
+    80%
+    {
+        background-color:green;
+        transform:rotate(0deg);
+    }
+    100%
+    {
+        transform:rotate(360deg);
+        background-color:yellow;
+    }
+}
+
+ 
+
