@@ -1,2 +1,41 @@
 ﻿body {
 }
+
+li > ol
+{
+    display:none
+}
+
+li > ul
+{
+    display:none
+}
+
+li:hover > ol
+{
+    display:block
+}
+
+li:hover > ul
+{
+    display:block
+}
+
+.ToLeft
+{
+    float:left
+}
+
+.ToCenter
+{
+    width:800px;
+    text-align:center;
+    margin:auto
+}
+
+.BlockWithSize
+{   
+    float:left;
+    width:400px;
+    height:400px
+}
