@@ -1,8 +1,22 @@
 ﻿body {
 }
 
-.ToCenter
+.MainToCenter
 {
+    width:30%;
+    margin:auto
+}
+
+.MainSiteHeader
+{
+    text-align:center;
+    width:30%;
+    margin:auto
+}
+
+.MainSiteFooter
+{
+    text-align:center;
     width:30%;
     margin:auto
 }

@@ -1,0 +1,98 @@
+﻿body {
+}
+
+.FirstColumnGroup
+{
+    width:200px;
+    border:3px solid red;
+    background-color:blue;
+}
+
+.SecondColumnGroup
+{
+    width:70px;
+    border:3px solid blue;
+    background-color:darkgreen;
+}
+
+.ThirdColumnGroup
+{
+    width:200px;
+    border:3px solid green;
+    background-color:darkorange;
+}
+
+table
+{
+    margin:inherit;
+    color:chartreuse;
+    border-collapse:collapse;    
+}
+
+.SecondTable
+{
+    margin:inherit;
+    color:gold;
+    border-collapse:collapse; 
+}
+
+.SecondTable thead
+{
+    background:linear-gradient(to top, red, blue, red)
+}
+
+.SecondTable thead th:last-child
+{
+    border-top-right-radius:20px
+}
+
+.SecondTable thead th:first-child
+{
+    border-top-left-radius:20px
+}
+
+.InnerSection
+{
+    width:100%;
+    margin:inherit;
+}
+
+td,th
+{
+    border-top: 2px solid white;
+    border-right: 2px solid yellow;
+}
+
+section
+{
+    text-align:center;
+    width:60%;
+    margin:auto
+}
+
+tbody tr:nth-of-type(odd)
+{
+    background-color:crimson;
+}
+
+.SecondTable tbody tr:nth-of-type(odd)
+{
+    background:linear-gradient(to top, blue, red, blue);
+}
+
+.SecondTable tbody tr:nth-of-type(even)
+{
+    background:linear-gradient(to top, green, blue, green);
+}
+
+.SecondTable tbody tr:last-child th
+{
+    border-bottom-left-radius:20px
+}
+
+.SecondTable tbody tr:last-child td:last-child
+{
+    border-bottom-right-radius:20px
+}
+
+
