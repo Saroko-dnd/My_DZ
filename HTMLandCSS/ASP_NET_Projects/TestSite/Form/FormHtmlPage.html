@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Форма</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="keywords" content="пример использования HTML, пример использования CSS, формы HTML" /><!--Бесполезны?-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Сароко Игорь Викторович">
+    <meta name="description" content="Пример использования формы в HTML">
+    <link href="css/FormStyleSheet.css" rel="stylesheet" />
+    <link href="../MainCSS/MainStyleSheet.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="MainSiteHeader">
+        <header>
+            <h1>ТЕСТОВЫЙ САЙТ</h1>
+        </header>
+        <nav>
+            <a href="../MainlPage.html">На главную</a>
+        </nav>
+    </div>
+    <section>
+        <section>
+            <heaser>
+                <h1>Форма (регистрация)</h1>
+            </heaser>
+            <p><span class="RedColor">*</span> - обязательное поле</p>
+            <form method="post">
+                <div class="DivWithInlineElements">
+                    <div>
+                        <label for="InputUserName">Имя пользователя:<span class="RedColor">*</span></label>
+                    </div>
+                    <div>
+                        <input id="InputUserName" required type="text" />
+                    </div>
+                </div>
+                <div>
+                    <p>Пол:</p>
+                    <input type="radio" name="GenderRadioControl" value="mail"/>Мужской
+                    <input type="radio" name="GenderRadioControl" value="femail"/>Женский
+                    <input type="radio" name="GenderRadioControl" value="none" checked />Не скажу
+                </div>
+                <div class="DivWithInlineElements">
+                    <div>
+                        <label for="InputTel">Мобильный теоефон:</label>
+                    </div>
+                    <div>
+                        <input id="InputTel" type="tel" />
+                    </div>
+                </div>
+                <div class="DivWithInlineElements">
+                    <div>
+                        <label for="InputEmail">Адрес электронной почты:<span class="RedColor">*</span></label>
+                    </div>
+                    <div>
+                        <input id="InputEmail" required type="email" />
+                    </div>
+                </div>
+                <div class="DivWithInlineElements">
+                    <div>
+                        <label for="InputDate">Дата рождения:<span class="RedColor">*</span></label>
+                    </div>
+                    <div>
+                        <input id="InputDate" required type="date" />
+                    </div>
+                </div>
+                <div class="DivWithInlineElements">
+                    <div>
+                        <label for="InputPasswordFirst">Введите пароль:<span class="RedColor">*</span></label>
+                    </div>
+                    <div>
+                        <input id="InputPasswordFirst" required type="password" />
+                    </div>
+                </div>
+                <div class="DivWithInlineElements">
+                    <div>
+                        <label for="InputPasswordSecond">Подтвердите пароль:<span class="RedColor">*</span></label>
+                    </div>
+                    <div>
+                        <input id="InputPasswordSecond" required type="password" />
+                    </div>
+                </div>
+                <div>
+                    <label for="CheckboxForNews">Получать последние новости:</label>
+                    <input id="CheckboxForNews" type="checkbox" />
+                </div>
+                <div>
+                    <input type="submit" value="регистрация" />
+                </div>
+            </form>
+        </section>
+    </section>
+    <div class="MainSiteFooter">
+        <footer>
+            Создатель сайта - Сароко Игорь Викторович.
+        </footer>
+    </div>
+</body>
+
+</html>

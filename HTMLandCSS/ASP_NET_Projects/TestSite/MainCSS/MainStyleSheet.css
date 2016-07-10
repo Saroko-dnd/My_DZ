@@ -20,3 +20,8 @@
     width:30%;
     margin:auto
 }
+
+a:hover
+{
+    color:red
+}
