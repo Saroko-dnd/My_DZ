@@ -106,6 +106,63 @@ section
     top:0px;
 }
 
+.DivWithAnimatedButtons
+{
+    width:500px;
+    height:500px;
+    position:relative;
+    top:0px;
+    left:calc(50% - 250px);
+}
+
+.button1
+{
+    animation:Button1Animation 40s linear;
+    left:200px;
+    top:220px;
+    width:100px;
+    position:absolute;
+    background-color:Highlight;
+    color:seagreen;
+    opacity:0;
+}
+
+.button2
+{
+    animation:30s Button2Animation 10s linear;
+    left:200px;
+    top:220px;
+    width:100px;
+    position:absolute;
+    background-color:Highlight;
+    color:seagreen;
+    opacity:0;
+}
+
+.button3
+{
+    animation:20s Button3Animation 20s linear;
+    left:200px;
+    top:220px;
+    width:100px;
+    position:absolute;
+    background-color:Highlight;
+    color:seagreen;
+    opacity:0;
+}
+
+.button4
+{
+    animation:10s Button4Animation 30s linear;
+    left:200px;
+    top:220px;
+    width:100px;
+    position:absolute;
+    background-color:Highlight;
+    color:seagreen;
+    opacity:0;
+}
+
 @keyframes StarWarsAnimation
 {
     from
@@ -158,3 +215,198 @@ section
     }
 }
 
+@keyframes Button1Animation
+{
+    0%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(0deg);
+        background-color:Highlight;
+        color:seagreen;
+        opacity:0;
+    }
+    6%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(0deg);
+        background-color:Highlight;
+        color:seagreen;
+        opacity:1;
+    }
+    12%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(360deg);
+        background-color:brown;
+        color:gold;
+        opacity:1;
+    }
+    18%
+    {
+        left:0px;
+        top:0px;
+        transform:rotate(360deg);
+        background-color:brown;
+        color:gold;
+        opacity:1;
+    }
+    100%
+    {
+        left:0px;
+        top:0px;
+        transform:rotate(360deg);
+        background-color:brown;
+        color:gold;
+        opacity:1;
+    }
+}
+
+@keyframes Button2Animation
+{
+    0%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(0deg);
+        background-color:Highlight;
+        color:seagreen;
+        opacity:0;
+    }
+    8%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(0deg);
+        background-color:Highlight;
+        color:seagreen;
+        opacity:1;
+    }
+    16%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(360deg);
+        background-color:blue;
+        color:aqua;
+        opacity:1;
+    }
+    24%
+    {
+        left:400px;
+        top:0px;
+        transform:rotate(360deg);
+        background-color:blue;
+        color:aqua;
+        opacity:1;
+    }
+    100%
+    {
+        left:400px;
+        top:0px;
+        transform:rotate(360deg);
+        background-color:blue;
+        color:aqua;
+        opacity:1;
+    }
+}
+
+@keyframes Button3Animation
+{
+    0%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(0deg);
+        background-color:Highlight;
+        color:seagreen;
+        opacity:0;
+    }
+    10%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(0deg);
+        background-color:Highlight;
+        color:seagreen;
+        opacity:1;
+    }
+    20%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(360deg);
+        background-color:darkgreen;
+        color:aquamarine;
+        opacity:1;
+    }
+    30%
+    {
+        left:0px;
+        top:400px;
+        transform:rotate(360deg);
+        background-color:darkgreen;
+        color:aquamarine;
+        opacity:1;
+    }
+    100%
+    {
+        left:0px;
+        top:400px;
+        transform:rotate(360deg);
+        background-color:darkgreen;
+        color:aquamarine;
+        opacity:1;
+    }
+}
+
+@keyframes Button4Animation
+{
+    0%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(0deg);
+        background-color:Highlight;
+        color:seagreen;
+        opacity:0;
+    }
+    16%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(0deg);
+        background-color:Highlight;
+        color:seagreen;
+        opacity:1;
+    }
+    32%
+    {
+        left:200px;
+        top:220px;
+        transform:rotate(360deg);
+        background-color:darkviolet;
+        color:white;
+        opacity:1;
+    }
+    48%
+    {
+        left:400px;
+        top:400px;
+        transform:rotate(360deg);
+        background-color:darkviolet;
+        color:white;
+        opacity:1;
+    }
+    100%
+    {
+        left:400px;
+        top:400px;
+        transform:rotate(360deg);
+        background-color:darkviolet;
+        color:white;
+        opacity:1;
+    }
+}
