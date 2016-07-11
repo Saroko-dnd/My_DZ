@@ -1,0 +1,40 @@
+﻿body {
+}
+
+section
+{
+    text-align:center;
+    width:80%;
+    margin:auto
+}
+
+section section
+{
+    text-align:center;
+    width:100%;
+    margin:auto
+}
+
+video
+{
+    width:80%;
+}
+
+.AudioDiv 
+{
+    text-align:left;
+    width:450px;
+    height:50px;
+}
+
+.AudioDiv audio
+{
+    margin-top:-45px;
+    float:right
+}
+
+ul
+{
+    margin-left:calc(50% - 250px);
+}
+

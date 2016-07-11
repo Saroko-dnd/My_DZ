@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Анимация и трансформация</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="keywords" content="пример использования HTML, пример использования CSS, анимация CSS" /><!--Бесполезны?-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Сароко Игорь Викторович">
+    <meta name="description" content="Примеры создания анимации при помощи CSS">
+    <link href="css/AnimationStyleSheet.css" rel="stylesheet" />
+    <link href="../MainCSS/MainStyleSheet.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="MainSiteHeader">
+        <header>
+            <h1>ТЕСТОВЫЙ САЙТ</h1>
+        </header>
+        <nav>
+            <a href="../MainlPage.html">На главную</a>
+        </nav>
+    </div>
+    <section>
+        <header>
+            <h1>Анимации</h1>
+        </header>
+        <details class="DetailsWithStarWarsAnimation">
+            <summary>Звездные войны :)</summary>
+            <div class="StarWarsMainBlock">
+                <img src="images/StarwarsLogo.png"/>
+            </div>
+            <div class="DivWithStarWarsAnimation">
+                <div>
+                    <div class="DivWithStarWarsText">
+                        <p class="Episode">Episode I</p>
+                        <p class="EpisodeName">THE PHANTOM MENACE</p>
+                        <p class="JustText">
+                            Turmoil has engulfed the Galactic Republic. The taxation of trade routes to outlying star systems is in dispute.
+                        </p>
+                        <p class="JustText">
+                            Hoping to resolve the matter with a blockade of deadly battleships, the greedy Trade Federation has stopped all shipping to the small planet of Naboo.
+                        </p>
+                        <p class="JustText">
+                            While the Congress of the Republic endlessly debates this alarming chain of events, the Supreme Chancellor has secretly dispatched two Jedi Knights, the guardians of peace and justice in the galaxy, to settle the conflict....
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--Пустой блок прячет текст (чтобы он был виден только над картинкой)-->
+            <div class="EmptyBlock">
+            </div>
+        </details>
+        <details>
+            <summary>Звездные войны :)</summary>
+            <div class="DivWithStarWarsAnimation">
+                <div>
+                    <div class="DivWithStarWarsText">
+                        <h1>Episode I: THE PHANTOM MENACE</h1>
+                        <p>
+                            Turmoil has engulfed the Galactic Republic. The taxation of trade routes to outlying star systems is in dispute.
+                        </p>
+                        <p>
+                            Hoping to resolve the matter with a blockade of deadly battleships, the greedy Trade Federation has stopped all shipping to the small planet of Naboo.
+                        </p>
+                        <p>
+                            While the Congress of the Republic endlessly debates this alarming chain of events, the Supreme Chancellor has secretly dispatched two Jedi Knights, the guardians of peace and justice in the galaxy, to settle the conflict....
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </details>
+    </section>
+    <div class="MainSiteFooter">
+        <footer>
+            Создатель сайта - Сароко Игорь Викторович.
+        </footer>
+    </div>
+</body>
+
+</html>

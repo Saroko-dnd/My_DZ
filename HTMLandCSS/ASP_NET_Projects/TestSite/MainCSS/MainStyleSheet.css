@@ -14,11 +14,16 @@
     margin:auto
 }
 
+.MainSiteHeader h1
+{
+    text-shadow:5px 5px 5px gray;
+}
+
 .MainSiteFooter
 {
     text-align:center;
     width:30%;
-    margin:auto
+    margin:auto;
 }
 
 a:hover

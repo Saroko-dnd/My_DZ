@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <title>Видео и музыка</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta name="keywords" content="пример использования HTML, пример использования CSS, video HTML, audio HTML" /><!--Бесполезны?-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Сароко Игорь Викторович">
+    <meta name="description" content="Примеры вставки видео и аудио файлов в HTML">
+    <link href="css/VideoDetailsStyleSheet.css" rel="stylesheet" />
+    <link href="../MainCSS/MainStyleSheet.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="MainSiteHeader">
+        <header>
+            <h1>ТЕСТОВЫЙ САЙТ</h1>
+        </header>
+        <nav>
+            <a href="../MainlPage.html">На главную</a>
+        </nav>
+    </div>
+    <section>
+        <section>
+            <header>
+                <h1>Видео</h1>
+            </header>
+            <details>
+                <summary>Образец видео</summary>
+                <video controls preload="metadata">
+                    <source src="videos/Wildlife.mp4" type="video/mp4" />
+                    Элемент video не поддерживается вашим браузером.
+                </video>
+            </details>
+            <details>
+                <summary>Видео с youtube</summary>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/XAu_0euguXI" frameborder="0" allowfullscreen>
+                    Ваш браузер не поддерживает встроенные фреймы!
+                </iframe>
+            </details>
+        </section>
+        <section>
+            <header>
+                <h1>Аудио</h1>
+            </header>
+            <details>
+                <summary>Несколько треков</summary>
+                <ul>
+                    <li>
+                        <div class="AudioDiv">
+                            <h1>Первый трек:</h1>
+                            <audio src="audio/mus_town_twin_elms.ogg" controls preload="metadata">
+                                Тег audio не поддерживается вашим браузером.
+                            </audio>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="AudioDiv">
+                            <h1>Второй трек:</h1>
+                            <audio src="audio/px1_mus_stalwart_village.ogg" controls preload="metadata">
+                                Тег audio не поддерживается вашим браузером.
+                            </audio>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="AudioDiv">
+                            <h1>Третий трек:</h1>
+                            <audio src="audio/mus_wilderness_burial_isle.ogg" controls preload="metadata">
+                                Тег audio не поддерживается вашим браузером.
+                            </audio>
+                        </div>
+                    </li>
+                </ul>
+            </details>
+        </section>
+    </section>
+    <div class="MainSiteFooter">
+        <footer>
+            Создатель сайта - Сароко Игорь Викторович.
+        </footer>
+    </div> 
+</body>
+
+</html>
