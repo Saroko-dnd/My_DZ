@@ -1,0 +1,17 @@
+﻿
+
+section
+{
+    width:70%;
+    background-color:darkblue;
+}
+
+aside
+{
+    float:right;
+}
+
+button
+{
+    display:block;
+}

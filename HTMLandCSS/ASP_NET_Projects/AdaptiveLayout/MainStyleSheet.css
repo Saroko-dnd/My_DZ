@@ -1,0 +1,84 @@
+﻿body {
+}
+
+
+
+/*Используется для установления различных стилей в зависимости от результатов проверки*/
+@media screen and (max-width: 800px) 
+{
+    section 
+    {
+        width:70%;
+        background-color:crimson;
+    }
+
+    aside
+    {
+        float:right;
+    }
+
+    button
+    {
+        display:block;
+    }
+}
+
+@media screen and (max-width: 600px) 
+{
+    section 
+    {
+        width:70%;
+        background-color:brown;
+    }
+
+    aside
+    {
+        float:right;
+    }
+
+    button
+    {
+        display:block;
+    }
+}
+
+@media screen and (max-width: 400px) 
+{
+    section 
+    {
+        width:70%;
+        background-color:darkviolet;
+    }
+
+    aside
+    {
+        float:right;
+    }
+
+    button
+    {
+        display:block;
+    }
+}
+
+@media screen and (max-width: 350px) 
+{
+    section 
+    {
+        width:100%;
+        background-color:darkviolet;
+    }
+
+    aside
+    {
+
+    }
+
+    button
+    {
+        display:inline-block;
+    }
+}
+
+
+@import url("SecondStyleSheet.css");
