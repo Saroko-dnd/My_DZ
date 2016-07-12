@@ -3,4 +3,7 @@
 /*единственный работающий способ импорта с учетом media - обьединить их в одну строку*/
 @import url("SecondStyleSheet.css") screen and (max-width: 1500px);
 
+@import url("SmallScreenStyleSheet.css") screen and (max-width: 500px);
+
 @import url("SecondStyleSheet.css") print;
+
