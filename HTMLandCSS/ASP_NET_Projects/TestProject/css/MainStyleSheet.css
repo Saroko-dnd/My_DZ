@@ -1,0 +1,97 @@
+﻿body {
+}
+
+.BlueMenu
+{
+    margin-top:100px;
+    background-color:#00BFFF;
+    width:100%;
+    height:50px;
+    overflow-x:auto;
+    min-width:1200px;
+}
+
+.LogoImage
+{
+    width:120px;
+    height:50px;
+    float:left
+}
+
+.BlueMenuOption
+{
+    display:inline-block;
+    float:left;
+    margin-left:15px;
+    text-align:center;
+}
+
+.BlueMenuOption div
+{
+    display:inline-block;
+    float:left;
+}
+
+.BlueMenuOption div:last-child
+{
+    margin-top:10px;
+}
+
+.BlueMenuOption h3
+{
+    color:white;
+    margin-top:15px;
+}
+
+.BlueMenuTextOption
+{
+
+}
+
+.RelaxByRef
+{
+    width:120px;
+    height:50px;
+    float:left;
+    margin-left:10%;
+}
+
+.OrangeMenuOption
+{
+    margin-top:5px;
+    background-color:#FF460D;
+    height:36px;
+    border:solid;
+    border-color:white;
+}
+
+.OrangeMenuOption h4
+{
+    color:white;
+    margin-top:10px;
+}
+
+.EnterMenuOption
+{
+    display:inline-block;
+    float:right;
+    text-align:center;
+    height:50px;
+    margin-right:10%;
+}
+
+.EnterMenuOption h4
+{
+    color:white;
+    margin-top:15px;
+}
+
+.EnterMenuOption div
+{
+    float:left;
+}
+
+.EnterMenuOption div:first-child
+{
+    margin-top:10px;
+}
