@@ -7,6 +7,25 @@ margin: 0;
 padding: 0;
 }
 
+.ListOfSvgIcons
+{
+    display:none;
+}
+
+.MobileSvg
+{
+    width:24px;
+    height:32px;
+    top:6px;
+    position:relative;
+    color:#00aeef;
+}
+
+.BluePathForSvg
+{
+    fill:#00aeef
+}
+
 .BlueMenu
 {
     margin-top:100px;
@@ -15,7 +34,7 @@ padding: 0;
     height:50px;
     overflow-x:auto;
     overflow-y:hidden;
-    min-width:850px;
+    min-width:972px;
     margin-bottom:0px;
     font-family:Calibri;
 }
@@ -121,6 +140,17 @@ padding: 0;
     min-width:850px;
 }
 
+.SecondTopMenu > div
+{
+    background-color:transparent;
+    width:100%;
+    height:44px;
+    margin-top:0px;
+    min-width:972px;
+    top:14px;
+    position:relative;
+}
+
 .SearchInput
 {
     top:3px;
@@ -139,8 +169,6 @@ padding: 0;
 
 .SearchDivUnderBlueMenu
 {
-    top:15px;
-    position:relative;
     background-color:blueviolet;
     width:615px;
     height:44px;
@@ -149,26 +177,48 @@ padding: 0;
     border: 1px solid #a3bbc5;
     border-radius: 3px; 
     display:inline-block;
+    float:left;
 }
 
-.SearchDivUnderBlueMenu input[type=button]
+.SearchDivUnderBlueMenu a
 {
+    width:85px;
+    height:30px;
+    display:inline-block;
+    top:-10%;
+    position:relative;
+}
+
+.SearchDivUnderBlueMenu a div
+{
+    border-radius: 3px; 
+    border-color:#a8c3cf;
     background-color:#a8c3cf;
     color:white;
     width:85px;
     height:30px;
-    top:-1px;
-    position:relative;
     font-size:20px;
+    text-align:center;
+}
+
+.SearchDivUnderBlueMenu a div p
+{
+    top:2px;
+    position:relative;
+}
+
+.SearchDivUnderBlueMenu a
+{
+    text-decoration:none;
 }
 
 .DivAddCompanyButton
 {
-    top:12px;
-    position:relative;
     display:inline-block;
     margin-left:24px;
     width:200px;
+    height:44px;
+    float:left;
 }
 
 .DivAddCompanyButton input
@@ -176,10 +226,52 @@ padding: 0;
     border: 1px solid #00aeef;
     border-radius: 3px; 
     background-color: transparent;
-    height:44px;
     font-size:17.5px;
     font-weight:normal;
     width:200px;
+    height:44px;
+}
+
+.DivDownloadMobileApp
+{
+    display:inline-block;
+    width:172px;
+    height:44px;
+    margin-left:40px;
+    font-size:14px;
+    float:left;
+}
+
+.DivDownloadMobileApp p
+{
+    width:75%;
+    display:inline-block;
+    margin-left:9px;
+    color: rgba(0,0,0,.5);
+    text-decoration:none;
+}
+
+.DivDownloadMobileApp a
+{
+    text-decoration:none;
+}
+
+.TopNavigationPanel
+{
+    display:flex;
+    width:100%;
+    height:150px;
+    align-items:center;
+    justify-content:center;
+    min-width:972px;
+}
+
+.TopNavigationPanel div
+{
+    display:flex;
+    width:972px;
+    height:150px;
+    background-color:blue;
 }
 
 @media screen and (max-width:1200px)
@@ -194,15 +286,24 @@ padding: 0;
 
     .SearchDivUnderBlueMenu
     {
-        top:15px;
-        position:relative;
         background-color:blueviolet;
-        width:615px;
+        width:395px;
         height:44px;
         margin-left:5px;
         background-color:white;
         border: 1px solid #a3bbc5;
         border-radius: 3px; 
+    }
+
+    .SearchInput
+    {
+        top:3px;
+        position:relative;
+        height:40px;
+        width:300px;
+        font-size:28px;
+        border: none;
+        border-color: transparent;
     }
 }
 

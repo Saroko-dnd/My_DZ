@@ -9,6 +9,13 @@
 </head>
 
 <body>
+    <svg xmlns="http://www.w3.org/2000/svg" class="ListOfSvgIcons">
+        <symbol viewBox="0 0 18 30" id="icon-mobile-phone">
+            <title>mobile-phone</title>
+            <path class="BluePathForSvg" d="M18,2c0-1.105-0.895-2-2-2H2C0.895,0,0,0.895,0,2v26c0,1.105,0.895,2,2,2h14c1.105,0,2-0.895,2-2V2z M10,28
+	            H8c-0.552,0-1-0.448-1-1s0.448-1,1-1h2c0.552,0,1,0.448,1,1S10.552,28,10,28z M16,24H2V2h14V24z"></path>
+        </symbol>
+    </svg>
     <menu class="BlueMenu">
         <div>
             <div class="RelaxByRef">
@@ -60,14 +67,35 @@
         </div>
     </menu>
     <menu class="SecondTopMenu">
-        <div class="SearchDivUnderBlueMenu">
-            <input class="SearchInput" type="text" placeholder="Поиск"/>
-            <input type="button" value="найти"/>
-        </div>
-        <div class="DivAddCompanyButton">
-            <input type="button" value="добавить компанию" />
+        <div>
+            <div class="SearchDivUnderBlueMenu">
+                <input class="SearchInput" type="text" placeholder="Поиск" />
+                <a href="">
+                    <div>
+                        <p>
+                            найти
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <div class="DivAddCompanyButton">
+                <input type="button" value="добавить компанию" />
+            </div>
+            <div class="DivDownloadMobileApp">
+                <a href="">
+                    <svg class="MobileSvg">
+                        <use xlink:href="#icon-mobile-phone"></use>
+                    </svg>
+                    <p>Скачать мобильное приложение</p>
+                </a>
+            </div>
         </div>
     </menu>
+    <nav class="TopNavigationPanel">
+        <div>
+
+        </div>
+    </nav>
 </body>
 
 </html>
