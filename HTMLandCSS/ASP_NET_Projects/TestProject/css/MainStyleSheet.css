@@ -1,14 +1,23 @@
 ﻿body {
 }
 
+/*Обнуляем все падинги и маржины выставленные браузером*/
+* {
+margin: 0;
+padding: 0;
+}
+
 .BlueMenu
 {
     margin-top:100px;
-    background-color:#00BFFF;
+    background-color:#00aeef;
     width:100%;
     height:50px;
     overflow-x:auto;
-    min-width:1200px;
+    overflow-y:hidden;
+    min-width:850px;
+    margin-bottom:0px;
+    font-family:Calibri;
 }
 
 .LogoImage
@@ -24,6 +33,13 @@
     float:left;
     margin-left:15px;
     text-align:center;
+}
+
+.BlueMenuOption img
+{
+    width:16px;
+    height:16px;
+    margin-top:8px;
 }
 
 .BlueMenuOption div
@@ -94,4 +110,110 @@
 .EnterMenuOption div:first-child
 {
     margin-top:10px;
+}
+
+.SecondTopMenu
+{
+    background-color:#e5f5fc;
+    width:100%;
+    height:75px;
+    margin-top:0px;
+    min-width:850px;
+}
+
+.SearchInput
+{
+    top:3px;
+    position:relative;
+    height:40px;
+    width:520px;
+    font-size:28px;
+    border: none;
+    border-color: transparent;
+}
+
+.SearchInput:focus
+{
+   outline: none;
+}
+
+.SearchDivUnderBlueMenu
+{
+    top:15px;
+    position:relative;
+    background-color:blueviolet;
+    width:615px;
+    height:44px;
+    margin-left:10%;
+    background-color:white;
+    border: 1px solid #a3bbc5;
+    border-radius: 3px; 
+    display:inline-block;
+}
+
+.SearchDivUnderBlueMenu input[type=button]
+{
+    background-color:#a8c3cf;
+    color:white;
+    width:85px;
+    height:30px;
+    top:-1px;
+    position:relative;
+    font-size:20px;
+}
+
+.DivAddCompanyButton
+{
+    top:12px;
+    position:relative;
+    display:inline-block;
+    margin-left:24px;
+    width:200px;
+}
+
+.DivAddCompanyButton input
+{
+    border: 1px solid #00aeef;
+    border-radius: 3px; 
+    background-color: transparent;
+    height:44px;
+    font-size:17.5px;
+    font-weight:normal;
+    width:200px;
+}
+
+@media screen and (max-width:1200px)
+{
+    .RelaxByRef
+    {
+        width:120px;
+        height:50px;
+        float:left;
+        margin-left:5px;
+    }
+
+    .SearchDivUnderBlueMenu
+    {
+        top:15px;
+        position:relative;
+        background-color:blueviolet;
+        width:615px;
+        height:44px;
+        margin-left:5px;
+        background-color:white;
+        border: 1px solid #a3bbc5;
+        border-radius: 3px; 
+    }
+}
+
+@media screen and (max-width:1000px)
+{
+    .EnterMenuOption
+    {
+        display:inline-block;
+        float:right;
+        text-align:center;
+        height:50px;
+        margin-right:5px;
+    }
 }
