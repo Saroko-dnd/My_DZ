@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Сайт содержит последние новости игровой индустрии, рецензии, игровые обои и многое другое.">
     <link href="MainCss/MainStyleSheet.css" rel="stylesheet"/>
+    <link href="MainCss/HeaderFooterMenuStyleSheet.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -18,7 +19,7 @@
             <img src="MainImages/Gear.png" alt="" />
         </div>
         <div class="HeaderLogo">
-            <h1>Логотип сайта</h1>
+            <h1>World Of Games</h1>
         </div>
         <div>
             <img src="MainImages/Gear.png" alt="" />
@@ -47,39 +48,91 @@
             </h3>
         </a>
     </nav>
-    <aside class="AsideWithMenu">
-        <h2>Меню настроек</h2>
-        <menu></menu>
-    </aside>
-    <main>
-        <section>
-            <header>Последние новости игровой индустрии</header>
-            <article>
-                <header>Заголовок</header>
-                <p></p>
-                <img alt="картинка" />
-                <time>Дата и время</time>
-            </article>
-            <article>
-                <header>Заголовок</header>
-                <p></p>
-                <img alt="картинка" />
-                <time>Дата и время</time>
-            </article>
-            <article>
+    <div class="MainDiv">
+        <aside class="AsideWithMenu">
+            <h2>Меню настроек</h2>
+            <menu>
+                <h3>Шрифт:</h3>
+                <select>
+                    <option value="standart_font">По умолчанию</option>
+                    <option value="a_font_with_serifs">a_font_with_serifs</option>
+                    <option value="aalbionictitulcm">aalbionictitulcm</option>
+                    <option value="amoderno">amoderno</option>
+                </select>
+                <h3>Размер шрифта (статьи):</h3>
+                <select>
+                    <option value="14px">14px</option>
+                    <option value="16px">16px</option>
+                    <option value="18px">18px</option>
+                    <option value="20px">20px</option>
+                </select>
+                <h3>Оформление:</h3>
+                <select>
+                    <option value="14px">Зеленое</option>
+                    <option value="16px">Красное</option>
+                    <option value="18px">Оранжевое</option>
+                    <option value="20px">Синее</option>
+                </select>
                 <div>
-                    <header>Заголовок</header>
+                    <h3>Только текст</h3>
+                    <input type="checkbox" />
                 </div>
-                <div>
-                    <p></p>
-                    <img alt="картинка" />
+            </menu>
+        </aside>
+        <main>
+            <section>
+                <header>Последние новости игровой индустрии</header>
+                <div class="DivWithArticle">
+                    <article>
+                        <img src="MainImages/FirstNewsImage.jpg" alt="картинка" />
+                        <div>
+                            <header>
+                                <h3>
+                                    Новое видео Modern Warfare Remastered демонстрирует качество графики
+                                </h3>
+                                <div>
+                                    <a href="">Узнать больше</a>
+                                </div>
+                            </header>
+                        </div>
+                    </article>
+                    <time>15.07.2016 | 16:43</time>
                 </div>
-                <div>
-                    <time>Дата и время</time>
+                <div class="DivWithArticle">
+                    <article>
+                        <img src="MainImages/SecondNewsImage.jpg" alt="картинка" />
+                        <div>
+                            <header>
+                                <h3>
+                                    Nintendo решила перевыпустить консоль NES
+                                </h3>
+                                <div>
+                                    <a href="">Узнать больше</a>
+                                </div>
+                            </header>
+                        </div>
+                    </article>
+                    <time>14.07.2016 | 16:48</time>
                 </div>
-            </article>
-        </section>
-    </main>
+                <div class="DivWithArticle">
+                    <article>
+                        <img src="MainImages/ThirdNewsImage.jpg" alt="картинка" />
+                        <div>
+                            <header>
+                                <h3>
+                                    Новая раса в Total War: Warhammer выйдет в конце июля
+                                </h3>
+                                <div>
+                                    <a href="">Узнать больше</a>
+                                </div>
+                            </header>
+                        </div>
+                    </article>
+                    <time>14.07.2016 | 16:41</time>
+                </div>
+            </section>
+        </main>
+    </div>
     <footer>
         <div>
             <p>Копирайт</p>

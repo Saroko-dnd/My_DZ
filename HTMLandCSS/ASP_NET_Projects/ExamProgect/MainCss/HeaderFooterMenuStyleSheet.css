@@ -1,0 +1,221 @@
+﻿
+footer
+{
+    background-color:lightgreen;
+    display:flex;
+    width:100%;
+    height:100px;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;   
+}
+
+footer div
+{
+    display:flex;
+    width:90%;
+    height:33px;
+    border-bottom:solid;
+    border-bottom-color:red;
+    border-bottom-width:1px;
+    border-right:solid;
+    border-right-color:red;
+    border-right-width:1px;
+    border-left:solid;
+    border-left-color:red;
+    border-left-width:1px;
+}
+
+.AnimatedHeader
+{
+    margin-top:20px;
+    width:100%;
+    display:flex;
+    height:75px;
+}
+
+.AnimatedHeader h1
+{
+    display:flex;
+    font-size:46px;
+    text-shadow: 4px 4px 3px gray;
+    animation:HeaderColorAnimation 20s linear infinite;
+    font-family:blades_gf_free;
+}
+
+.AnimatedHeader > div:first-child 
+{
+    justify-content:flex-end;
+}
+
+.AnimatedHeader > div:first-child img:last-child
+{
+    transform:rotate(20deg);
+    animation:HeaderAnimationClockwise 5s linear infinite;
+}
+
+.AnimatedHeader > div:first-child img:first-child
+{
+    left:8px;
+    position:relative;
+    animation:HeaderAnimationAnticlockwise 5s linear infinite;
+}
+
+.AnimatedHeader > div:last-child img:first-child
+{
+    transform:rotate(20deg);
+    animation:HeaderAnimationAnticlockwise 5s linear infinite;
+}
+
+.AnimatedHeader > div:last-child img:last-child
+{
+    right:8px;
+    position:relative;
+    animation:HeaderAnimationClockwise 5s linear infinite;
+}
+
+.AnimatedHeader > div:last-child img
+{
+    justify-content:flex-start;
+}
+
+.AnimatedHeader img
+{
+    display:inline-flex;
+    width:70px;
+    height:75px;
+}
+
+.AnimatedHeader div:nth-child(even)
+{
+    width:50%;
+    display:inline-flex;
+    height:75px;
+    justify-content:center;
+    align-items:center;
+}
+
+.AnimatedHeader div:nth-child(odd)
+{
+    background-color:darkgrey;
+    display:inline-flex;
+    height:75px;
+    width:25%;
+}
+
+.AsideWithMenu 
+{
+    width:216px;
+    float:left;
+    height:330px;
+    text-align:center;
+}
+
+.AsideWithMenu h2
+{
+    float:left;
+    width:100%;
+    height:10%;
+}
+
+menu
+{
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:90%;
+    background-color:indigo;
+}
+
+menu *
+{
+    display:flex;
+}
+
+menu div
+{
+    width:100%;
+    height:40px;
+    align-items:center;
+    justify-content:flex-start;
+}
+
+@keyframes HeaderAnimationClockwise
+{
+    from{
+        transform:rotate(20deg)
+    }
+    to{
+        transform:rotate(380deg)
+    }
+}
+
+@keyframes HeaderAnimationAnticlockwise
+{
+    from{
+        transform:rotate(0deg)
+    }
+    to{
+        transform:rotate(-360deg)
+    }
+}
+
+@keyframes HeaderColorAnimation
+{
+    0%
+    {
+        color:black;
+    }
+    25%
+    {
+        color:blue;
+    }
+    50%
+    {
+        color:red;
+    }
+    75%
+    {
+        color:forestgreen;
+    }
+    100%
+    {
+        color:black;
+    }
+}
+
+@font-face 
+{
+    font-family: blades_gf_free;
+    src: url(../Fonts/blades_gf_free.ttf); 
+}
+
+@media screen and (max-width:585px)
+{
+    .AnimatedHeader
+    {
+        margin-top:40px;
+        width:100%;
+        display:flex;
+        height:150px;
+    }
+
+    .AnimatedHeader > div:first-child
+    {
+        display:none;
+    }
+
+    .AnimatedHeader > div:last-child
+    {
+        display:none;
+    }
+
+    .AnimatedHeader div:nth-child(even)
+    {
+        width:100%;
+        display:inline-flex;
+        height:150px;
+        justify-content:center;
+        align-items:center;
+    }
+}

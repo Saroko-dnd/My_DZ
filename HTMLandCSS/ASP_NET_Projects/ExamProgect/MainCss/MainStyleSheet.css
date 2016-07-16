@@ -7,80 +7,6 @@
     padding: 0;
 }
 
-footer
-{
-    background-color:lightgreen;
-    display:flex;
-    width:100%;
-    height:100px;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;   
-}
-
-footer div
-{
-    display:flex;
-    width:90%;
-    height:33px;
-    border-bottom:solid;
-    border-bottom-color:red;
-    border-bottom-width:1px;
-    border-right:solid;
-    border-right-color:red;
-    border-right-width:1px;
-    border-left:solid;
-    border-left-color:red;
-    border-left-width:1px;
-}
-
-.AnimatedHeader
-{
-    margin-top:20px;
-    width:100%;
-    display:flex;
-    height:75px;
-}
-
-.AnimatedHeader h1
-{
-    display:flex;
-}
-
-.AnimatedHeader > div:first-child 
-{
-    justify-content:flex-end;
-}
-
-.AnimatedHeader > div:last-child img
-{
-    justify-content:flex-start;
-}
-
-.AnimatedHeader img
-{
-    display:inline-flex;
-    width:75px;
-    height:75px;
-}
-
-.AnimatedHeader div:nth-child(even)
-{
-    width:50%;
-    display:inline-flex;
-    height:75px;
-    justify-content:center;
-    align-items:center;
-}
-
-.AnimatedHeader div:nth-child(odd)
-{
-    background-color:darkgrey;
-    display:inline-flex;
-    height:75px;
-    width:25%;
-}
-
 nav
 {
     display:flex;
@@ -118,7 +44,7 @@ nav a:last-child
 
 main
 {
-    width:80%;
+    width:calc(100% - 216px);
     height:700px;
     background-color:brown;
     float:right;
@@ -142,44 +68,87 @@ main section > header
 
 main article
 {
-    height:25%;
-    margin-top:2%;
+    height:85%;
     width:100%;
+}
+
+article > *
+{
+    display:inline-block;
+    float:left;
+}
+
+article div 
+{
+    width:calc(100% - 170px);
+    height:100%;
+}
+
+article div > *
+{
+    display:inline-block;
+    float:left;
+}
+
+article img
+{
+    width:170px;
+    height:100%;
+}
+
+article header
+{
+    width:100%;
+    height:100%;
+    font-size:20px;
+}
+
+article header h3
+{
+    width:100%;
+    height:85%;
+    font-size:27px;
+}
+
+article header div
+{
+    width:100%;
+    height:15%;
+    text-align:center;
+}
+
+article header div a
+{
+    width:100%;
+    height:100%;
+    text-decoration:none;
+}
+
+time
+{
+    display:block;
+    width:100%;
+    height:15%;
+    font-size:20px;
+    text-wrap:normal;
+    border-top:solid;
+    border-top-color:orange;
+    border-top-width:2px;
+}
+
+.MainDiv
+{
+    width:100%;
+    height:700px;
+}
+
+.DivWithArticle
+{
+    height:25%;
+    width:100%;
+    margin-top:2%;
     border:solid;
     border-color:orange;
     border-width:2px;
 }
 
-.AsideWithMenu h2
-{
-    float:left;
-    width:100%;
-    height:10%;
-}
-
-.AsideWithMenu 
-{
-    float:left;
-    width:20%;
-    height:330px;
-    text-align:center;
-}
-
-menu
-{
-    display:flex;
-    width:100%;
-    height:90%;
-    background-color:indigo;
-}
-
-article div:nth-child(odd)
-{
-    height:10%;
-    background-color:darkgrey;
-}
-
-article div:nth-child(even)
-{
-    height:80%%;
-}
