@@ -1,75 +1,48 @@
 ﻿body {
-}
-
-* 
-{
-    margin: 0;
-    padding: 0;
-}
-
-nav
-{
-    display:flex;
-    width:100%;
-    height:50px;
-    background-color:lightsteelblue;
-    align-items:center;
-    justify-content:center;
-}
-
-nav *
-{
-    display:flex;
-}
-
-nav a
-{
-    display:flex;
-    text-decoration:none;
-    width:200px;
-    height:50px;
-    border-left:solid;
-    border-left-width:1px;
-    border-left-color:darkgreen;
-    align-items:center;
-    justify-content:center;
-}
-
-nav a:last-child
-{
-    border-right:solid;
-    border-right-width:1px;
-    border-right-color:darkgreen;
+    position:relative;
+    z-index:0;
 }
 
 main
 {
     width:calc(100% - 216px);
     height:700px;
-    background-color:brown;
+    background-color:#6A94D4;
     float:right;
+}
+
+main *
+{
+    display:flex;
 }
 
 main section
 {
+    flex-direction:column;
     margin-left:5%;
     width:90%;
-    height:100%;
+    height:auto;
     text-align:center;
 }
 
 main section > header
 {
+    display:flex;
     font-size:30px;
-    height:10%;
+    height:auto;
     width:100%;
-    background-color:mediumblue;
+    background-color:#1437AD;
+    justify-content:center;
+    align-items:center;
+    color:#FFBE00;
+    font-weight:bold;
 }
 
 main article
 {
     height:85%;
     width:100%;
+    position:relative;
 }
 
 article > *
@@ -92,8 +65,26 @@ article div > *
 
 article img
 {
-    width:170px;
+    display:flex;
+    width:100%;
     height:100%;
+}
+
+.DivWithImage
+{
+    align-items:center;
+    justify-content:center;
+    display:flex;
+    width:170px;
+    height:147px;
+}
+
+article img:hover
+{
+    width:auto;
+    height:auto;
+    position:relative;
+    z-index:1;
 }
 
 article header
@@ -105,9 +96,11 @@ article header
 
 article header h3
 {
+    justify-content:center;
     width:100%;
     height:85%;
     font-size:27px;
+    color:#FFFD00;
 }
 
 article header div
@@ -117,11 +110,33 @@ article header div
     text-align:center;
 }
 
+.DivWithReference
+{
+    display:flex;
+    justify-content:center;
+}
+
+.DivWithReference a
+{
+    display:flex;
+    justify-content:center;
+}
+
 article header div a
 {
-    width:100%;
+    width:90%;
     height:100%;
     text-decoration:none;
+    background-color:#BF9330;
+    border-radius:5px;
+    color:white;
+    font-weight:bold;
+}
+
+article header div a:hover
+{
+    background-color:#FFB000;
+    color:blue;
 }
 
 time
@@ -134,21 +149,90 @@ time
     border-top:solid;
     border-top-color:orange;
     border-top-width:2px;
+    color:#FFFC00;
 }
 
 .MainDiv
 {
+    margin-top:20px;
+    display:flex;
     width:100%;
-    height:700px;
+    height:auto;
+}
+
+.MainDiv main
+{
+    display:flex;
+    height:auto;
 }
 
 .DivWithArticle
 {
-    height:25%;
+    margin-top:10px;
+    flex-direction:column;
+    height:auto;
     width:100%;
     margin-top:2%;
     border:solid;
     border-color:orange;
     border-width:2px;
+    background-color:#0F4DA8;
 }
 
+article > div:last-child
+{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:auto;
+}
+
+article > div:last-child *
+{
+    height:auto;
+}
+
+@media screen and (max-width:700px)
+{
+    .MainDiv
+    {
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        width:100%;
+        height:auto;
+    }
+
+    .MainDiv > *
+    {
+        display:flex;
+    }
+
+    .AsideWithMenu
+    {
+        float:none;
+    }
+
+    main
+    {
+        width:100%;
+    }
+}
+
+@media screen and (max-width:414px)
+{
+    .DivWithImage
+    {
+        display:none;
+    }
+
+    article > div:last-child
+    {
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:auto;
+        width:100%;
+    }
+}

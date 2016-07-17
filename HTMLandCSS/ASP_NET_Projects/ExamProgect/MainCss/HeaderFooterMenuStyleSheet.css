@@ -1,28 +1,94 @@
 ﻿
-footer
+* 
 {
-    background-color:lightgreen;
-    display:flex;
-    width:100%;
-    height:100px;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;   
+    margin: 0;
+    padding: 0;
 }
 
-footer div
+nav
+{
+    display:flex;
+    width:100%;
+    height:50px;
+    background-color:#6E84D6;
+    align-items:center;
+    justify-content:center;
+}
+
+nav *
+{
+    display:flex;
+}
+
+nav a
+{
+    color:white;
+    display:flex;
+    text-decoration:none;
+    width:200px;
+    height:50px;
+    border-left:solid;
+    border-left-width:2px;
+    border-left-color:#1D0772;
+    align-items:center;
+    justify-content:center;
+}
+
+nav a:hover
+{
+    background-color:#4867D6;
+    font-size:20px;
+}
+
+nav a:last-child
+{
+    border-right:solid;
+    border-right-width:2px;
+    border-right-color:#1D0772;
+}
+
+footer
+{
+    margin-top:20px;
+    background-color:#4577D4;
+    display:flex;
+    width:100%;
+    height:auto;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;  
+    color:#FFA500;
+}
+
+footer div:nth-child(odd)
 {
     display:flex;
     width:90%;
-    height:33px;
+    height:auto;
     border-bottom:solid;
-    border-bottom-color:red;
+    border-bottom-color:#FFD273;
     border-bottom-width:1px;
     border-right:solid;
-    border-right-color:red;
+    border-right-color:#FFD273;
     border-right-width:1px;
     border-left:solid;
-    border-left-color:red;
+    border-left-color:#FFD273;
+    border-left-width:1px;
+}
+
+footer div:nth-child(even)
+{
+    display:flex;
+    width:90%;
+    height:auto;
+    border-bottom:solid;
+    border-bottom-color:#FFD273;
+    border-bottom-width:1px;
+    border-right:solid;
+    border-right-color:#FFD273;
+    border-right-width:1px;
+    border-left:solid;
+    border-left-color:#FFD273;
     border-left-width:1px;
 }
 
@@ -39,8 +105,8 @@ footer div
     display:flex;
     font-size:46px;
     text-shadow: 4px 4px 3px gray;
-    animation:HeaderColorAnimation 20s linear infinite;
     font-family:blades_gf_free;
+    color:blue;
 }
 
 .AnimatedHeader > div:first-child 
@@ -97,7 +163,7 @@ footer div
 
 .AnimatedHeader div:nth-child(odd)
 {
-    background-color:darkgrey;
+    background-color:#4869D6;
     display:inline-flex;
     height:75px;
     width:25%;
@@ -105,17 +171,30 @@ footer div
 
 .AsideWithMenu 
 {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
     width:216px;
-    float:left;
-    height:330px;
+    min-width:216px;
+    height:200px;
+    min-height:200px;
     text-align:center;
+    color:#FFB273;
+}
+
+.AsideWithMenu *
+{
+    display:flex;
 }
 
 .AsideWithMenu h2
 {
     float:left;
     width:100%;
-    height:10%;
+    height:12.5%;
+    background-color:#015666;
+    color:#A64B00;
 }
 
 menu
@@ -123,8 +202,14 @@ menu
     display:flex;
     flex-direction:column;
     width:100%;
-    height:90%;
-    background-color:indigo;
+    height:87.5%;
+    background-color:#04859D;
+}
+
+menu select
+{
+    background-color:#206876;
+    color:#BF7130;
 }
 
 menu *
@@ -138,6 +223,11 @@ menu div
     height:40px;
     align-items:center;
     justify-content:flex-start;
+}
+
+menu > *
+{
+    height:14%;
 }
 
 @keyframes HeaderAnimationClockwise
@@ -160,34 +250,19 @@ menu div
     }
 }
 
-@keyframes HeaderColorAnimation
-{
-    0%
-    {
-        color:black;
-    }
-    25%
-    {
-        color:blue;
-    }
-    50%
-    {
-        color:red;
-    }
-    75%
-    {
-        color:forestgreen;
-    }
-    100%
-    {
-        color:black;
-    }
-}
-
 @font-face 
 {
     font-family: blades_gf_free;
     src: url(../Fonts/blades_gf_free.ttf); 
+}
+
+@media screen and (max-width:1005px)
+{
+    .AnimatedHeader div:nth-child(even)
+    {
+        left:5px;
+        position:relative;
+    }
 }
 
 @media screen and (max-width:585px)
@@ -217,5 +292,52 @@ menu div
         height:150px;
         justify-content:center;
         align-items:center;
+    }
+}
+
+@media screen and (max-width:500px)
+{
+    nav
+    {
+        display:flex;
+        width:100%;
+        height:200px;
+        background-color:#6E84D6;
+        align-items:center;
+        justify-content:center;
+        flex-direction:column;
+    }
+
+    nav a
+    {
+        color:white;
+        display:flex;
+        text-decoration:none;
+        width:200px;
+        height:50px;
+        border:solid;
+        border-width:1px;
+        border-color:#1D0772;
+        align-items:center;
+        justify-content:center;
+        border-left:solid;
+        border-left-width:2px;
+        border-left-color:#1D0772;
+        border-right:solid;
+        border-right-width:2px;
+        border-right-color:#1D0772;
+    }
+
+    nav a:last-child
+    {
+        border:solid;
+        border-width:1px;
+        border-color:#1D0772;
+        border-left:solid;
+        border-left-width:2px;
+        border-left-color:#1D0772;
+        border-right:solid;
+        border-right-width:2px;
+        border-right-color:#1D0772;
     }
 }
