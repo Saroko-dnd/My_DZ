@@ -12,8 +12,8 @@ body *
 
 img
 {
-    width:350px;
-    height:200px
+    width:100%;
+    height:100%;
 }
 
 img:hover
@@ -92,9 +92,35 @@ main section > div
 
 .FlexDivWithWallpapers
 {
-    width:100%;
-    flex-wrap:wrap;
-    justify-content:center;
+    z-index:5;
+    position: absolute;
+    top: 0;
+	left: 0;
+	height: 100%;
+    width: 100%;  
+    overflow:hidden;
+}
+
+.LabelWithLeftArrow
+{
+    z-index:6;
+    position: absolute;
+    top: 50%;
+	left: 0px;
+	height: 20%;
+    width: 10%;
+    background-color:black; 
+}
+
+.LabelWithRightArrow
+{
+    z-index:6;
+    position: absolute;
+    top: 50%;
+	right: 0px;
+	height: 20%;
+    width: 10%;
+    background-color:black; 
 }
 
 .FlexDivWithWallpapers > div
@@ -103,9 +129,17 @@ main section > div
     align-items:center;
     margin-top:10px;
     margin-bottom:10px;
-    margin-left:10px;
     margin-right:10px;
-    flex-basis:100px;
+    width:900%;
+    height:100%;
+}
+
+.ImageWrapper
+{
+    width:100%;
+    padding-bottom:56.25%;
+    height:0px;
+    position: relative;
 }
 
 figure
@@ -117,6 +151,12 @@ figure
 .MainDiv
 {
     margin-top:20px;
+}
+
+.ListOfSmallImages img
+{
+    width:100px;
+    height:50px;
 }
 
 @media screen and (max-width:600px)
@@ -150,3 +190,4 @@ figure
         height:160px
     }
 }
+

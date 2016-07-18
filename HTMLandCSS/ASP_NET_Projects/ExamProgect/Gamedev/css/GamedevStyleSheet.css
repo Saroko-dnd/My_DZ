@@ -1,0 +1,31 @@
+﻿body *
+{
+    display:flex;
+}
+
+main
+{
+    width:calc(100% - 216px);
+    height:auto;
+    background-color:#6A94D4;
+    justify-content:center;
+}
+
+main section
+{
+    width:90%;
+    flex-direction:column;
+    padding-bottom:10px;
+    align-items:center;
+}
+
+main section > header
+{
+    font-size:30px;
+    height:auto;
+    width:100%;
+    background-color:#1437AD;
+    color:#FFBE00;
+    font-weight:bold;
+    justify-content:center;
+}
