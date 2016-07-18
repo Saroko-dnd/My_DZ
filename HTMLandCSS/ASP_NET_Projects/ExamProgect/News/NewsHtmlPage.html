@@ -5,11 +5,13 @@
     <title>WOG новости</title>
 	<meta charset="utf-8" />
     <meta http-equiv="pragma" content="no-cache">
-    <meta name="keywords" content="games, компьютерные игры, игровые новости" />
+    <meta name="keywords" content="новости компьютерных игр, игровые новости, games" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Сайт содержит последние новости игровой индустрии, рецензии, игровые обои и многое другое.">
+    <meta name="description" content="Самые свежие новости компьютерных игр и игровых приставок только на WorldOfGames.by">
     <link href="css/NewsStyleSheet.css" rel="stylesheet" />
     <link href="../MainCss/HeaderFooterMenuStyleSheet.css" rel="stylesheet" />
+    <link href="../icons/Game-Controller-blue-32.png" type="image/x-icon" rel="shortcut icon" />
+    <link href="../MainCss/PagesNavigatorStyleSheet.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -26,13 +28,13 @@
             <img src="../MainImages/Gear.png" alt="" />
         </div>
     </header>
-    <nav>
+    <nav class="NavHeader">
         <a href="">
             <h3>
                 НОВОСТИ
             </h3>
         </a>
-        <a href="">
+        <a href="../Reviews/ReviewsHtmlPage.html">
             <h3>
                 РЕЦЕНЗИИ
             </h3>
@@ -61,17 +63,17 @@
                 </select>
                 <h3>Размер шрифта (статьи):</h3>
                 <select>
-                    <option value="14px">20px</option>
-                    <option value="16px">22px</option>
-                    <option value="18px">24px</option>
-                    <option value="20px">26px</option>
+                    <option value="20px">20px</option>
+                    <option value="22px">22px</option>
+                    <option value="24px">24px</option>
+                    <option value="26px">26px</option>
                 </select>
                 <h3>Оформление:</h3>
                 <select>
-                    <option value="14px">По умолчанию</option>
-                    <option value="14px">Зеленое</option>
-                    <option value="16px">Красное</option>
-                    <option value="18px">Фиолетовое</option>
+                    <option value="standart_background">По умолчанию</option>
+                    <option value="green_background">Зеленое</option>
+                    <option value="red_background">Красное</option>
+                    <option value="purple_background">Фиолетовое</option>
                 </select>
                 <div>
                     <h3>Только текст</h3>
@@ -81,7 +83,7 @@
         </aside>
         <main>
             <section>
-                <article>
+                <article id="News_1">
                     <header>
                         <h3>
                             Новое видео Modern Warfare Remastered демонстрирует качество графики
@@ -98,24 +100,73 @@
                                 постаралась над графикой ремастера - сравнить их можно, взглянув, например, на прохождение оригинальной миссии. Напомним, что ремастер Call of Duty 4: Modern Warfare можно получить
                                 лишь за предзаказ Digital Deluxe и коллекционных изданий Call of Duty: Infinite Warfare, релиз которой состоится 4 ноября этого года.
                             </p>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/uGVNJCKyJ-M" frameborder="0" allowfullscreen></iframe>
+                            <div class="DivFlexWithVideo">
+                                <div class="DivBlockWithVideo">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/uGVNJCKyJ-M" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <time>15.07.2016 | 16:43</time>
                 </article>
-                <article>
+                <article id="News_2">
                     <header>
                         <h3>
                             Nintendo решила перевыпустить консоль NES
                         </h3>
                     </header>
+                    <div class="DivWithContent">
+                        <div class="DivWithImage">
+                            <img src="images/SecondNewsImage.jpg" alt="" />
+                        </div>
+                        <div class="DivWithTextAndVideo">
+                            <p>
+                                В то время, как Sony и Microsoft собираются выпустить усиленные (Scorpio и Neo), а так же Slim-версии своих консолей, компания Nintendo решила пойти по другому пути. 
+                                Их решением стал перевыпуск знаменитой Nintedo Entertainment System (NES) под названием mini Classic Edition. Новинка поступит в продажу 11 ноября (в том числе и в России) 
+                                и будет поставляться сразу с 30 главными хитами платформы, включая The Legend of Zelda, Castlevania, Final Fantasy 1 и другие классические хиты. Полный список игр, которые будут 
+                                идти вместе с консолью, можно найти на официальном сайте компании.
+                            </p>
+                            <p>
+                                Предварительная цена консоли составляет всего $59.99 (цена в рублях на данный момент не объявлена). NES mini значительно компактнее оригинала 1983 года и оснащена портом HDMI
+                                для подключения к современным телевизорам. Геймпад у обновленной консоли идентичен старому, полностью повторяя форму и размеры оригинального NES Controller, но при это
+                                поддерживает подключение к Wii Remote для более аутентичной игры на виртуальной консоли Wii и Wii U. Впрочем, не все так радужно - например, оригинальные картриджи от NES mini
+                                NES не поддерживает - их просто некуда вставлять. Так же в комплект поставки не входит USB-адаптер, необходимый для подключения NES mini к электросети, его придется докупать
+                                отдельно.
+                            </p>
+                        </div>
+                    </div>
+                    <time>14.07.2016 | 16:48</time>
                 </article>
-                <article>
+                <article id="News_3">
                     <header>
                         <h3>
                             Новая раса в Total War: Warhammer выйдет в конце июля
                         </h3>
                     </header>
+                    <div class="DivWithContent">
+                        <div class="DivWithImage">
+                            <img src="images/ThirdNewsImage.jpg" alt="" />
+                        </div>
+                        <div class="DivWithTextAndVideo">
+                            <p>
+                                Студия Creative Assembly анонсировала новую расу для стратегии Total War: WarhammerКраткая информация об игре. Новичками, которые вступят в бесконечную войну за контроль над 
+                                Старым Светом, станет раса Зверолюдей (Beastmens). На данный момент Creative Assembly не раскрывает особенностей войск Зверолюдей, как и того, появятся ли на карте новые области,
+                                 из которых чудовища начнут свою экспансию, зато известно, что новая раса будет доступна во всех игровых режимах, и получит собственную одиночную кампанию.
+                            </p>
+                            <p>
+                                Дополнение Call of the Beastmen поступит в продажу 28 июля текущего года, а первую демонстрацию геймплея за новую фракцию проведут в грядущий вторник, 19 июля. Зверолюди 
+                                представляют собой расу мутировавших жителей Старого Света, которых коснулась скверна Хаоса. Зверолюди – преданные адепты Хаоса, хотя и являются отдельной от демонов и рыцарей 
+                                Хаоса фракцией. Они искренне ненавидят все чистое, непорочное или цивилизованное и считают своей первоочередной задачей разрушать, осквернять и убивать все и всех, кто отличается 
+                                от них. 
+                            </p>
+                            <div class="DivFlexWithVideo">
+                                <div class="DivBlockWithVideo">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/Ds1ZsQAISeM" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <time>14.07.2016 | 16:41</time>
                 </article>
                 <article>
                     <header>
@@ -123,6 +174,20 @@
                             Бета Battlefield 1 начнется после Gamescom 2016
                         </h3>
                     </header>
+                    <div class="DivWithContent">
+                        <div class="DivWithImage">
+                            <img src="images/News_4.jpg" alt="" />
+                        </div>
+                        <div class="DivWithTextAndVideo">
+                            <p>
+                                Игроки, которые с нетерпением ожидают запуска бета-версии Battlefield 1 могут отмечать конец августа в календаре. Во всяком случае, на это явственно 
+                                намекают слова Себастиана Моритца, немецкого комьюнити-менеджера Battlefield, который заявил о том, что старт беты запланирован «вскоре после Gamescom 2016». Участники программы 
+                                Battlefield Insider смогут начать играть на три дня раньше. Чтобы принять участие в программе, необходимо согласиться на получение информационной рассылки на сайте. Gamescom, 
+                                напомним, в этом году пройдет с 17 по 21 августа.
+                            </p>
+                        </div>
+                    </div>
+                    <time>14.07.2016 | 16:38</time>
                 </article>
                 <article>
                     <header>
@@ -130,6 +195,28 @@
                             Vault-Tec Workshop для Fallout 4 выйдет в конце июля
                         </h3>
                     </header>
+                    <div class="DivWithContent">
+                        <div class="DivWithImage">
+                            <img src="images/News_5.jpg" alt="" />
+                        </div>
+                        <div class="DivWithTextAndVideo">
+                            <p>
+                                Компания Bethesda назвала дату выхода очередного DLC для Fallout 4, которое добавляет в игру Убежища и возможность обустраивать их на свой вкус. 
+                                Vault-Tec Workshop появится в продаже 26 июля. Так же компания опубликовала запись стрима, где можно увидеть нововведения этого DLC.  Vault-Tec Worksh opоткроет игрокам 
+                                возможность строить свои Убежища и заниматься их развитием - прямо как в мобильной Fallout Shelter. Vault-Tec Workshop станет предпоследним дополнением для Fallout 4, последним 
+                                же аддоном станет большое дополнение Nuka World, после которого дополнений не запланировано. больше DLC для игры не запланировано. 
+                            </p>
+                            <p>
+                                Fallout 4: Vault-Tec Workshop будет доступен в Steam по цене 459 рублей или бесплатно всем владельцам Season Pass.
+                            </p>
+                            <div class="DivFlexWithVideo">
+                                <div class="DivBlockWithVideo">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/MOV91PqW-5g" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <time>13.07.2016 | 16:48</time>
                 </article>
                 <article>
                     <header>
@@ -137,10 +224,43 @@
                             Batman: Return to Arkham отложен до ноября
                         </h3>
                     </header>
+                    <div class="DivWithContent">
+                        <div class="DivWithImage">
+                            <img src="images/News_6.jpg" alt="" />
+                        </div>
+                        <div class="DivWithTextAndVideo">
+                            <p>
+                                Не так давно мы писали, что переиздание Batman: Return to Arkham для PlayStation 4 и Xbox One отложили на неопределенный срок. Изначально игра должна 
+                                была появиться в продаже 31 июля, но две недели назад издатель Warner Bros. объявил, что игра задержится. Точную дату релиза не объявили, однако портал Eurogamer выяснил, что 
+                                релиз состоится в ноябре этого года. По данным издания, задержка связана с проблемами при портировании, из-за которых в ремастерах серьезно пострадала частота кадров в секунду. 
+                                Официальных комментариев по теме, впрочем, пока не последовало.
+                            </p>
+                            <div class="DivFlexWithVideo">
+                                <div class="DivBlockWithVideo">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/C8Us6FUfufg" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <time>12.07.2016 | 15:57</time>
                 </article>
             </section>
         </main>
     </div>
+    <nav class=NavPages>
+        <div>
+            <a href="">1</a>
+            <a href="">2</a>
+            <a href="">3</a>
+            <a href="">4</a>
+            <a href="">5</a>
+            <a href="">6</a>
+            <a href="">7</a>
+            <a href="">8</a>
+            <a href="">9</a>
+            <a href="">10</a>
+        </div>
+    </nav>
     <footer>
         <div>
             <p>© 1998—2016 , OOO «Рамблер-Игры».</p>

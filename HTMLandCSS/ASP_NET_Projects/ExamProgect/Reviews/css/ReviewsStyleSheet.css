@@ -1,0 +1,184 @@
+﻿body *
+{
+    display:flex;
+}
+
+.DivTableHeader
+{
+    width:100%;
+    background-color:#0E53A7;
+    color:#FF9C00;
+}
+
+.DivTableHeader h3
+{
+    border:solid;
+    border-color:#FF9C00;
+    border-width:2px;
+}
+
+.DivTableHeader h3:first-child
+{
+    border-right-width:0px;
+}
+
+.DivTableHeader h3:last-child
+{
+    border-left-width:0px;
+}
+
+
+.DivTableHeader h3:nth-child(odd)
+{
+    width:15%;
+}
+
+.DivTableHeader h3:nth-child(even)
+{
+    width:70%;
+}
+
+.DivTableRow
+{
+    font-size:16px;
+    background-color:#4284D3;
+    color:#f5e108;
+}
+
+.DivTableRow > *
+{
+    border:solid;
+    border-width:2px;
+    border-color:#FF9C00;
+}
+
+.DivTableRow a
+{
+    font-weight:bold;
+    color:aqua;
+}
+
+.DivTableRow a:hover
+{
+    color:darkblue;
+}
+
+.DivTableRow time
+{
+    border-right-width:0px;
+    border-top-width:0px;
+    width:15%;
+}
+
+.DivTableRow div
+{
+    border-top-width:0px;
+    width:70%;
+    flex-direction:column;
+   justify-content:flex-start;
+   align-items:flex-start;
+}
+
+.DivTableRow > p
+{
+    border-top-width:0px;
+    border-left-width:0px;
+    width:15%;
+    font-size:30px;
+    font-weight:bold;
+    color:lightgray;
+}
+
+main
+{
+    width:calc(100% - 216px);
+    height:auto;
+    background-color:#6A94D4;
+    justify-content:center;
+}
+
+main section
+{
+    width:90%;
+    flex-direction:column;
+    padding-bottom:10px;
+}
+
+main section > header
+{
+    font-size:30px;
+    height:auto;
+    width:100%;
+    background-color:#1437AD;
+    justify-content:center;
+    align-items:center;
+    color:#FFBE00;
+    font-weight:bold;
+}
+
+.MainDiv
+{
+    margin-top:20px;
+}
+
+.DivTableRow > p.PWithHighPercent
+{
+    color:gold;
+}
+
+@media screen and (max-width:600px)
+{
+    .MainDiv
+    {
+        flex-direction:column;
+        align-items:center;
+    }
+
+    main
+    {
+        width:100%;
+    }
+
+    main section
+    {
+        width:100%;
+    }
+}
+
+@media screen and (max-width:450px)
+{
+    .DivTableHeader
+    {
+        display:none;
+    }
+
+    .DivTableRow
+    {
+        flex-direction:column;
+        align-items:center;
+        border:solid;
+        border-width:2px;
+        border-color:#FF9C00;
+        border-top-width:0px;
+    }
+
+    .DivTableRow *
+    {
+        border-width:0px;
+    }
+
+    .DivTableRow time
+    {
+        width:100%;
+    }
+
+    .DivTableRow div
+    {
+        width:100%;
+    }
+
+    .DivTableRow > p
+    {
+        width:100%;
+    }
+}
