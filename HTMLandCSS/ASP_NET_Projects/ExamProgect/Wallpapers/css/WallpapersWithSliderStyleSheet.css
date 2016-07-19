@@ -12,14 +12,8 @@ body *
 
 img
 {
-    width:100%;
-    height:100%;
-}
-
-img:hover
-{
-    width:600px;
-    height:350px;
+    height:10%;
+    width:10%;
 }
 
 main
@@ -92,12 +86,11 @@ main section > div
 
 .FlexDivWithWallpapers
 {
+    position:relative;
     z-index:5;
-    position: absolute;
-    top: 0;
-	left: 0;
-	height: 100%;
-    width: 100%;  
+	height: 0px;
+    width: 100%;
+    padding-bottom:calc(60.25% + 50px);  
     overflow:hidden;
 }
 
@@ -123,7 +116,7 @@ main section > div
     background-color:black; 
 }
 
-.FlexDivWithWallpapers > div
+/*.FlexDivWithWallpapers > div 
 {
     flex-direction:column;
     align-items:center;
@@ -132,7 +125,7 @@ main section > div
     margin-right:10px;
     width:900%;
     height:100%;
-}
+}*/
 
 .ImageWrapper
 {
@@ -153,10 +146,61 @@ figure
     margin-top:20px;
 }
 
-.ListOfSmallImages img
+#slide1:checked ~ #FirstGallery .InnerDivWithPictures { margin-left:0; }
+#slide2:checked ~ #FirstGallery .InnerDivWithPictures { margin-left:-100%; }
+#slide3:checked ~ #FirstGallery .InnerDivWithPictures { margin-left:-200%; }
+#slide4:checked ~ #FirstGallery .InnerDivWithPictures { margin-left:-300%; }
+#slide5:checked ~ #FirstGallery .InnerDivWithPictures { margin-left:-400%; }
+#slide2:checked ~ #FirstGallery .InnerDivWithPictures { margin-left:-600%; }
+#slide3:checked ~ #FirstGallery .InnerDivWithPictures { margin-left:-700%; }
+#slide4:checked ~ #FirstGallery .InnerDivWithPictures { margin-left:-800%; }
+#slide5:checked ~ #FirstGallery .InnerDivWithPictures { margin-left:-900%; }
+
+.InnerDivWithPictures
 {
-    width:100px;
-    height:50px;
+    position:absolute;
+    width:900%;
+    height:100%;
+    display:block;
+}
+
+.InnerDivWithPictures > div
+{
+    position:relative;
+    width:11%;
+    height:100%;
+    float:left;
+    flex-direction:column;
+    align-items:center;
+    margin-top:10px;
+    margin-bottom:10px;
+    margin-right:10px;
+    padding-bottom:50px;
+}
+
+figure img
+{
+    height:50%;
+}
+
+figure figcaption
+{
+    height:50%;
+}
+
+.DivWithImage
+{
+    position:relative;
+    height:0;
+    width:50%;
+    padding-bottom:56.25%;
+}
+
+.DivWithImage img
+{
+    position:absolute;
+    height:100%;
+    width:100%;
 }
 
 @media screen and (max-width:600px)
@@ -179,12 +223,6 @@ figure
     }
 
     img
-    {
-        width:260px;
-        height:160px
-    }
-
-    img:hover
     {
         width:260px;
         height:160px
