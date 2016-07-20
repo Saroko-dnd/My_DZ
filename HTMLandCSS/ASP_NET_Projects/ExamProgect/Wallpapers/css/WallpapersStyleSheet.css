@@ -109,7 +109,6 @@ main section > div
     margin-bottom:10px;
     margin-left:10px;
     margin-right:10px;
-    flex-basis:100px;
 }
 
 figure
@@ -131,7 +130,19 @@ figure
     justify-content:center;
 }
 
-@media screen and (max-width:600px)
+figure:hover figcaption
+{
+    position:relative;
+    z-index:2;
+}
+
+figure:hover ~ a
+{
+    position:relative;
+    z-index:2;
+}
+
+@media screen and (max-width:830px)
 {
     main section
     {
@@ -150,6 +161,18 @@ figure
         width:100%;
     }
 
+    .FlexDivWithWallpapers
+    {
+        width:100%;
+        flex-wrap:nowrap;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+    }
+}
+
+@media screen and (max-width:599px)
+{
     img
     {
         width:260px;
