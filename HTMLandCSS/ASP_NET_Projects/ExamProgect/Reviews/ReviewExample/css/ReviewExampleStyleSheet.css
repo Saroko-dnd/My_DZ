@@ -3,6 +3,12 @@
     display:flex;
 }
 
+body
+{
+    position:relative;
+    z-index:1;
+}
+
 main
 {
     width:calc(100% - 216px);
@@ -11,12 +17,21 @@ main
     justify-content:center;
 }
 
-main article
+main section
 {
     width:90%;
+}
+
+main section, article
+{
     flex-direction:column;
     padding-bottom:10px;
     align-items:center;
+}
+
+main article
+{
+    width:100%;
 }
 
 main article > header
@@ -84,6 +99,163 @@ main article > header
     border-bottom-width:2px;
 }
 
+article > p
+{
+    color:white;
+}
+
+section h2
+{
+    width:100%;
+    background-color:#0974cf;
+    color:gold;
+    justify-content:center;
+}
+
+.PDivider
+{
+    color:#FFBC73;
+}
+
+.DivForScreenshots
+{
+    width:100%;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.DivWithBigScreenshots
+{
+    position:relative;
+    width:100%;
+    align-items:center;
+    justify-content:center;
+    padding-bottom:56.25%;
+}
+
+.DivWithBigScreenshots input
+{
+    display:none;
+}
+
+.DivWithBigScreenshots img
+{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    z-index:2;
+}
+
+.DivWithScreenshotMenu
+{
+    margin-top:20px;
+    width:100%;
+    height:80px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    justify-content:center;
+}
+
+.DivWithScreenshotMenu img
+{
+    width:120px;
+    height:60px;
+    margin-left:5px;
+    margin-right:5px;
+}
+
+label:hover
+{
+    cursor:pointer;
+}
+
+label:hover img
+{
+    border: solid;
+    border-width: 2px;
+    border-color: #FF9C00;
+}
+
+#RadioTrigger_1:checked ~ img:nth-of-type(1)
+{
+    z-index:3;
+}
+
+#RadioTrigger_2:checked ~ img:nth-of-type(2)
+{
+    z-index:3;
+}
+
+#RadioTrigger_3:checked ~ img:nth-of-type(3)
+{
+    z-index:3;
+}
+
+#RadioTrigger_4:checked ~ img:nth-of-type(4)
+{
+    z-index:3;
+}
+
+#RadioTrigger_5:checked ~ img:nth-of-type(5)
+{
+    z-index:3;
+}  
+
+#RadioTrigger_6:checked ~ img:nth-of-type(6)
+{
+    z-index:3;
+}
+
+#RadioTrigger_7:checked ~ img:nth-of-type(7)
+{
+    z-index:3;
+}
+
+#RadioTrigger_8:checked ~ img:nth-of-type(8)
+{
+    z-index:3;
+}
+
+#RadioTrigger_9:checked ~ img:nth-of-type(9)
+{
+    z-index:3;
+} 
+
+.DivWithMarkOfGameLow
+{
+    align-items:center;
+}
+
+.DivWithMarkOfGameLow p:first-child
+{
+    font-size:30px;
+    color:aqua;
+}
+
+.DivWithMarkOfGameLow p:last-child
+{
+    font-size:40px;
+    color:lightgray;
+}
+
+@media screen and (max-width:1500px)
+{
+    .DivWithScreenshotMenu
+    {
+        justify-content:flex-start;
+    }
+}
+
+@media screen and (max-width:1250px)
+{
+    article header
+    {
+        flex-direction:column;
+        align-items:center;
+    }
+}
 
 @media screen and (max-width:600px)
 {
@@ -95,11 +267,46 @@ main article > header
         height: 0;
     }
 
+    article header
+    {
+        align-items:flex-start;
+    }
+
     .ImageWrapper img
     {
         position:absolute;
         width: 100%;
 	    height: 100%;
     }
+
+    .MainDiv
+    {
+        flex-direction:column;
+        align-items:center;
+    }
+
+    main
+    {
+        width:100%;
+    }
 }
+
+@media screen and (max-width:400px)
+{
+    .DivTableRow p:first-child
+    {
+        width:40%;
+    }
+
+    .DivTableRow p:last-child
+    {
+        width:60%;
+    }
+
+    .DivTableRow 
+    {
+        width:100%;
+    }
+}
+
 
