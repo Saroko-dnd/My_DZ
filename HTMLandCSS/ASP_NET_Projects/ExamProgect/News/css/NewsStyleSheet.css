@@ -188,3 +188,14 @@ article time
         width:100%;
     }
 }
+
+@-moz-document url-prefix()
+{
+    article img:hover
+    {
+        width:293px;
+        height:244px;
+        position:relative;
+        z-index:1;
+    }
+}

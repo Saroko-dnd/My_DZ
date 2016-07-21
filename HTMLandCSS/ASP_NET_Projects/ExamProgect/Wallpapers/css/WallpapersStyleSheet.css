@@ -12,13 +12,13 @@ body *
 }
 
 
-img
+section img
 {
     width:350px;
     height:200px
 }
 
-img:hover
+section img:hover
 {
     position:relative;
     top:0px;
@@ -175,13 +175,13 @@ figure:hover ~ a
 
 @media screen and (max-width:599px)
 {
-    img
+    section img
     {
         width:260px;
         height:160px
     }
 
-    img:hover
+    section img:hover
     {
         width:260px;
         height:160px

@@ -197,3 +197,24 @@ article header
         width:100%;
     }
 }
+
+@-moz-document url-prefix() 
+{
+    @media screen and (max-width:1100px)
+    {
+        .DivVideoWrapper
+        {
+            position:relative;
+            width: 100%;
+            height: auto;
+        }
+
+        .DivVideoWrapper iframe
+        {
+            position: relative;
+            width: 100%;
+            max-width:100%;
+            height:auto;
+        }
+    }
+}
