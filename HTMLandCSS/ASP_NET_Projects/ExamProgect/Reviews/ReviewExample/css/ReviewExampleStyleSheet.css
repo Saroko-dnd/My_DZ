@@ -252,6 +252,11 @@ label:hover img
     color:lightgray;
 }
 
+p:before
+{
+    content:diamond;
+}
+
 @media screen and (max-width:1500px)
 {
     .DivWithScreenshotMenu

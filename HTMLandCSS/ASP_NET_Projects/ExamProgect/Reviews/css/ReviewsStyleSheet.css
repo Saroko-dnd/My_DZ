@@ -45,6 +45,96 @@
     color:#f5e108;
 }
 
+.DivTableRow:nth-of-type(2)
+{
+    animation:TableRowAppearanceAnimation 0.5s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(3)
+{
+    animation: 0.5s TableRowAppearanceAnimation 0.5s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(4)
+{
+    animation: 0.5s TableRowAppearanceAnimation 1s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(5)
+{
+    animation: 0.5s TableRowAppearanceAnimation 1.5s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(6)
+{
+    animation: 0.5s TableRowAppearanceAnimation 2s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(7)
+{
+    animation: 0.5s TableRowAppearanceAnimation 2.5s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(8)
+{
+    animation: 0.5s TableRowAppearanceAnimation 3s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(9)
+{
+    animation: 0.5s TableRowAppearanceAnimation 3.5s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(10)
+{
+    animation: 0.5s TableRowAppearanceAnimation 4s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(11)
+{
+    animation: 0.5s TableRowAppearanceAnimation 4.5s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(12)
+{
+    animation: 0.5s TableRowAppearanceAnimation 5s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(13)
+{
+    animation: 0.5s TableRowAppearanceAnimation 5.5s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(14)
+{
+    animation: 0.5s TableRowAppearanceAnimation 6s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(15)
+{
+    animation: 0.5s TableRowAppearanceAnimation 6.5s linear;
+    animation-fill-mode:backwards;
+}
+
+.DivTableRow:nth-of-type(16)
+{
+    animation: 0.5s TableRowAppearanceAnimation 7s linear;
+    animation-fill-mode:backwards;
+}
+
 .DivTableRow > *
 {
     border:solid;
@@ -180,5 +270,21 @@ main section > header
     .DivTableRow > p
     {
         width:100%;
+    }
+}
+
+@keyframes TableRowAppearanceAnimation
+{
+    from
+    {
+        left:-100px;
+        position:relative;
+        opacity:0;
+    }
+    to
+    {
+        left:0px;
+        position:relative;
+        opacity:1;
     }
 }
