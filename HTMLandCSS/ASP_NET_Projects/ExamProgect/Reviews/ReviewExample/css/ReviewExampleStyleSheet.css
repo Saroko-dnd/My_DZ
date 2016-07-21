@@ -86,7 +86,7 @@ main article > header
     border-right-color: #FF9C00;
 }
 
-.DivTableRow p:last-child
+.DivTableRow p:last-child, a
 {
     width:220px;
 }
@@ -152,18 +152,28 @@ section h2
 {
     margin-top:20px;
     width:100%;
-    height:80px;
+    max-height:120px;
     overflow-x:auto;
     overflow-y:hidden;
     justify-content:center;
+    align-items:center;
 }
 
 .DivWithScreenshotMenu img
 {
+    min-width:120px;
     width:120px;
-    height:60px;
+    max-height:120px;
+    object-fit:scale-down;
     margin-left:5px;
     margin-right:5px;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+label
+{
+    align-items:center;
 }
 
 label:hover
@@ -173,6 +183,8 @@ label:hover
 
 label:hover img
 {
+    margin-bottom:1px;
+    margin-top:0px;
     border: solid;
     border-width: 2px;
     border-color: #FF9C00;
@@ -257,7 +269,7 @@ label:hover img
     }
 }
 
-@media screen and (max-width:600px)
+@media screen and (max-width:890px)
 {
     .ImageWrapper
     {
@@ -267,16 +279,24 @@ label:hover img
         height: 0;
     }
 
-    article header
-    {
-        align-items:flex-start;
-    }
-
     .ImageWrapper img
     {
         position:absolute;
         width: 100%;
 	    height: 100%;
+    }
+
+    main article > header
+    {
+        width:100%;
+    }
+}
+
+@media screen and (max-width:690px)
+{
+    article header
+    {
+        align-items:center;
     }
 
     .MainDiv
@@ -291,14 +311,14 @@ label:hover img
     }
 }
 
-@media screen and (max-width:400px)
+@media screen and (max-width:500px)
 {
     .DivTableRow p:first-child
     {
         width:40%;
     }
 
-    .DivTableRow p:last-child
+    .DivTableRow p:last-child, a
     {
         width:60%;
     }
@@ -306,6 +326,29 @@ label:hover img
     .DivTableRow 
     {
         width:100%;
+    }
+
+    .DivTable
+    {
+        width:100%;
+    }
+}
+
+@media screen and (max-width:300px)
+{
+    .DivWithMarkOfGameLow
+    {
+        flex-direction:column;
+    }
+
+    .DivTableRow p:first-child
+    {
+        width:45%;
+    }
+
+    .DivTableRow p:last-child, a
+    {
+        width:55%;
     }
 }
 

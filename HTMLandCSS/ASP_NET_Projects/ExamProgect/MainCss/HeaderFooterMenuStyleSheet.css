@@ -122,7 +122,7 @@ footer div:nth-child(even)
 
 .AnimatedHeader > div:first-child img:first-child
 {
-    left:8px;
+    left:16px;
     position:relative;
     animation:HeaderAnimationAnticlockwise 5s linear infinite;
 }
@@ -135,7 +135,7 @@ footer div:nth-child(even)
 
 .AnimatedHeader > div:last-child img:last-child
 {
-    right:8px;
+    right:16px;
     position:relative;
     animation:HeaderAnimationClockwise 5s linear infinite;
 }
@@ -148,8 +148,9 @@ footer div:nth-child(even)
 .AnimatedHeader img
 {
     display:inline-flex;
-    width:70px;
-    height:75px;
+    width:75px;
+    max-height:100px;
+    object-fit:scale-down;
 }
 
 .AnimatedHeader div:nth-child(even)
