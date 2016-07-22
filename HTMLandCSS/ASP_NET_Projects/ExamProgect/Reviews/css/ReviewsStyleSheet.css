@@ -147,6 +147,14 @@
 {
     font-weight:bold;
     color:aqua;
+    /*Специально для IE11*/
+    width: 100%;
+}
+
+/*Специально для IE11*/
+.DivTableRow > div p
+{
+    width: 100%;
 }
 
 .DivTableRow a:hover

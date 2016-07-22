@@ -266,6 +266,16 @@ menu > *
     }
 }
 
+@media screen and (-ms-high-contrast: active) and (-ms-high-contrast: none) and (max-width:599px)
+{  
+   /* IE10+ specific styles go here */  
+    .NavHeader a
+    {
+        align-items:center;
+        justify-content:center;
+    }
+}
+
 @media screen and (max-width:585px)
 {
     .AnimatedHeader

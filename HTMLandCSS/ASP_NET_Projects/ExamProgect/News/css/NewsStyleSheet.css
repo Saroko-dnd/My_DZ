@@ -199,3 +199,16 @@ article time
         z-index:1;
     }
 }
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) 
+{  
+   /* IE10+ specific styles go here */  
+    article img:hover
+    {
+        width:auto;
+        height:auto;
+        left:-61.5px;
+        position:relative;
+        z-index:1;
+    }
+}

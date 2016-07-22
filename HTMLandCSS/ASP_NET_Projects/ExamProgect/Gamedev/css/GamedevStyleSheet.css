@@ -89,11 +89,13 @@ main section > section
 .DivWithContenReverse > img
 {
     width:30%;
+    height: 100%;
 }
 
 .DivWithContent > img
 {
     width:30%;
+    height: 100%;
 }
 
 article
@@ -197,5 +199,20 @@ article header
     .DivWithContenReverse > div
     {
         width:100%;
+    }
+}
+
+@-moz-document url-prefix() 
+{
+    .DivWithContenReverse > img
+    {
+        width:30%;
+        height:auto;
+    }
+
+    .DivWithContent > img
+    {
+        width:30%;
+        height:auto;
     }
 }

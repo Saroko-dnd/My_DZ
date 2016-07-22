@@ -15,7 +15,7 @@ body *
 section img
 {
     width:350px;
-    height:200px
+    height:200px;
 }
 
 section img:hover
@@ -23,6 +23,7 @@ section img:hover
     position:relative;
     top:0px;
     left:0px;
+    min-width:600px;
     width:600px;
     height:350px;
     z-index:1;
@@ -130,6 +131,7 @@ figure
     height:200px;
     align-items:center;
     justify-content:center;
+    flex-basis:auto;
 }
 
 figure:hover figcaption
@@ -178,12 +180,47 @@ figure:hover ~ a
     section img
     {
         width:260px;
-        height:160px
+        height:160px;
     }
 
     section img:hover
     {
         width:260px;
-        height:160px
+        height:160px;
+        min-width:260px;
+    }
+}
+
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)
+{  
+   /* IE10+ specific styles go here */  
+    section img:hover
+    {
+        position:relative;
+        top:0px;
+        left:-125px;
+        min-width:600px;
+        width:600px;
+        height:350px;
+        z-index:1;
+    }
+}
+
+@media screen and (-ms-high-contrast: active) and (-ms-high-contrast: none) and (max-width:599px)
+{  
+   /* IE10+ specific styles go here */  
+    section img
+    {
+        width:260px;
+        height:160px;
+    }
+
+    section img:hover
+    {
+        left:0px;
+        width:260px;
+        height:160px;
+        min-width:260px;
     }
 }
