@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+p{
+    margin: 10px;
+    font-size: 20px;
+}
+
+.header{
+    text-align: center;
+    font-size: larger;
+    color: white;
+    line-height: 80px;
+}
+
+header {
+    min-width:240px;
+    width: 100%;
+    height: 100px;
+    background: #74C9FF;
+
+}
+
+.refheader{
+    text-decoration: none;
+    color: white;
+}
+
+.refheader:hover{
+    text-decoration: none;
+}
+
+header, nav, section, main, article, aside, footer {
+    display: block;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background:#fefefe;
+}
+
+.image{
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+main {
+    padding: 0 240px 0 240px;
+    min-height: 350px;
+    margin: 10px;
+}
+
+article {
+    padding:0 5px;
+    margin:0 5px;
+    background:#EAF2F5;
+    min-height: 350px;
+}
+
+@media screen and (min-width:240px) and (max-width:479px) {
+
+    main {
+        padding:10px;
+    }
+
+    #s_left {
+        padding: 0;
+        margin: 0 auto;
+        float: none;
+        clear: both;
+        left: 0;
+    }
+
+    #s_right {
+        padding: 0;
+        margin: 0 auto;
+        float: none;
+        clear: both;
+        right: 0;
+    }
+}
+
+@media screen and (min-width:480px) and (max-width:799px) {
+
+    main {
+        padding:10px;
+    }
+
+}
+
+@media screen and (min-width:240px) and (max-width:479px) {
+
+    main {
+        padding:10px;
+    }
+
+}
+
+@media screen and (min-width:480px) and (max-width:799px) {
+
+    main {
+        padding:10px;
+    }
+
+}
+
+@media screen and (min-width:800px) and (max-width:979px) {
+
+    main {
+        padding:10px;
+    }
+
+}

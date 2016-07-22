@@ -1,0 +1,350 @@
+/*Резиновая верстка от prohtml.net*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+article{
+    /*padding: 2px;*/
+}
+
+li{
+    padding: 5px;
+}
+
+li:hover{
+
+    background: #EAF2F5;
+    font-size: large;
+    cursor: default;
+}
+
+header, nav, section, main, article, aside, footer {
+    display: block;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background:#fefefe;
+}
+
+.header{
+    text-align: center;
+    font-size: larger;
+
+    line-height: 80px;
+
+}
+
+.header:hover{
+    text-decoration: none;
+}
+
+.refheader{
+    text-decoration: none;
+    color: white;
+}
+
+.refheader:hover{
+    text-decoration: none;
+}
+
+
+.image{
+    max-width: 100%;
+
+}
+
+.postflow{
+    font-size: large;
+    display: block;
+    text-decoration: inherit;
+}
+
+.postflow:hover{
+    background: #74C9FF;
+}
+
+.maxw {
+    margin: 0 auto;
+    min-width: 240px;
+    max-width: 1920px;
+
+}
+
+.textfooter{
+    float: right;
+}
+
+header {
+    min-width:240px;
+    width: 100%;
+    height: 100px;
+    background: #74C9FF;
+
+}
+
+#wrapper {
+    position: relative;
+    margin: 0 auto;
+    height: auto !important;
+    height: 100%;
+    min-height: 100%;
+    padding:5px 0;
+}
+
+.section {
+    width: 100%;
+    padding: 0 0 100px;
+    position: relative;
+}
+
+.section:after {
+    content: '';
+    clear: both;
+    display: table;
+}
+
+.mainwrap {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+
+}
+
+a{
+    text-decoration: none;
+
+}
+
+ul{
+    list-style: none;
+}
+
+li a{
+    color: black;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+main {
+    padding: 0 240px 0 240px;
+    min-height: 350px;
+    margin:0;
+}
+
+article {
+    padding:0 5px;
+    margin:0 5px;
+    background:#EAF2F5;
+    min-height: 350px;
+}
+
+#s_left {
+    float: left;
+    width: 240px;
+    margin-left: -100%;
+    left:0;
+    position: relative;
+    background: #E88139;
+    min-height: 350px;
+}
+
+
+#s_right {
+    float: left;
+    width: 240px;
+    margin-left: -240px;
+    right:0;
+    position: relative;
+    background: #E86A3B;
+    min-height: 350px;
+}
+
+footer {
+    margin: -100px auto 0;
+    width: 100%;
+    min-width:240px;
+    height: 100px;
+    background: #AFBFC6;
+    position: relative;
+}
+
+menu
+{
+    display:flex;;
+    justify-content: center;
+}
+
+menu a:nth-child(1)
+{
+    background-color: #E86A3B;
+}
+
+menu a:nth-child(2)
+{
+
+}
+
+menu a:nth-child(3)
+{
+
+}
+
+input[type=checkbox]
+{
+    display:none;
+}
+
+#FirstCheckBox:checked ~ #wrapper div:first-child div:first-child
+{
+    background-color: darkgreen;
+}
+
+#FirstCheckBox:checked ~ #wrapper aside:nth-of-type(1)
+{
+    background-color:darkblue;
+}
+
+#FirstCheckBox:checked ~ #wrapper aside:nth-of-type(2)
+{
+    background-color:mediumvioletred;
+}
+
+#FirstCheckBox:checked ~ #wrapper div:first-child aside:nth-of-type(2) a article
+{
+    background-color:mediumvioletred;
+}
+
+#FirstCheckBox:checked ~ #wrapper div:first-child div:first-child main a article
+{
+    background-color:darkorange;
+}
+
+#SecondCheckBox:checked ~ #wrapper div:first-child div:first-child
+{
+
+}
+
+.section
+{
+    display:flex;
+}
+
+.section aside
+{
+    display:flex;
+}
+
+.section > div:first-child
+{
+    display:flex;
+    flex-direction: column-reverse;
+}
+
+.section > aside
+{
+    display:flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 1920px){
+    #s_left{
+        min-height: 850px;
+    }
+
+    #s_right{
+        min-height: 850px;
+    }
+
+}
+
+@media  screen and (max-width: 1919px){
+    #s_left{
+        min-height: 350px;
+    }
+
+    #s_right{
+        min-height: 350px;
+    }
+
+}
+
+/* Для отображения на устройствах меньше 980px*/
+@media screen and (min-width:240px) and (max-width:479px) {
+
+    main {
+        padding:10px;
+    }
+
+    #s_left {
+        padding: 0;
+        margin: 0 auto;
+        float: none;
+        clear: both;
+        left: 0;
+    }
+
+    #s_right {
+        padding: 0;
+        margin: 0 auto;
+        float: none;
+        clear: both;
+        right: 0;
+    }
+}
+
+@media screen and (min-width:480px) and (max-width:799px) {
+
+    main {
+        padding:10px;
+    }
+
+    #s_left {
+        padding: 0;
+        margin: 0 auto;
+        float: none;
+        clear: both;
+        left: 0;
+    }
+
+    #s_right {
+        padding: 0;
+        margin: 0 auto;
+        float: none;
+        clear: both;
+        right: 0;
+    }
+}
+
+@media screen and (min-width:800px) and (max-width:979px) {
+
+    main {
+        padding:10px;
+    }
+
+    #s_left {
+        padding: 0;
+        margin: 0 auto;
+        float: none;
+        clear: both;
+        left: 0;
+
+    }
+
+    #s_right {
+        padding: 0;
+        margin: 0 auto;
+        float: none;
+        clear: both;
+        right: 0;
+    }
+}
