@@ -1,5 +1,4 @@
-﻿
-/*Задаем позиционирование и z-index для body, чтобы изображения при увеличении (по наведению курсора) могли находиться выше по оси z  */
+﻿/*Задаем позиционирование и z-index для body, чтобы изображения при увеличении (по наведению курсора) могли находиться выше по оси z  */
 body {
     position:relative;
     z-index:0;
@@ -139,7 +138,7 @@ article time
 {
     .MainDiv iframe
     {
-        display:table;
+        display:block;
 	    position: absolute;
 	    top: 0;
 	    left: 0;
@@ -156,7 +155,7 @@ article time
 
     .MainDiv .DivBlockWithVideo
     {
-        display:table;
+        display:block;
         position: relative;
 	    padding-bottom: 56.25%;
         width:100%;
