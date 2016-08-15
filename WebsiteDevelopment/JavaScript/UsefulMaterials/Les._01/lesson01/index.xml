@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<?xml:stylesheet type="text/xsl" href="common/layout.xsl" ?>
+
+<lesson title="Урок №1: Введение в JavaScript" next="section1.xml" prev="index.xml">
+<h2>Урок №1: Основные конструкции языка.</h2>
+<ul>
+	<li><a href="section1.xml">Введение</a></li>
+	<li><a href="section2.xml">Начальные сведения. Синтаксис.</a></li>
+	<li><a href="section3.xml">Переменные и типы данных</a></li>
+	<li><a href="section4.xml">Операторы</a></li>
+	<li><a href="section5.xml">Ввод/вывод данных. Диалоговые окна</a></li>
+	<li><a href="section6.xml">Принятие решений, выбор</a></li>
+	<li><a href="section7.xml">Циклы</a></li>
+	<li><a href="section8.xml">Ошибки. Отладка сценариев</a></li>
+	<li><a href="section9.xml">Тест для самопроверки</a></li>
+	<li><a href="section10.xml">Домашнее задание</a></li>
+</ul>
+</lesson>

@@ -1,0 +1,19 @@
+<html>
+    <body>
+        <script type="text/javascript"> 
+	var dohod=567;
+	var nalog=0;
+	if(dohod>180 && dohod<=500) {
+		nalog=dohod*0.01;
+	}
+	else if(dohod>500 && dohod<=2500) {
+		nalog=dohod*0.02;
+	}
+	else if(dohod>2500) {
+		nalog=dohod*0.03;
+	}
+	alert ("Подоходный налог составит "+nalog+" грн");
+        </script>
+    </body>
+</html>
+

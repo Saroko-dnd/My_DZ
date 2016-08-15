@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="JSfolder/MainJavaScript.js"></script>
+    <link href="CSSfolder/MainStyleSheet.css" rel="stylesheet"/>
+</head>
+<body onload="OnPageLoad()">
+    <div>
+        <h1>Test of promt function</h1>
+        <input type="button" id="MainButton_id" onclick="GetUserDataFunction()" value="Start survey" />
+        <p id="P_hesderOfSurveyResult"></p>
+        <p id="P_forUserName"></p>
+        <p id="P_forUserLastName"></p>
+        <p id="P_forUserPatronymic"></p>
+        <p id="P_forUserAge"></p>
+        <p id="P_forUserEmail"></p>
+    </div>
+    <div>
+        <h1>Test on JS</h1>
+        <div class="DivQuestion" id="DivFirstQuestion">
+            <p>3 + 3</p>
+            <div class="DivWithAnswerForTest">
+                <input type="radio" id="FirstQuestionRadio_1" name="FirstAnswerRadio" />
+                <p>6</p>
+            </div>
+            <div class="DivWithAnswerForTest">
+                <input type="radio" id="FirstQuestionRadio_2" name="FirstAnswerRadio" />
+                <p>5</p>
+            </div>
+            <div class="DivWithAnswerForTest">
+                <input type="radio" id="FirstQuestionRadio_3" name="FirstAnswerRadio" />
+                <p>4</p>
+            </div>
+        </div>
+        <div class="DivQuestion" id="DivSecondQuestion">
+            <p>10 + 5</p>
+            <div class="DivWithAnswerForTest">
+                <input type="radio" id="SecondQuestionRadio_1" name="SecondAnswerRadio" />
+                <p>15</p>
+            </div>
+            <div class="DivWithAnswerForTest">
+                <input type="radio" id="SecondQuestionRadio_2" name="SecondAnswerRadio" />
+                <p>10</p>
+            </div>
+            <div class="DivWithAnswerForTest">
+                <input type="radio" id="SecondQuestionRadio_3" name="SecondAnswerRadio" />
+                <p>5</p>
+            </div>
+        </div>
+        <div class="DivQuestion" id="DivThirdQuestion">
+            <p>10 - 5</p>
+            <div class="DivWithAnswerForTest">
+                <input type="radio" id="ThirdQuestionRadio_1" name="ThirdAnswerRadio" />
+                <p>5</p>
+            </div>
+            <div class="DivWithAnswerForTest">
+                <input type="radio" id="ThirdQuestionRadio_2" name="ThirdAnswerRadio" />
+                <p>1</p>
+            </div>
+            <div class="DivWithAnswerForTest">
+                <input type="radio" id="ThirdQuestionRadio_3" name="ThirdAnswerRadio" />
+                <p>0</p>
+            </div>
+        </div>
+        <p id="PForResultsOfTest"></p>
+        <div>
+            <input type="button" id="NextQuestionButtonID" onclick="NextQuestion()" value="Next question" />
+        </div>
+        <input type="button" id="EndTestButtonID" onclick="GetTestResult()" value="End test" />
+    </div>
+</body>
+</html>

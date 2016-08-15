@@ -1,0 +1,43 @@
+﻿div 
+{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+div h1
+{
+    color:blue;
+}
+
+div *
+{
+    display:block;
+}
+
+#P_hesderOfSurveyResult
+{
+    color:green;
+}
+
+.DivWithAnswerForTest
+{
+    display:flex;
+    flex-direction:row;
+}
+
+.DivWithAnswerForTest *
+{
+    display:block;
+}
+
+#PForResultsOfTest
+{
+    display:none;
+}
+
+.DivQuestion
+{
+    display:none;
+}
