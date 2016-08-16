@@ -26,7 +26,7 @@ function GetUserDataFunction()
         PersonPhone = AskUserPhone("Please enter your phone (Belarus only!):", RegexForPhoneNumber);
 
         ResultOfConfirm = confirm('First name: ' + PersonName + '\r\n' + 'Last name: ' + PersonLastName + '\r\n' + 'Patronymic: ' + PersonPatronymic + '\r\n' + 'Sex: ' + PersonSex + '\r\n' + 'Age: ' + PersonAge
-             + '\r\n' + 'Email: ' + PersonEmail + '\r\n' + 'Phone number:' + PersonPhone + "\r\n" + "Are you satisfied with this data?");
+             + '\r\n' + 'Email: ' + PersonEmail + '\r\n' + 'Phone number:' + PersonPhone + "\r\n\n" + "Are you satisfied with this data?");
     }
     
     var Paragraph;
