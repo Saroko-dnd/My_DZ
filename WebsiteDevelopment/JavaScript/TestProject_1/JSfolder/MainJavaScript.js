@@ -1,12 +1,18 @@
 ﻿
+
+
 function GetUserDataFunction()
 {
+    var RegexForEmail = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
+    var RegexForAge = /[1-9][0-9]*/;
+    var RegexForPhoneNumber = /[+]*375[0-9]{9}/;
     var PersonName = '';
     var PersonLastName = '';
     var PersonPatronymic = '';
     var PersonSex = '';
     var PersonAge = '';
     var PersonEmail = '';
+    var PersonPhone = '';
     var ResultOfConfirm = false;
 
     while (!ResultOfConfirm)
@@ -15,10 +21,12 @@ function GetUserDataFunction()
         PersonLastName = prompt("Please enter your second name:", "");
         PersonPatronymic = prompt("Please enter your patronymic:", "");
         PersonSex = prompt("Please enter your sex:", "");
-        PersonAge = prompt("Please enter your age:", "");
-        PersonEmail = prompt("Please enter your email:", "");
+        PersonAge = AskUserForAge("Please enter your age:", RegexForAge);
+        PersonEmail = AskUserForInput("Please enter your email:", RegexForEmail);
+        PersonPhone = AskUserPhone("Please enter your phone (Belarus only!):", RegexForPhoneNumber);
+
         ResultOfConfirm = confirm('First name: ' + PersonName + '\r\n' + 'Last name: ' + PersonLastName + '\r\n' + 'Patronymic: ' + PersonPatronymic + '\r\n' + 'Sex: ' + PersonSex + '\r\n' + 'Age: ' + PersonAge
-             + '\r\n' + 'Email: ' + PersonEmail);
+             + '\r\n' + 'Email: ' + PersonEmail + '\r\n' + 'Phone number:' + PersonPhone + "\r\n" + "Are you satisfied with this data?");
     }
     
     var Paragraph;
@@ -43,7 +51,87 @@ function GetUserDataFunction()
     Paragraph = document.getElementById('P_forUserEmail');
     Paragraph.textContent = 'Email - ' + PersonEmail;
     Paragraph.style.display = 'block';
+    Paragraph = document.getElementById('P_forUserPhone');
+    Paragraph.textContent = 'Phone number - ' + PersonPhone;
+    Paragraph.style.display = 'block';
 }
+
+function AskUserForInput(TextOfRequest, RegexForValidation)
+{
+    var ValidationErrorMessage = "Validation error!";
+    var ResultOfCheck = false;
+    var UserAnswer = "";
+    while (!ResultOfCheck)
+    {
+        UserAnswer = prompt(TextOfRequest, "");
+        if (!RegexForValidation.test(UserAnswer))
+        {
+            alert(ValidationErrorMessage);
+        }
+        else
+        {
+            ResultOfCheck = true;
+        }
+    }
+    return UserAnswer;
+}
+
+function AskUserForAge(TextOfRequest, RegexForValidation)
+{
+    var ValidationErrorMessage = "Validation error!";
+    var ResultOfCheck = false;
+    var UserAnswer = "";
+    while (!ResultOfCheck)
+    {
+        UserAnswer = prompt(TextOfRequest, "");
+        if (!RegexForValidation.test(UserAnswer))
+        {
+            alert(ValidationErrorMessage);
+        }
+        else
+        {
+            if (UserAnswer > 100)
+            {
+                alert(ValidationErrorMessage);
+            }
+            else if (UserAnswer > 0)
+            {
+                ResultOfCheck = true;
+            }
+        }
+    }
+    return UserAnswer;
+}
+
+function AskUserPhone(TextOfRequest, RegexForValidation)
+{
+    var ValidationErrorMessage = "Validation error!";
+    var ResultOfCheck = false;
+    var UserAnswer = "";
+    while (!ResultOfCheck)
+    {
+        UserAnswer = prompt(TextOfRequest, "");
+        UserAnswer = UserAnswer.replace(" ", "");
+        UserAnswer = UserAnswer.replace("-", "");
+        if (UserAnswer.length <= 13)
+        {
+            if (!RegexForValidation.test(UserAnswer))
+            {
+                alert(ValidationErrorMessage);
+            }
+            else
+            {
+                ResultOfCheck = true;  
+            }
+        }
+        else
+        {
+            alert(ValidationErrorMessage);
+        }
+    }
+    return UserAnswer;
+}
+
 
 var NumberOfQuestion = 1;
 var AmountOfQuestions = 3;
@@ -100,3 +188,29 @@ function NextQuestion()
 }
 
 window.onload = OnPageLoad();
+
+function CreateNewArrayWithFactorials()
+{
+    var ArrayOfNumbers = [5, 3, 6, 9, 4];
+    var NewArrayOfNumbers = ArrayOfNumbers.map(Factorial);
+    document.getElementById('P_forArrayWithFactorials').textContent = NewArrayOfNumbers.join(" ");
+}
+
+function Factorial(number)
+{    
+    var Result = 1;
+    for (var Counter = 2; Counter <= number; ++Counter)
+    {
+        Result = Result * Counter;
+    }
+    return Result;
+}
+
+function CreateUserObject()
+{
+    var User = { name: "Name"};
+    User.surname = "Surname";
+    User.surname = "NewSurName";
+    delete User.name;
+    return User;
+}
