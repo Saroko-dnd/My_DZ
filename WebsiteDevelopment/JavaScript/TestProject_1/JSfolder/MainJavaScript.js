@@ -1,16 +1,48 @@
 ﻿
-function GetUserDataFunction() {
-    var PersonName = prompt("Please enter your first name:", "waiting for input");
-    var PersonLastName = prompt("Please enter your second name:", "waiting for input");
-    var PersonPatronymic = prompt("Please enter your patronymic:", "waiting for input");
-    var PersonAge = prompt("Please enter your age:", "waiting for input");
-    var PersonEmail = prompt("Please enter your email:", "waiting for input");
-    document.getElementById('P_hesderOfSurveyResult').textContent = 'RESULT OF SURVEY';
-    document.getElementById('P_forUserName').textContent = 'Name - ' + PersonName;
-    document.getElementById('P_forUserLastName').textContent = 'LastName - ' + PersonLastName;
-    document.getElementById('P_forUserPatronymic').textContent = 'Patronymic - ' + PersonPatronymic;
-    document.getElementById('P_forUserAge').textContent = 'Age - ' + PersonAge;
-    document.getElementById('P_forUserEmail').textContent = 'Email - ' + PersonEmail;
+function GetUserDataFunction()
+{
+    var PersonName = '';
+    var PersonLastName = '';
+    var PersonPatronymic = '';
+    var PersonSex = '';
+    var PersonAge = '';
+    var PersonEmail = '';
+    var ResultOfConfirm = false;
+
+    while (!ResultOfConfirm)
+    {
+        PersonName = prompt("Please enter your first name:", "");
+        PersonLastName = prompt("Please enter your second name:", "");
+        PersonPatronymic = prompt("Please enter your patronymic:", "");
+        PersonSex = prompt("Please enter your sex:", "");
+        PersonAge = prompt("Please enter your age:", "");
+        PersonEmail = prompt("Please enter your email:", "");
+        ResultOfConfirm = confirm('First name: ' + PersonName + '\r\n' + 'Last name: ' + PersonLastName + '\r\n' + 'Patronymic: ' + PersonPatronymic + '\r\n' + 'Sex: ' + PersonSex + '\r\n' + 'Age: ' + PersonAge
+             + '\r\n' + 'Email: ' + PersonEmail);
+    }
+    
+    var Paragraph;
+    Paragraph = document.getElementById('P_hesderOfSurveyResult');
+    Paragraph.textContent = 'RESULT OF SURVEY';
+    Paragraph.style.display = 'block';
+    Paragraph = document.getElementById('P_forUserName');
+    Paragraph.textContent = 'First name - ' + PersonName;
+    Paragraph.style.display = 'block';
+    Paragraph = document.getElementById('P_forUserLastName');
+    Paragraph.textContent = 'Last name - ' + PersonLastName;
+    Paragraph.style.display = 'block';
+    Paragraph = document.getElementById('P_forUserPatronymic');
+    Paragraph.textContent = 'Patronymic - ' + PersonPatronymic;
+    Paragraph.style.display = 'block';
+    Paragraph = document.getElementById('P_forUserSex');
+    Paragraph.textContent = 'Sex - ' + PersonSex;
+    Paragraph.style.display = 'block';
+    Paragraph = document.getElementById('P_forUserAge');
+    Paragraph.textContent = 'Age - ' + PersonAge;
+    Paragraph.style.display = 'block';
+    Paragraph = document.getElementById('P_forUserEmail');
+    Paragraph.textContent = 'Email - ' + PersonEmail;
+    Paragraph.style.display = 'block';
 }
 
 var NumberOfQuestion = 1;
