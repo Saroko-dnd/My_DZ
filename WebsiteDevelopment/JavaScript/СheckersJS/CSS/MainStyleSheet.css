@@ -1,0 +1,53 @@
+﻿body *
+{
+    display:flex;
+}
+
+.GameField
+{
+    flex-direction:column;
+    justify-content:center;
+    align-content:center;
+}
+
+.GameRow div
+{
+    flex-direction:row;
+    justify-content:center;
+    align-content:center;
+}
+
+.GameRow:nth-of-type(even) div:nth-of-type(even)
+{
+    width:100px;
+    height:100px;
+    background-color:white;
+}
+
+.GameRow:nth-of-type(even) div:nth-of-type(odd)
+{
+    width:100px;
+    height:100px;
+    background-color:black;
+}
+
+.GameRow:nth-of-type(odd) div:nth-of-type(odd)
+{
+    width:100px;
+    height:100px;
+    background-color:white;
+}
+
+.GameRow:nth-of-type(odd) div:nth-of-type(even)
+{
+    width:100px;
+    height:100px;
+    background-color:black;
+}
+
+canvas
+{
+    width:100px;
+    height:100px;
+    
+}
