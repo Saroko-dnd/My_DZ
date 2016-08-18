@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<?xml:stylesheet type="text/xsl" href="common/layout.xsl" ?>
+
+<lesson title="Урок №2: Функции. Объекты." next="section1.xml" prev="index.xml">
+<h2>Урок №2: Функции. Объекты.</h2>
+<ul>
+	<li><a href="section1.xml">Функции</a></li>
+	<li><a href="section2.xml">Объектный тип данных</a></li>
+	<li><a href="section3.xml">Основы DOM: элементы, стиль и содержимое</a></li>
+	<li><a href="section4.xml">Массивы</a></li>
+	<li><a href="section5.xml">Строки</a></li>
+	<li><a href="section6.xml">Тест для самопроверки</a></li>
+	<li><a href="section7.xml">Домашнее задание</a></li>
+</ul>
+</lesson>

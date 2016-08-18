@@ -1,0 +1,30 @@
+<html>
+	<body>
+		<script type="text/javascript">
+        <!--
+var email;
+do {
+    email = prompt ("Введите свой e-mail:","username@host.com")
+    var pos1 = email.indexOf("@");
+    if (pos1 == -1) {
+        alert ("Введенный e-mail синтаксически некорректен!\nПовторите операцию.");    
+    }
+    else {
+        var userName = email.substring(0, pos1); 
+        var host = email.slice(pos1+1); 
+        
+        if (userName.indexOf(".") != -1) 
+            alert ("Введенный e-mail синтаксически некорректен!\nПовторите операцию.");
+        else if (host.indexOf(".") == -1)
+            alert ("Введенный e-mail синтаксически некорректен!\nПовторите операцию.");
+        else 
+            break;	
+    }    
+} while (true);
+alert ("Спасибо за сотрудничество!");
+
+
+        //-->
+		</script>
+	</body>
+</html>

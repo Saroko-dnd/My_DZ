@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="windows-1251" ?>
+<?xml:stylesheet type="text/xsl" href="../common/layout.xsl" ?>
+
+<lesson title="Урок №1: Введение в JavaScript" next="index.xml" prev="index.xml">
+<h2>Уроки по JavaScript</h2>
+<ul>
+	<li><a href="../lesson02/index.xml">Урок №2: Функции. Объекты. </a></li>
+</ul>
+</lesson>

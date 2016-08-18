@@ -1,0 +1,29 @@
+<html>
+    <body>
+        <script type="text/javascript">
+        <!--
+		// объявление и ввод массива
+		var a = new Array();
+		var count = 5;
+		for (var i=0; i<count; i++)
+		    a[i]=parseInt(prompt("Введите целое число:", ""));
+		alert("Неотсортированный массив: "+a.join(", ")); // вывод массива
+		a.sort();
+		alert("Строковая сортировка массива: "+a.join(", ")); // вывод массива
+		a.sort(numUp);
+		alert("Числовая сортировка массива: "+a.join(", ")); // вывод массива
+		a.sort(numDown);
+		alert("Числовая сортировка по убыванию: "+a.join(", ")); // вывод массива  
+
+		// функции сравнения элементов  
+		function numUp(a1, a2) { // сортировка по возрастанию  
+		    return a1-a2;
+		}
+
+		function numDown(a1, a2) { // сортировка по убыванию  
+		    return a2-a1;
+		}
+        //-->
+        </script>
+    </body>
+</html>

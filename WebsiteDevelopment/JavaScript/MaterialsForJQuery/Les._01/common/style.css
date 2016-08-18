@@ -1,0 +1,239 @@
+@charset "windows-1251";
+body, td 
+{
+	font-family: Tahoma, Sans-Serif;
+	font-size: x-small;	
+	letter-spacing:0.2ex;
+	line-height: 1.2em;
+}
+body {
+	padding-left: 10;
+	padding-right: 10;	
+}
+
+th 
+{
+	font-family: Tahoma, Sans-Serif;
+	font-size: 80%;	
+	letter-spacing:0.2ex;
+	line-height: 1.2em;
+	color: White;
+	background-color:Navy;
+	padding: 3; 
+	
+}
+
+tr {vertical-align: top;}
+
+p {
+	text-align:justify;
+	text-justify: newspaper;
+	
+	margin: 0 0 10 0;	
+}
+
+h1 {}
+
+h2 {
+	background-color: Navy; 
+	color: White; 
+	padding: 10 10 10 20; 
+	position: relative; 
+	left: -20; 
+	width: 666;
+}
+
+h3 {
+	margin-bottom: 0.5em;
+}
+
+h4 {
+	margin: 10 0 5 0;
+	font-size: medium;
+}
+
+h5 
+{
+	font-size: x-small;
+	margin-bottom: 5;
+}
+
+caption  {
+	font-size: x-small;
+	padding-top: .25em;
+}
+
+tr.headline  {
+	background-color:Navy;
+	color: White;
+	font-weight:bold;
+}
+
+td.title {
+	padding: 3;
+	padding-left: 5;
+	border-left: groove;
+}
+
+td.controls {
+	
+}
+
+
+.examplebody {
+	display:block; 
+}
+
+.kbshort {
+	cursor:help; 
+}
+
+.shortcut {
+	width:120; font-weight: bold;
+}
+
+.code {
+	font-family: Courier New, Courier;
+	font-size: small;	
+	padding-left: 5;
+	background-color: #ddeeff;
+	border-left: groove;
+	letter-spacing:normal;
+}
+
+.keyword {
+	color: Navy;
+	cursor: help;
+}
+
+.resword, .stdfunc {
+	color: black;
+	cursor: help;
+}
+
+
+
+.tag {
+	color: Maroon;
+	cursor: help;
+}
+
+.attr {
+	color: red;
+	cursor: help;
+}
+
+.str {
+	color: DarkGreen;	
+}
+
+.num {
+	color: Magenta;	
+}
+
+.comment {
+	color: gray;	
+}
+
+.tip {
+	background-color: #FFFFDD;
+	border-top: dashed 1px Navy;
+	padding: 5;
+	margin-top: 5;
+	margin-bottom: 10;
+	font-size: 8pt;
+	color: Gray;
+}
+
+.tip strong {
+	color: Black; 
+}
+
+table {
+	margin: 0;
+}
+
+table.example {
+	margin-bottom: 10;
+}
+
+li table.example {
+	margin-top: 5;
+	margin-bottom: 5;
+	width: auto;
+	padding-right: 20;
+}
+
+div.img  {
+	text-align: center;
+	margin-right: 15;
+	margin-bottom: 15;
+}
+
+.subscript 
+{
+	margin-top: 5;
+	width: 300;
+	font-size: x-small;
+}
+
+a.hdr 
+{
+	width:100%;
+	text-align: center;
+	text-decoration: none;
+	color: gray;
+	padding:3;
+	font-weight:bold;
+	font-size:x-small;
+}
+
+a.hdr:hover
+{
+	background-color:#ddeeff;
+	color:navy;
+}
+
+hr.main 
+{
+	color: Gray;
+	width:100%;
+	height: 1px;	
+	padding:0;
+	margin:0;
+}
+
+ul {
+	margin-top: 0;	
+	margin-bottom: 10;	
+	list-style-type: square;
+} 
+
+li {
+	margin-bottom: 5;
+	text-align: justify;
+}
+
+ol.test {
+	margin-left: 25;
+}
+
+ol.test li {
+	margin-bottom: 3;		
+	background-color:#ddeeff;
+	padding: 3;
+}
+
+ol.test img {
+	text-align: left;
+	margin:5 0 5 4;
+}
+
+code {
+	font-size: 100%;
+	letter-spacing:normal;
+}
+
+.highlight {
+	background-color: #FFFFDD;
+}
