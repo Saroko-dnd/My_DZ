@@ -24,6 +24,8 @@ body
     align-content:center;
     border:solid;
     border-color:black;
+    position:relative;
+    z-index:1;
 }
 
 .GameRow div
@@ -70,5 +72,25 @@ canvas
 img
 {
     width:100px;
-    height:100px;   
+    height:100px;
+    position:relative;
+    z-index:2;
+    animation-name: example;
+    animation-duration: 5s;
+    animation-delay: 3s;
+    animation-timing-function: linear;
+}
+
+@keyframes example 
+{
+    from 
+    {
+        top: 0px;
+        left: 0px;
+    }
+    to 
+    {
+        top: 100px;
+        left: 100px;
+    }
 }
