@@ -49,18 +49,48 @@ $(document).ready(function () {
 }
 )
 
-var FadeMustBe = true;
+//FADE TEST CODE*********************************************************************
+var IntervalForFirstFadeFunction;
+var IntervalForSecondFadeFunction;
+var FirstSpaceImage;
+var SecondSpaceImage;
+var FirstTime = true;
+
+function FirstFadeFunctionForSpaceImage() {
+    if (FirstTime) {
+        FirstTime = false;
+        IntervalForSecondFadeFunction = setInterval(SecondFadeFunctionForSpaceImage, 2000);
+    }
+    FirstSpaceImage.fadeToggle(2000);
+}
+
+function SecondFadeFunctionForSpaceImage() {
+    SecondSpaceImage.fadeToggle(2000);
+}
 
 $(document).ready(function () {
-    $('#StartFadingButton').click(function()
+    FirstSpaceImage = $('#FirstSpaceImageID');
+    SecondSpaceImage = $('#SecondSpaceImageID');
+}
+)
+
+$(document).ready(function () {
+    $('#StartFadeTestButtonID').click(function ()
     {
-        while (FadeMustBe)
-        {
-            $('#FirstFadeImage').fadeIn(2000);
-            $('#SecondFadeImage').fadeOut(2000);
-            $('#FirstFadeImage').fadeOut(2000);
-            $('#SecondFadeImage').fadeIn(2000);
-        }
+        FirstTime = true;
+        FirstFadeFunctionForSpaceImage();
+        IntervalForFirstFadeFunction = setInterval(FirstFadeFunctionForSpaceImage, 2000);
     })
 }
 )
+
+$(document).ready(function () {
+    $('#EndFadeTestButtonID').click(function () {
+        clearInterval(IntervalForFirstFadeFunction);
+        clearInterval(IntervalForSecondFadeFunction);
+        FirstSpaceImage.fadeIn();
+        SecondSpaceImage.fadeIn();
+    })
+}
+)
+//***********************************************************************************
