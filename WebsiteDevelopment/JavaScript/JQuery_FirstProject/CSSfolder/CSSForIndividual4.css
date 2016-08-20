@@ -9,9 +9,10 @@
     display:flex;
     align-content:center;
     justify-content:center;
+    position:relative;
 }
 
-body 
+body, div 
 {
     flex-direction:column;
 }
@@ -19,4 +20,9 @@ body
 #StartMoveParagraphsButtonID
 {
     margin-top:50px;
+}
+
+p
+{
+    color:red;
 }
