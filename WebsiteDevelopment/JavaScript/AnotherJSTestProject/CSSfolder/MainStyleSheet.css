@@ -1,0 +1,17 @@
+﻿*
+{
+    display:flex;
+}
+
+body {
+    flex-direction:column;
+    align-content:center;
+    justify-content:center;
+    align-items:center;
+}
+
+img
+{
+    width:100px;
+    height:100px;
+}
