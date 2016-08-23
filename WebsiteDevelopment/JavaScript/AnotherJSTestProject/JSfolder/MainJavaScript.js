@@ -14,11 +14,77 @@ function AskUser()
         alert("Жениться можно!! ");
     }*/
     document.getElementById("CreateTableButtonID").onclick = CreateTable;
+    //GAME
+    var SizeOfTheGameField = 10;
+    var ArrayOfHTMLforGameField = [];
+    for (var IndexOfGameField = 0; IndexOfGameField < SizeOfTheGameField; ++IndexOfGameField) {
+        var GameRow = '<div  class="DivWithSquares">';
+        var ButtonID = 'id=';
+        var ColumnIndex = 0;
+        for (var CounterOfButtons = 0; CounterOfButtons < SizeOfTheGameField; ++CounterOfButtons)
+        {
+            GameRow += '<input type="button" class="GameSquare"' + ButtonID + '"' + IndexOfGameField + '_' + ColumnIndex + '"' + '/>';
+            ++ColumnIndex;
+        }
+        GameRow += '</div>';
+        ArrayOfHTMLforGameField.push(GameRow);
+    }
+    var FullHtmlForGameField = '';
+
+    for (var CounterOfRows = 0; CounterOfRows < ArrayOfHTMLforGameField.length; ++CounterOfRows)
+    {
+        FullHtmlForGameField += ArrayOfHTMLforGameField[CounterOfRows];
+    }
+
+    document.getElementById('GameFieldDivID').innerHTML = FullHtmlForGameField;
+    var GameButtons = Create2dArray(SizeOfTheGameField, SizeOfTheGameField);
+    var GameSquares = document.getElementsByClassName('GameSquare');
+    for (var IndexOfButton = 0; IndexOfButton < GameSquares.length; ++IndexOfButton)
+    {
+        var FirstIndex = GameSquares[IndexOfButton].id.split("_")[0];
+        var SecondIndex = GameSquares[IndexOfButton].id.split("_")[1];
+        GameButtons[FirstIndex][SecondIndex] = GameSquares[IndexOfButton];
+        GameButtonLeftClick(GameSquares[IndexOfButton]);
+        GameSquares[IndexOfButton].oncontextmenu = GameButtonRightClick;
+    }
+    //GAME
     var AllImages = document.getElementsByTagName('img');
     for (var ImgIndex = 0; ImgIndex < AllImages.length; ++ImgIndex)
     {
         AllImages[ImgIndex].onclick = ChangeImageSizeOnClick;
         AllImages[ImgIndex].big = false;
+    }
+}
+
+function Create2dArray(AmountOfRows, AmountOfColumns)
+{
+    var TwoDimensionalArray = new Array(AmountOfRows);
+    for (var Index = 0; Index < AmountOfRows; ++Index)
+    {
+        TwoDimensionalArray[Index] = new Array(AmountOfColumns);
+    }
+    return TwoDimensionalArray;
+}
+
+function GameButtonLeftClick(GameButton)
+{
+    var RandomNumber;
+    RandomNumber = 1 + Math.random() * (2 - 1);
+    RandomNumber = Math.round(RandomNumber);
+    if (RandomNumber == 1) {         
+        GameButton.mine = true;
+    }
+    else {
+        GameButton.mine = false;
+    }
+    GameButton.SafeFlag = false;
+}
+
+function GameButtonRightClick() {
+    console.log('rightclick');
+    if (this.SafeFlag == false)
+    {
+        this.SafeFlag == true;
     }
 }
 
