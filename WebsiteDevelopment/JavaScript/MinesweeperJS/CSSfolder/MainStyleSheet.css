@@ -35,7 +35,13 @@ body {
     height:30px;
 }
 
-p
+.DivWithGameInfo
 {
-    color:red;
+    flex-direction:row;
+}
+
+img
+{
+    width:30px;
+    height:30px;
 }

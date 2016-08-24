@@ -3,11 +3,18 @@ window.onload = AskUser;
 
 var GameButtons;
 var GameOver = false;
+var AmountOfMines;
+var SizeOfTheGameField;
+var AmountOfFlags;
+var ParagraphWithAmountOfFlags;
 
 function AskUser() {
     //GAME
-    var SizeOfTheGameField = 16;
-    var AmountOfMines = 40;
+    SizeOfTheGameField = 16;
+    AmountOfMines = 40;
+    AmountOfFlags = 40;
+    ParagraphWithAmountOfFlags = document.getElementById('PForAmountOfFlagsID');
+    ParagraphWithAmountOfFlags.innerText = " " + AmountOfFlags.toString();
     var ArrayOfHTMLforGameField = [];
     for (var IndexOfGameField = 0; IndexOfGameField < SizeOfTheGameField; ++IndexOfGameField) {
         var GameRow = '<div  class="DivWithSquares">';
@@ -30,8 +37,8 @@ function AskUser() {
     GameButtons = Create2dArray(SizeOfTheGameField, SizeOfTheGameField);
     var GameSquares = document.getElementsByClassName('GameSquare');
     for (var IndexOfButton = 0; IndexOfButton < GameSquares.length; ++IndexOfButton) {
-        var FirstIndex = GameSquares[IndexOfButton].id.split("_")[0];
-        var SecondIndex = GameSquares[IndexOfButton].id.split("_")[1];
+        var FirstIndex = Number(GameSquares[IndexOfButton].id.split("_")[0]);
+        var SecondIndex = Number(GameSquares[IndexOfButton].id.split("_")[1]);
         GameSquares[IndexOfButton].oncontextmenu = GameButtonRightClick;
         GameButtons[FirstIndex][SecondIndex] = GameSquares[IndexOfButton];
     }
@@ -47,7 +54,7 @@ function PrepareField(CurrentSizeOfGameField)
         for (var SecondIndex = 0; SecondIndex < CurrentSizeOfGameField; ++SecondIndex)
         {
             GameButtons[FirstIndex][SecondIndex].mine = false;
-            GameButtons[FirstIndex][SecondIndex].flag = false;
+            GameButtons[FirstIndex][SecondIndex].SafePlace = false;
             GameButtons[FirstIndex][SecondIndex].onclick = GameButtonLeftClick;         
         }
     }
@@ -97,7 +104,7 @@ function Create2dArray(AmountOfRows, AmountOfColumns) {
 }
 
 function GameButtonLeftClick() {
-    if (!GameOver)
+    if (!GameOver && !this.SafePlace)
     {
         if (this.mine)
         {
@@ -108,15 +115,123 @@ function GameButtonLeftClick() {
         }
         else
         {
-
+            var FirstIndex = Number(this.id.split('_')[0]);
+            var SecondIndex = Number(this.id.split('_')[1]);
+            CheckButtonsAround(FirstIndex, SecondIndex);
         }
     }
 }
 
-function GameButtonRightClick() {
-    console.log('rightclick');
-    if (this.SafeFlag == false) {
-        this.SafeFlag == true;
+function CheckButtonsAround(FirstIndexInGameArray, SecondIndexInGameArray)
+{
+    if (!GameButtons[FirstIndexInGameArray][SecondIndexInGameArray].SafePlace)
+    {
+        GameButtons[FirstIndexInGameArray][SecondIndexInGameArray].SafePlace = true;
+        GameButtons[FirstIndexInGameArray][SecondIndexInGameArray].style.backgroundColor = "transparent";
+        var AmountOfMinesNearTheButton = 0;
+        if ((FirstIndexInGameArray - 1) >= 0 && (SecondIndexInGameArray - 1) >= 0)
+        {
+            if (GameButtons[FirstIndexInGameArray - 1][SecondIndexInGameArray - 1].mine == true)
+            {
+                AmountOfMinesNearTheButton += 1;
+            }
+        }
+        if ((FirstIndexInGameArray + 1) < SizeOfTheGameField && (SecondIndexInGameArray + 1) < SizeOfTheGameField) {
+            if (GameButtons[FirstIndexInGameArray + 1][SecondIndexInGameArray + 1].mine == true) {
+                AmountOfMinesNearTheButton += 1;
+            }
+        }
+        if ((FirstIndexInGameArray - 1) >= 0) {
+            if (GameButtons[FirstIndexInGameArray - 1][SecondIndexInGameArray].mine == true) {
+                AmountOfMinesNearTheButton += 1;
+            }
+        }
+        if ((FirstIndexInGameArray + 1) < SizeOfTheGameField) {
+            if (GameButtons[FirstIndexInGameArray + 1][SecondIndexInGameArray].mine == true) {
+                AmountOfMinesNearTheButton += 1;
+            }
+        }
+        if ((SecondIndexInGameArray - 1) >= 0) {
+            if (GameButtons[FirstIndexInGameArray][SecondIndexInGameArray - 1].mine == true) {
+                AmountOfMinesNearTheButton += 1;
+            }
+        }
+        if ((SecondIndexInGameArray + 1) < SizeOfTheGameField) {
+            if (GameButtons[FirstIndexInGameArray][SecondIndexInGameArray + 1].mine == true) {
+                AmountOfMinesNearTheButton += 1;
+            }
+        }
+        if ((FirstIndexInGameArray - 1) >= 0 && (SecondIndexInGameArray + 1) < SizeOfTheGameField) {
+            if (GameButtons[FirstIndexInGameArray - 1][SecondIndexInGameArray + 1].mine == true) {
+                AmountOfMinesNearTheButton += 1;
+            }
+        }
+        if ((FirstIndexInGameArray + 1) < SizeOfTheGameField && (SecondIndexInGameArray - 1) >= 0) {
+            if (GameButtons[FirstIndexInGameArray + 1][SecondIndexInGameArray - 1].mine == true) {
+                AmountOfMinesNearTheButton += 1;
+            }
+        }
+        if (AmountOfMinesNearTheButton > 0) {
+            GameButtons[FirstIndexInGameArray][SecondIndexInGameArray].value = AmountOfMinesNearTheButton;
+        }
+        else
+        {
+            if ((FirstIndexInGameArray - 1) >= 0 && (SecondIndexInGameArray - 1) >= 0) {
+                CheckButtonsAround(FirstIndexInGameArray - 1, SecondIndexInGameArray - 1);
+                console.log((FirstIndexInGameArray - 1) + " " + (SecondIndexInGameArray - 1));
+            }
+            if ((FirstIndexInGameArray + 1) < SizeOfTheGameField && (SecondIndexInGameArray + 1) < SizeOfTheGameField) {
+                CheckButtonsAround(FirstIndexInGameArray + 1, SecondIndexInGameArray + 1);
+                console.log((FirstIndexInGameArray + 1) + " " + (SecondIndexInGameArray + 1));
+            }
+            if ((FirstIndexInGameArray - 1) >= 0) {
+                CheckButtonsAround(FirstIndexInGameArray - 1, SecondIndexInGameArray);
+                console.log((FirstIndexInGameArray - 1) + " " + SecondIndexInGameArray);
+            }
+            if ((FirstIndexInGameArray + 1) < SizeOfTheGameField) {
+                CheckButtonsAround(FirstIndexInGameArray + 1, SecondIndexInGameArray);
+                console.log((FirstIndexInGameArray + 1) + " " + SecondIndexInGameArray);
+            }
+            if ((SecondIndexInGameArray - 1) >= 0) {
+                CheckButtonsAround(FirstIndexInGameArray, SecondIndexInGameArray - 1);
+                console.log(FirstIndexInGameArray + " " + (SecondIndexInGameArray - 1));
+            }
+            if ((SecondIndexInGameArray + 1) < SizeOfTheGameField) {
+                CheckButtonsAround(FirstIndexInGameArray, SecondIndexInGameArray + 1);
+                console.log(FirstIndexInGameArray + " " + (SecondIndexInGameArray + 1));
+            }
+            if ((FirstIndexInGameArray - 1) >= 0 && (SecondIndexInGameArray + 1) < SizeOfTheGameField) {
+                CheckButtonsAround(FirstIndexInGameArray - 1, SecondIndexInGameArray + 1);
+                console.log((FirstIndexInGameArray - 1) + " " + (SecondIndexInGameArray + 1));
+            }
+            if ((FirstIndexInGameArray + 1) < SizeOfTheGameField && (SecondIndexInGameArray - 1) >= 0) {
+                CheckButtonsAround(FirstIndexInGameArray + 1, SecondIndexInGameArray - 1);
+                console.log((FirstIndexInGameArray + 1) + " " + (SecondIndexInGameArray - 1));
+            }
+        }
     }
+}
+
+function GameButtonRightClick()
+{
+    if (this.SafePlace == false && AmountOfFlags > 0 && !GameOver)
+    {
+        this.style.backgroundImage = "url('Images/SmallFlag.png')";
+        this.style.backgroundColor = "transparent";
+        this.SafePlace = true;
+        --AmountOfFlags;
+        ParagraphWithAmountOfFlags.innerText = " " + AmountOfFlags.toString();
+        if (this.mine)
+        {
+            --AmountOfMines;
+            if (AmountOfMines == 0)
+            {
+                GameOver = true;
+                document.getElementById('PForGameResultID').innerText = "Victory!";
+            }
+        }
+    }
+    //Ниже отключаем дальнейшую обработку правого клика (убирает контекстное меню браузера)
+    return false;
 }
 
