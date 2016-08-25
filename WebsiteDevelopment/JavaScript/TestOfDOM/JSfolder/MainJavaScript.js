@@ -4,7 +4,7 @@ window.onload = CreateListFromDivStructure;
 function CreateListFromDivStructure()
 {
     var BodyOfDocument = window.document.body;
-    CurrentBodyOfDocument.appendChild(GetHtmElementAsText(BodyOfDocument));
+    BodyOfDocument.appendChild(GetHtmElementAsText(BodyOfDocument));
 }
 
 function GetHtmElementAsText(CurrentBodyOfDocument)
@@ -16,7 +16,7 @@ function GetHtmElementAsText(CurrentBodyOfDocument)
         if (NodesForCurrentElement[Counter].nodeType == 1)
         {
             var NewElementOfList = document.createElement('LI');
-            NewElementOfList.appendChild(NodesForCurrentElement[Counter].tagName);
+            NewElementOfList.appendChild(document.createTextNode(NodesForCurrentElement[Counter].tagName));
             CurrentList.appendChild(NewElementOfList);
             if (NodesForCurrentElement[Counter].childNodes.length > 0)
             {
