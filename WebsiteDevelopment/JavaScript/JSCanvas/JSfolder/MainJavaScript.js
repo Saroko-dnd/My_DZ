@@ -10,68 +10,77 @@ function DrawInCanvas()
     var Context = MainCanvas.getContext("2d");
     //Рисуем дом
     Context.beginPath();
-    Context.moveTo(100, 800);
-    Context.lineTo(600, 800);
-    Context.lineTo(600, 300);
-    Context.lineTo(100, 300);
-    Context.lineTo(100, 800);
-    Context.moveTo(100, 300);
-    Context.lineTo(350, 100);
-    Context.lineTo(600, 300);
-    Context.moveTo(500, 600);
-    Context.lineTo(500, 450);
-    Context.lineTo(200, 450);
-    Context.lineTo(200, 600);
-    Context.lineTo(500, 600);
-    Context.moveTo(500, 525);
-    Context.lineTo(200, 525);
-    Context.moveTo(350, 600);
-    Context.lineTo(350, 450);
+    Context.moveTo(100, 850);
+    Context.lineTo(600, 850);
+    Context.lineTo(600, 350);
+    Context.lineTo(100, 350);
+    Context.lineTo(100, 850);
+    Context.moveTo(100, 350);
+    Context.lineTo(350, 150);
+    Context.lineTo(600, 350);
+    Context.moveTo(500, 650);
+    Context.lineTo(500, 500);
+    Context.lineTo(200, 500);
+    Context.lineTo(200, 650);
+    Context.lineTo(500, 650);
+    Context.moveTo(500, 575);
+    Context.lineTo(200, 575);
+    Context.moveTo(350, 650);
+    Context.lineTo(350, 500);
     Context.strokeStyle = '#FF0000';
     Context.stroke();
     //Рисуем радугу
-    Context.beginPath();
-    Context.moveTo(350, 10);
-    Context.quadraticCurveTo(800, 100, 800, 500);
-    Context.strokeStyle = 'violet';
-    Context.lineWidth = 10;
-    Context.stroke();
-    Context.beginPath();
-    Context.moveTo(350, 20);
-    Context.quadraticCurveTo(790, 110, 790, 500);
-    Context.strokeStyle = 'darkviolet';
-    Context.lineWidth = 10;
-    Context.stroke();
-    Context.beginPath();
-    Context.moveTo(350, 30);
-    Context.quadraticCurveTo(780, 120, 780, 500);
-    Context.strokeStyle = 'blue';
-    Context.lineWidth = 10;
-    Context.stroke();
-    Context.beginPath();
-    Context.moveTo(350, 40);
-    Context.quadraticCurveTo(770, 130, 770, 500);
-    Context.strokeStyle = 'green';
-    Context.lineWidth = 10;
-    Context.stroke();
-    Context.beginPath();
-    Context.moveTo(350, 50);
-    Context.quadraticCurveTo(760, 140, 760, 500);
-    Context.strokeStyle = 'yellow';
-    Context.lineWidth = 10;
-    Context.stroke();
-    Context.beginPath();
-    Context.moveTo(350, 60);
-    Context.quadraticCurveTo(750, 150, 750, 500);
-    Context.strokeStyle = 'orange';
-    Context.lineWidth = 10;
-    Context.stroke();
-    Context.beginPath();
-    Context.moveTo(350, 70);
-    Context.quadraticCurveTo(750, 160, 740, 500);
-    Context.strokeStyle = 'red';
-    Context.lineWidth = 10;
-    Context.stroke();
-    console.log('end');
+    DrawRainbow(Context);
 }
 
+function DrawRainbow(ContextForDrawing)
+{
+    var YForMoveCommand = 10;
+    var XForBézierControlPoint = 800;
+    var YForBézierControlPoint = 100;
+    var XForCurveEndingPoint = 800;
+    var RGBcolorString = new String();
+    var RGBcolorObject;
+    var HueDegrees = 0;
+    for (var CounterOfColors = 0; CounterOfColors < 10; ++CounterOfColors)
+    {
+        ContextForDrawing.beginPath();
+        ContextForDrawing.moveTo(350, YForMoveCommand);
+        ContextForDrawing.quadraticCurveTo(XForBézierControlPoint, YForBézierControlPoint, XForCurveEndingPoint, 500);
+        RGBcolorObject = HSVtoRGB(HueDegrees/360, 1, 1);
+        ContextForDrawing.strokeStyle = "rgb(" + RGBcolorObject.r.toString() + ", " + RGBcolorObject.g.toString() + ", " + RGBcolorObject.b.toString() + ")";
+        ContextForDrawing.lineWidth = 10;
+        ContextForDrawing.stroke();
+        YForMoveCommand += 10;
+        XForBézierControlPoint -= 10;
+        YForBézierControlPoint += 10;
+        XForCurveEndingPoint -= 10;
+        HueDegrees += 30;
+    }
+}
+//Example for style.color "rgb(155, 102, 102)";
+
+function HSVtoRGB(h, s, v) {
+    var r, g, b, i, f, p, q, t;
+    if (arguments.length === 1) {
+        s = h.s, v = h.v, h = h.h;
+    }
+    i = Math.floor(h * 6);
+    f = h * 6 - i;
+    p = v * (1 - s);
+    q = v * (1 - f * s);
+    t = v * (1 - (1 - f) * s);
+    switch (i % 6) {
+        case 0: r = v, g = t, b = p; break;
+        case 1: r = q, g = v, b = p; break;
+        case 2: r = p, g = v, b = t; break;
+        case 3: r = p, g = q, b = v; break;
+        case 4: r = t, g = p, b = v; break;
+        case 5: r = v, g = p, b = q; break;
+    }
+    return {
+        r: Math.round(r * 255),
+        g: Math.round(g * 255),
+        b: Math.round(b * 255)
+    };
+}
