@@ -1,4 +1,5 @@
 ﻿
+var GameCanvas;
 var GameFieldArray = new Array(4);
 var ContextOfGameCanvas;
 var XMousePosition;
@@ -17,7 +18,7 @@ window.onload = StartTrackMouse;
 
 function StartTrackMouse()
 {
-    var GameCanvas = document.getElementById('CanvasForSliderPuzzle');
+    GameCanvas = document.getElementById('CanvasForSliderPuzzle');
     GameCanvas.onmousedown = TrackMouseDown;
     GameCanvas.onmouseup = TrackMouseUp;
     GameCanvas.onmousemove = TrackMouse;
@@ -227,6 +228,12 @@ function ChangingPositionOfFiguresOnDragAndDrop()
                         ThisFigureCanMove = true;
                     }
                     if (ThisFigureCanMove) {
+                        //For IE
+                        GameCanvas.style.cursor = "move";
+                        //For Google Chrome
+                        GameCanvas.style.cursor = "-webkit-grab";
+                        //For Firefox
+                        GameCanvas.style.cursor = "-moz-grab";
                         SelectedFigure = GameFieldArray[FirstIndex][SecondIndex];
                         CopyOfFirstIndexForSelectedFigure = FirstIndex;
                         CopyOfSecondIndexForSelectedFigure = SecondIndex;
@@ -234,6 +241,33 @@ function ChangingPositionOfFiguresOnDragAndDrop()
                     }
                 }
                 MouseJustClicked = false;
+            }
+        }
+    }
+    else if (!Victory)
+    {
+        if (YMousePosition >= 200 && YMousePosition <= 600 && XMousePosition >= 200 && XMousePosition <= 600) {
+            var FirstIndex = Math.floor((YMousePosition - 200) / 100);
+            var SecondIndex = Math.floor((XMousePosition - 200) / 100);
+            var ThisFigureCanMove = false;
+            if ((FirstIndex + 1) == FirstIndexOfEmptyPlace && SecondIndex == SecondIndexOfEmptyPlace) {
+                ThisFigureCanMove = true;
+            }
+            else if ((FirstIndex - 1) == FirstIndexOfEmptyPlace && SecondIndex == SecondIndexOfEmptyPlace) {
+                ThisFigureCanMove = true;
+            }
+            else if (FirstIndex == FirstIndexOfEmptyPlace && (SecondIndex + 1) == SecondIndexOfEmptyPlace) {
+                ThisFigureCanMove = true;
+            }
+            else if (FirstIndex == FirstIndexOfEmptyPlace && (SecondIndex - 1) == SecondIndexOfEmptyPlace) {
+                ThisFigureCanMove = true;
+            }
+            if (ThisFigureCanMove) {
+                GameCanvas.style.cursor = "pointer";
+            }
+            else
+            {
+                GameCanvas.style.cursor = "default";
             }
         }
     }
@@ -276,6 +310,7 @@ function TrackMouseUp(event) {
         DrawGameField();
         CheckWin();
         FigureWasSelected = false;
+        GameCanvas.style.cursor = "default";
     }
 }
 
