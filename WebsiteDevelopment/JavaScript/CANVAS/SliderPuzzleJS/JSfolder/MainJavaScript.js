@@ -33,6 +33,13 @@ function StartTrackMouse()
 
 function GenerateGameField()
 {
+    CreateGameFieldBasics();
+    GenerateGameNumbers();
+    FindIndexesOfEmptySpace();
+}
+
+function CreateGameFieldBasics()
+{
     //Создаем массив
     for (var Index = 0; Index < 4; ++Index) {
         GameFieldArray[Index] = new Array(4);
@@ -58,26 +65,28 @@ function GenerateGameField()
             }
         }
     }
+}
+
+function GenerateGameNumbers()
+{
     //Расставляем числа на игровом поле случайным образом
-    do
-    {
+    do {
         var RandomNumberForShiftCycle;
         var NumberOfCycle = 0;
         for (var GameNumber = 1; GameNumber < 16; ++GameNumber) {
             RandomNumberForShiftCycle = GetRandomInt(1, 16);
-            while (NumberOfCycle != RandomNumberForShiftCycle)
-            {
+            while (NumberOfCycle != RandomNumberForShiftCycle) {
                 for (var FirstIndex = 0; FirstIndex < 4; ++FirstIndex) {
                     for (var SecondIndex = 0; SecondIndex < 4; ++SecondIndex) {
-                        if (GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber == -1) {
+                        if (GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber === -1) {
                             ++NumberOfCycle;
-                            if (NumberOfCycle == RandomNumberForShiftCycle) {
+                            if (NumberOfCycle === RandomNumberForShiftCycle) {
                                 GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber = GameNumber;
                                 break;
                             }
                         }
                     }
-                    if (NumberOfCycle == RandomNumberForShiftCycle) {
+                    if (NumberOfCycle === RandomNumberForShiftCycle) {
                         break;
                     }
                 }
@@ -86,27 +95,27 @@ function GenerateGameField()
         }
         Victory = false;
         CheckWin();
-        if (Victory)
-        {
+        if (Victory) {
             for (var FirstIndex = 0; FirstIndex < 4; ++FirstIndex) {
                 for (var SecondIndex = 0; SecondIndex < 4; ++SecondIndex) {
                     GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber = -1;
                 }
             }
         }
-    }while(Victory)
+    } while (Victory)
+}
 
+function FindIndexesOfEmptySpace()
+{
     for (var FirstIndex = 0; FirstIndex < 4; ++FirstIndex) {
         for (var SecondIndex = 0; SecondIndex < 4; ++SecondIndex) {
-            if (GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber == -1)
-            {
+            if (GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber === -1) {
                 FirstIndexOfEmptyPlace = FirstIndex;
                 SecondIndexOfEmptyPlace = SecondIndex;
                 break;
             }
         }
-        if (FirstIndexOfEmptyPlace > -1)
-        {
+        if (FirstIndexOfEmptyPlace > -1) {
             break;
         }
     }
@@ -130,7 +139,7 @@ function DrawGameField()
         for (var SecondIndex = 0; SecondIndex < 4; ++SecondIndex) {
             if (GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber != -1)
             {
-                if (!(FirstIndex == CopyOfFirstIndexForSelectedFigure && SecondIndex == CopyOfSecondIndexForSelectedFigure))
+                if (!(FirstIndex === CopyOfFirstIndexForSelectedFigure && SecondIndex === CopyOfSecondIndexForSelectedFigure))
                 {
                     ContextOfGameCanvas.beginPath();
                     ContextOfGameCanvas.fillStyle = GameFieldArray[FirstIndex][SecondIndex].CurrentColor;
@@ -174,7 +183,7 @@ function CheckWin()
             }
             else
             {
-                if (GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber == 15)
+                if (GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber === 15)
                 {
                     EndCycle = true;
                     break;
@@ -201,74 +210,83 @@ function ChangingPositionOfFiguresOnDragAndDrop()
 {
     if (MouseDownInsideCanvas && !Victory)
     {
-        if (FigureWasSelected)
-        {
-            SelectedFigure.Xposition = XMousePosition - 50;
-            SelectedFigure.Yposition = YMousePosition - 50;
-            DrawGameField();
-        }
-        else
-        {
-            if (MouseJustClicked)
-            {
-                if (YMousePosition >= 200 && YMousePosition <= 600 && XMousePosition >= 200 && XMousePosition <= 600) {
-                    var FirstIndex = Math.floor((YMousePosition - 200) / 100);
-                    var SecondIndex = Math.floor((XMousePosition - 200) / 100);
-                    var ThisFigureCanMove = false;
-                    if ((FirstIndex + 1) == FirstIndexOfEmptyPlace && SecondIndex == SecondIndexOfEmptyPlace) {
-                        ThisFigureCanMove = true;
-                    }
-                    else if ((FirstIndex - 1) == FirstIndexOfEmptyPlace && SecondIndex == SecondIndexOfEmptyPlace) {
-                        ThisFigureCanMove = true;
-                    }
-                    else if (FirstIndex == FirstIndexOfEmptyPlace && (SecondIndex + 1) == SecondIndexOfEmptyPlace) {
-                        ThisFigureCanMove = true;
-                    }
-                    else if (FirstIndex == FirstIndexOfEmptyPlace && (SecondIndex - 1) == SecondIndexOfEmptyPlace) {
-                        ThisFigureCanMove = true;
-                    }
-                    if (ThisFigureCanMove) {
-                        //For IE
-                        GameCanvas.style.cursor = "move";
-                        //For Google Chrome
-                        GameCanvas.style.cursor = "-webkit-grab";
-                        //For Firefox
-                        GameCanvas.style.cursor = "-moz-grab";
-                        SelectedFigure = GameFieldArray[FirstIndex][SecondIndex];
-                        CopyOfFirstIndexForSelectedFigure = FirstIndex;
-                        CopyOfSecondIndexForSelectedFigure = SecondIndex;
-                        FigureWasSelected = true;
-                    }
-                }
-                MouseJustClicked = false;
-            }
-        }
+        HandlerForMouseDownInsideCanvas();
     }
     else if (!Victory)
     {
-        if (YMousePosition >= 200 && YMousePosition <= 600 && XMousePosition >= 200 && XMousePosition <= 600) {
-            var FirstIndex = Math.floor((YMousePosition - 200) / 100);
-            var SecondIndex = Math.floor((XMousePosition - 200) / 100);
-            var ThisFigureCanMove = false;
-            if ((FirstIndex + 1) == FirstIndexOfEmptyPlace && SecondIndex == SecondIndexOfEmptyPlace) {
-                ThisFigureCanMove = true;
+        HandlerForMouseMoveInsideCanvas();
+    }
+}
+
+function HandlerForMouseMoveInsideCanvas()
+{
+    if (YMousePosition >= 200 && YMousePosition <= 600 && XMousePosition >= 200 && XMousePosition <= 600) {
+        var FirstIndex = Math.floor((YMousePosition - 200) / 100);
+        var SecondIndex = Math.floor((XMousePosition - 200) / 100);
+        var ThisFigureCanMove = false;
+        if ((FirstIndex + 1) === FirstIndexOfEmptyPlace && SecondIndex === SecondIndexOfEmptyPlace) {
+            ThisFigureCanMove = true;
+        }
+        else if ((FirstIndex - 1) === FirstIndexOfEmptyPlace && SecondIndex === SecondIndexOfEmptyPlace) {
+            ThisFigureCanMove = true;
+        }
+        else if (FirstIndex === FirstIndexOfEmptyPlace && (SecondIndex + 1) === SecondIndexOfEmptyPlace) {
+            ThisFigureCanMove = true;
+        }
+        else if (FirstIndex === FirstIndexOfEmptyPlace && (SecondIndex - 1) === SecondIndexOfEmptyPlace) {
+            ThisFigureCanMove = true;
+        }
+        if (ThisFigureCanMove) {
+            GameCanvas.style.cursor = "pointer";
+        }
+        else {
+            GameCanvas.style.cursor = "default";
+        }
+    }
+    else {
+        GameCanvas.style.cursor = "default";
+    }
+}
+
+function HandlerForMouseDownInsideCanvas()
+{
+    if (FigureWasSelected) {
+        SelectedFigure.Xposition = XMousePosition - 50;
+        SelectedFigure.Yposition = YMousePosition - 50;
+        DrawGameField();
+    }
+    else {
+        if (MouseJustClicked) {
+            if (YMousePosition >= 200 && YMousePosition <= 600 && XMousePosition >= 200 && XMousePosition <= 600) {
+                var FirstIndex = Math.floor((YMousePosition - 200) / 100);
+                var SecondIndex = Math.floor((XMousePosition - 200) / 100);
+                var ThisFigureCanMove = false;
+                if ((FirstIndex + 1) === FirstIndexOfEmptyPlace && SecondIndex === SecondIndexOfEmptyPlace) {
+                    ThisFigureCanMove = true;
+                }
+                else if ((FirstIndex - 1) === FirstIndexOfEmptyPlace && SecondIndex === SecondIndexOfEmptyPlace) {
+                    ThisFigureCanMove = true;
+                }
+                else if (FirstIndex === FirstIndexOfEmptyPlace && (SecondIndex + 1) === SecondIndexOfEmptyPlace) {
+                    ThisFigureCanMove = true;
+                }
+                else if (FirstIndex === FirstIndexOfEmptyPlace && (SecondIndex - 1) === SecondIndexOfEmptyPlace) {
+                    ThisFigureCanMove = true;
+                }
+                if (ThisFigureCanMove) {
+                    //For IE
+                    GameCanvas.style.cursor = "move";
+                    //For Google Chrome
+                    GameCanvas.style.cursor = "-webkit-grab";
+                    //For Firefox
+                    GameCanvas.style.cursor = "-moz-grab";
+                    SelectedFigure = GameFieldArray[FirstIndex][SecondIndex];
+                    CopyOfFirstIndexForSelectedFigure = FirstIndex;
+                    CopyOfSecondIndexForSelectedFigure = SecondIndex;
+                    FigureWasSelected = true;
+                }
             }
-            else if ((FirstIndex - 1) == FirstIndexOfEmptyPlace && SecondIndex == SecondIndexOfEmptyPlace) {
-                ThisFigureCanMove = true;
-            }
-            else if (FirstIndex == FirstIndexOfEmptyPlace && (SecondIndex + 1) == SecondIndexOfEmptyPlace) {
-                ThisFigureCanMove = true;
-            }
-            else if (FirstIndex == FirstIndexOfEmptyPlace && (SecondIndex - 1) == SecondIndexOfEmptyPlace) {
-                ThisFigureCanMove = true;
-            }
-            if (ThisFigureCanMove) {
-                GameCanvas.style.cursor = "pointer";
-            }
-            else
-            {
-                GameCanvas.style.cursor = "default";
-            }
+            MouseJustClicked = false;         
         }
     }
 }
@@ -287,6 +305,15 @@ function TrackMouseDown(event)
 {
     MouseDownInsideCanvas = true;
     MouseJustClicked = true;
+    if (GameCanvas.style.cursor === "pointer")
+    {
+        //For IE
+        GameCanvas.style.cursor = "move";
+        //For Google Chrome
+        GameCanvas.style.cursor = "-webkit-grab";
+        //For Firefox
+        GameCanvas.style.cursor = "-moz-grab";
+    }
 }
 
 function TrackMouseUp(event) {
@@ -295,7 +322,7 @@ function TrackMouseUp(event) {
     {
         var FirstIndex = Math.floor((YMousePosition - 200) / 100);
         var SecondIndex = Math.floor((XMousePosition - 200) / 100);
-        if (FirstIndex == FirstIndexOfEmptyPlace && SecondIndex == SecondIndexOfEmptyPlace)
+        if (FirstIndex === FirstIndexOfEmptyPlace && SecondIndex === SecondIndexOfEmptyPlace)
         {
             GameFieldArray[FirstIndex][SecondIndex].CurrentGameNumber = SelectedFigure.CurrentGameNumber;
             GameFieldArray[FirstIndex][SecondIndex].CurrentColor = SelectedFigure.CurrentColor;
