@@ -12,27 +12,28 @@
 <body>
     <h1>AJAX simple requests</h1>
     <h2>AJAX text response</h2>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <input type="button" value="Еда" id="FoodButton"/>
-                <input type="button" value="Питье" id="WaterButton"/>
-            </div>
-            <div class="col-sm-8">
-                <p id="PForAnswerFromServer">
-                    
-                </p>
-            </div>
+    <div id="DivForTextAJAXResponse">
+        <div>
+            <input type="button" value="Еда" id="FoodButton" />
+            <input type="button" value="Питье" id="WaterButton" />
+        </div>
+        <div>
+            <p id="PForAnswerFromServer">
+            </p>
         </div>
     </div>
-    <h2>AJAX image response</h2>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12" >
-                <input type="button" value="NextImage" id="ButtonForImageGallery"/>
-                <img id="ImgForGallery"/>
+    <div id="DivForImageGallery">
+        <h2>AJAX image response</h2>
+        <div class="DivGallery" id="DivForGallery">
+            <div id="DivWithAllImages">
+                <img src="Images/Image_1.jpg" />
+                <img src="Images/Image_2.jpg" />
+                <img src="Images/Image_3.jpg" />
+                <img src="Images/Image_4.jpg" />
+                <img src="Images/Image_5.jpg" />
             </div>
         </div>
+        <input type="button" value="NextImage" id="ButtonForImageGallery" />
     </div>
 </body>
 </html>

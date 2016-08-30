@@ -1,10 +1,46 @@
-﻿body {
+﻿
+body {
+    flex-direction:column;
 }
 
-.col-sm-4
+*
 {
     display:flex;
-    flex-direction:column;
     align-content:center;
     justify-content:center;
+}
+
+img
+{
+    width:400px;
+    height:200px;
+    display:block;
+}
+
+#DivForImageGallery, #DivForGallery
+{
+    flex-direction:column;
+}
+
+#DivForGallery
+{
+    width:400px;
+    height:200px;
+    display:block;
+    overflow:hidden;
+}
+
+#DivWithAllImages
+{
+    display:block;
+}
+
+#DivForTextAJAXResponse
+{
+    flex-direction:column;
+}
+
+#ButtonForImageGallery
+{
+    margin-bottom:50px;
 }

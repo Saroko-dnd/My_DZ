@@ -1,50 +1,64 @@
 ﻿
-
 window.onload = EstablishHandersForEvent;
 
-var ImgForGallery;
+var AmountOfImagesForDynamicLoading = 5;
+var AmountOfScrollClicksBeforeLoadNewImages = 3;
+var HeightOfImages = 200;
+var DivForGallery;
+var DivWithImages;
 var XHRobjectForFood = new XMLHttpRequest();
 var XHRobjectForWater = new XMLHttpRequest();
 var XHRobjectForImage = new XMLHttpRequest();
-var ArrayOfImagePaths = ['Images/Image_1.jpg', 'Images/Image_2.jpg', 'Images/Image_3.jpg', 'Images/Image_4.jpg'];
-var CurrentIndexOfArray = 0;
+var ArrayOfImagesForDynamicLoading = ['Images/Image_6.jpg', 'Images/Image_7.jpg', 'Images/Image_8.jpg', 'Images/Image_9.jpg', 'Images/Image_10.jpg'];
 var ParagraphForAJAXresult;
 
 function EstablishHandersForEvent()
 {
-    ImgForGallery = document.getElementById('ImgForGallery');
+    window.URL = window.URL || window.webkitURL;
+    DivWithImages = document.getElementById('DivWithAllImages');
+    DivForGallery = document.getElementById('DivForGallery');
     document.getElementById('FoodButton').onclick = MenuButtonClick(XHRobjectForFood, 'Food.txt');
     document.getElementById('WaterButton').onclick = MenuButtonClick(XHRobjectForWater, 'Water.txt');
-    document.getElementById('ButtonForImageGallery').onclick = MenuButtonClick(XHRobjectForWater, 'Water.txt');
+    document.getElementById('ButtonForImageGallery').onclick = NextImageOnClick;
     ParagraphForAJAXresult = document.getElementById('PForAnswerFromServer');
     XHRobjectForFood.onreadystatechange = XHRReadyStateChanged(XHRobjectForFood);
     XHRobjectForWater.onreadystatechange = XHRReadyStateChanged(XHRobjectForWater);
-    XHRobjectForImage.onreadystatechange = XHRReadyStateChanged(XHRobjectForWater);
+    XHRobjectForImage.onload = AddNewImageToGallery;
+    XHRobjectForImage.responseType = 'blob';
 }
 
 function NextImageOnClick()
 {
-    if (XHRobjectForImage.readyState === 0 || XHRobjectForImage.readyState === 4)
+    DivForGallery.scrollTop += HeightOfImages;
+    if (DivForGallery.scrollTop >= HeightOfImages * AmountOfScrollClicksBeforeLoadNewImages)
     {
-        XHRobjectForImage.open('GET', ArrayOfImagePaths[CurrentIndexOfArray], true);
-        XHRobjectForImage.send();
-        ++CurrentIndexOfArray;
-        if (CurrentIndexOfArray === ArrayOfImagePaths.length)
-        {
-            CurrentIndexOfArray = 0;
-        }
+        RequestForOneImageToGallery();
     }
 }
 
-function ChangeImgSrc()
+function AddNewImageToGallery()
 {
-    if (XHRobjectForImage.readyState === 4) {
-        if (XHRobjectForImage.status === 200) {
-            ParagraphForAJAXresult.innerText = XHRobjectForImage.responseText;
+    if (XHRobjectForImage.status === 200) {
+        var ImageBlobObject = XHRobjectForImage.response;
+        var NewImage = document.createElement('IMG');
+        NewImage.src = window.URL.createObjectURL(ImageBlobObject);
+        DivWithImages.appendChild(NewImage);
+        if (AmountOfImagesForDynamicLoading > 0) {
+            RequestForOneImageToGallery();
         }
-        else {
-            ParagraphForAJAXresult.innerText = 'Error!';
-        }
+    }
+    else {
+        alert('Error was occured during loading of image!');
+    }  
+}
+
+function RequestForOneImageToGallery()
+{
+    if (AmountOfImagesForDynamicLoading > 0 && (XHRobjectForImage.readyState === 0 || XHRobjectForImage.readyState === 4))
+    {
+        XHRobjectForImage.open('GET', ArrayOfImagesForDynamicLoading[AmountOfImagesForDynamicLoading - 1], true);
+        XHRobjectForImage.send();
+        --AmountOfImagesForDynamicLoading;
     }
 }
 
