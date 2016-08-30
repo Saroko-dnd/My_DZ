@@ -17,6 +17,10 @@ function EstablishHandersForEvent()
     window.URL = window.URL || window.webkitURL;
     DivWithImages = document.getElementById('DivWithAllImages');
     DivForGallery = document.getElementById('DivForGallery');
+    DivForGallery.style.width = '400px';
+    DivForGallery.style.height = HeightOfImages.toString() + 'px';
+    var ReferenceToOthersImages = document.getElementById('AReferenceToOtherImages');
+    ReferenceToOthersImages.href = '#';
     document.getElementById('FoodButton').onclick = MenuButtonClick(XHRobjectForFood, 'Food.txt');
     document.getElementById('WaterButton').onclick = MenuButtonClick(XHRobjectForWater, 'Water.txt');
     document.getElementById('ButtonForImageGallery').onclick = NextImageOnClick;
