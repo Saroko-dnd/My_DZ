@@ -3,11 +3,8 @@
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
   <xsl:template match="/">
-    <xsl:variable  name="Avg" select="(sum(//price) div count-not-empty(//price))"></xsl:variable>
-    <h2>My CD Collection (price &lt; average price)
-    <xsl:value-of select="$Avg" />
-    
-    </h2>
+    <xsl:variable  name="Avg" select="(sum(//price) div count(//price))"></xsl:variable>
+    <h2>My CD Collection (price &lt; average price)</h2>
     <table border="1">
       <tr bgcolor="#9acd32">
         <th style="text-align:left">Title</th>
