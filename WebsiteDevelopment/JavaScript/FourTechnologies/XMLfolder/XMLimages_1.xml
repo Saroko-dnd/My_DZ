@@ -3,17 +3,32 @@
 <AllImages>
   <img>
     <src>https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRVadO4UxD7n5qcFsvtGyib7eGE6MJfy8Qc39BRYvbi1ixDJ5wQ</src>
+    <id>1Image</id>
+    <class>center-block</class>
+    <zIndex>5</zIndex>
   </img>
   <img>
     <src>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_fLlvFp3TkNGBGKZSWDjimcgcHE4lFMAvr3vb_MICv0dAphgr</src>
+    <id>2Image</id>
+    <class>center-block</class>
+    <zIndex>4</zIndex>
   </img>
   <img>
     <src>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRCitk1DUt7stU1d1KqFGQCPyduDzr3e964vbcIkMGCIcv3zYml</src>
+    <id>3Image</id>
+    <class>center-block</class>
+    <zIndex>3</zIndex>
   </img>
   <img>
     <src>https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQdh5rqocXBdP7geRE20VoTrFSRvnuVnDMSEFmd_JJGpMcLMS4nw</src>
+    <id>4Image</id>
+    <class>center-block</class>
+    <zIndex>2</zIndex>
   </img>
   <img>
     <src>https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRWW39R6w-lHP2GprJhzA6_1Amiwd-JdUNrSN2_AkXXtLmFYanRhg</src>
+    <id>5Image</id>
+    <class>center-block</class>
+    <zIndex>1</zIndex>
   </img>
 </AllImages>

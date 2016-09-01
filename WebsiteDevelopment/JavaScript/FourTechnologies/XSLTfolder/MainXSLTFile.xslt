@@ -3,7 +3,7 @@
   
   <xsl:template match="/AllImages">
           <xsl:for-each select="img">
-            <img src="{src}"/>         
+            <img src="{src}" id="{id}" class="{class}" style="z-index:{zIndex}"/>         
           </xsl:for-each>
   </xsl:template>
   
