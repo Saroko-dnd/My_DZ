@@ -1,4 +1,5 @@
 ﻿
+var Walls = {LeftWall: 1, RightWall: 2, Grid: 3};
 var GameCanvas;
 var GameFieldContext;
 var LeftPlayerRect;
@@ -15,9 +16,12 @@ var BallWasThrownByRightPlayer = false;
 var BallHitLeftWall = false;
 var BallHitRightWall = false;
 var BallHitRoof = false;
+var BallWasTossedInUnusualWay = false;
+var WallWasHitByBallInUnusualWay = null;
 var BallMoveDistance;
 var ScoreInfoParagraph;
 var GameBallYStartSpeed;
+var BallStartSpeedFactor = 2;
 
 window.onkeydown = KeyDownEventHandler;
 window.onkeyup = KeyUpEventHandler;
@@ -26,7 +30,8 @@ $(document).ready(
     function ()
     {
         GameCanvas = document.getElementById("MainCanvasForGame");
-        GameBall = { x: 500, y: 52, radius: 50, YSpeed: 2, XSpeed: GetRandomSpeedForBall(-1, 1), color:'red' };
+        //GameBall = { x: 500, y: 52, radius: 50, YSpeed: 2, XSpeed: GetRandomSpeedForBall(BallStartSpeedFactor), color: 'red' };
+        GameBall = { x: 300, y: 52, radius: 50, YSpeed: 1, XSpeed: 0.1, color: 'red' };
         LeftPlayerRect = { x: 0, y: 600, width: 100, height: 200, color: 'black', speed: 0, score: 0 };
         RightPlayerRect = { x: 900, y: 600, width: 100, height: 200, color: 'blue', speed: 0, score: 0 };
         Grid = { x: 475, y: 400, width: 50, height: 400, color: 'green', speed: 0 };
@@ -85,31 +90,57 @@ function DrawGameField()
         BallHitLeftWall = true;
         BallHitRightWall = false;
         BallHitRoof = false;
-        if (GameBall.y < LeftPlayerRect.y)
+        if (GameBall.y < (LeftPlayerRect.y - GameBall.radius))
         {
             BallWasThrownByLeftPlayer = false;
             BallWasThrownByRightPlayer = false;
         }
+        else if (GameBall.y >= LeftPlayerRect.y && !BallWasTossedInUnusualWay)
+        {
+            if (GameBall.x < Grid.x) {
+                RightPlayerRect.score += 1;
+            }
+            else {
+                LeftPlayerRect.score += 1;
+            }
+            clearInterval(IntervalForDrawing);
+            UpdateScoreInfo();
+            StartNewRound();
+        }
+        BallWasTossedInUnusualWay = false;
         GameBall.XSpeed = -GameBall.XSpeed;
     }
-    else if (GameBall.y <= GameBall.radius)
+    else if (GameBall.y <= GameBall.radius && !BallHitRoof)
     {
         BallHitLeftWall = false;
         BallHitRightWall = false;
         BallHitRoof = true;
         BallWasThrownByLeftPlayer = false;
         BallWasThrownByRightPlayer = false;
+        BallWasTossedInUnusualWay = false;
         GameBall.YSpeed = -GameBall.YSpeed;
     }
-    else if (GameBall.x >= GameCanvas.width - GameBall.radius && !BallHitRightWall)
+    else if ((GameBall.x >= (GameCanvas.width - GameBall.radius)) && !BallHitRightWall)
     {
         BallHitLeftWall = false;
         BallHitRightWall = true;
         BallHitRoof = false;
-        if (GameBall.y < LeftPlayerRect.y) {
+        if (GameBall.y < (LeftPlayerRect.y - GameBall.radius)) {
             BallWasThrownByLeftPlayer = false;
             BallWasThrownByRightPlayer = false;
         }
+        else if (GameBall.y >= LeftPlayerRect.y && !BallWasTossedInUnusualWay) {
+            if (GameBall.x < Grid.x) {
+                RightPlayerRect.score += 1;
+            }
+            else {
+                LeftPlayerRect.score += 1;
+            }
+            clearInterval(IntervalForDrawing);
+            UpdateScoreInfo();
+            StartNewRound();
+        }
+        BallWasTossedInUnusualWay = false;
         GameBall.XSpeed = -GameBall.XSpeed;
     }
     else if (GameBall.y >= GameCanvas.height - GameBall.radius)
@@ -133,7 +164,6 @@ function DrawGameField()
             BallHitRightWall = false;
             BallHitLeftWall = false;
             BallHitRoof = false;
-            console.log(1);
             ChangeSpeedOfGameBall(LeftPlayerRect);
         }
         else if (Intersection(RightPlayerRect) && !BallWasThrownByRightPlayer)
@@ -143,7 +173,6 @@ function DrawGameField()
             BallHitLeftWall = false;
             BallHitRightWall = false;
             BallHitRoof = false;
-            console.log(2);
             ChangeSpeedOfGameBall(RightPlayerRect);
         }
         else if (Intersection(Grid))
@@ -153,7 +182,6 @@ function DrawGameField()
             BallHitLeftWall = false;
             BallHitRightWall = false;
             BallHitRoof = false;
-            console.log(3);
             ChangeSpeedOfGameBall(Grid);
         }
     }
@@ -201,14 +229,16 @@ function DrawGameField()
     GameFieldContext.stroke();
 }
 
-function GetRandomSpeedForBall(min, max)
+function GetRandomSpeedForBall(CurrentSpeedFactor)
 {
     var RandomSpeed = 0;
+    var min = -1;
+    var max = 2;
     while (RandomSpeed == 0)
     {
-        RandomSpeed = Math.floor(Math.random() * ((max + 1) - min)) + min;
+        RandomSpeed = Math.floor(Math.random() * (max - min)) + min;
     }
-    return RandomSpeed * 2;
+    return RandomSpeed *= CurrentSpeedFactor;
 }
 
 
@@ -236,7 +266,6 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         var FactorForDistance = BallMoveDistance / RealDistanceFromRectangleCenter;
         GameBall.XSpeed = XDistanceFromRectangleCenter * FactorForDistance;
         GameBall.YSpeed = YDistanceFromRectangleCenter * FactorForDistance;
-        //GameBall.XSpeed = -GameBall.XSpeed;
         GameBall.YSpeed = -GameBall.YSpeed;
     }
     else if ((GameBall.x < CurrentRectangle.x) && (GameBall.y < CurrentRectangle.y)) {
@@ -249,25 +278,78 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         GameBall.XSpeed = -GameBall.XSpeed;
         GameBall.YSpeed = -GameBall.YSpeed;
     }
-    else if ((GameBall.x >= CurrentRectangle.x) && (GameBall.x <= CurrentRectangle.x + CurrentRectangle.width))
-    {
-        GameBall.YSpeed = -GameBall.YSpeed;
-    }
     else if (GameBall.y >= CurrentRectangle.y)
     {
-        if (CurrentRectangle == Grid && GameBall.y >= LeftPlayerRect.y)
+        if (GameBall.XSpeed < 0 && GameBall.x < CurrentRectangle.x)
         {
-            if (GameBall.x < CurrentRectangle.x) {
-                RightPlayerRect.score += 1;
+            var XDistanceFromRectangleCenter = ((CurrentRectangle.width / 2) + CurrentRectangle.x) - GameBall.x;
+            var YDistanceFromRectangleCenter = ((CurrentRectangle.height / 2) + CurrentRectangle.y) - GameBall.y;
+            var RealDistanceFromRectangleCenter = Math.sqrt((XDistanceFromRectangleCenter * XDistanceFromRectangleCenter) + (YDistanceFromRectangleCenter * YDistanceFromRectangleCenter));
+            var FactorForDistance = BallMoveDistance / RealDistanceFromRectangleCenter;
+            //Защита от бесконечного движения мяча по горизонтали
+            if (YDistanceFromRectangleCenter == 0)
+            {
+                YDistanceFromRectangleCenter = 1;
             }
-            else {
-                LeftPlayerRect.score += 1;
+            if (YDistanceFromRectangleCenter > 0)
+            {
+                BallWasTossedInUnusualWay = true;
+                if (CurrentRectangle == LeftPlayerRect) {
+                    WallWasHitByBallInUnusualWay = Walls.LeftWall;
+                }
+                else {
+                    WallWasHitByBallInUnusualWay = Walls.Grid;
+                }
             }
-            clearInterval(IntervalForDrawing);
-            UpdateScoreInfo();
-            StartNewRound();
+            GameBall.XSpeed = XDistanceFromRectangleCenter * FactorForDistance;
+            GameBall.YSpeed = YDistanceFromRectangleCenter * FactorForDistance;
+            GameBall.XSpeed = -GameBall.XSpeed;
+            GameBall.YSpeed = -GameBall.YSpeed;
         }
-        GameBall.XSpeed = -GameBall.XSpeed;
+        else if (GameBall.XSpeed > 0 && GameBall.x > CurrentRectangle.x)
+        {
+            var XDistanceFromRectangleCenter = GameBall.x - ((CurrentRectangle.width / 2) + CurrentRectangle.x);
+            var YDistanceFromRectangleCenter = ((CurrentRectangle.height / 2) + CurrentRectangle.y) - GameBall.y;
+            var RealDistanceFromRectangleCenter = Math.sqrt((XDistanceFromRectangleCenter * XDistanceFromRectangleCenter) + (YDistanceFromRectangleCenter * YDistanceFromRectangleCenter));
+            var FactorForDistance = BallMoveDistance / RealDistanceFromRectangleCenter;
+            //Защита от бесконечного движения мяча по горизонтали
+            if (YDistanceFromRectangleCenter == 0)
+            {
+                YDistanceFromRectangleCenter = 1;
+            }
+            if (YDistanceFromRectangleCenter > 0) {
+                BallWasTossedInUnusualWay = true;
+                if (CurrentRectangle == LeftPlayerRect) {
+                    WallWasHitByBallInUnusualWay = Walls.Grid;
+                }
+                else {
+                    WallWasHitByBallInUnusualWay = Walls.RightWall;
+                }
+            }
+            GameBall.XSpeed = XDistanceFromRectangleCenter * FactorForDistance;
+            GameBall.YSpeed = YDistanceFromRectangleCenter * FactorForDistance;
+            GameBall.YSpeed = -GameBall.YSpeed;
+        }
+        else
+        {
+            if (CurrentRectangle == Grid && GameBall.y >= LeftPlayerRect.y && !BallWasTossedInUnusualWay) {
+                if (GameBall.x < CurrentRectangle.x) {
+                    RightPlayerRect.score += 1;
+                }
+                else {
+                    LeftPlayerRect.score += 1;
+                }
+                clearInterval(IntervalForDrawing);
+                UpdateScoreInfo();
+                StartNewRound();
+            }
+            BallWasTossedInUnusualWay = false;
+            GameBall.XSpeed = -GameBall.XSpeed;
+        }
+    }
+    else
+    {
+        GameBall.YSpeed = -GameBall.YSpeed;
     }
 }
 
@@ -281,10 +363,16 @@ function StartNewRound()
     GameBall.x = GameCanvas.width / 2;
     GameBall.y = GameBall.radius + 2;
     GameBall.YSpeed = GameBallYStartSpeed;
-    GameBall.XSpeed = GetRandomSpeedForBall(-1, 1);
+    GameBall.XSpeed = GetRandomSpeedForBall(BallStartSpeedFactor);
     LeftPlayerRect.x = 0;
     LeftPlayerRect.y = GameCanvas.height - LeftPlayerRect.height;
     RightPlayerRect.x = GameCanvas.width - RightPlayerRect.width;
     RightPlayerRect.y = GameCanvas.height - RightPlayerRect.height;
+    BallWasThrownByLeftPlayer = false;
+    BallWasThrownByRightPlayer = false;
+    BallHitLeftWall = false;
+    BallHitRightWall = false;
+    BallHitRoof = false;
+    BallWasTossedInUnusualWay = false;
     IntervalForDrawing = setInterval(DrawGameField, 10);
 }
