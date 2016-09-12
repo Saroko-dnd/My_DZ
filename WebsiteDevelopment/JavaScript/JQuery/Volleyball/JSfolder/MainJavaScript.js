@@ -10,7 +10,6 @@ var BorderXforLeftPlayer = 375;
 var BorderXForRightPlayer = 525;
 var BorderMaxXForRightPlayer = 900;
 var IntervalForDrawing;
-var BallRadius = 50;
 var BallHitLeftWall = false;
 var BallHitRightWall = false;
 var BallHitRoof = false;
@@ -20,6 +19,10 @@ var BallMoveDistance;
 var ScoreInfoParagraph;
 var GameBallYStartSpeed;
 var BallStartSpeedFactor = 2;
+var AccelerationOfGravity = 0.1;
+var PlayerJumpSpeed = -4.1;
+var LeftPlayerJumpingWhenJumpKeyPressed = false;
+var RightPlayerJumpingWhenJumpKeyPressed = false;
 
 window.onkeydown = KeyDownEventHandler;
 window.onkeyup = KeyUpEventHandler;
@@ -29,8 +32,8 @@ $(document).ready(
     {
         GameCanvas = document.getElementById("MainCanvasForGame");
         GameBall = { x: 500, y: 52, radius: 50, YSpeed: 2, XSpeed: GetRandomSpeedForBall(BallStartSpeedFactor), color: 'red' };
-        LeftPlayerRect = { x: 0, y: 600, width: 100, height: 200, color: 'black', XSpeed: 0, score: 0, CanMoveLeft: true, CanMoveRight: true };
-        RightPlayerRect = { x: 900, y: 600, width: 100, height: 200, color: 'blue', XSpeed: 0, score: 0, CanMoveLeft: true, CanMoveRight: true };
+        LeftPlayerRect = { x: 0, y: 600, width: 100, height: 200, color: 'black', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true, CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false };
+        RightPlayerRect = { x: 900, y: 600, width: 100, height: 200, color: 'blue', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true, CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false };
         Grid = { x: 475, y: 400, width: 50, height: 400, color: 'green'};
         BallMoveDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed));
         GameBallYStartSpeed = GameBall.YSpeed;
@@ -83,6 +86,25 @@ function KeyDownEventHandler(event)
             RightPlayerRect.XSpeed = 0;
         }
     }
+    else if (event.keyCode == 87 && !LeftPlayerRect.JumpKeyDown && (LeftPlayerRect.y < (GameCanvas.height - LeftPlayerRect.height)))
+    {
+        LeftPlayerRect.JumpKeyDown = true;
+        LeftPlayerJumpingWhenJumpKeyPressed = true;
+    }
+    else if ((event.keyCode == 87 && !LeftPlayerRect.JumpKeyDown) && (LeftPlayerRect.y == (GameCanvas.height - LeftPlayerRect.height)) && !LeftPlayerJumpingWhenJumpKeyPressed) {
+        LeftPlayerRect.YSpeed = PlayerJumpSpeed;
+        LeftPlayerRect.JumpKeyDown = true;
+        LeftPlayerRect.CanJump = true;
+    }
+    else if (event.keyCode == 38 && !RightPlayerRect.JumpKeyDown && (RightPlayerRect.y < (GameCanvas.height - RightPlayerRect.height))) {
+        RightPlayerRect.JumpKeyDown = true;
+        RightPlayerJumpingWhenJumpKeyPressed = true;
+    }
+    else if ((event.keyCode == 38 && !RightPlayerRect.JumpKeyDown) && (RightPlayerRect.y == (GameCanvas.height - RightPlayerRect.height)) && !RightPlayerJumpingWhenJumpKeyPressed) {
+        RightPlayerRect.YSpeed = PlayerJumpSpeed;
+        RightPlayerRect.JumpKeyDown = true;
+        RightPlayerRect.CanJump = true;
+    }
 }
 
 function KeyUpEventHandler(event)
@@ -93,6 +115,15 @@ function KeyUpEventHandler(event)
     else if (event.keyCode == 39 || event.keyCode == 37) {
         RightPlayerRect.XSpeed = 0;
     }
+    else if (event.keyCode == 87)
+    {
+        LeftPlayerRect.JumpKeyDown = false;
+        LeftPlayerJumpingWhenJumpKeyPressed = false;
+    }
+    else if (event.keyCode == 38) {
+        RightPlayerRect.JumpKeyDown = false;
+        RightPlayerJumpingWhenJumpKeyPressed = false;
+    }
 }
 
 function DrawGameField()
@@ -100,10 +131,11 @@ function DrawGameField()
     var IntersectionWithLeftPlayer = false;
     var IntersectionWithRightPlayer = false;
     //Проверяем мешает ли мяч движению игроков
-    if (GameBall.y > LeftPlayerRect.y - GameBall.radius)
+    if ((GameBall.y >= LeftPlayerRect.y - GameBall.radius) || (GameBall.y >= RightPlayerRect.y - GameBall.radius))
     {
-        if (Intersection(LeftPlayerRect)) {
-            IntersectionWithLeftPlayer = true;
+        IntersectionWithLeftPlayer = Intersection(LeftPlayerRect);
+        IntersectionWithRightPlayer = Intersection(RightPlayerRect);
+        if (IntersectionWithLeftPlayer && (GameBall.x < LeftPlayerRect.x || GameBall.x > LeftPlayerRect.x + LeftPlayerRect.width)) {
             if (GameBall.x > LeftPlayerRect.x)
             {
                 LeftPlayerRect.CanMoveRight = false;
@@ -125,9 +157,16 @@ function DrawGameField()
         {
             LeftPlayerRect.CanMoveLeft = true;
             LeftPlayerRect.CanMoveRight = true;
+            if (IntersectionWithLeftPlayer)
+            {
+                LeftPlayerRect.CanMoveUp = false;
+            }
+            else
+            {
+                LeftPlayerRect.CanMoveUp = true;
+            }
         }
-        if (Intersection(RightPlayerRect)) {
-            IntersectionWithRightPlayer = true;
+        if (IntersectionWithRightPlayer && (GameBall.x < RightPlayerRect.x || GameBall.x > RightPlayerRect.x + RightPlayerRect.width)) {
             if (GameBall.x > RightPlayerRect.x) {
                 RightPlayerRect.CanMoveRight = false;
                 RightPlayerRect.CanMoveLeft = true;
@@ -147,14 +186,23 @@ function DrawGameField()
         {
             RightPlayerRect.CanMoveLeft = true;
             RightPlayerRect.CanMoveRight = true;
+            if (IntersectionWithRightPlayer) {
+                RightPlayerRect.CanMoveUp = false;
+            }
+            else
+            {
+                RightPlayerRect.CanMoveUp = true;
+            }
         }
     }
     else
     {
         LeftPlayerRect.CanMoveLeft = true;
         LeftPlayerRect.CanMoveRight = true;
+        LeftPlayerRect.CanMoveUp = true;
         RightPlayerRect.CanMoveLeft = true;
         RightPlayerRect.CanMoveRight = true;
+        RightPlayerRect.CanMoveUp = true;
     }
     //Очищаем игровое поле
     GameFieldContext.beginPath();
@@ -245,6 +293,43 @@ function DrawGameField()
     GameFieldContext.stroke();
     GameFieldContext.beginPath();
     GameFieldContext.fillStyle = LeftPlayerRect.color;
+    //Обработка движения левого игрока при прыжке
+    if (LeftPlayerRect.CanJump)
+    {
+        if (!LeftPlayerRect.Jumping)
+        {
+            if (!LeftPlayerRect.CanMoveUp)
+            {
+                LeftPlayerRect.y = GameCanvas.height - LeftPlayerRect.height;
+                LeftPlayerRect.YSpeed = 0;
+                LeftPlayerRect.CanJump = false;
+            }
+            else
+            {
+                LeftPlayerRect.YSpeed += AccelerationOfGravity;
+                LeftPlayerRect.y += LeftPlayerRect.YSpeed;
+                LeftPlayerRect.Jumping = true;
+            }
+        }
+        else if (LeftPlayerRect.y >= (GameCanvas.height - LeftPlayerRect.height)) {
+            LeftPlayerRect.y = GameCanvas.height - LeftPlayerRect.height;
+            LeftPlayerRect.YSpeed = 0;
+            LeftPlayerRect.Jumping = false;
+            LeftPlayerRect.CanJump = false;
+        }
+        else
+        {
+            if (!LeftPlayerRect.CanMoveUp)
+            {
+                if (LeftPlayerRect.YSpeed < 0)
+                {
+                    LeftPlayerRect.YSpeed = -LeftPlayerRect.YSpeed;
+                }
+            }
+            LeftPlayerRect.YSpeed += AccelerationOfGravity;
+            LeftPlayerRect.y += LeftPlayerRect.YSpeed;
+        }
+    }
     if (LeftPlayerRect.x == 0 && LeftPlayerRect.XSpeed > 0)
     {
         LeftPlayerRect.x += LeftPlayerRect.XSpeed;
@@ -261,6 +346,36 @@ function DrawGameField()
     GameFieldContext.stroke();
     GameFieldContext.beginPath();
     GameFieldContext.fillStyle = RightPlayerRect.color;
+    //Обработка движения правого игрока при прыжке
+    if (RightPlayerRect.CanJump) {
+        if (!RightPlayerRect.Jumping) {
+            if (!RightPlayerRect.CanMoveUp) {
+                RightPlayerRect.y = GameCanvas.height - RightPlayerRect.height;
+                RightPlayerRect.YSpeed = 0;
+                RightPlayerRect.CanJump = false;
+            }
+            else {
+                RightPlayerRect.YSpeed += AccelerationOfGravity;
+                RightPlayerRect.y += RightPlayerRect.YSpeed;
+                RightPlayerRect.Jumping = true;
+            }
+        }
+        else if (RightPlayerRect.y >= (GameCanvas.height - RightPlayerRect.height)) {
+            RightPlayerRect.y = GameCanvas.height - RightPlayerRect.height;
+            RightPlayerRect.YSpeed = 0;
+            RightPlayerRect.Jumping = false;
+            RightPlayerRect.CanJump = false;
+        }
+        else {
+            if (!RightPlayerRect.CanMoveUp) {
+                if (RightPlayerRect.YSpeed < 0) {
+                    RightPlayerRect.YSpeed = -RightPlayerRect.YSpeed;
+                }
+            }
+            RightPlayerRect.YSpeed += AccelerationOfGravity;
+            RightPlayerRect.y += RightPlayerRect.YSpeed;
+        }
+    }
     if (RightPlayerRect.x == BorderXForRightPlayer && RightPlayerRect.XSpeed > 0) {
         RightPlayerRect.x += RightPlayerRect.XSpeed;
     }
@@ -380,13 +495,23 @@ function StartNewRound()
     GameBall.XSpeed = GetRandomSpeedForBall(BallStartSpeedFactor);
     LeftPlayerRect.x = 0;
     LeftPlayerRect.y = GameCanvas.height - LeftPlayerRect.height;
+    LeftPlayerRect.YSpeed = 0;
+    LeftPlayerRect.JumpKeyDown = false;
+    LeftPlayerRect.Jumping = false;
+    LeftPlayerRect.CanJump = false;
     RightPlayerRect.x = GameCanvas.width - RightPlayerRect.width;
     RightPlayerRect.y = GameCanvas.height - RightPlayerRect.height;
+    RightPlayerRect.YSpeed = 0;
+    RightPlayerRect.JumpKeyDown = false;
+    RightPlayerRect.Jumping = false;
+    RightPlayerRect.CanJump = false;
     BallHitLeftWall = false;
     BallHitRightWall = false;
     BallHitRoof = false;
     BallWasThrownByLeftPlayer = false;
     BallWasThrownByRightPlayer = false;
+    LeftPlayerJumpingWhenJumpKeyPressed = false;
+    RightPlayerJumpingWhenJumpKeyPressed = false;
     IntervalForDrawing = setInterval(DrawGameField, 10);
     console.log('start');
 }
