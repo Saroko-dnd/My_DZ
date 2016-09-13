@@ -24,6 +24,7 @@ var AccelerationOfGravityForBall = 0.010;
 var PlayerJumpSpeed = -4.1;
 var LeftPlayerJumpingWhenJumpKeyPressed = false;
 var RightPlayerJumpingWhenJumpKeyPressed = false;
+var SlowingBallOnHit = 0.8;
 
 window.onkeydown = KeyDownEventHandler;
 window.onkeyup = KeyUpEventHandler;
@@ -225,7 +226,7 @@ function DrawGameField()
         BallHitLeftWall = true;
         BallHitRightWall = false;
         BallHitRoof = false;
-        GameBall.XSpeed = -GameBall.XSpeed;
+        GameBall.XSpeed = -GameBall.XSpeed * SlowingBallOnHit;
     }
     else if (GameBall.y <= GameBall.radius && !BallHitRoof)
     {
@@ -234,7 +235,7 @@ function DrawGameField()
         BallHitLeftWall = false;
         BallHitRightWall = false;
         BallHitRoof = true;
-        GameBall.YSpeed = -GameBall.YSpeed;
+        GameBall.YSpeed = -GameBall.YSpeed * SlowingBallOnHit;
     }
     else if ((GameBall.x >= (GameCanvas.width - GameBall.radius)) && !BallHitRightWall)
     {
@@ -243,7 +244,7 @@ function DrawGameField()
         BallHitLeftWall = false;
         BallHitRightWall = true;
         BallHitRoof = false;
-        GameBall.XSpeed = -GameBall.XSpeed;
+        GameBall.XSpeed = -GameBall.XSpeed * SlowingBallOnHit;
     }
     else if (GameBall.y >= GameCanvas.height - GameBall.radius)
     {
@@ -305,6 +306,14 @@ function DrawGameField()
             BallHitRightWall = false;
             BallHitRoof = false;
             ChangeSpeedOfGameBall(Grid);
+        }
+        else
+        {
+            BallWasThrownByLeftPlayer = false;
+            BallWasThrownByRightPlayer = false;
+            BallHitLeftWall = false;
+            BallHitRightWall = false;
+            BallHitRoof = false;
         }
     }
     GameBall.YSpeed += AccelerationOfGravityForBall;
@@ -454,14 +463,14 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         var XDistanceFromRectangleCenter = GameBall.x - ((CurrentRectangle.width / 2) + CurrentRectangle.x);
         var YDistanceFromRectangleCenter = ((CurrentRectangle.height / 2) + CurrentRectangle.y) - GameBall.y;
         var RealDistanceFromRectangleCenter = Math.sqrt((XDistanceFromRectangleCenter * XDistanceFromRectangleCenter) + (YDistanceFromRectangleCenter * YDistanceFromRectangleCenter));
-        var FactorForDistance = BallMoveDistance / RealDistanceFromRectangleCenter;
+        var FactorForDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed)) / RealDistanceFromRectangleCenter;
         if (CurrentRectangle.XSpeed > 0)
         {
             GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + CurrentRectangle.XSpeed;
         }
         else
         {
-            GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance);
+            GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) * SlowingBallOnHit;
         }
         if (CurrentRectangle.YSpeed < 0)
         {
@@ -469,7 +478,7 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         }
         else
         {
-            GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance);
+            GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance) * SlowingBallOnHit;
         }
         if (GameBall.YSpeed > 0)
         {
@@ -480,18 +489,18 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         var XDistanceFromRectangleCenter = ((CurrentRectangle.width / 2) + CurrentRectangle.x) - GameBall.x;
         var YDistanceFromRectangleCenter = ((CurrentRectangle.height / 2) + CurrentRectangle.y) - GameBall.y;
         var RealDistanceFromRectangleCenter = Math.sqrt((XDistanceFromRectangleCenter * XDistanceFromRectangleCenter) + (YDistanceFromRectangleCenter * YDistanceFromRectangleCenter));
-        var FactorForDistance = BallMoveDistance / RealDistanceFromRectangleCenter;
+        var FactorForDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed)) / RealDistanceFromRectangleCenter;
         if (CurrentRectangle.XSpeed < 0) {
             GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + Math.abs(CurrentRectangle.XSpeed);
         }
         else {
-            GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance);
+            GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) * SlowingBallOnHit;
         }
         if (CurrentRectangle.YSpeed < 0) {
             GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance) + Math.abs(CurrentRectangle.YSpeed);
         }
         else {
-            GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance);
+            GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance) * SlowingBallOnHit;
         }
         if (GameBall.XSpeed > 0)
         {
@@ -509,14 +518,21 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
             var XDistanceFromRectangleCenter = ((CurrentRectangle.width / 2) + CurrentRectangle.x) - GameBall.x;
             var YDistanceFromRectangleCenter = ((CurrentRectangle.height / 2) + CurrentRectangle.y) - GameBall.y;
             var RealDistanceFromRectangleCenter = Math.sqrt((XDistanceFromRectangleCenter * XDistanceFromRectangleCenter) + (YDistanceFromRectangleCenter * YDistanceFromRectangleCenter));
-            var FactorForDistance = BallMoveDistance / RealDistanceFromRectangleCenter;
+            var FactorForDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed)) / RealDistanceFromRectangleCenter;
             //Защита от бесконечного движения мяча по горизонтали
             if (YDistanceFromRectangleCenter == 0)
             {
                 YDistanceFromRectangleCenter = 1;
             }
-            GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + Math.abs(CurrentRectangle.XSpeed);
-            GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance);
+            if (CurrentRectangle.XSpeed < 0)
+            {
+                GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + Math.abs(CurrentRectangle.XSpeed);
+            }
+            else
+            {
+                GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) * SlowingBallOnHit;
+            }
+            GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance) * SlowingBallOnHit;
             GameBall.XSpeed = -GameBall.XSpeed;
             GameBall.YSpeed = -GameBall.YSpeed;
         }
@@ -525,24 +541,43 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
             var XDistanceFromRectangleCenter = GameBall.x - ((CurrentRectangle.width / 2) + CurrentRectangle.x);
             var YDistanceFromRectangleCenter = ((CurrentRectangle.height / 2) + CurrentRectangle.y) - GameBall.y;
             var RealDistanceFromRectangleCenter = Math.sqrt((XDistanceFromRectangleCenter * XDistanceFromRectangleCenter) + (YDistanceFromRectangleCenter * YDistanceFromRectangleCenter));
-            var FactorForDistance = BallMoveDistance / RealDistanceFromRectangleCenter;
+            var FactorForDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed)) / RealDistanceFromRectangleCenter;
             //Защита от бесконечного движения мяча по горизонтали
             if (YDistanceFromRectangleCenter == 0)
             {
                 YDistanceFromRectangleCenter = 1;
             }
-            GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + CurrentRectangle.XSpeed;
-            GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance);
+            if (CurrentRectangle.XSpeed > 0) {
+                GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + Math.abs(CurrentRectangle.XSpeed);
+            }
+            else {
+                GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) * SlowingBallOnHit;
+            }
+            GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance) * SlowingBallOnHit;
             GameBall.YSpeed = -GameBall.YSpeed;
         }
         else
         {
-            GameBall.XSpeed = -GameBall.XSpeed + CurrentRectangle.XSpeed;
+            if (CurrentRectangle.XSpeed > 0 && GameBall.x > CurrentRectangle.x) {
+                GameBall.XSpeed = Math.abs(GameBall.XSpeed) + Math.abs(CurrentRectangle.XSpeed);
+            }
+            else if (CurrentRectangle.XSpeed < 0 && GameBall.x < CurrentRectangle.x)
+            {
+                GameBall.XSpeed = -(Math.abs(GameBall.XSpeed) + Math.abs(CurrentRectangle.XSpeed));
+            }
+            else {
+                GameBall.XSpeed = -GameBall.XSpeed * SlowingBallOnHit;
+            }
         }
     }
     else
     {
-        GameBall.YSpeed = -GameBall.YSpeed + CurrentRectangle.YSpeed;
+        if (CurrentRectangle.YSpeed < 0) {
+            GameBall.YSpeed = -(Math.abs(GameBall.YSpeed) + Math.abs(CurrentRectangle.YSpeed));
+        }
+        else {
+            GameBall.YSpeed = -GameBall.YSpeed * SlowingBallOnHit;
+        }
     }
 }
 
