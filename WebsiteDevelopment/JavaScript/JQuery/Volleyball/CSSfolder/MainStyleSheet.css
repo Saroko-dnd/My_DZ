@@ -11,7 +11,7 @@ body {
 }
 
 canvas{
-    margin-top:10px;
+    margin-top:-5px;
     width:1000px;
     height:800px;
     border-style:solid;
@@ -19,7 +19,7 @@ canvas{
     border-color:#ee0fea;
 }
 
-div{
+.MainDiv{
     display:flex;
     align-content:center;
     justify-content:center;
@@ -41,12 +41,6 @@ p{
     flex-direction:row;
 }
 
-input{
-    font-size: 30px;
-    margin-left: 40px;
-    margin-top: 20px;
-}
-
 input:hover
 {
     cursor:pointer;
@@ -62,4 +56,38 @@ input:hover
 {
     background-color:red;
     color:yellow;
+}
+
+#GameFinishButton
+{
+    background-color:blue;
+    color:white;
+    margin-top: 20px;
+    display:none;
+    opacity:0.0;
+}
+
+#GamePauseButton
+{
+    background-color:red;
+    color:white;
+    width:200px;
+    margin-top: 20px;
+    display:none;
+    opacity:0.0;
+}
+
+.center-block
+{
+    font-size: 30px;
+}
+
+#PLeftPlayerScore
+{
+    margin-right:30px;
+}
+
+#PRightPlayerScore
+{
+    margin-left:30px;
 }

@@ -25,6 +25,15 @@ var PlayerJumpSpeed = -4.1;
 var LeftPlayerJumpingWhenJumpKeyPressed = false;
 var RightPlayerJumpingWhenJumpKeyPressed = false;
 var SlowingBallOnHit = 0.8;
+var AiOff = true;
+var GamePauseOff = true;
+var PauseButtonText = 'пауза';
+var PauseButtonContinueText = 'продолжить';
+var ScoreInfoParagraphXRotationDegree = 0;
+var IntervalForUpdateScoreInfo = null;
+var RotateScoreForward = true;
+var LeftPlayerScoreParagraph;
+var RightPlayerScoreParagraph;
 
 window.onkeydown = KeyDownEventHandler;
 window.onkeyup = KeyUpEventHandler;
@@ -32,19 +41,108 @@ window.onkeyup = KeyUpEventHandler;
 $(document).ready(
     function ()
     {
-        GameCanvas = document.getElementById("MainCanvasForGame");
-        GameBall = { x: 500, y: 52, radius: 50, YSpeed: 2, XSpeed: GetRandomSpeedForBall(BallStartSpeedFactor), color: 'red' };
-        LeftPlayerRect = { x: 0, y: 600, width: 100, height: 200, color: 'black', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true, CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false };
-        RightPlayerRect = { x: 900, y: 600, width: 100, height: 200, color: 'blue', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true, CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false };
-        Grid = { x: 475, y: 400, width: 50, height: 400, color: 'green', XSpeed: 0, YSpeed: 0};
-        BallMoveDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed));
-        GameBallYStartSpeed = GameBall.YSpeed;
-        ScoreInfoParagraph = document.getElementById('ScoreInfoParagraph');
-        ScoreInfoParagraph.innerText = LeftPlayerRect.score.toString() + " : " + RightPlayerRect.score.toString();
-        GameFieldContext = GameCanvas.getContext('2d');
-        DrawGameField();
-        IntervalForDrawing = setInterval(DrawGameField, 10);
+        LeftPlayerScoreParagraph = document.getElementById('PLeftPlayerScore');
+        LeftPlayerScoreParagraph.Rotation = false;
+        RightPlayerScoreParagraph = document.getElementById('PRightPlayerScore');
+        RightPlayerScoreParagraph.Rotation = false;
+        $('#PlayerVsPlayerButton').click(function () {
+            $('#PGameModeSelection').animate({ opacity: '0.0' }, 1000);
+            $('#PlayerVsPlayerButton').animate({ opacity: '0.0'}, 1000);
+            $('#PlayerVsAiButton').animate({ opacity: '0.0'}, 1000, HideElementsForeModeSelection);
+            StartNewGame();
+        });
+        $('#PlayerVsAiButton').click(function () {
+        });
+        $('#GameFinishButton').click(function () {
+            FinishCurrentGame();
+            ShowElementsForeModeSelection();
+        });
+        $('#GamePauseButton').click(function () {
+            if (GamePauseOff)
+            {
+                GamePauseOff = false;
+                $(this).val(PauseButtonContinueText);
+                clearInterval(IntervalForDrawing);
+            }
+            else
+            {
+                GamePauseOff = true;
+                $(this).val(PauseButtonText);
+                IntervalForDrawing = setInterval(DrawGameField, 10);
+            }
+        });
     });
+
+function StartNewGame()
+{
+    GameCanvas = document.getElementById("MainCanvasForGame");
+    GameBall = { x: 500, y: 52, radius: 50, YSpeed: 2, XSpeed: GetRandomSpeedForBall(BallStartSpeedFactor), color: 'red' };
+    LeftPlayerRect = { x: 0, y: 600, width: 100, height: 200, color: 'black', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true, CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false };
+    RightPlayerRect = { x: 900, y: 600, width: 100, height: 200, color: 'blue', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true, CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false };
+    Grid = { x: 475, y: 400, width: 50, height: 400, color: 'green', XSpeed: 0, YSpeed: 0 };
+    BallMoveDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed));
+    GameBallYStartSpeed = GameBall.YSpeed;
+    ScoreInfoParagraph = document.getElementById('ScoreInfoParagraph');
+    ChangeScore();
+    GameFieldContext = GameCanvas.getContext('2d');
+    DrawGameField();
+    IntervalForDrawing = setInterval(DrawGameField, 10);
+}
+
+function FinishCurrentGame()
+{
+    clearInterval(IntervalForDrawing);
+    GameBall.x = GameCanvas.width / 2;
+    GameBall.y = GameBall.radius + 2;
+    GameBall.YSpeed = GameBallYStartSpeed;
+    GameBall.XSpeed = GetRandomSpeedForBall(BallStartSpeedFactor);
+    LeftPlayerRect.score = 0;
+    LeftPlayerRect.x = 0;
+    LeftPlayerRect.y = GameCanvas.height - LeftPlayerRect.height;
+    LeftPlayerRect.YSpeed = 0;
+    LeftPlayerRect.JumpKeyDown = false;
+    LeftPlayerRect.Jumping = false;
+    LeftPlayerRect.CanJump = false;
+    RightPlayerRect.score = 0;
+    RightPlayerRect.x = GameCanvas.width - RightPlayerRect.width;
+    RightPlayerRect.y = GameCanvas.height - RightPlayerRect.height;
+    RightPlayerRect.YSpeed = 0;
+    RightPlayerRect.JumpKeyDown = false;
+    RightPlayerRect.Jumping = false;
+    RightPlayerRect.CanJump = false;
+    BallHitLeftWall = false;
+    BallHitRightWall = false;
+    BallHitRoof = false;
+    BallWasThrownByLeftPlayer = false;
+    BallWasThrownByRightPlayer = false;
+    LeftPlayerJumpingWhenJumpKeyPressed = false;
+    RightPlayerJumpingWhenJumpKeyPressed = false;
+    UpdateScoreInfo();
+    DrawGameField();
+}
+
+function HideElementsForeModeSelection()
+{
+    $('#PGameModeSelection').hide();
+    $('#PlayerVsPlayerButton').hide();
+    $('#PlayerVsAiButton').hide();
+    $('#GameFinishButton').css('display', 'inline-block').animate({ opacity: '1.0' }, 1000);
+    $('#GamePauseButton').css('display', 'inline-block').animate({ opacity: '1.0' }, 1000);
+}
+
+function ShowElementsForeModeSelection() {
+    $('#GameFinishButton').animate({ opacity: '0.0' }, 1000);
+    $('#GamePauseButton').animate({ opacity: '0.0' }, 1000, HideFinishGameButton);
+}
+
+function HideFinishGameButton()
+{
+    $('#GamePauseButton').css('display', 'none');
+    $('#GameFinishButton').css('display', 'none');
+    $('#PGameModeSelection').show().animate({ opacity: '1.0' }, 1000);
+    $('#PlayerVsPlayerButton').show().animate({ opacity: '1.0' }, 1000);
+    $('#PlayerVsAiButton').show().animate({ opacity: '1.0' }, 1000);
+}
 
 function KeyDownEventHandler(event)
 {
@@ -250,12 +348,14 @@ function DrawGameField()
     {
         if (GameBall.x < Grid.x) {
             RightPlayerRect.score += 1;
+            RightPlayerScoreParagraph.Rotation = true;
         }
         else {
             LeftPlayerRect.score += 1;
+            LeftPlayerScoreParagraph.Rotation = true;
         }
         clearInterval(IntervalForDrawing);
-        UpdateScoreInfo();
+        IntervalForUpdateScoreInfo = setInterval(UpdateScoreInfo, 12);
         StartNewRound();
     }
     else
@@ -583,7 +683,41 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
 
 function UpdateScoreInfo()
 {
-    ScoreInfoParagraph.innerText = LeftPlayerRect.score.toString() + " : " + RightPlayerRect.score.toString();
+    if (ScoreInfoParagraphXRotationDegree < 90 && RotateScoreForward)
+    {
+        ++ScoreInfoParagraphXRotationDegree;
+    }
+    else
+    {
+        RotateScoreForward = false;
+        --ScoreInfoParagraphXRotationDegree;
+    }
+    if (LeftPlayerScoreParagraph.Rotation) {
+        $(LeftPlayerScoreParagraph).css('transform', 'rotatex(' + ScoreInfoParagraphXRotationDegree.toString() + 'deg)');
+    }
+    else
+    {
+        $(RightPlayerScoreParagraph).css('transform', 'rotatex(' + ScoreInfoParagraphXRotationDegree.toString() + 'deg)');
+    }
+    if (ScoreInfoParagraphXRotationDegree == 90)
+    {
+        ChangeScore();
+    }
+    if (ScoreInfoParagraphXRotationDegree == -1) {
+        $('#ScoreInfoParagraph').css('transform', 'rotatex(' + 0 + 'deg)');
+        clearInterval(IntervalForUpdateScoreInfo);
+        RotateScoreForward = true;
+        LeftPlayerScoreParagraph.Rotation = false;
+        RightPlayerScoreParagraph.Rotation = false;
+        ScoreInfoParagraphXRotationDegree = 0;
+    }
+}
+
+function ChangeScore()
+{
+    LeftPlayerScoreParagraph.innerText = LeftPlayerRect.score.toString();
+    RightPlayerScoreParagraph.innerText = RightPlayerRect.score.toString();
+    ScoreInfoParagraph.innerText = " : ";
 }
 
 function StartNewRound()
