@@ -34,6 +34,10 @@ var IntervalForUpdateScoreInfo = null;
 var RotateScoreForward = true;
 var LeftPlayerScoreParagraph;
 var RightPlayerScoreParagraph;
+var GameBallImage;
+var GameBallRotationAngleDegrees = 0;
+var GameBallImageShift;
+var GameBallMinRotationSpeed = 1;
 
 window.onkeydown = KeyDownEventHandler;
 window.onkeyup = KeyUpEventHandler;
@@ -41,6 +45,8 @@ window.onkeyup = KeyUpEventHandler;
 $(document).ready(
     function ()
     {
+        GameBallImage = new Image();
+        GameBallImage.src = 'Images/GameBall.png';
         LeftPlayerScoreParagraph = document.getElementById('PLeftPlayerScore');
         LeftPlayerScoreParagraph.Rotation = false;
         RightPlayerScoreParagraph = document.getElementById('PRightPlayerScore');
@@ -76,7 +82,7 @@ $(document).ready(
 function StartNewGame()
 {
     GameCanvas = document.getElementById("MainCanvasForGame");
-    GameBall = { x: 500, y: 52, radius: 50, YSpeed: 2, XSpeed: GetRandomSpeedForBall(BallStartSpeedFactor), color: 'red' };
+    GameBall = { x: 500, y: 52, radius: 50, YSpeed: 2, XSpeed: GetRandomSpeedForBall(BallStartSpeedFactor), color: 'red', RotateForward : true, RotationSpeed: 1 };
     LeftPlayerRect = { x: 0, y: 600, width: 100, height: 200, color: 'black', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true, CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false };
     RightPlayerRect = { x: 900, y: 600, width: 100, height: 200, color: 'blue', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true, CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false };
     Grid = { x: 475, y: 400, width: 50, height: 400, color: 'green', XSpeed: 0, YSpeed: 0 };
@@ -85,6 +91,7 @@ function StartNewGame()
     ScoreInfoParagraph = document.getElementById('ScoreInfoParagraph');
     ChangeScore();
     GameFieldContext = GameCanvas.getContext('2d');
+    GameBallImageShift = Math.sqrt((GameBall.radius * GameBall.radius) + (GameBall.radius * GameBall.radius))
     DrawGameField();
     IntervalForDrawing = setInterval(DrawGameField, 10);
 }
@@ -324,6 +331,14 @@ function DrawGameField()
         BallHitLeftWall = true;
         BallHitRightWall = false;
         BallHitRoof = false;
+        if (GameBall.YSpeed < 0 && GameBall.RotateForward)
+        {
+            GameBall.RotateForward = false;
+        }
+        else if(GameBall.YSpeed > 0 && !GameBall.RotateForward)
+        {
+            GameBall.RotateForward = true;
+        }
         GameBall.XSpeed = -GameBall.XSpeed * SlowingBallOnHit;
     }
     else if (GameBall.y <= GameBall.radius && !BallHitRoof)
@@ -333,6 +348,13 @@ function DrawGameField()
         BallHitLeftWall = false;
         BallHitRightWall = false;
         BallHitRoof = true;
+        if (GameBall.XSpeed > 0 && GameBall.RotateForward) {
+            GameBall.RotateForward = false;
+        }
+        else if(GameBall.XSpeed < 0 && !GameBall.RotateForward)
+        {
+            GameBall.RotateForward = true;
+        }
         GameBall.YSpeed = -GameBall.YSpeed * SlowingBallOnHit;
     }
     else if ((GameBall.x >= (GameCanvas.width - GameBall.radius)) && !BallHitRightWall)
@@ -342,6 +364,12 @@ function DrawGameField()
         BallHitLeftWall = false;
         BallHitRightWall = true;
         BallHitRoof = false;
+        if (GameBall.YSpeed > 0 && GameBall.RotateForward) {
+            GameBall.RotateForward = false;
+        }
+        else if (GameBall.YSpeed < 0 && !GameBall.RotateForward) {
+            GameBall.RotateForward = true;
+        }
         GameBall.XSpeed = -GameBall.XSpeed * SlowingBallOnHit;
     }
     else if (GameBall.y >= GameCanvas.height - GameBall.radius)
@@ -420,12 +448,20 @@ function DrawGameField()
     GameBall.x += GameBall.XSpeed;
     GameBall.y += GameBall.YSpeed;
 
+    //New drawing of ball
     GameFieldContext.beginPath();
+    GameFieldContext.translate(GameBall.x, GameBall.y);
+    GameFieldContext.rotate(GameBallRotationAngleDegrees * Math.PI / 180);
+    DrawGameBallFromImage();
+    GameFieldContext.stroke();
+
+    //Old game ball
+    /*GameFieldContext.beginPath();
     GameFieldContext.arc(GameBall.x, GameBall.y, GameBall.radius, 0, 2 * Math.PI);
     GameFieldContext.fillStyle = GameBall.color;
     GameFieldContext.fill();
     GameFieldContext.lineWidth = 1;
-    GameFieldContext.stroke();
+    GameFieldContext.stroke();*/
 
     GameFieldContext.beginPath();
     GameFieldContext.fillStyle = Grid.color;
@@ -433,6 +469,31 @@ function DrawGameField()
     GameFieldContext.stroke();
     GameFieldContext.beginPath();
     GameFieldContext.fillStyle = LeftPlayerRect.color;
+
+    if (GameBall.RotateForward)
+    {
+        if (GameBallRotationAngleDegrees < 360) {
+            GameBallRotationAngleDegrees += GameBall.RotationSpeed;
+        }
+        else {
+            GameBallRotationAngleDegrees = 0;
+        }
+    }
+    else
+    {
+        console.log('rotation minus');
+        if (GameBallRotationAngleDegrees > -360) {
+            GameBallRotationAngleDegrees -= GameBall.RotationSpeed;
+        }
+        else {
+            GameBallRotationAngleDegrees = 0;
+        }
+    }
+    if (GameBall.RotationSpeed > GameBallMinRotationSpeed)
+    {
+        GameBall.RotationSpeed -= 0.01;
+    }
+
     //Обработка движения левого игрока при прыжке
     if (LeftPlayerRect.CanJump)
     {
@@ -529,6 +590,13 @@ function DrawGameField()
     GameFieldContext.stroke();
 }
 
+function DrawGameBallFromImage()
+{
+    GameFieldContext.drawImage(GameBallImage, -GameBall.radius, -GameBall.radius, GameBall.radius * 2, GameBall.radius * 2);
+    GameFieldContext.rotate(-GameBallRotationAngleDegrees * Math.PI / 180);
+    GameFieldContext.translate(-GameBall.x, -GameBall.y);
+}
+
 function GetRandomSpeedForBall(CurrentSpeedFactor)
 {
     var RandomSpeed = 0;
@@ -564,6 +632,7 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         var YDistanceFromRectangleCenter = ((CurrentRectangle.height / 2) + CurrentRectangle.y) - GameBall.y;
         var RealDistanceFromRectangleCenter = Math.sqrt((XDistanceFromRectangleCenter * XDistanceFromRectangleCenter) + (YDistanceFromRectangleCenter * YDistanceFromRectangleCenter));
         var FactorForDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed)) / RealDistanceFromRectangleCenter;
+        GameBall.RotationSpeed += Math.abs(GameBall.YSpeed) + Math.abs(GameBall.XSpeed);
         if (CurrentRectangle.XSpeed > 0)
         {
             GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + CurrentRectangle.XSpeed;
@@ -590,6 +659,7 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         var YDistanceFromRectangleCenter = ((CurrentRectangle.height / 2) + CurrentRectangle.y) - GameBall.y;
         var RealDistanceFromRectangleCenter = Math.sqrt((XDistanceFromRectangleCenter * XDistanceFromRectangleCenter) + (YDistanceFromRectangleCenter * YDistanceFromRectangleCenter));
         var FactorForDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed)) / RealDistanceFromRectangleCenter;
+        GameBall.RotationSpeed += Math.abs(GameBall.YSpeed) + Math.abs(GameBall.XSpeed);
         if (CurrentRectangle.XSpeed < 0) {
             GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + Math.abs(CurrentRectangle.XSpeed);
         }
@@ -658,6 +728,24 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         }
         else
         {
+            if (GameBall.x < CurrentRectangle.x)
+            {
+                if (GameBall.YSpeed > 0 && GameBall.RotateForward) {
+                    GameBall.RotateForward = false;
+                }
+                else if (GameBall.YSpeed < 0 && !GameBall.RotateForward) {
+                    GameBall.RotateForward = true;
+                }
+            }
+            else
+            {
+                if (GameBall.YSpeed < 0 && GameBall.RotateForward) {
+                    GameBall.RotateForward = false;
+                }
+                else if (GameBall.YSpeed > 0 && !GameBall.RotateForward) {
+                    GameBall.RotateForward = true;
+                }
+            }
             if (CurrentRectangle.XSpeed > 0 && GameBall.x > CurrentRectangle.x) {
                 GameBall.XSpeed = Math.abs(GameBall.XSpeed) + Math.abs(CurrentRectangle.XSpeed);
             }
@@ -672,6 +760,13 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
     }
     else
     {
+        if (GameBall.XSpeed < 0 && GameBall.RotateForward) {
+            GameBall.RotateForward = false;
+        }
+        else if(GameBall.XSpeed > 0 && !GameBall.RotateForward)
+        {
+            GameBall.RotateForward = true;
+        }
         if (CurrentRectangle.YSpeed < 0) {
             GameBall.YSpeed = -(Math.abs(GameBall.YSpeed) + Math.abs(CurrentRectangle.YSpeed));
         }
