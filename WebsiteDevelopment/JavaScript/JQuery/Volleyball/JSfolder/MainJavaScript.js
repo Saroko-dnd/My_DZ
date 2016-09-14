@@ -635,6 +635,7 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         GameBall.RotationSpeed += Math.abs(GameBall.YSpeed) + Math.abs(GameBall.XSpeed);
         if (CurrentRectangle.XSpeed > 0)
         {
+            GameBall.RotationSpeed += CurrentRectangle.XSpeed;
             GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + CurrentRectangle.XSpeed;
         }
         else
@@ -643,6 +644,7 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         }
         if (CurrentRectangle.YSpeed < 0)
         {
+            GameBall.RotationSpeed += Math.abs(CurrentRectangle.YSpeed);
             GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance) + Math.abs(CurrentRectangle.YSpeed);
         }
         else
@@ -661,12 +663,14 @@ function ChangeSpeedOfGameBall(CurrentRectangle)
         var FactorForDistance = Math.sqrt((Math.abs(GameBall.XSpeed) * Math.abs(GameBall.XSpeed)) + (GameBall.YSpeed * GameBall.YSpeed)) / RealDistanceFromRectangleCenter;
         GameBall.RotationSpeed += Math.abs(GameBall.YSpeed) + Math.abs(GameBall.XSpeed);
         if (CurrentRectangle.XSpeed < 0) {
+            GameBall.RotationSpeed += Math.abs(CurrentRectangle.XSpeed);
             GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) + Math.abs(CurrentRectangle.XSpeed);
         }
         else {
             GameBall.XSpeed = (XDistanceFromRectangleCenter * FactorForDistance) * SlowingBallOnHit;
         }
         if (CurrentRectangle.YSpeed < 0) {
+            GameBall.RotationSpeed += Math.abs(CurrentRectangle.YSpeed);
             GameBall.YSpeed = (YDistanceFromRectangleCenter * FactorForDistance) + Math.abs(CurrentRectangle.YSpeed);
         }
         else {
