@@ -43,10 +43,12 @@ var RightPlayerScoreParagraph;
 var GameBallImage;
 var GameBallRotationAngleDegrees = 0;
 var GameBallImageShift;
+
 //Min rotation speed for game ball
 var GameBallMinRotationSpeed = 1;
 //Max rotation speed for game ball
 var GameBallMaxRotationSpeed = 31;
+
 //Параметры ии
 var MaxNRandomNumberForAi;
 var MinRandomNumberForAi = 0;
@@ -61,6 +63,22 @@ var AiMoveLeftMax;
 var AiMoveRightMin;
 var AiMoveRightMax;
 var AiTryingToCatchBallByLeftCorner = false;
+
+//Бонусы влияющие на скорость игроков
+var TimeForBonus = 1500;
+var BonucesForPlayers = {RedSpeedBonus: 0, GreenSpeedBonus: 1};
+var OwnersOfBonuses = {LeftPlayer: 0, RightPlayer: 1, NoOne: 2};
+var PlayerGreenMoveBonusSpeed = 2;
+var PlayerRedMoveBonusSpeed = 0.5;
+var RedBonusImage;
+var GreenBonusImage;
+var MaxTimerValueForBonusAnimation = 50;
+var CurrentSpeedBonus = {
+    Owner: OwnersOfBonuses.NoOne, ItShouldBeDrawn: true, SpeedOfResizing: 1, BonusSizeGrows: true, BonusTimerForSizeChanging: MaxTimerValueForBonusAnimation, BonusImage: null, x: -1, y: -1, width: 50,
+    height: 50
+};
+var ParagraphForLeftPlayerBonus;
+var ParagraphForRightPlayerBonus;
 
 var RotationChangingPerFrame = 0.01;
 var LeftPlayerWalkingAnimationImages = new Array();
@@ -77,15 +95,17 @@ window.onkeyup = KeyUpEventHandler;
 $(document).ready(
     function ()
     {
+        ParagraphForLeftPlayerBonus = document.getElementById('PLeftPlayerBonus');
+        ParagraphForRightPlayerBonus = document.getElementById('PRightPlayerBonus');
         LeftPlayerRect = {
             BallOnTheTopImage: null, JumpImage: null, GameBallPosition: -1, StandAnimationBallOnTheRight: null, StandAnimationBallOnTheLeft: null, ThrowBallImageTimer: 0, StandImage: null, WalkFrameNumber: 0,
             AnimationCounter: 0, CurrentAnimationFrame: LeftPlayerWalkingAnimationImages[0], x: 0, y: 600, width: 100, height: 200, color: 'black', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true,
-            CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false
+            CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false, CurrentBonus: null, BonusTimer: 0
         };
         RightPlayerRect = {
             BallOnTheTopImage: null, JumpImage: null, GameBallPosition: -1, StandAnimationBallOnTheRight: null, StandAnimationBallOnTheLeft: null, ThrowBallImageTimer: 0, StandImage: null, WalkFrameNumber: 0,
             AnimationCounter: 0, CurrentAnimationFrame: RightPlayerWalkingAnimationImages[0], x: 900, y: 600, width: 100, height: 200, color: 'blue', XSpeed: 0, YSpeed: 0, score: 0, CanMoveLeft: true, CanMoveUp: true,
-            CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false
+            CanMoveRight: true, JumpKeyDown: false, Jumping: false, CanJump: false, CurrentBonus: null, BonusTimer: 0
         };
 
         LoadImages();
@@ -153,7 +173,8 @@ function StartNewGame()
     AiMoveLeftMax = MaxNRandomNumberForAi / 60;
     AiMoveRightMin = (MaxNRandomNumberForAi / 60) + 1;
     AiMoveRightMax = ((MaxNRandomNumberForAi / 60) * 2) + 1;
-    XCenterOfRightArea = Math.floor((GameCanvas.width/2 + Grid.width/2) + ((GameCanvas.width - (GameCanvas.width/2 + Grid.width/2))/2));
+    XCenterOfRightArea = Math.floor((GameCanvas.width / 2 + Grid.width / 2) + ((GameCanvas.width - (GameCanvas.width / 2 + Grid.width / 2)) / 2));
+    CreateNewBonusForPlayers();
     DrawGameField();
     IntervalForDrawing = setInterval(DrawGameField, GameFieldDrawingFrequency);
 }
@@ -174,6 +195,8 @@ function FinishCurrentGame()
     LeftPlayerRect.CanJump = false;
     LeftPlayerRect.WalkFrameNumber = 0;
     LeftPlayerRect.ThrowBallImageTimer = 0;
+    LeftPlayerRect.CurrentBonus = null;
+    LeftPlayerRect.BonusTimer = 0;
     RightPlayerRect.score = 0;
     RightPlayerRect.x = GameCanvas.width - RightPlayerRect.width;
     RightPlayerRect.y = GameCanvas.height - RightPlayerRect.height;
@@ -183,6 +206,8 @@ function FinishCurrentGame()
     RightPlayerRect.CanJump = false;
     RightPlayerRect.WalkFrameNumber = 0;
     RightPlayerRect.ThrowBallImageTimer = 0;
+    RightPlayerRect.CurrentBonus = null;
+    RightPlayerRect.BonusTimer = 0;
     BallHitLeftWall = false;
     BallHitRightWall = false;
     BallHitRoof = false;
@@ -224,7 +249,17 @@ function KeyDownEventHandler(event)
         if (LeftPlayerRect.CanMoveRight)
         {
             console.log('black left');
-            LeftPlayerRect.XSpeed = PlayerWalkSpeed;
+            if (LeftPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (LeftPlayerRect.BonusTimer > 0))
+            {
+                LeftPlayerRect.XSpeed = PlayerRedMoveBonusSpeed;
+            }
+            else if (LeftPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (LeftPlayerRect.BonusTimer > 0)) {
+                LeftPlayerRect.XSpeed = PlayerGreenMoveBonusSpeed;
+            }
+            else
+            {
+                LeftPlayerRect.XSpeed = PlayerWalkSpeed;
+            }
         }
         else
         {
@@ -235,7 +270,15 @@ function KeyDownEventHandler(event)
     else if(event.keyCode == 65)
     {
         if (LeftPlayerRect.CanMoveLeft) {
-            LeftPlayerRect.XSpeed = -PlayerWalkSpeed;
+            if (LeftPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (LeftPlayerRect.BonusTimer > 0)) {
+                LeftPlayerRect.XSpeed = -PlayerRedMoveBonusSpeed;
+            }
+            else if (LeftPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (LeftPlayerRect.BonusTimer > 0)) {
+                LeftPlayerRect.XSpeed = -PlayerGreenMoveBonusSpeed;
+            }
+            else {
+                LeftPlayerRect.XSpeed = -PlayerWalkSpeed;
+            }
         }
         else {
             LeftPlayerRect.XSpeed = 0;
@@ -244,7 +287,15 @@ function KeyDownEventHandler(event)
     else if (event.keyCode == 39 && AiOff)
     {
         if (RightPlayerRect.CanMoveRight) {
-            RightPlayerRect.XSpeed = PlayerWalkSpeed;
+            if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                RightPlayerRect.XSpeed = PlayerRedMoveBonusSpeed;
+            }
+            else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                RightPlayerRect.XSpeed = PlayerGreenMoveBonusSpeed;
+            }
+            else {
+                RightPlayerRect.XSpeed = PlayerWalkSpeed;
+            }
         }
         else {
             RightPlayerRect.XSpeed = 0;
@@ -253,7 +304,15 @@ function KeyDownEventHandler(event)
     else if (event.keyCode == 37 && AiOff)
     {
         if (RightPlayerRect.CanMoveLeft) {
-            RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+            if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                RightPlayerRect.XSpeed = -PlayerRedMoveBonusSpeed;
+            }
+            else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                RightPlayerRect.XSpeed = -PlayerGreenMoveBonusSpeed;
+            }
+            else {
+                RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+            }
         }
         else {
             RightPlayerRect.XSpeed = 0;
@@ -299,497 +358,6 @@ function KeyUpEventHandler(event)
     }
 }
 
-function DrawGameField()
-{
-    if (LeftPlayerRect.XSpeed != 0)
-    {
-        ++LeftPlayerRect.AnimationCounter;
-        if (LeftPlayerRect.AnimationCounter == PlayerAnimationCounter) {
-            LeftPlayerRect.AnimationCounter = 0;
-            if (LeftPlayerRect.XSpeed > 0) {
-                if (LeftPlayerRect.WalkFrameNumber < LeftPlayerWalkingAnimationImages.length - 1) {
-                    LeftPlayerRect.WalkFrameNumber += 1;
-                }
-                else {
-                    LeftPlayerRect.WalkFrameNumber = 0;
-                }
-            }
-            else if (LeftPlayerRect.XSpeed < 0) {
-                if (LeftPlayerRect.WalkFrameNumber > 0)
-                {
-                    LeftPlayerRect.WalkFrameNumber -= 1;
-                }
-                else
-                {
-                    LeftPlayerRect.WalkFrameNumber = LeftPlayerWalkingAnimationImages.length - 1;
-                }
-            }
-        }
-    }
-    else
-    {
-        LeftPlayerRect.AnimationCounter = 0;
-        LeftPlayerRect.WalkFrameNumber = 0;
-    }
-    if (RightPlayerRect.XSpeed != 0) {
-        ++RightPlayerRect.AnimationCounter;
-        if (RightPlayerRect.AnimationCounter == PlayerAnimationCounter) {
-            RightPlayerRect.AnimationCounter = 0;
-            if (RightPlayerRect.XSpeed > 0) {
-                if (RightPlayerRect.WalkFrameNumber > 0) {
-                    RightPlayerRect.WalkFrameNumber -= 1;
-                }
-                else {
-                    RightPlayerRect.WalkFrameNumber = RightPlayerWalkingAnimationImages.length - 1;
-                }
-            }
-            else if (RightPlayerRect.XSpeed < 0) {
-                if (RightPlayerRect.WalkFrameNumber < RightPlayerWalkingAnimationImages.length - 1) {
-                    RightPlayerRect.WalkFrameNumber += 1;
-                }
-                else {
-                    RightPlayerRect.WalkFrameNumber = 0;
-                }
-            }
-        }
-    }
-    else
-    {
-        RightPlayerRect.AnimationCounter = 0;
-        RightPlayerRect.WalkFrameNumber = 0;
-    }
-
-    if (RightPlayerRect.AnimationCounter == PlayerAnimationCounter) {
-        RightPlayerRect.AnimationCounter = 0;
-        if (RightPlayerRect.WalkFrameNumber < RightPlayerWalkingAnimationImages.length - 1) {
-            RightPlayerRect.WalkFrameNumber += 1;
-        }
-        else {
-            RightPlayerRect.WalkFrameNumber = 0;
-        }
-    }
-    if (!AiOff)
-    {
-        AiDecision();
-    }
-    var IntersectionWithLeftPlayer = false;
-    var IntersectionWithRightPlayer = false;
-    //Проверяем мешает ли мяч движению игроков
-    if ((GameBall.y >= LeftPlayerRect.y - GameBall.radius) || (GameBall.y >= RightPlayerRect.y - GameBall.radius))
-    {
-        IntersectionWithLeftPlayer = Intersection(LeftPlayerRect);
-        IntersectionWithRightPlayer = Intersection(RightPlayerRect);
-        if (IntersectionWithLeftPlayer && (GameBall.x < LeftPlayerRect.x || GameBall.x > LeftPlayerRect.x + LeftPlayerRect.width)) {
-            if (GameBall.x > LeftPlayerRect.x)
-            {
-                LeftPlayerRect.CanMoveRight = false;
-                LeftPlayerRect.CanMoveLeft = true;
-            }
-            else if (GameBall.x < LeftPlayerRect.x)
-            {
-                LeftPlayerRect.CanMoveRight = true;
-                LeftPlayerRect.CanMoveLeft = false;
-            }
-            if ((GameBall.x < LeftPlayerRect.x) && ((LeftPlayerRect.x - GameBall.x) < GameBall.radius))
-            {
-                LeftPlayerRect.CanMoveUp = false;
-            }
-            else if ((GameBall.x > LeftPlayerRect.x) && ((GameBall.x - LeftPlayerRect.x) < (GameBall.radius + LeftPlayerRect.width))) {
-                LeftPlayerRect.CanMoveUp = false;
-            }
-            else
-            {
-                LeftPlayerRect.CanMoveUp = true;
-            }
-        }
-        else
-        {
-            LeftPlayerRect.CanMoveLeft = true;
-            LeftPlayerRect.CanMoveRight = true;
-            if (IntersectionWithLeftPlayer)
-            {
-                LeftPlayerRect.CanMoveUp = false;
-            }
-            else
-            {
-                LeftPlayerRect.CanMoveUp = true;
-            }
-        }
-        if (IntersectionWithRightPlayer && (GameBall.x < RightPlayerRect.x || GameBall.x > RightPlayerRect.x + RightPlayerRect.width)) {
-            if (GameBall.x > RightPlayerRect.x) {
-                RightPlayerRect.CanMoveRight = false;
-                RightPlayerRect.CanMoveLeft = true;
-            }
-            else if (GameBall.x < RightPlayerRect.x) {
-                RightPlayerRect.CanMoveRight = true;
-                RightPlayerRect.CanMoveLeft = false;
-            }
-            if ((GameBall.x < RightPlayerRect.x) && ((RightPlayerRect.x - GameBall.x) < GameBall.radius)) {
-                RightPlayerRect.CanMoveUp = false;
-            }
-            else if ((GameBall.x > RightPlayerRect.x) && ((GameBall.x - RightPlayerRect.x) < (GameBall.radius + RightPlayerRect.width))) {
-                RightPlayerRect.CanMoveUp = false;
-            }
-            else {
-                RightPlayerRect.CanMoveUp = true;
-            }
-        }
-        else
-        {
-            RightPlayerRect.CanMoveLeft = true;
-            RightPlayerRect.CanMoveRight = true;
-            if (IntersectionWithRightPlayer) {
-                RightPlayerRect.CanMoveUp = false;
-            }
-            else
-            {
-                RightPlayerRect.CanMoveUp = true;
-            }
-        }
-    }
-    else
-    {
-        LeftPlayerRect.CanMoveLeft = true;
-        LeftPlayerRect.CanMoveRight = true;
-        LeftPlayerRect.CanMoveUp = true;
-        RightPlayerRect.CanMoveLeft = true;
-        RightPlayerRect.CanMoveRight = true;
-        RightPlayerRect.CanMoveUp = true;
-    }
-    //Очищаем игровое поле
-    GameFieldContext.beginPath();
-    GameFieldContext.clearRect(0, 0, GameCanvas.width, GameCanvas.height);
-    GameFieldContext.stroke();
-    //Рисуем мяч 
-    if (GameBall.x <= GameBall.radius && !BallHitLeftWall)
-    {
-        BallWasThrownByLeftPlayer = false;
-        BallWasThrownByRightPlayer = false;
-        BallHitLeftWall = true;
-        BallHitRightWall = false;
-        BallHitRoof = false;
-        if (GameBall.YSpeed < 0 && GameBall.RotateForward)
-        {
-            GameBall.RotateForward = false;
-        }
-        else if(GameBall.YSpeed > 0 && !GameBall.RotateForward)
-        {
-            GameBall.RotateForward = true;
-        }
-        GameBall.XSpeed = -GameBall.XSpeed * SlowingBallOnHit;
-    }
-    else if (GameBall.y <= GameBall.radius && !BallHitRoof)
-    {
-        BallWasThrownByLeftPlayer = false;
-        BallWasThrownByRightPlayer = false;
-        BallHitLeftWall = false;
-        BallHitRightWall = false;
-        BallHitRoof = true;
-        if (GameBall.XSpeed > 0 && GameBall.RotateForward) {
-            GameBall.RotateForward = false;
-        }
-        else if(GameBall.XSpeed < 0 && !GameBall.RotateForward)
-        {
-            GameBall.RotateForward = true;
-        }
-        GameBall.YSpeed = -GameBall.YSpeed * SlowingBallOnHit;
-    }
-    else if ((GameBall.x >= (GameCanvas.width - GameBall.radius)) && !BallHitRightWall)
-    {
-        BallWasThrownByLeftPlayer = false;
-        BallWasThrownByRightPlayer = false;
-        BallHitLeftWall = false;
-        BallHitRightWall = true;
-        BallHitRoof = false;
-        if (GameBall.YSpeed > 0 && GameBall.RotateForward) {
-            GameBall.RotateForward = false;
-        }
-        else if (GameBall.YSpeed < 0 && !GameBall.RotateForward) {
-            GameBall.RotateForward = true;
-        }
-        GameBall.XSpeed = -GameBall.XSpeed * SlowingBallOnHit;
-    }
-    else if (GameBall.y >= GameCanvas.height - GameBall.radius)
-    {
-        if (GameBall.x < Grid.x) {
-            RightPlayerRect.score += 1;
-            RightPlayerScoreParagraph.Rotation = true;
-        }
-        else {
-            LeftPlayerRect.score += 1;
-            LeftPlayerScoreParagraph.Rotation = true;
-        }
-        clearInterval(IntervalForDrawing);
-        IntervalForUpdateScoreInfo = setInterval(UpdateScoreInfo, 12);
-        StartNewRound();
-    }
-    else
-    {
-        if (IntersectionWithLeftPlayer && !BallWasThrownByLeftPlayer) {
-            BallWasThrownByLeftPlayer = true;
-            BallWasThrownByRightPlayer = false;
-            BallHitRightWall = false;
-            BallHitLeftWall = false;
-            BallHitRoof = false;
-            ChangeSpeedOfGameBall(LeftPlayerRect);
-            if (!LeftPlayerRect.CanMoveRight)
-            {
-                if (LeftPlayerRect.XSpeed > 0)
-                {
-                    LeftPlayerRect.XSpeed = 0;
-                }
-            }
-            else if (!LeftPlayerRect.CanMoveLeft)
-            {
-                if (LeftPlayerRect.XSpeed < 0) {
-                    LeftPlayerRect.XSpeed = 0;
-                }
-            }
-        }
-        else if (IntersectionWithRightPlayer && !BallWasThrownByRightPlayer) {
-            BallWasThrownByLeftPlayer = false;
-            BallWasThrownByRightPlayer = true;
-            BallHitLeftWall = false;
-            BallHitRightWall = false;
-            BallHitRoof = false;
-            ChangeSpeedOfGameBall(RightPlayerRect);
-            if (!RightPlayerRect.CanMoveRight) {
-                if (RightPlayerRect.XSpeed > 0) {
-                    RightPlayerRect.XSpeed = 0;
-                }
-            }
-            else if (!RightPlayerRect.CanMoveLeft) {
-                if (RightPlayerRect.XSpeed < 0) {
-                    RightPlayerRect.XSpeed = 0;
-                }
-            }
-        }
-        else if (Intersection(Grid)) {
-            BallWasThrownByLeftPlayer = false;
-            BallWasThrownByRightPlayer = false;
-            BallHitLeftWall = false;
-            BallHitRightWall = false;
-            BallHitRoof = false;
-            ChangeSpeedOfGameBall(Grid);
-        }
-        else
-        {
-            BallWasThrownByLeftPlayer = false;
-            BallWasThrownByRightPlayer = false;
-            BallHitLeftWall = false;
-            BallHitRightWall = false;
-            BallHitRoof = false;
-        }
-    }
-
-    // величина являения
-    var derivationMagnitude = 0.00001;
-    // угол, на который повернём скрость
-    var dAlpha = derivationMagnitude * GameBall.RotationSpeed * GameBall.RotationSpeed;
-
-    GameBall.XSpeed = GameBall.XSpeed * Math.cos(dAlpha) + GameBall.YSpeed * Math.sin(dAlpha);
-    GameBall.YSpeed = -GameBall.XSpeed * Math.sin(dAlpha) + GameBall.YSpeed * Math.cos(dAlpha);
-    //*********************************************************************************************
-    
-    GameBall.YSpeed += AccelerationOfGravityForBall;
-    GameBall.x += GameBall.XSpeed;
-    GameBall.y += GameBall.YSpeed;
-
-    //New drawing of ball
-    GameFieldContext.beginPath();
-    GameFieldContext.translate(GameBall.x, GameBall.y);
-    GameFieldContext.rotate(GameBallRotationAngleDegrees * Math.PI / 180);
-    DrawGameBallFromImage();
-    GameFieldContext.stroke();
-
-    //Old game ball
-    /*GameFieldContext.beginPath();
-    GameFieldContext.arc(GameBall.x, GameBall.y, GameBall.radius, 0, 2 * Math.PI);
-    GameFieldContext.fillStyle = GameBall.color;
-    GameFieldContext.fill();
-    GameFieldContext.lineWidth = 1;
-    GameFieldContext.stroke();*/
-
-    GameFieldContext.beginPath();
-    GameFieldContext.fillStyle = Grid.color;
-    GameFieldContext.fillRect(Grid.x, Grid.y, Grid.width, Grid.height);
-    GameFieldContext.stroke();
-    GameFieldContext.beginPath();
-    GameFieldContext.fillStyle = LeftPlayerRect.color;
-
-    if (GameBall.RotateForward)
-    {
-        if (GameBallRotationAngleDegrees < 360) {
-            GameBallRotationAngleDegrees += GameBall.RotationSpeed;
-        }
-        else {
-            GameBallRotationAngleDegrees = 0;
-        }
-    }
-    else
-    {
-        console.log('rotation minus');
-        if (GameBallRotationAngleDegrees > -360) {
-            GameBallRotationAngleDegrees -= GameBall.RotationSpeed;
-        }
-        else {
-            GameBallRotationAngleDegrees = 0;
-        }
-    }
-    if (GameBall.RotationSpeed > GameBallMinRotationSpeed)
-    {
-        GameBall.RotationSpeed /= 1.001;
-    }
-    else
-    {
-        GameBall.RotationSpeed = GameBallMinRotationSpeed;
-    }
-
-    //Обработка движения левого игрока при прыжке
-    if (LeftPlayerRect.CanJump)
-    {
-        if (!LeftPlayerRect.Jumping)
-        {
-            if (!LeftPlayerRect.CanMoveUp)
-            {
-                LeftPlayerRect.y = GameCanvas.height - LeftPlayerRect.height;
-                LeftPlayerRect.YSpeed = 0;
-                LeftPlayerRect.CanJump = false;
-            }
-            else
-            {
-                LeftPlayerRect.YSpeed += AccelerationOfGravity;
-                LeftPlayerRect.y += LeftPlayerRect.YSpeed;
-                LeftPlayerRect.Jumping = true;
-            }
-        }
-        else if (LeftPlayerRect.y >= (GameCanvas.height - LeftPlayerRect.height)) {
-            LeftPlayerRect.y = GameCanvas.height - LeftPlayerRect.height;
-            LeftPlayerRect.YSpeed = 0;
-            LeftPlayerRect.Jumping = false;
-            LeftPlayerRect.CanJump = false;
-        }
-        else
-        {
-            if (!LeftPlayerRect.CanMoveUp)
-            {
-                if (LeftPlayerRect.YSpeed < 0)
-                {
-                    LeftPlayerRect.YSpeed = -LeftPlayerRect.YSpeed;
-                }
-            }
-            LeftPlayerRect.YSpeed += AccelerationOfGravity;
-            LeftPlayerRect.y += LeftPlayerRect.YSpeed;
-        }
-    }
-    if (LeftPlayerRect.x == 0 && LeftPlayerRect.XSpeed > 0)
-    {
-        LeftPlayerRect.x += LeftPlayerRect.XSpeed;
-    }
-    else if (LeftPlayerRect.x == BorderXforLeftPlayer && LeftPlayerRect.XSpeed < 0)
-    {
-        LeftPlayerRect.x += LeftPlayerRect.XSpeed;
-    }
-    else if ((LeftPlayerRect.x < BorderXforLeftPlayer) && LeftPlayerRect.x > 0)
-    {
-        LeftPlayerRect.x += LeftPlayerRect.XSpeed;
-    }
-    //New drawing of Left player
-    if (LeftPlayerRect.YSpeed != 0)
-    {
-        LeftPlayerRect.ThrowBallImageTimer = 0;
-        GameFieldContext.drawImage(LeftPlayerRect.JumpImage, LeftPlayerRect.x, LeftPlayerRect.y, LeftPlayerRect.width, LeftPlayerRect.height);
-    }
-    else if (LeftPlayerRect.ThrowBallImageTimer == 0)
-    {
-        GameFieldContext.drawImage(LeftPlayerWalkingAnimationImages[LeftPlayerRect.WalkFrameNumber], LeftPlayerRect.x, LeftPlayerRect.y, LeftPlayerRect.width, LeftPlayerRect.height);
-    }
-    else
-    {
-        --LeftPlayerRect.ThrowBallImageTimer;
-        if (LeftPlayerRect.GameBallPosition == GameBallPositionsOnPlayerHit.OnLeftCorner)
-        {
-            GameFieldContext.drawImage(LeftPlayerRect.StandAnimationBallOnTheLeft, LeftPlayerRect.x, LeftPlayerRect.y, LeftPlayerRect.width, LeftPlayerRect.height);
-        }
-        else if (LeftPlayerRect.GameBallPosition == GameBallPositionsOnPlayerHit.OnRightCorner)
-        {
-            GameFieldContext.drawImage(LeftPlayerRect.StandAnimationBallOnTheRight, LeftPlayerRect.x, LeftPlayerRect.y, LeftPlayerRect.width, LeftPlayerRect.height);
-        }
-        else
-        {
-            GameFieldContext.drawImage(LeftPlayerRect.BallOnTheTopImage, LeftPlayerRect.x, LeftPlayerRect.y, LeftPlayerRect.width, LeftPlayerRect.height);
-        }
-    }
-    //Old drawing of Left player
-    //GameFieldContext.fillRect(LeftPlayerRect.x, LeftPlayerRect.y, LeftPlayerRect.width, LeftPlayerRect.height);
-    GameFieldContext.stroke();
-    GameFieldContext.beginPath();
-    GameFieldContext.fillStyle = RightPlayerRect.color;
-    //Обработка движения правого игрока при прыжке
-    if (RightPlayerRect.CanJump) {
-        if (!RightPlayerRect.Jumping) {
-            if (!RightPlayerRect.CanMoveUp) {
-                RightPlayerRect.y = GameCanvas.height - RightPlayerRect.height;
-                RightPlayerRect.YSpeed = 0;
-                RightPlayerRect.CanJump = false;
-            }
-            else {
-                RightPlayerRect.YSpeed += AccelerationOfGravity;
-                RightPlayerRect.y += RightPlayerRect.YSpeed;
-                RightPlayerRect.Jumping = true;
-            }
-        }
-        else if (RightPlayerRect.y >= (GameCanvas.height - RightPlayerRect.height)) {
-            RightPlayerRect.y = GameCanvas.height - RightPlayerRect.height;
-            RightPlayerRect.YSpeed = 0;
-            RightPlayerRect.Jumping = false;
-            RightPlayerRect.CanJump = false;
-        }
-        else {
-            if (!RightPlayerRect.CanMoveUp) {
-                if (RightPlayerRect.YSpeed < 0) {
-                    RightPlayerRect.YSpeed = -RightPlayerRect.YSpeed;
-                }
-            }
-            RightPlayerRect.YSpeed += AccelerationOfGravity;
-            RightPlayerRect.y += RightPlayerRect.YSpeed;
-        }
-    }
-    if (RightPlayerRect.x == BorderXForRightPlayer && RightPlayerRect.XSpeed > 0) {
-        RightPlayerRect.x += RightPlayerRect.XSpeed;
-    }
-    else if (RightPlayerRect.x == BorderMaxXForRightPlayer && RightPlayerRect.XSpeed < 0) {
-        RightPlayerRect.x += RightPlayerRect.XSpeed;
-    }
-    else if ((RightPlayerRect.x > BorderXForRightPlayer) && (RightPlayerRect.x < BorderMaxXForRightPlayer)) {
-        RightPlayerRect.x += RightPlayerRect.XSpeed;
-    }
-   
-    //New drawing of Right player
-    if (RightPlayerRect.YSpeed != 0) {
-        RightPlayerRect.ThrowBallImageTimer = 0;
-        GameFieldContext.drawImage(RightPlayerRect.JumpImage, RightPlayerRect.x, RightPlayerRect.y, RightPlayerRect.width, RightPlayerRect.height);
-    }
-    else if (RightPlayerRect.ThrowBallImageTimer == 0) {
-        GameFieldContext.drawImage(RightPlayerWalkingAnimationImages[RightPlayerRect.WalkFrameNumber], RightPlayerRect.x, RightPlayerRect.y, RightPlayerRect.width, RightPlayerRect.height);
-    }
-    else {
-        --RightPlayerRect.ThrowBallImageTimer;
-        if (RightPlayerRect.GameBallPosition == GameBallPositionsOnPlayerHit.OnLeftCorner) {
-            GameFieldContext.drawImage(RightPlayerRect.StandAnimationBallOnTheLeft, RightPlayerRect.x, RightPlayerRect.y, RightPlayerRect.width, RightPlayerRect.height);
-        }
-        else if (RightPlayerRect.GameBallPosition == GameBallPositionsOnPlayerHit.OnRightCorner) {
-            GameFieldContext.drawImage(RightPlayerRect.StandAnimationBallOnTheRight, RightPlayerRect.x, RightPlayerRect.y, RightPlayerRect.width, RightPlayerRect.height);
-        }
-        else {
-            GameFieldContext.drawImage(RightPlayerRect.BallOnTheTopImage, RightPlayerRect.x, RightPlayerRect.y, RightPlayerRect.width, RightPlayerRect.height);
-        }
-    }
-    //Old drawing of Right player
-    //GameFieldContext.fillRect(RightPlayerRect.x, RightPlayerRect.y, RightPlayerRect.width, RightPlayerRect.height);
-    GameFieldContext.stroke();
-}
-
 function DrawGameBallFromImage()
 {
     GameFieldContext.drawImage(GameBallImage, -GameBall.radius, -GameBall.radius, GameBall.radius * 2, GameBall.radius * 2);
@@ -824,8 +392,52 @@ function Intersection(CurrentRectangle)
     return (dx * dx + dy * dy <= (GameBall.radius * GameBall.radius));
 }
 
+function IntersectionForBallAndBonus()
+{
+    if (CurrentSpeedBonus.Owner == OwnersOfBonuses.NoOne)
+    {
+        return false;
+    }
+    var dx = GameBall.x - (CurrentSpeedBonus.x + (CurrentSpeedBonus.width/2));
+    var dy = GameBall.y - (CurrentSpeedBonus.y + (CurrentSpeedBonus.height/2));
+    var distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < GameBall.radius + (CurrentSpeedBonus.width / 2)) {
+        if ((CurrentSpeedBonus.Owner == OwnersOfBonuses.LeftPlayer) && (CurrentSpeedBonus.BonusImage == RedBonusImage))
+        {
+            LeftPlayerRect.CurrentBonus = BonucesForPlayers.RedSpeedBonus;
+            LeftPlayerRect.BonusTimer = TimeForBonus;
+        }
+        else if ((CurrentSpeedBonus.Owner == OwnersOfBonuses.LeftPlayer) && (CurrentSpeedBonus.BonusImage == GreenBonusImage)) {
+            LeftPlayerRect.CurrentBonus = BonucesForPlayers.GreenSpeedBonus;
+            LeftPlayerRect.BonusTimer = TimeForBonus;
+        }
+        else if ((CurrentSpeedBonus.Owner == OwnersOfBonuses.RightPlayer) && (CurrentSpeedBonus.BonusImage == RedBonusImage)) {
+            RightPlayerRect.CurrentBonus = BonucesForPlayers.RedSpeedBonus;
+            RightPlayerRect.BonusTimer = TimeForBonus;
+        }
+        else if ((CurrentSpeedBonus.Owner == OwnersOfBonuses.RightPlayer) && (CurrentSpeedBonus.BonusImage == GreenBonusImage)) {
+            RightPlayerRect.CurrentBonus = BonucesForPlayers.GreenSpeedBonus;
+            RightPlayerRect.BonusTimer = TimeForBonus;
+        }
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 function ChangeSpeedOfGameBall(CurrentRectangle)
 {
+    if (CurrentRectangle == RightPlayerRect)
+    {
+        CurrentSpeedBonus.Owner = OwnersOfBonuses.RightPlayer;
+    }
+    else if (CurrentRectangle == LeftPlayerRect)
+    {
+        CurrentSpeedBonus.Owner = OwnersOfBonuses.LeftPlayer;
+    }
     if ((GameBall.x > CurrentRectangle.x + CurrentRectangle.width) && (GameBall.y < CurrentRectangle.y))
     {    
         var XDistanceFromRectangleCenter = GameBall.x - ((CurrentRectangle.width / 2) + CurrentRectangle.x);
@@ -1073,6 +685,8 @@ function StartNewRound()
     LeftPlayerRect.CanJump = false;
     LeftPlayerRect.ThrowBallImageTimer = 0;
     LeftPlayerRect.WalkFrameNumber = 0;
+    LeftPlayerRect.CurrentBonus = null;
+    LeftPlayerRect.BonusTimer = 0;
     RightPlayerRect.x = GameCanvas.width - RightPlayerRect.width;
     RightPlayerRect.y = GameCanvas.height - RightPlayerRect.height;
     RightPlayerRect.YSpeed = 0;
@@ -1081,6 +695,8 @@ function StartNewRound()
     RightPlayerRect.CanJump = false;
     RightPlayerRect.ThrowBallImageTimer = 0;
     RightPlayerRect.WalkFrameNumber = 0;
+    RightPlayerRect.CurrentBonus = null;
+    RightPlayerRect.BonusTimer = 0;
     BallHitLeftWall = false;
     BallHitRightWall = false;
     BallHitRoof = false;
@@ -1088,8 +704,8 @@ function StartNewRound()
     BallWasThrownByRightPlayer = false;
     LeftPlayerJumpingWhenJumpKeyPressed = false;
     RightPlayerJumpingWhenJumpKeyPressed = false;
+    CreateNewBonusForPlayers();
     IntervalForDrawing = setInterval(DrawGameField, GameFieldDrawingFrequency);
-    console.log('start');
 }
 
 function AiDecision()
@@ -1109,19 +725,51 @@ function AiDecision()
         else if (CurrentDecision == AiDecisions.MoveLeft) {
             if (RightPlayerRect.x == BorderXForRightPlayer)
             {
-                RightPlayerRect.XSpeed = PlayerWalkSpeed;
+                if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = PlayerRedMoveBonusSpeed;
+                }
+                else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = PlayerGreenMoveBonusSpeed;
+                }
+                else {
+                    RightPlayerRect.XSpeed = PlayerWalkSpeed;
+                }
             }
             else
             {
-                RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+                if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = -PlayerRedMoveBonusSpeed;
+                }
+                else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = -PlayerGreenMoveBonusSpeed;
+                }
+                else {
+                    RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+                }
             }
         }
         else if (CurrentDecision == AiDecisions.MoveRight) {
             if (RightPlayerRect.x == BorderMaxXForRightPlayer) {
-                RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+                if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = -PlayerRedMoveBonusSpeed;
+                }
+                else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = -PlayerGreenMoveBonusSpeed;
+                }
+                else {
+                    RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+                }
             }
             else {
-                RightPlayerRect.XSpeed = PlayerWalkSpeed;
+                if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = PlayerRedMoveBonusSpeed;
+                }
+                else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = PlayerGreenMoveBonusSpeed;
+                }
+                else {
+                    RightPlayerRect.XSpeed = PlayerWalkSpeed;
+                }
             }
         }
     }
@@ -1133,18 +781,50 @@ function AiDecision()
         }
         else if (CurrentDecision == AiDecisions.MoveLeft) {
             if (RightPlayerRect.x == BorderXForRightPlayer) {
-                RightPlayerRect.XSpeed = PlayerWalkSpeed;
+                if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = PlayerRedMoveBonusSpeed;
+                }
+                else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = PlayerGreenMoveBonusSpeed;
+                }
+                else {
+                    RightPlayerRect.XSpeed = PlayerWalkSpeed;
+                }
             }
             else {
-                RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+                if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = -PlayerRedMoveBonusSpeed;
+                }
+                else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = -PlayerGreenMoveBonusSpeed;
+                }
+                else {
+                    RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+                }
             }
         }
         else if (CurrentDecision == AiDecisions.MoveRight) {
             if (RightPlayerRect.x == BorderMaxXForRightPlayer) {
-                RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+                if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = -PlayerRedMoveBonusSpeed;
+                }
+                else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = -PlayerGreenMoveBonusSpeed;
+                }
+                else {
+                    RightPlayerRect.XSpeed = -PlayerWalkSpeed;
+                }
             }
             else {
-                RightPlayerRect.XSpeed = PlayerWalkSpeed;
+                if (RightPlayerRect.CurrentBonus == BonucesForPlayers.RedSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = PlayerRedMoveBonusSpeed;
+                }
+                else if (RightPlayerRect.CurrentBonus == BonucesForPlayers.GreenSpeedBonus && (RightPlayerRect.BonusTimer > 0)) {
+                    RightPlayerRect.XSpeed = PlayerGreenMoveBonusSpeed;
+                }
+                else {
+                    RightPlayerRect.XSpeed = PlayerWalkSpeed;
+                }
             }
         }
     }
@@ -1247,6 +927,11 @@ function LoadImages()
     RightPlayerRect.JumpImage.src = 'Images/Jumping/Blue/OnJump.png';
     RightPlayerRect.BallOnTheTopImage = new Image();
     RightPlayerRect.BallOnTheTopImage.src = 'Images/StandAnimations/Blue/BallOnTheTop.png';
+
+    RedBonusImage = new Image();
+    RedBonusImage.src = 'Images/Bonuses/RedBonus.png';
+    GreenBonusImage = new Image();
+    GreenBonusImage.src = 'Images/Bonuses/GreenBonus.png';
 }
 
 function ChooseRandomCornerForAi()
@@ -1265,5 +950,21 @@ function ChooseRandomCornerForAi()
 function GetRandomNumber(MinNumber, MaxNumber)
 {
     return Math.floor(Math.random() * ((MaxNumber + 1) - MinNumber)) + MinNumber;
+}
+
+function CreateNewBonusForPlayers()
+{
+    CurrentSpeedBonus.ItShouldBeDrawn = true;
+    CurrentSpeedBonus.y = GetRandomNumber(0, (GameCanvas.height - Grid.height) - CurrentSpeedBonus.height);
+    CurrentSpeedBonus.x = GetRandomNumber(0, (GameCanvas.width - CurrentSpeedBonus.width));
+    CurrentSpeedBonus.Owner = OwnersOfBonuses.NoOne;
+    if (GetRandomNumber(0, 1) == 0)
+    {
+        CurrentSpeedBonus.BonusImage = GreenBonusImage;
+    }
+    else
+    {
+        CurrentSpeedBonus.BonusImage = RedBonusImage;
+    }
 }
 
