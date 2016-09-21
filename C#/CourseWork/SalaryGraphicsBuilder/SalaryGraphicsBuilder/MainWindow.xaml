@@ -1,0 +1,10 @@
+﻿<Window x:Class="SalaryGraphicsBuilder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <StackPanel>
+        <Button Name="GetSalaryInfoButton" Height="20" Width="200" Click="GetSalaryInfoButton_Click">Собрать информацию о зарплатах</Button>
+        <Label Name="ProgressBarInfoLabel"></Label>
+        <ProgressBar Name="GatheringInfoProgressBar" Height="20" Width="500" Visibility="Collapsed"></ProgressBar>
+    </StackPanel> 
+</Window>
