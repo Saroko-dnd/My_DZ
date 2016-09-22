@@ -8,18 +8,21 @@ using System.IO;
 using System.Windows;
 using System.Text.RegularExpressions;
 using SalaryGraphicsBuilder.Resources;
+using System.Threading;
 
 namespace SalaryGraphicsBuilder.CodeOfExtractingData
 {
     static class DataReceiver
     {
+        private static int TimeoutForRequests = 1500;
         public static int PercentagesForGatheringInfo = 0;
         static string URLtoJobsTutBy = "https://jobs.tut.by/";
         static private List<Profession> ListOfInfoAboutProfessions = new List<Profession>();
 
-        public static void GetPageWithListOfCatalogs()
+        private static string DownloadHtmlPage(string PageUrl)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URLtoJobsTutBy);
+            Thread.Sleep(TimeoutForRequests);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(PageUrl);
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -38,15 +41,26 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
                 response.Close();
                 readStream.Close();
 
-                GetAllCatalogsReferences(PageWithListOfCatalogsAsString);
+                return PageWithListOfCatalogsAsString;
             }
             else
             {
-                MessageBox.Show(Texts.MainLoadHtmlError, Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Texts.UsualLoadHtmlError + PageUrl, Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                return string.Empty;
             }
         }
 
-        private static void GetAllCatalogsReferences(string JobsTutByPageAsString)
+        public static void GetDataForSalaryGraphics()
+        {
+            string PageWithListOfCatalogsAsString = DownloadHtmlPage(URLtoJobsTutBy);
+            List<string> AllReferencesToCatalogs = GetAllCatalogsReferences(PageWithListOfCatalogsAsString);
+            foreach (string CurrentReferenceToCatalog in AllReferencesToCatalogs)
+            {
+                GetInfoAboutSalary(DownloadHtmlPage(CurrentReferenceToCatalog), CurrentReferenceToCatalog);
+            }
+        }
+
+        private static List<string> GetAllCatalogsReferences(string JobsTutByPageAsString)
         {
             List<string> AllReferencesToCatalogs = new List<string>();
             Regex RegexForCatalogReference = new Regex("href=\"/catalog/[^\"]+\"");
@@ -58,41 +72,52 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
                 BufferForMatchValue = BufferForMatchValue.Replace("href=\"","");
                 BufferForMatchValue = BufferForMatchValue.Replace("\"", "");
 
-                AllReferencesToCatalogs.Add(BufferForMatchValue);
+                AllReferencesToCatalogs.Add(URLtoJobsTutBy + BufferForMatchValue.Remove(0, 1));
             }
 
-            foreach (string CurrentReference in AllReferencesToCatalogs)
-            {
-                GetInfoAboutSalaries(URLtoJobsTutBy + CurrentReference.Remove(0,1));
-            }
+            return AllReferencesToCatalogs;
         }
 
-        private static void GetInfoAboutSalaries(string CurrentCatalogReference)
+        private static void GetInfoAboutSalary(string FirstHtmlPageOfCatalog, string PureReferenceToCatalog)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URLtoJobsTutBy);
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            if (response.StatusCode == HttpStatusCode.OK)
+            List<string> ReferencesToPagesOfCatalog = new List<string>();
+            string Profession = PureReferenceToCatalog.Split('/').Last();
+            string BufferForCurrentHtmlPageOfCatalog = FirstHtmlPageOfCatalog;
+            string BufferForLastPageReference = string.Empty;
+            //Собираем ссылки на все страницы каталога в ReferencesToPagesOfCatalog
+            while (true)
             {
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = null;
-                if (response.CharacterSet == null)
+                GatherReferencesToPagesOfCatalog(BufferForCurrentHtmlPageOfCatalog, Profession, ReferencesToPagesOfCatalog, PureReferenceToCatalog);
+                if (BufferForLastPageReference != ReferencesToPagesOfCatalog.Last())
                 {
-                    readStream = new StreamReader(receiveStream);
+                    BufferForLastPageReference = ReferencesToPagesOfCatalog.Last();
+                    BufferForCurrentHtmlPageOfCatalog = DownloadHtmlPage(BufferForLastPageReference);
                 }
                 else
                 {
-                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                    break;
                 }
-                string PageWithListOfCatalogsAsString = readStream.ReadToEnd();
-
-                response.Close();
-                readStream.Close();
-
-                GetAllCatalogsReferences(PageWithListOfCatalogsAsString);
             }
-            else
+        }
+
+        private static void GatherReferencesToPagesOfCatalog(string PageOfCatalog, string Profession, List<string> ListOfReferencesToPagesOfCatalog, string PureReferenceToCatalog)
+        {
+            Regex RegexForReferenceToCatalogPage = new Regex("href=\"/catalog/[^\"]+page-[0-9]+\"");
+            string BufferForMatchValue = string.Empty;
+            string BuferForConstructedReference = string.Empty;
+
+            foreach (Match CurrentReferenceToPageOfCatalog in RegexForReferenceToCatalogPage.Matches(PageOfCatalog))
             {
-                MessageBox.Show(Texts.UsualLoadHtmlError + " " + CurrentCatalogReference, Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                BufferForMatchValue = CurrentReferenceToPageOfCatalog.Value;
+                BufferForMatchValue = BufferForMatchValue.Replace("href=\"", "");
+                BufferForMatchValue = BufferForMatchValue.Replace("\"", "");
+                BufferForMatchValue = BufferForMatchValue.Replace("/catalog/" + Profession, "");
+                BuferForConstructedReference = PureReferenceToCatalog + BufferForMatchValue;
+                //Проверяем на двойники
+                if (ListOfReferencesToPagesOfCatalog.Where(Reference => Reference == BuferForConstructedReference).FirstOrDefault() == null)
+                {
+                    ListOfReferencesToPagesOfCatalog.Add(BuferForConstructedReference);
+                }
             }
         }
     }

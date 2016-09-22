@@ -31,7 +31,7 @@ namespace SalaryGraphicsBuilder
 
         private void GetSalaryInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(a => DataReceiver.GetPageWithListOfCatalogs());
+            ThreadPool.QueueUserWorkItem(a => DataReceiver.GetDataForSalaryGraphics());
         }
     }
 }
