@@ -9,15 +9,18 @@ using System.Windows;
 using System.Text.RegularExpressions;
 using SalaryGraphicsBuilder.Resources;
 using System.Threading;
+using SalaryGraphicsBuilder.DiagramCodeBehind;
+using SalaryGraphicsBuilder.SerializationDeserializationXML;
 
 namespace SalaryGraphicsBuilder.CodeOfExtractingData
 {
     static class DataReceiver
     {
+        private static bool testDiagramWasCreated = false;
         private static int TimeoutForRequests = 1500;
         public static int PercentagesForGatheringInfo = 0;
         static string URLtoJobsTutBy = "https://jobs.tut.by/";
-        static private List<Profession> ListOfInfoAboutProfessions = new List<Profession>();
+        static public List<Profession> ListOfInfoAboutProfessions = new List<Profession>();
 
         private static string DownloadHtmlPage(string PageUrl)
         {
@@ -57,6 +60,11 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
             foreach (string CurrentReferenceToCatalog in AllReferencesToCatalogs)
             {
                 GetInfoAboutSalary(DownloadHtmlPage(CurrentReferenceToCatalog), CurrentReferenceToCatalog);
+                //Обрываем цикл для теста одной диаграммы
+                if (testDiagramWasCreated)
+                {
+                    break;
+                }
             }
         }
 
@@ -105,7 +113,11 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
             {
                 GetSalaryValues(CurrentReferenceToPageOfCatalog);
             }
-            int fff = 0;
+            string CurrentDirectoryPath = System.IO.Directory.GetCurrentDirectory();
+            string TestXMLfileWithProfessionObject = XMLSerializerAndDeserializer.SerializeProfession(ListOfInfoAboutProfessions.Last());
+            DiagramManipulator.CreateDataForDiagram(Profession);
+            //Обрываем цикл для теста одной диаграммы
+            testDiagramWasCreated = true;
         }
 
         public static void GetSalaryValues(string ReferenceToPageOfCatalog)

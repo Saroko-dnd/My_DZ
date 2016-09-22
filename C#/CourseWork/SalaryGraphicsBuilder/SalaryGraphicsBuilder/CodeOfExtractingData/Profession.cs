@@ -16,5 +16,11 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
             ProfessionName = NewProfessionName;
             ListOfInfoAboutOffers = new List<SalaryInfo>();
         }
+
+        public Profession()
+        {
+            ProfessionName = string.Empty;
+            ListOfInfoAboutOffers = new List<SalaryInfo>();
+        }
     }
 }

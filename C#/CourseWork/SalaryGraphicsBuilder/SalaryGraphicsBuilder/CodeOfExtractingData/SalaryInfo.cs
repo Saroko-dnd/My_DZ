@@ -35,5 +35,10 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
                     break;
             }
         }
+
+        public SalaryInfo()
+        {
+            Salary = -1;
+        }
     }
 }

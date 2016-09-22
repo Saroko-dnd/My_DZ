@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 using SalaryGraphicsBuilder.CodeOfExtractingData;
+using SalaryGraphicsBuilder.DiagramCodeBehind;
 
 namespace SalaryGraphicsBuilder
 {
@@ -27,10 +28,17 @@ namespace SalaryGraphicsBuilder
         public MainWindow()
         {
             InitializeComponent();
+
+            ColumnDiagramForSalary.DataContext = DiagramManipulator.ValueListForWpfChart;
         }
 
         private void GetSalaryInfoButton_Click(object sender, RoutedEventArgs e)
         {
+            //Test of creating directory*******
+            string CurrentDirectoryPath = System.IO.Directory.GetCurrentDirectory();
+            System.IO.Directory.CreateDirectory(CurrentDirectoryPath + "\\Professions");
+            //*********
+            (sender as Button).Visibility = System.Windows.Visibility.Collapsed;
             ThreadPool.QueueUserWorkItem(a => DataReceiver.GetDataForSalaryGraphics());
         }
     }
