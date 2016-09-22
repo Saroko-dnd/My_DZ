@@ -98,6 +98,33 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
                     break;
                 }
             }
+
+            ListOfInfoAboutProfessions.Add(new Profession(Profession));
+
+            foreach (string CurrentReferenceToPageOfCatalog in ReferencesToPagesOfCatalog)
+            {
+                GetSalaryValues(CurrentReferenceToPageOfCatalog);
+            }
+            int fff = 0;
+        }
+
+        public static void GetSalaryValues(string ReferenceToPageOfCatalog)
+        {
+            string CurrentPageOfCatalog = DownloadHtmlPage(ReferenceToPageOfCatalog);
+            Regex RegexForCurrencyAndSalaryMetaInfo = new Regex("<meta itemprop=\"salaryCurrency\" content=\"[^.]+<meta itemprop=\"baseSalary\" content=\"[0-9]+\">");
+            Regex RegexForCurrency = new Regex("[A-Z]{3}");
+            Regex RegexForSalary = new Regex("[0-9]+");
+            string BufferForMatchValue = string.Empty;
+            string BufferForCurrency = string.Empty;
+            string BufferForSalary = string.Empty;
+
+            foreach (Match CurrentReference in RegexForCurrencyAndSalaryMetaInfo.Matches(CurrentPageOfCatalog))
+            {
+                BufferForMatchValue = CurrentReference.Value;
+                BufferForCurrency = RegexForCurrency.Match(BufferForMatchValue).Value;
+                BufferForSalary = RegexForSalary.Match(BufferForMatchValue).Value;
+                ListOfInfoAboutProfessions.Last().ListOfInfoAboutOffers.Add(new SalaryInfo(BufferForCurrency, Double.Parse(BufferForSalary)));                
+            }
         }
 
         private static void GatherReferencesToPagesOfCatalog(string PageOfCatalog, string Profession, List<string> ListOfReferencesToPagesOfCatalog, string PureReferenceToCatalog)
