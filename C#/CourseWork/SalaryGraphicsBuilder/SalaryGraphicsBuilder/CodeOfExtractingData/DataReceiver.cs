@@ -16,7 +16,8 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
 {
     static class DataReceiver
     {
-        private static bool testDiagramWasCreated = false;
+        public static string PathToProfessionSalaryInfoFolder = string.Empty;
+        private static bool DownloadMustBeStoped = false;
         private static int TimeoutForRequests = 1500;
         public static int PercentagesForGatheringInfo = 0;
         static string URLtoJobsTutBy = "https://jobs.tut.by/";
@@ -49,23 +50,31 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
             else
             {
                 MessageBox.Show(Texts.UsualLoadHtmlError + PageUrl, Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                DownloadMustBeStoped = true;
                 return string.Empty;
             }
         }
 
         public static void GetDataForSalaryGraphics()
         {
+            ListOfInfoAboutProfessions.Clear();
+            DownloadMustBeStoped = false;
             string PageWithListOfCatalogsAsString = DownloadHtmlPage(URLtoJobsTutBy);
+            if (DownloadMustBeStoped)
+            {
+                return;
+            }
             List<string> AllReferencesToCatalogs = GetAllCatalogsReferences(PageWithListOfCatalogsAsString);
             foreach (string CurrentReferenceToCatalog in AllReferencesToCatalogs)
             {
                 GetInfoAboutSalary(DownloadHtmlPage(CurrentReferenceToCatalog), CurrentReferenceToCatalog);
-                //Обрываем цикл для теста одной диаграммы
-                if (testDiagramWasCreated)
+                MessageBox.Show(CurrentReferenceToCatalog + " загружен!");
+                if (DownloadMustBeStoped)
                 {
-                    break;
+                    return;
                 }
             }
+            MessageBox.Show("Все XML файлы созданы!");
         }
 
         private static List<string> GetAllCatalogsReferences(string JobsTutByPageAsString)
@@ -96,6 +105,10 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
             while (true)
             {
                 GatherReferencesToPagesOfCatalog(BufferForCurrentHtmlPageOfCatalog, Profession, ReferencesToPagesOfCatalog, PureReferenceToCatalog);
+                if (ReferencesToPagesOfCatalog.Count == 0)
+                {
+                    break;
+                } 
                 if (BufferForLastPageReference != ReferencesToPagesOfCatalog.Last())
                 {
                     BufferForLastPageReference = ReferencesToPagesOfCatalog.Last();
@@ -105,24 +118,43 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
                 {
                     break;
                 }
+                if (DownloadMustBeStoped)
+                {
+                    return;
+                }
             }
 
             ListOfInfoAboutProfessions.Add(new Profession(Profession));
 
-            foreach (string CurrentReferenceToPageOfCatalog in ReferencesToPagesOfCatalog)
+            GetSalaryValues(FirstHtmlPageOfCatalog);
+            if (ReferencesToPagesOfCatalog.Count > 0)
             {
-                GetSalaryValues(CurrentReferenceToPageOfCatalog);
+                foreach (string CurrentReferenceToPageOfCatalog in ReferencesToPagesOfCatalog)
+                {
+                    GetSalaryValues(CurrentReferenceToPageOfCatalog);
+                    if (DownloadMustBeStoped)
+                    {
+                        return;
+                    }
+                }
             }
-            string CurrentDirectoryPath = System.IO.Directory.GetCurrentDirectory();
-            string TestXMLfileWithProfessionObject = XMLSerializerAndDeserializer.SerializeProfession(ListOfInfoAboutProfessions.Last());
-            DiagramManipulator.CreateDataForDiagram(Profession);
-            //Обрываем цикл для теста одной диаграммы
-            testDiagramWasCreated = true;
+            //Сохраняем текущую профессию  в виде XML файл
+            string CurrentProfessionXML = XMLSerializerAndDeserializer.SerializeProfession(ListOfInfoAboutProfessions.Last());
+            using (FileStream FileStreamToXmlFileForCurrentProfession = File.Create(PathToProfessionSalaryInfoFolder + "\\" + Profession + ".xml"))
+            {
+                Byte[] ProfessionSalaryInfo = new UTF8Encoding(true).GetBytes(CurrentProfessionXML);
+                // Add some information to the file.
+                FileStreamToXmlFileForCurrentProfession.Write(ProfessionSalaryInfo, 0, ProfessionSalaryInfo.Length);
+            }
         }
 
         public static void GetSalaryValues(string ReferenceToPageOfCatalog)
         {
             string CurrentPageOfCatalog = DownloadHtmlPage(ReferenceToPageOfCatalog);
+            if (DownloadMustBeStoped)
+            {
+                return;
+            }
             Regex RegexForCurrencyAndSalaryMetaInfo = new Regex("<meta itemprop=\"salaryCurrency\" content=\"[^.]+<meta itemprop=\"baseSalary\" content=\"[0-9]+\">");
             Regex RegexForCurrency = new Regex("[A-Z]{3}");
             Regex RegexForSalary = new Regex("[0-9]+");

@@ -27,7 +27,6 @@ namespace SalaryGraphicsBuilder.DiagramCodeBehind
 
         public static void CreateDataForDiagram(string CurrentProfessionName)
         {
-            //Dispatcher.CurrentDispatcher.Invoke(new Action(() => { ValueListForWpfChart.Clear(); }));
             Application.Current.Dispatcher.Invoke(new Action(() => { ValueListForWpfChart.Clear(); }));
 
             List<DynamicKeyValuePair> PureListOfValuesForWpfChart = new List<DynamicKeyValuePair>();
@@ -68,12 +67,6 @@ namespace SalaryGraphicsBuilder.DiagramCodeBehind
                     ValueListForWpfChart.Add(CurrentKeyValuePair);
                 }
             }));
-            /*Dispatcher.CurrentDispatcher.Invoke(new Action(() => {
-                foreach (DynamicKeyValuePair CurrentKeyValuePair in PureListOfValuesForWpfChart)
-                {
-                    ValueListForWpfChart.Add(CurrentKeyValuePair);
-                }
-            }));*/
         } 
     }
 }

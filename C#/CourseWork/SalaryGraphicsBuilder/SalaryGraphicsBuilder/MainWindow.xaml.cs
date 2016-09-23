@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Threading;
 using SalaryGraphicsBuilder.CodeOfExtractingData;
 using SalaryGraphicsBuilder.DiagramCodeBehind;
+using SalaryGraphicsBuilder.Resources;
 
 namespace SalaryGraphicsBuilder
 {
@@ -36,7 +37,8 @@ namespace SalaryGraphicsBuilder
         {
             //Test of creating directory*******
             string CurrentDirectoryPath = System.IO.Directory.GetCurrentDirectory();
-            System.IO.Directory.CreateDirectory(CurrentDirectoryPath + "\\Professions");
+            DataReceiver.PathToProfessionSalaryInfoFolder = CurrentDirectoryPath + "\\" + Texts.NameOfFolderForXMLfilesWithProfessionSalaryInfo;
+            System.IO.Directory.CreateDirectory(DataReceiver.PathToProfessionSalaryInfoFolder);
             //*********
             (sender as Button).Visibility = System.Windows.Visibility.Collapsed;
             ThreadPool.QueueUserWorkItem(a => DataReceiver.GetDataForSalaryGraphics());

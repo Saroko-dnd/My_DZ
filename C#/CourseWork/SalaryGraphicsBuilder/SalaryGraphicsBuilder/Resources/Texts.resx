@@ -123,6 +123,9 @@
   <data name="MainLoadHtmlError" xml:space="preserve">
     <value>Не удалось загрузить данные с https://jobs.tut.by/</value>
   </data>
+  <data name="NameOfFolderForXMLfilesWithProfessionSalaryInfo" xml:space="preserve">
+    <value>ProfessionsAndSalaries</value>
+  </data>
   <data name="UsualLoadHtmlError" xml:space="preserve">
     <value>Не удалось загрузить данные с</value>
   </data>
