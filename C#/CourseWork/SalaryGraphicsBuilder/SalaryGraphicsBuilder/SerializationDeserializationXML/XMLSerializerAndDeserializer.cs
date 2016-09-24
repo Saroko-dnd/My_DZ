@@ -25,5 +25,17 @@ namespace SalaryGraphicsBuilder.SerializationDeserializationXML
             //возвращаем XML как строку
             return XMLFileForCurrentProfession;
         }
+
+        public static Profession DeserializeProfession(string PathToProfessionXMLFile)
+        {
+            XmlSerializer XMLSerializerForProfession = new XmlSerializer(typeof(Profession));
+            Profession BufferForCurrentProfession;
+
+            using (StreamReader StreamReaderForFProfession = new StreamReader(PathToProfessionXMLFile, true))
+            {
+                BufferForCurrentProfession = (Profession)XMLSerializerForProfession.Deserialize(StreamReaderForFProfession);
+            }
+            return BufferForCurrentProfession;
+        }
     }
 }

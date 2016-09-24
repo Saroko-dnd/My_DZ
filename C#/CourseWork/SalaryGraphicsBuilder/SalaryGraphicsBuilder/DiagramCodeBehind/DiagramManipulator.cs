@@ -14,7 +14,8 @@ namespace SalaryGraphicsBuilder.DiagramCodeBehind
 {
     public static class DiagramManipulator
     {
-        public static int RangeForSalaries = 200;
+        public static int DefaultRangeForSalaries = 200;
+        public static int CurrentRangeForSalaries = 200;
         public static int AmountOfRanges = 10;
 
         private static ObservableCollection<DynamicKeyValuePair> ValueListForWpfChart_ = new ObservableCollection<DynamicKeyValuePair>();
@@ -36,16 +37,16 @@ namespace SalaryGraphicsBuilder.DiagramCodeBehind
                 if (Counter == (AmountOfRanges - 1))
                 {
                     PureListOfValuesForWpfChart.Add(new DynamicKeyValuePair(StartRangeValueForRange.ToString() + " and more", 0,
-                        (StartRangeValueForRange + RangeForSalaries), StartRangeValueForRange));
+                        (StartRangeValueForRange + CurrentRangeForSalaries), StartRangeValueForRange));
                 }
                 else
                 {
-                    PureListOfValuesForWpfChart.Add(new DynamicKeyValuePair(StartRangeValueForRange.ToString() + "-" + (StartRangeValueForRange + RangeForSalaries).ToString(), 0,
-                        (StartRangeValueForRange + RangeForSalaries), StartRangeValueForRange));
+                    PureListOfValuesForWpfChart.Add(new DynamicKeyValuePair(StartRangeValueForRange.ToString() + "-" + (StartRangeValueForRange + CurrentRangeForSalaries).ToString(), 0,
+                        (StartRangeValueForRange + CurrentRangeForSalaries), StartRangeValueForRange));
                 }
-                StartRangeValueForRange += RangeForSalaries;
+                StartRangeValueForRange += CurrentRangeForSalaries;
             }
-            int MaxValueInsideChart = RangeForSalaries * AmountOfRanges;
+            int MaxValueInsideChart = CurrentRangeForSalaries * AmountOfRanges;
             foreach (SalaryInfo CurrentSalaryInfo in DataReceiver.ListOfInfoAboutProfessions.Where(CurrentProfession => CurrentProfession.ProfessionName == CurrentProfessionName).
                 FirstOrDefault().ListOfInfoAboutOffers)
             {

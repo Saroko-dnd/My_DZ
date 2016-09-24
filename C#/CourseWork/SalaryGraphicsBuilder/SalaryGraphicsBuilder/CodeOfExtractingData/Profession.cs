@@ -8,8 +8,21 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
 {
     public class Profession
     {
-        public string ProfessionName;
+        private string professionName;
         public List<SalaryInfo> ListOfInfoAboutOffers;
+
+        public string ProfessionName
+        {
+            get
+            {
+                return professionName;
+            }
+
+            set
+            {
+                professionName = value;
+            }
+        }
 
         public Profession(string NewProfessionName)
         {

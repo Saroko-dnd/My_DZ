@@ -7,11 +7,14 @@
     <StackPanel>
         <Button Name="GetSalaryInfoButton" Height="20" Width="200" Click="GetSalaryInfoButton_Click">Собрать информацию о зарплатах</Button>
         <Label Name="ProgressBarInfoLabel"></Label>
-        <ProgressBar Name="GatheringInfoProgressBar" Height="20" Width="500" Visibility="Collapsed"></ProgressBar>
-        <wpf_toolkit:Chart Height="600" HorizontalAlignment="Left" 
-		Margin="33,0,0,620" Name="columnChart" Title="Column Series Demo" 
-		VerticalAlignment="Bottom" Width="1000">
-            <wpf_toolkit:ColumnSeries Name="ColumnDiagramForSalary" Width="500" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}" />
+        <ProgressBar Margin="200,0,200,0" Name="GatheringInfoProgressBar" Height="20" Width="500" Visibility="Collapsed"></ProgressBar>
+        <wpf_toolkit:Chart Height="600" Name="columnChart" Title="Column Series Demo" Width="1000">
+            <wpf_toolkit:ColumnSeries Name="ColumnDiagramForSalary" Width="870" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}" />
         </wpf_toolkit:Chart>
+        <WrapPanel>
+            <ComboBox Name="ComboBoxForProfessions" Height="30" Width="300" ItemsSource="{Binding}" SelectionChanged="ComboBoxForProfessions_SelectionChanged">
+            </ComboBox>
+            <TextBox MaxLength="4" Width="40" Name="TextBoxForRangeValueOnChart"></TextBox>
+        </WrapPanel>
     </StackPanel> 
 </Window>

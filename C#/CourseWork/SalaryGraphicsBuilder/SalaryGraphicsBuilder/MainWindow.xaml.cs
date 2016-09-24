@@ -18,6 +18,9 @@ using System.Threading;
 using SalaryGraphicsBuilder.CodeOfExtractingData;
 using SalaryGraphicsBuilder.DiagramCodeBehind;
 using SalaryGraphicsBuilder.Resources;
+using SalaryGraphicsBuilder.SerializationDeserializationXML;
+using System.Collections.ObjectModel;
+using SalaryGraphicsBuilder.EventsForMainWindowElements;
 
 namespace SalaryGraphicsBuilder
 {
@@ -30,18 +33,31 @@ namespace SalaryGraphicsBuilder
         {
             InitializeComponent();
 
+            TextBoxForRangeValueOnChart.PreviewTextInput += MainWindowEventStorage.TextBoxTextInputOnlyNumbers;
+            TextBoxForRangeValueOnChart.PreviewKeyDown += MainWindowEventStorage.TextBoxKeyPressDisableSpace;
+            //Adding of handler for pasting in TextBox
+            DataObject.AddPastingHandler(TextBoxForRangeValueOnChart, MainWindowEventStorage.TextBoxPasteOnlyNumbers);
+            TextBoxForRangeValueOnChart.TextChanged += MainWindowEventStorage.TextBoxWithSalaryRangeTextChanged;
+            TextBoxForRangeValueOnChart.Text = DiagramManipulator.DefaultRangeForSalaries.ToString();
+
             ColumnDiagramForSalary.DataContext = DiagramManipulator.ValueListForWpfChart;
+            ComboBoxForProfessions.DataContext = DataReceiver.ListOfProfessionNames;
         }
 
         private void GetSalaryInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            //Test of creating directory*******
             string CurrentDirectoryPath = System.IO.Directory.GetCurrentDirectory();
             DataReceiver.PathToProfessionSalaryInfoFolder = CurrentDirectoryPath + "\\" + Texts.NameOfFolderForXMLfilesWithProfessionSalaryInfo;
             System.IO.Directory.CreateDirectory(DataReceiver.PathToProfessionSalaryInfoFolder);
-            //*********
+
             (sender as Button).Visibility = System.Windows.Visibility.Collapsed;
             ThreadPool.QueueUserWorkItem(a => DataReceiver.GetDataForSalaryGraphics());
+        }
+
+        private void ComboBoxForProfessions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string SelectedProfessionName = (sender as ComboBox).SelectedItem.ToString();
+            ThreadPool.QueueUserWorkItem(a => DiagramManipulator.CreateDataForDiagram(SelectedProfessionName));
         }
     }
 }

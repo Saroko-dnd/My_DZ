@@ -11,6 +11,7 @@ using SalaryGraphicsBuilder.Resources;
 using System.Threading;
 using SalaryGraphicsBuilder.DiagramCodeBehind;
 using SalaryGraphicsBuilder.SerializationDeserializationXML;
+using System.Collections.ObjectModel;
 
 namespace SalaryGraphicsBuilder.CodeOfExtractingData
 {
@@ -21,7 +22,8 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
         private static int TimeoutForRequests = 1500;
         public static int PercentagesForGatheringInfo = 0;
         static string URLtoJobsTutBy = "https://jobs.tut.by/";
-        static public List<Profession> ListOfInfoAboutProfessions = new List<Profession>();
+        static public ObservableCollection<string> ListOfProfessionNames = new ObservableCollection<string>();
+        static public ObservableCollection<Profession> ListOfInfoAboutProfessions = new ObservableCollection<Profession>();
 
         private static string DownloadHtmlPage(string PageUrl)
         {
@@ -57,7 +59,9 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
 
         public static void GetDataForSalaryGraphics()
         {
+            Application.Current.Dispatcher.Invoke(new Action(() => { ListOfProfessionNames.Clear(); }));
             ListOfInfoAboutProfessions.Clear();
+
             DownloadMustBeStoped = false;
             string PageWithListOfCatalogsAsString = DownloadHtmlPage(URLtoJobsTutBy);
             if (DownloadMustBeStoped)
@@ -68,7 +72,7 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
             foreach (string CurrentReferenceToCatalog in AllReferencesToCatalogs)
             {
                 GetInfoAboutSalary(DownloadHtmlPage(CurrentReferenceToCatalog), CurrentReferenceToCatalog);
-                MessageBox.Show(CurrentReferenceToCatalog + " загружен!");
+                //MessageBox.Show(CurrentReferenceToCatalog + " загружен!");
                 if (DownloadMustBeStoped)
                 {
                     return;
@@ -97,55 +101,66 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
 
         private static void GetInfoAboutSalary(string FirstHtmlPageOfCatalog, string PureReferenceToCatalog)
         {
-            List<string> ReferencesToPagesOfCatalog = new List<string>();
             string Profession = PureReferenceToCatalog.Split('/').Last();
-            string BufferForCurrentHtmlPageOfCatalog = FirstHtmlPageOfCatalog;
-            string BufferForLastPageReference = string.Empty;
-            //Собираем ссылки на все страницы каталога в ReferencesToPagesOfCatalog
-            while (true)
+            if (File.Exists(PathToProfessionSalaryInfoFolder + "\\" + Profession + ".xml"))
             {
-                GatherReferencesToPagesOfCatalog(BufferForCurrentHtmlPageOfCatalog, Profession, ReferencesToPagesOfCatalog, PureReferenceToCatalog);
-                if (ReferencesToPagesOfCatalog.Count == 0)
-                {
-                    break;
-                } 
-                if (BufferForLastPageReference != ReferencesToPagesOfCatalog.Last())
-                {
-                    BufferForLastPageReference = ReferencesToPagesOfCatalog.Last();
-                    BufferForCurrentHtmlPageOfCatalog = DownloadHtmlPage(BufferForLastPageReference);
-                }
-                else
-                {
-                    break;
-                }
-                if (DownloadMustBeStoped)
-                {
-                    return;
-                }
+                ListOfInfoAboutProfessions.Add(XMLSerializerAndDeserializer.DeserializeProfession(PathToProfessionSalaryInfoFolder + "\\" + Profession + ".xml"));
+                Application.Current.Dispatcher.Invoke(new Action(() => { ListOfProfessionNames.Add(ListOfInfoAboutProfessions.Last().ProfessionName); }));
             }
-
-            ListOfInfoAboutProfessions.Add(new Profession(Profession));
-
-            GetSalaryValues(FirstHtmlPageOfCatalog);
-            if (ReferencesToPagesOfCatalog.Count > 0)
+            else
             {
-                foreach (string CurrentReferenceToPageOfCatalog in ReferencesToPagesOfCatalog)
+                List<string> ReferencesToPagesOfCatalog = new List<string>();
+                string BufferForCurrentHtmlPageOfCatalog = FirstHtmlPageOfCatalog;
+                string BufferForLastPageReference = string.Empty;
+                //Собираем ссылки на все страницы каталога в ReferencesToPagesOfCatalog
+                while (true)
                 {
-                    GetSalaryValues(CurrentReferenceToPageOfCatalog);
+                    GatherReferencesToPagesOfCatalog(BufferForCurrentHtmlPageOfCatalog, Profession, ReferencesToPagesOfCatalog, PureReferenceToCatalog);
+                    if (ReferencesToPagesOfCatalog.Count == 0)
+                    {
+                        break;
+                    }
+                    if (BufferForLastPageReference != ReferencesToPagesOfCatalog.Last())
+                    {
+                        BufferForLastPageReference = ReferencesToPagesOfCatalog.Last();
+                        BufferForCurrentHtmlPageOfCatalog = DownloadHtmlPage(BufferForLastPageReference);
+                    }
+                    else
+                    {
+                        break;
+                    }
                     if (DownloadMustBeStoped)
                     {
                         return;
                     }
                 }
-            }
-            //Сохраняем текущую профессию  в виде XML файл
-            string CurrentProfessionXML = XMLSerializerAndDeserializer.SerializeProfession(ListOfInfoAboutProfessions.Last());
-            using (FileStream FileStreamToXmlFileForCurrentProfession = File.Create(PathToProfessionSalaryInfoFolder + "\\" + Profession + ".xml"))
-            {
-                Byte[] ProfessionSalaryInfo = new UTF8Encoding(true).GetBytes(CurrentProfessionXML);
-                // Add some information to the file.
-                FileStreamToXmlFileForCurrentProfession.Write(ProfessionSalaryInfo, 0, ProfessionSalaryInfo.Length);
-            }
+
+                ListOfInfoAboutProfessions.Add(new Profession(Profession));
+                Application.Current.Dispatcher.Invoke(new Action(() => { ListOfProfessionNames.Add(ListOfInfoAboutProfessions.Last().ProfessionName); }));
+
+                GetSalaryValues(PureReferenceToCatalog);
+                if (ReferencesToPagesOfCatalog.Count > 0)
+                {
+                    foreach (string CurrentReferenceToPageOfCatalog in ReferencesToPagesOfCatalog)
+                    {
+                        GetSalaryValues(CurrentReferenceToPageOfCatalog);
+                        if (DownloadMustBeStoped)
+                        {
+                            return;
+                        }
+                    }
+                }
+                //Сохраняем текущую профессию  в виде XML файл
+                string CurrentProfessionXML = string.Empty;
+                CurrentProfessionXML = XMLSerializerAndDeserializer.SerializeProfession(ListOfInfoAboutProfessions.Last());
+                
+                using (FileStream FileStreamToXmlFileForCurrentProfession = File.Create(PathToProfessionSalaryInfoFolder + "\\" + Profession + ".xml"))
+                {
+                    Byte[] ProfessionSalaryInfo = new UTF8Encoding(true).GetBytes(CurrentProfessionXML);
+                    // Add some information to the file.
+                    FileStreamToXmlFileForCurrentProfession.Write(ProfessionSalaryInfo, 0, ProfessionSalaryInfo.Length);
+                }
+            } 
         }
 
         public static void GetSalaryValues(string ReferenceToPageOfCatalog)
@@ -167,7 +182,7 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
                 BufferForMatchValue = CurrentReference.Value;
                 BufferForCurrency = RegexForCurrency.Match(BufferForMatchValue).Value;
                 BufferForSalary = RegexForSalary.Match(BufferForMatchValue).Value;
-                ListOfInfoAboutProfessions.Last().ListOfInfoAboutOffers.Add(new SalaryInfo(BufferForCurrency, Double.Parse(BufferForSalary)));                
+                ListOfInfoAboutProfessions.Last().ListOfInfoAboutOffers.Add(new SalaryInfo(BufferForCurrency, Double.Parse(BufferForSalary)));                        
             }
         }
 

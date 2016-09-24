@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="DiagramCodeBehind\DiagramManipulator.cs" />
     <Compile Include="DiagramCodeBehind\DynamicKeyValuePair.cs" />
+    <Compile Include="EventsForMainWindowElements\MainWindowEventStorage.cs" />
     <Compile Include="Resources\Texts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
