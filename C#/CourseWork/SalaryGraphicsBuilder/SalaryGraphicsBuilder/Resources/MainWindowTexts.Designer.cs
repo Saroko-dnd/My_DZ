@@ -22,14 +22,14 @@ namespace SalaryGraphicsBuilder.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Texts {
+    public class MainWindowTexts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Texts() {
+        internal MainWindowTexts() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace SalaryGraphicsBuilder.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SalaryGraphicsBuilder.Resources.Texts", typeof(Texts).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SalaryGraphicsBuilder.Resources.MainWindowTexts", typeof(MainWindowTexts).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,65 @@ namespace SalaryGraphicsBuilder.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Ошибка.
+        ///   Ищет локализованную строку, похожую на Offers.
         /// </summary>
-        public static string Error {
+        public static string ColumnSeriesTitle {
             get {
-                return ResourceManager.GetString("Error", resourceCulture);
+                return ResourceManager.GetString("ColumnSeriesTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Не удалось загрузить данные с https://jobs.tut.by/.
+        ///   Ищет локализованную строку, похожую на Salary (BYR).
         /// </summary>
-        public static string MainLoadHtmlError {
+        public static string ColumnSeriesXAxis {
             get {
-                return ResourceManager.GetString("MainLoadHtmlError", resourceCulture);
+                return ResourceManager.GetString("ColumnSeriesXAxis", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на ProfessionsAndSalaries.
+        ///   Ищет локализованную строку, похожую на Number of offers.
         /// </summary>
-        public static string NameOfFolderForXMLfilesWithProfessionSalaryInfo {
+        public static string ColumnSeriesYAxis {
             get {
-                return ResourceManager.GetString("NameOfFolderForXMLfilesWithProfessionSalaryInfo", resourceCulture);
+                return ResourceManager.GetString("ColumnSeriesYAxis", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Не удалось загрузить данные с.
+        ///   Ищет локализованную строку, похожую на List of professions.
         /// </summary>
-        public static string UsualLoadHtmlError {
+        public static string ComboBoxHint {
             get {
-                return ResourceManager.GetString("UsualLoadHtmlError", resourceCulture);
+                return ResourceManager.GetString("ComboBoxHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Amount of ranges.
+        /// </summary>
+        public static string TextBoxForNumberOfRangesHint {
+            get {
+                return ResourceManager.GetString("TextBoxForNumberOfRangesHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Range of salary for one column on chart.
+        /// </summary>
+        public static string TextBoxForRangeValueHint {
+            get {
+                return ResourceManager.GetString("TextBoxForRangeValueHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Программа-строитель графиков величин зарплат по профессиям с https://jobs.tut.by/.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }

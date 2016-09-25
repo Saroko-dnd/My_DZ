@@ -33,12 +33,20 @@ namespace SalaryGraphicsBuilder
         {
             InitializeComponent();
 
-            TextBoxForRangeValueOnChart.PreviewTextInput += MainWindowEventStorage.TextBoxTextInputOnlyNumbers;
-            TextBoxForRangeValueOnChart.PreviewKeyDown += MainWindowEventStorage.TextBoxKeyPressDisableSpace;
+            this.DataContext = MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind();
+
+            TextBoxForRangeValueInChart.PreviewTextInput += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxTextInputOnlyNumbers;
+            TextBoxForRangeValueInChart.PreviewKeyDown += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxKeyPressDisableSpace;
             //Adding of handler for pasting in TextBox
-            DataObject.AddPastingHandler(TextBoxForRangeValueOnChart, MainWindowEventStorage.TextBoxPasteOnlyNumbers);
-            TextBoxForRangeValueOnChart.TextChanged += MainWindowEventStorage.TextBoxWithSalaryRangeTextChanged;
-            TextBoxForRangeValueOnChart.Text = DiagramManipulator.DefaultRangeForSalaries.ToString();
+            DataObject.AddPastingHandler(TextBoxForRangeValueInChart, MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxPasteOnlyNumbers);
+            TextBoxForRangeValueInChart.TextChanged += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxWithSalaryRangeTextChanged;
+            TextBoxForRangeValueInChart.Text = DiagramManipulator.DefaultRangeForSalaries.ToString();
+
+            TextBoxForAmountOfColumnsInChart.Text = DiagramManipulator.DefaultAmountOfRanges.ToString();
+            TextBoxForAmountOfColumnsInChart.PreviewTextInput += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxTextInputOnlyNumbers;
+            TextBoxForAmountOfColumnsInChart.PreviewKeyDown += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxKeyPressDisableSpace;
+            DataObject.AddPastingHandler(TextBoxForAmountOfColumnsInChart, MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxPasteOnlyNumbers);
+            TextBoxForAmountOfColumnsInChart.TextChanged += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxWithAmountOfRangesTextChanged;
 
             ColumnDiagramForSalary.DataContext = DiagramManipulator.ValueListForWpfChart;
             ComboBoxForProfessions.DataContext = DataReceiver.ListOfProfessionNames;
@@ -50,7 +58,7 @@ namespace SalaryGraphicsBuilder
             DataReceiver.PathToProfessionSalaryInfoFolder = CurrentDirectoryPath + "\\" + Texts.NameOfFolderForXMLfilesWithProfessionSalaryInfo;
             System.IO.Directory.CreateDirectory(DataReceiver.PathToProfessionSalaryInfoFolder);
 
-            (sender as Button).Visibility = System.Windows.Visibility.Collapsed;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForButtonForGettingInfoAboutSalaries = Visibility.Collapsed;
             ThreadPool.QueueUserWorkItem(a => DataReceiver.GetDataForSalaryGraphics());
         }
 

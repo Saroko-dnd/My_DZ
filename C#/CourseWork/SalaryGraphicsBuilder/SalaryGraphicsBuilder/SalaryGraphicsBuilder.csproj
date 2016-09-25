@@ -58,7 +58,12 @@
     </ApplicationDefinition>
     <Compile Include="DiagramCodeBehind\DiagramManipulator.cs" />
     <Compile Include="DiagramCodeBehind\DynamicKeyValuePair.cs" />
-    <Compile Include="EventsForMainWindowElements\MainWindowEventStorage.cs" />
+    <Compile Include="MainWindowCodeBehind\MainWindowCodeBehind.cs" />
+    <Compile Include="Resources\MainWindowTexts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainWindowTexts.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Texts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -99,8 +104,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MainWindowTexts.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainWindowTexts.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Texts.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

@@ -9,6 +9,7 @@ using SalaryGraphicsBuilder.CodeOfExtractingData;
 using System.Threading;
 using System.Windows.Threading;
 using System.Windows;
+using SalaryGraphicsBuilder.EventsForMainWindowElements;
 
 namespace SalaryGraphicsBuilder.DiagramCodeBehind
 {
@@ -16,7 +17,8 @@ namespace SalaryGraphicsBuilder.DiagramCodeBehind
     {
         public static int DefaultRangeForSalaries = 200;
         public static int CurrentRangeForSalaries = 200;
-        public static int AmountOfRanges = 10;
+        public static int DefaultAmountOfRanges = 10;
+        public static int CurrentAmountOfRanges = 10;
 
         private static ObservableCollection<DynamicKeyValuePair> ValueListForWpfChart_ = new ObservableCollection<DynamicKeyValuePair>();
 
@@ -32,9 +34,9 @@ namespace SalaryGraphicsBuilder.DiagramCodeBehind
 
             List<DynamicKeyValuePair> PureListOfValuesForWpfChart = new List<DynamicKeyValuePair>();
             int StartRangeValueForRange = 0;
-            for (int Counter = 0; Counter < AmountOfRanges; ++Counter)
+            for (int Counter = 0; Counter < CurrentAmountOfRanges; ++Counter)
             {
-                if (Counter == (AmountOfRanges - 1))
+                if (Counter == (CurrentAmountOfRanges - 1))
                 {
                     PureListOfValuesForWpfChart.Add(new DynamicKeyValuePair(StartRangeValueForRange.ToString() + " and more", 0,
                         (StartRangeValueForRange + CurrentRangeForSalaries), StartRangeValueForRange));
@@ -46,7 +48,7 @@ namespace SalaryGraphicsBuilder.DiagramCodeBehind
                 }
                 StartRangeValueForRange += CurrentRangeForSalaries;
             }
-            int MaxValueInsideChart = CurrentRangeForSalaries * AmountOfRanges;
+            int MaxValueInsideChart = CurrentRangeForSalaries * CurrentAmountOfRanges;
             foreach (SalaryInfo CurrentSalaryInfo in DataReceiver.ListOfInfoAboutProfessions.Where(CurrentProfession => CurrentProfession.ProfessionName == CurrentProfessionName).
                 FirstOrDefault().ListOfInfoAboutOffers)
             {
@@ -68,6 +70,8 @@ namespace SalaryGraphicsBuilder.DiagramCodeBehind
                     ValueListForWpfChart.Add(CurrentKeyValuePair);
                 }
             }));
+
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TitleForColumnChart = CurrentProfessionName;
         } 
     }
 }

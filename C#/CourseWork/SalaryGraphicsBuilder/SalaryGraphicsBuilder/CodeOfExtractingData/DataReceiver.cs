@@ -12,6 +12,7 @@ using System.Threading;
 using SalaryGraphicsBuilder.DiagramCodeBehind;
 using SalaryGraphicsBuilder.SerializationDeserializationXML;
 using System.Collections.ObjectModel;
+using SalaryGraphicsBuilder.EventsForMainWindowElements;
 
 namespace SalaryGraphicsBuilder.CodeOfExtractingData
 {
@@ -78,6 +79,7 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
                     return;
                 }
             }
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForButtonForGettingInfoAboutSalaries = Visibility.Visible;
             MessageBox.Show("Все XML файлы созданы!");
         }
 
