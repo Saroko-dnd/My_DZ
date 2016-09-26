@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CaptionAboutProgram" xml:space="preserve">
+    <value>Info about program</value>
+  </data>
   <data name="ContentStartForLabelInfoForProgressBar" xml:space="preserve">
     <value>Loading info about catalog</value>
   </data>
@@ -128,6 +131,15 @@
   </data>
   <data name="MainLoadHtmlError" xml:space="preserve">
     <value>Не удалось загрузить данные с https://jobs.tut.by/</value>
+  </data>
+  <data name="MessageAboutProgram" xml:space="preserve">
+    <value>Creator: Saroko Igor Viktorovich
+Programming language: C#
+Type of project: WPF
+External libraries: WPF toolkit
+Additional technologies:
+	Name: XML;
+	Use: storing information about salaries</value>
   </data>
   <data name="MessageBoxLoadingIsComplete" xml:space="preserve">
     <value>Loading is complete!</value>

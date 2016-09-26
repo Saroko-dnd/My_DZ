@@ -61,6 +61,15 @@ namespace SalaryGraphicsBuilder.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Info about program.
+        /// </summary>
+        public static string CaptionAboutProgram {
+            get {
+                return ResourceManager.GetString("CaptionAboutProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Loading info about catalog.
         /// </summary>
         public static string ContentStartForLabelInfoForProgressBar {
@@ -93,6 +102,21 @@ namespace SalaryGraphicsBuilder.Resources {
         public static string MainLoadHtmlError {
             get {
                 return ResourceManager.GetString("MainLoadHtmlError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Creator: Saroko Igor Viktorovich
+        ///Programming language: C#
+        ///Type of project: WPF
+        ///External libraries: WPF toolkit
+        ///Additional technologies:
+        ///	Name: XML;
+        ///	Use: storing information about salaries.
+        /// </summary>
+        public static string MessageAboutProgram {
+            get {
+                return ResourceManager.GetString("MessageAboutProgram", resourceCulture);
             }
         }
         

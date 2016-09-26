@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ButtonAboutProgram" xml:space="preserve">
+    <value>About program</value>
+  </data>
+  <data name="ButtonGatherInfoAboutSalaries" xml:space="preserve">
+    <value>Gather information about salaries</value>
+  </data>
   <data name="ColumnSeriesTitle" xml:space="preserve">
     <value>Offers</value>
   </data>
@@ -139,6 +145,6 @@
     <value>Range of salary for one column on chart</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Программа-строитель графиков величин зарплат по профессиям с https://jobs.tut.by/</value>
+    <value>Program builds graphs of the wages values in professions from https://jobs.tut.by/</value>
   </data>
 </root>

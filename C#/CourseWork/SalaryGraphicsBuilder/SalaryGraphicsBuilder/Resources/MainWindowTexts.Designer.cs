@@ -61,6 +61,24 @@ namespace SalaryGraphicsBuilder.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на About program.
+        /// </summary>
+        public static string ButtonAboutProgram {
+            get {
+                return ResourceManager.GetString("ButtonAboutProgram", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Gather information about salaries.
+        /// </summary>
+        public static string ButtonGatherInfoAboutSalaries {
+            get {
+                return ResourceManager.GetString("ButtonGatherInfoAboutSalaries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Offers.
         /// </summary>
         public static string ColumnSeriesTitle {
@@ -124,7 +142,7 @@ namespace SalaryGraphicsBuilder.Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Программа-строитель графиков величин зарплат по профессиям с https://jobs.tut.by/.
+        ///   Ищет локализованную строку, похожую на Program builds graphs of the wages values in professions from https://jobs.tut.by/.
         /// </summary>
         public static string Title {
             get {

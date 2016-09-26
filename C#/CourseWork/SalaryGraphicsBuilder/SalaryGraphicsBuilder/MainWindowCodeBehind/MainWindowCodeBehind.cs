@@ -31,6 +31,8 @@ namespace SalaryGraphicsBuilder.EventsForMainWindowElements
         private bool uIControlsAreEnabled = false;
         private Brush textBoxForRangeValueInChart_Foreground = Brushes.Black;
         private Brush textBoxForAmountOfColumnsInChart_Foreground = Brushes.Black;
+        private string text_TextBoxForRangeValueInChart = DiagramManipulator.DefaultRangeForSalaries.ToString();
+        private string text_TextBoxForAmountOfColumnsInChart = DiagramManipulator.DefaultAmountOfRanges.ToString();
 
         public string TitleForColumnChart
         {
@@ -186,6 +188,34 @@ namespace SalaryGraphicsBuilder.EventsForMainWindowElements
             }
         }
 
+        public string Text_TextBoxForRangeValueInChart
+        {
+            get
+            {
+                return text_TextBoxForRangeValueInChart;
+            }
+
+            set
+            {
+                text_TextBoxForRangeValueInChart = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string Text_TextBoxForAmountOfColumnsInChart
+        {
+            get
+            {
+                return text_TextBoxForAmountOfColumnsInChart;
+            }
+
+            set
+            {
+                text_TextBoxForAmountOfColumnsInChart = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
@@ -315,6 +345,8 @@ namespace SalaryGraphicsBuilder.EventsForMainWindowElements
         {
             MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().GatherInfoAboutSalariesButtonIsEnabled = false;
             MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().UIControlsAreEnabled = false;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().Text_TextBoxForAmountOfColumnsInChart = DiagramManipulator.CurrentAmountOfRanges.ToString();
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().Text_TextBoxForRangeValueInChart = DiagramManipulator.CurrentRangeForSalaries.ToString();
             ThreadPool.QueueUserWorkItem(a => DiagramManipulator.CreateDataForDiagram(TitleForColumnChart));
         }
 

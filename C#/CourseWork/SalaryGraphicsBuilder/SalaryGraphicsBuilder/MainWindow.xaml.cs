@@ -40,9 +40,7 @@ namespace SalaryGraphicsBuilder
             //Adding of handler for pasting in TextBox
             DataObject.AddPastingHandler(TextBoxForRangeValueInChart, MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxPasteOnlyNumbers);
             TextBoxForRangeValueInChart.TextChanged += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxWithSalaryRangeTextChanged;
-            TextBoxForRangeValueInChart.Text = DiagramManipulator.DefaultRangeForSalaries.ToString();
 
-            TextBoxForAmountOfColumnsInChart.Text = DiagramManipulator.DefaultAmountOfRanges.ToString();
             TextBoxForAmountOfColumnsInChart.PreviewTextInput += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxTextInputOnlyNumbers;
             TextBoxForAmountOfColumnsInChart.PreviewKeyDown += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxKeyPressDisableSpace;
             DataObject.AddPastingHandler(TextBoxForAmountOfColumnsInChart, MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TextBoxPasteOnlyNumbers);
@@ -77,9 +75,16 @@ namespace SalaryGraphicsBuilder
                 {
                     MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().GatherInfoAboutSalariesButtonIsEnabled = false;
                     MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().UIControlsAreEnabled = false;
+                    MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().Text_TextBoxForAmountOfColumnsInChart = DiagramManipulator.CurrentAmountOfRanges.ToString();
+                    MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().Text_TextBoxForRangeValueInChart = DiagramManipulator.CurrentRangeForSalaries.ToString();
                     ThreadPool.QueueUserWorkItem(a => DiagramManipulator.CreateDataForDiagram(SelectedProfessionName));
                 }
             }
+        }
+
+        private void ButtonInfoAboutProgram_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(Texts.MessageAboutProgram, Texts.CaptionAboutProgram, MessageBoxButton.OK, MessageBoxImage.Asterisk);
         }
     }
 }
