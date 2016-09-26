@@ -97,6 +97,15 @@ namespace SalaryGraphicsBuilder.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Refresh chart.
+        /// </summary>
+        public static string RefreshChartButton {
+            get {
+                return ResourceManager.GetString("RefreshChartButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Amount of ranges.
         /// </summary>
         public static string TextBoxForNumberOfRangesHint {

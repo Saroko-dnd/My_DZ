@@ -4,13 +4,21 @@
         xmlns:toolkit="http://schemas.microsoft.com/wpf/2008/toolkit"
         xmlns:wpf_toolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
         xmlns:ResForThisWindow="clr-namespace:SalaryGraphicsBuilder.Resources"
-        Title="{x:Static ResForThisWindow:MainWindowTexts.Title}" Height="900" Width="1200">
+        Title="{x:Static ResForThisWindow:MainWindowTexts.Title}" Height="800" Width="1200" ResizeMode="CanMinimize">
     <StackPanel>
-        <Button Name="GetSalaryInfoButton" Height="20" Width="200" Click="GetSalaryInfoButton_Click" Visibility="{Binding VisibilityForButtonForGettingInfoAboutSalaries}">Собрать информацию о зарплатах</Button>
-        <Label Name="ProgressBarInfoLabel"></Label>
-        <ProgressBar Margin="200,0,200,0" Name="GatheringInfoProgressBar" Height="20" Width="500" Visibility="Collapsed"></ProgressBar>
+        <Button IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.GatherInfoAboutSalariesButtonIsEnabled}" Name="GetSalaryInfoButton" Height="20" 
+                Width="200" Click="GetSalaryInfoButton_Click" Visibility="{Binding VisibilityForButtonForGettingInfoAboutSalaries}">Собрать информацию о зарплатах</Button>
+        <Grid>
+            <ProgressBar Margin="200,0,200,0" Name="GatheringInfoAboutSalariesProgressBar" Height="20" Width="600" Value="{Binding ValueForProgressBarForLoadingOfProfessions}" 
+                     Visibility="{Binding VisibilityForProgressBarForLoadingOfProfessions}" Maximum="{Binding MaximumForProgressBarForLoadingOfProfessions}" 
+                     Minimum="{Binding MinimumForProgressBarForLoadingOfProfessions}">
+            </ProgressBar>
+            <Label Name="ProgressBarInfoLabel" HorizontalAlignment="Center" FontWeight="Bold"  Content="{Binding ContentForProgressBarInfoLabel}" Visibility="{Binding VisibilityForProgressBarInfoLabel}">
+            </Label>
+        </Grid>
         <wpf_toolkit:Chart Height="650" Name="columnChart" Title="{Binding TitleForColumnChart}" Width="1150">
-            <wpf_toolkit:ColumnSeries Title="{x:Static ResForThisWindow:MainWindowTexts.ColumnSeriesTitle}" Name="ColumnDiagramForSalary" DependentValuePath="Value" IndependentValuePath="Key" ItemsSource="{Binding}" >
+            <wpf_toolkit:ColumnSeries Title="{x:Static ResForThisWindow:MainWindowTexts.ColumnSeriesTitle}" Name="ColumnDiagramForSalary" DependentValuePath="Value" IndependentValuePath="Key" 
+                                      ItemsSource="{Binding}" >
                 <wpf_toolkit:ColumnSeries.DependentRangeAxis>
                     <wpf_toolkit:LinearAxis Name="YAxisOfSalaryChart" Orientation="Y" Title="{x:Static ResForThisWindow:MainWindowTexts.ColumnSeriesYAxis}"/>
                 </wpf_toolkit:ColumnSeries.DependentRangeAxis>
@@ -22,17 +30,19 @@
         <WrapPanel HorizontalAlignment="Center">
             <StackPanel>
                 <Label HorizontalAlignment="Center" Content="{x:Static ResForThisWindow:MainWindowTexts.ComboBoxHint}"></Label>
-                <ComboBox Name="ComboBoxForProfessions" Height="30" Width="300" ItemsSource="{Binding}" SelectionChanged="ComboBoxForProfessions_SelectionChanged">
+                <ComboBox IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.UIControlsAreEnabled}" Name="ComboBoxForProfessions" Height="30" 
+                          Width="300" ItemsSource="{Binding}" SelectionChanged="ComboBoxForProfessions_SelectionChanged">
                 </ComboBox>
             </StackPanel>
             <StackPanel>
                 <Label HorizontalAlignment="Center" Content="{x:Static ResForThisWindow:MainWindowTexts.TextBoxForRangeValueHint}" Foreground="DarkBlue"></Label>
-                <TextBox MaxLength="4" Width="40" Name="TextBoxForRangeValueInChart"></TextBox>
+                <TextBox Foreground="{Binding TextBoxForRangeValueInChart_Foreground}" IsEnabled="{Binding UIControlsAreEnabled}" MaxLength="4" Width="40" Name="TextBoxForRangeValueInChart"></TextBox>
             </StackPanel>
             <StackPanel>
                 <Label HorizontalAlignment="Center" Content="{x:Static ResForThisWindow:MainWindowTexts.TextBoxForNumberOfRangesHint}" Foreground="DarkOrange"></Label>
-                <TextBox MaxLength="2" Width="22" Name="TextBoxForAmountOfColumnsInChart"></TextBox>
+                <TextBox Foreground="{Binding TextBoxForAmountOfColumnsInChart_Foreground}" IsEnabled="{Binding UIControlsAreEnabled}" MaxLength="2" Width="22" Name="TextBoxForAmountOfColumnsInChart"></TextBox>
             </StackPanel>
+            <Button IsEnabled="{Binding UIControlsAreEnabled}" VerticalAlignment="Center" Name="RefreshChartButton" Content="{x:Static ResForThisWindow:MainWindowTexts.RefreshChartButton}"></Button>
         </WrapPanel>
     </StackPanel> 
 </Window>

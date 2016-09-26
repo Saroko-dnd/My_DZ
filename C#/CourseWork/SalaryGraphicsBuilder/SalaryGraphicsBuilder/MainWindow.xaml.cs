@@ -50,6 +50,8 @@ namespace SalaryGraphicsBuilder
 
             ColumnDiagramForSalary.DataContext = DiagramManipulator.ValueListForWpfChart;
             ComboBoxForProfessions.DataContext = DataReceiver.ListOfProfessionNames;
+
+            RefreshChartButton.Click += MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().RefreshChartButtonClick;
         }
 
         private void GetSalaryInfoButton_Click(object sender, RoutedEventArgs e)
@@ -58,14 +60,26 @@ namespace SalaryGraphicsBuilder
             DataReceiver.PathToProfessionSalaryInfoFolder = CurrentDirectoryPath + "\\" + Texts.NameOfFolderForXMLfilesWithProfessionSalaryInfo;
             System.IO.Directory.CreateDirectory(DataReceiver.PathToProfessionSalaryInfoFolder);
 
-            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForButtonForGettingInfoAboutSalaries = Visibility.Collapsed;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().GatherInfoAboutSalariesButtonIsEnabled = false;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().UIControlsAreEnabled = false;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForProgressBarForLoadingOfProfessions = Visibility.Visible;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().ValueForProgressBarForLoadingOfProfessions = MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().MinimumForProgressBarForLoadingOfProfessions;
             ThreadPool.QueueUserWorkItem(a => DataReceiver.GetDataForSalaryGraphics());
         }
 
         private void ComboBoxForProfessions_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string SelectedProfessionName = (sender as ComboBox).SelectedItem.ToString();
-            ThreadPool.QueueUserWorkItem(a => DiagramManipulator.CreateDataForDiagram(SelectedProfessionName));
+            object CurrentSelectedProfession = (sender as ComboBox).SelectedItem;
+            if (CurrentSelectedProfession != null)
+            {
+                string SelectedProfessionName = CurrentSelectedProfession.ToString();
+                if (SelectedProfessionName != string.Empty)
+                {
+                    MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().GatherInfoAboutSalariesButtonIsEnabled = false;
+                    MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().UIControlsAreEnabled = false;
+                    ThreadPool.QueueUserWorkItem(a => DiagramManipulator.CreateDataForDiagram(SelectedProfessionName));
+                }
+            }
         }
     }
 }

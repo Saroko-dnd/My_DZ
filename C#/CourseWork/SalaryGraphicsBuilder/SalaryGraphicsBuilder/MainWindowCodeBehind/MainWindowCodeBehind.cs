@@ -6,10 +6,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace SalaryGraphicsBuilder.EventsForMainWindowElements
 {
@@ -18,22 +20,17 @@ namespace SalaryGraphicsBuilder.EventsForMainWindowElements
         private static MainWindowCodeBehind SingleInstanceOfMainWindowCodeBehind = null;
         private static object GatesToInstance = new object();
 
-        private Visibility visibilityForButtonForGettingInfoAboutSalaries = Visibility.Visible;
+        private Visibility visibilityForProgressBarForLoadingOfProfessions = Visibility.Collapsed;
+        private Visibility visibilityForProgressBarInfoLabel = Visibility.Collapsed;
+        private double valueForProgressBarForLoadingOfProfessions = 0.0;
+        private double maximumForProgressBarForLoadingOfProfessions = 100.0;
+        private double minimumForProgressBarForLoadingOfProfessions = 0.0;
         private string titleForColumnChart = string.Empty;
-
-        public Visibility VisibilityForButtonForGettingInfoAboutSalaries
-        {
-            get
-            {
-                return visibilityForButtonForGettingInfoAboutSalaries;
-            }
-
-            set
-            {
-                visibilityForButtonForGettingInfoAboutSalaries = value;
-                NotifyPropertyChanged();
-            }
-        }
+        private string contentForProgressBarInfoLabel = string.Empty;
+        private bool gatherInfoAboutSalariesButtonIsEnabled = true;
+        private bool uIControlsAreEnabled = false;
+        private Brush textBoxForRangeValueInChart_Foreground = Brushes.Black;
+        private Brush textBoxForAmountOfColumnsInChart_Foreground = Brushes.Black;
 
         public string TitleForColumnChart
         {
@@ -45,6 +42,146 @@ namespace SalaryGraphicsBuilder.EventsForMainWindowElements
             set
             {
                 titleForColumnChart = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool UIControlsAreEnabled
+        {
+            get
+            {
+                return uIControlsAreEnabled;
+            }
+
+            set
+            {
+                uIControlsAreEnabled = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public bool GatherInfoAboutSalariesButtonIsEnabled
+        {
+            get
+            {
+                return gatherInfoAboutSalariesButtonIsEnabled;
+            }
+
+            set
+            {
+                gatherInfoAboutSalariesButtonIsEnabled = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Brush TextBoxForRangeValueInChart_Foreground
+        {
+            get
+            {
+                return textBoxForRangeValueInChart_Foreground;
+            }
+
+            set
+            {
+                textBoxForRangeValueInChart_Foreground = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Brush TextBoxForAmountOfColumnsInChart_Foreground
+        {
+            get
+            {
+                return textBoxForAmountOfColumnsInChart_Foreground;
+            }
+
+            set
+            {
+                textBoxForAmountOfColumnsInChart_Foreground = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Visibility VisibilityForProgressBarForLoadingOfProfessions
+        {
+            get
+            {
+                return visibilityForProgressBarForLoadingOfProfessions;
+            }
+
+            set
+            {
+                visibilityForProgressBarForLoadingOfProfessions = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public double ValueForProgressBarForLoadingOfProfessions
+        {
+            get
+            {
+                return valueForProgressBarForLoadingOfProfessions;
+            }
+
+            set
+            {
+                valueForProgressBarForLoadingOfProfessions = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public double MaximumForProgressBarForLoadingOfProfessions
+        {
+            get
+            {
+                return maximumForProgressBarForLoadingOfProfessions;
+            }
+
+            set
+            {
+                maximumForProgressBarForLoadingOfProfessions = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public double MinimumForProgressBarForLoadingOfProfessions
+        {
+            get
+            {
+                return minimumForProgressBarForLoadingOfProfessions;
+            }
+
+            set
+            {
+                minimumForProgressBarForLoadingOfProfessions = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public string ContentForProgressBarInfoLabel
+        {
+            get
+            {
+                return contentForProgressBarInfoLabel;
+            }
+
+            set
+            {
+                contentForProgressBarInfoLabel = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public Visibility VisibilityForProgressBarInfoLabel
+        {
+            get
+            {
+                return visibilityForProgressBarInfoLabel;
+            }
+
+            set
+            {
+                visibilityForProgressBarInfoLabel = value;
                 NotifyPropertyChanged();
             }
         }
@@ -62,6 +199,14 @@ namespace SalaryGraphicsBuilder.EventsForMainWindowElements
         public void TextBoxWithSalaryRangeTextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox CurrentTextBox = sender as TextBox;
+            if (CurrentTextBox.Text.StartsWith("0"))
+            {
+                TextBoxForRangeValueInChart_Foreground = Brushes.Red;
+            }
+            else
+            {
+                TextBoxForRangeValueInChart_Foreground = Brushes.Black;
+            }
             try
             {
                 int CurrentValueOfRangeFoSalaries = Int32.Parse(CurrentTextBox.Text);
@@ -88,6 +233,14 @@ namespace SalaryGraphicsBuilder.EventsForMainWindowElements
         public void TextBoxWithAmountOfRangesTextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox CurrentTextBox = sender as TextBox;
+            if (CurrentTextBox.Text.StartsWith("0"))
+            {
+                TextBoxForAmountOfColumnsInChart_Foreground = Brushes.Red;
+            }
+            else
+            {
+                TextBoxForAmountOfColumnsInChart_Foreground = Brushes.Black;
+            }
             try
             {
                 int CurrentAmountOfRangesFoSalaries = Int32.Parse(CurrentTextBox.Text);
@@ -156,6 +309,13 @@ namespace SalaryGraphicsBuilder.EventsForMainWindowElements
                     e.CancelCommand();
                 }
             }
+        }
+
+        public void RefreshChartButtonClick(object sender, EventArgs e)
+        {
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().GatherInfoAboutSalariesButtonIsEnabled = false;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().UIControlsAreEnabled = false;
+            ThreadPool.QueueUserWorkItem(a => DiagramManipulator.CreateDataForDiagram(TitleForColumnChart));
         }
 
         public static MainWindowCodeBehind GetSingleInstanceOfMainWindowCodeBehind()

@@ -129,6 +129,9 @@
   <data name="ComboBoxHint" xml:space="preserve">
     <value>List of professions</value>
   </data>
+  <data name="RefreshChartButton" xml:space="preserve">
+    <value>Refresh chart</value>
+  </data>
   <data name="TextBoxForNumberOfRangesHint" xml:space="preserve">
     <value>Amount of ranges</value>
   </data>

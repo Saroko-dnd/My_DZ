@@ -53,6 +53,7 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
             else
             {
                 MessageBox.Show(Texts.UsualLoadHtmlError + PageUrl, Texts.Error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForProgressBarForLoadingOfProfessions = Visibility.Collapsed;
                 DownloadMustBeStoped = true;
                 return string.Empty;
             }
@@ -61,26 +62,47 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
         public static void GetDataForSalaryGraphics()
         {
             Application.Current.Dispatcher.Invoke(new Action(() => { ListOfProfessionNames.Clear(); }));
+
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForProgressBarInfoLabel = Visibility.Visible;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().ContentForProgressBarInfoLabel = Texts.FirstContentToShowForLabelInfoForProgressBar;
             ListOfInfoAboutProfessions.Clear();
 
             DownloadMustBeStoped = false;
             string PageWithListOfCatalogsAsString = DownloadHtmlPage(URLtoJobsTutBy);
             if (DownloadMustBeStoped)
             {
+                MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForProgressBarForLoadingOfProfessions = Visibility.Collapsed;
+                MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForProgressBarInfoLabel = Visibility.Collapsed;
                 return;
             }
             List<string> AllReferencesToCatalogs = GetAllCatalogsReferences(PageWithListOfCatalogsAsString);
+            double IncrementForProgressBarValue = MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().MaximumForProgressBarForLoadingOfProfessions / (double)AllReferencesToCatalogs.Count;
+            double CurrentValueForProgressBar = MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().MinimumForProgressBarForLoadingOfProfessions;
             foreach (string CurrentReferenceToCatalog in AllReferencesToCatalogs)
             {
                 GetInfoAboutSalary(DownloadHtmlPage(CurrentReferenceToCatalog), CurrentReferenceToCatalog);
                 //MessageBox.Show(CurrentReferenceToCatalog + " загружен!");
+
                 if (DownloadMustBeStoped)
                 {
+                    MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForProgressBarForLoadingOfProfessions = Visibility.Collapsed;
+                    MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForProgressBarInfoLabel = Visibility.Collapsed;
                     return;
                 }
+                CurrentValueForProgressBar += IncrementForProgressBarValue;
+                if (CurrentValueForProgressBar > MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().MaximumForProgressBarForLoadingOfProfessions)
+                {
+                    CurrentValueForProgressBar = MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().MaximumForProgressBarForLoadingOfProfessions;
+                }
+                MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().ValueForProgressBarForLoadingOfProfessions = CurrentValueForProgressBar;
             }
-            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForButtonForGettingInfoAboutSalaries = Visibility.Visible;
-            MessageBox.Show("Все XML файлы созданы!");
+
+            Application.Current.Dispatcher.Invoke(new Action(() => { MessageBox.Show(Texts.MessageBoxLoadingIsComplete); }));
+                   
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForProgressBarForLoadingOfProfessions = Visibility.Collapsed;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().VisibilityForProgressBarInfoLabel = Visibility.Collapsed;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().UIControlsAreEnabled = true;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().GatherInfoAboutSalariesButtonIsEnabled = true;
         }
 
         private static List<string> GetAllCatalogsReferences(string JobsTutByPageAsString)
@@ -104,6 +126,7 @@ namespace SalaryGraphicsBuilder.CodeOfExtractingData
         private static void GetInfoAboutSalary(string FirstHtmlPageOfCatalog, string PureReferenceToCatalog)
         {
             string Profession = PureReferenceToCatalog.Split('/').Last();
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().ContentForProgressBarInfoLabel = Texts.ContentStartForLabelInfoForProgressBar + " " + Profession + "...";
             if (File.Exists(PathToProfessionSalaryInfoFolder + "\\" + Profession + ".xml"))
             {
                 ListOfInfoAboutProfessions.Add(XMLSerializerAndDeserializer.DeserializeProfession(PathToProfessionSalaryInfoFolder + "\\" + Profession + ".xml"));

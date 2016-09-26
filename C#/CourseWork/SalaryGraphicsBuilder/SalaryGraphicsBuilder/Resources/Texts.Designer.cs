@@ -61,6 +61,15 @@ namespace SalaryGraphicsBuilder.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Loading info about catalog.
+        /// </summary>
+        public static string ContentStartForLabelInfoForProgressBar {
+            get {
+                return ResourceManager.GetString("ContentStartForLabelInfoForProgressBar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибка.
         /// </summary>
         public static string Error {
@@ -70,11 +79,29 @@ namespace SalaryGraphicsBuilder.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Loading list of all catalogs from https://jobs.tut.by/....
+        /// </summary>
+        public static string FirstContentToShowForLabelInfoForProgressBar {
+            get {
+                return ResourceManager.GetString("FirstContentToShowForLabelInfoForProgressBar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Не удалось загрузить данные с https://jobs.tut.by/.
         /// </summary>
         public static string MainLoadHtmlError {
             get {
                 return ResourceManager.GetString("MainLoadHtmlError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Loading is complete!.
+        /// </summary>
+        public static string MessageBoxLoadingIsComplete {
+            get {
+                return ResourceManager.GetString("MessageBoxLoadingIsComplete", resourceCulture);
             }
         }
         

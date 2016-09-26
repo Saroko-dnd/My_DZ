@@ -117,11 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ContentStartForLabelInfoForProgressBar" xml:space="preserve">
+    <value>Loading info about catalog</value>
+  </data>
   <data name="Error" xml:space="preserve">
     <value>Ошибка</value>
   </data>
+  <data name="FirstContentToShowForLabelInfoForProgressBar" xml:space="preserve">
+    <value>Loading list of all catalogs from https://jobs.tut.by/...</value>
+  </data>
   <data name="MainLoadHtmlError" xml:space="preserve">
     <value>Не удалось загрузить данные с https://jobs.tut.by/</value>
+  </data>
+  <data name="MessageBoxLoadingIsComplete" xml:space="preserve">
+    <value>Loading is complete!</value>
   </data>
   <data name="NameOfFolderForXMLfilesWithProfessionSalaryInfo" xml:space="preserve">
     <value>ProfessionsAndSalaries</value>

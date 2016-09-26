@@ -32,46 +32,55 @@ namespace SalaryGraphicsBuilder.DiagramCodeBehind
         {
             Application.Current.Dispatcher.Invoke(new Action(() => { ValueListForWpfChart.Clear(); }));
 
-            List<DynamicKeyValuePair> PureListOfValuesForWpfChart = new List<DynamicKeyValuePair>();
-            int StartRangeValueForRange = 0;
-            for (int Counter = 0; Counter < CurrentAmountOfRanges; ++Counter)
+            Profession CurrentProfession = DataReceiver.ListOfInfoAboutProfessions.Where(ProfessionFound => ProfessionFound.ProfessionName == CurrentProfessionName).FirstOrDefault();
+            if (CurrentProfession != null)
             {
-                if (Counter == (CurrentAmountOfRanges - 1))
+                List<DynamicKeyValuePair> PureListOfValuesForWpfChart = new List<DynamicKeyValuePair>();
+                int StartRangeValueForRange = 0;
+                for (int Counter = 0; Counter < CurrentAmountOfRanges; ++Counter)
                 {
-                    PureListOfValuesForWpfChart.Add(new DynamicKeyValuePair(StartRangeValueForRange.ToString() + " and more", 0,
-                        (StartRangeValueForRange + CurrentRangeForSalaries), StartRangeValueForRange));
+                    if (Counter == (CurrentAmountOfRanges - 1))
+                    {
+                        PureListOfValuesForWpfChart.Add(new DynamicKeyValuePair(StartRangeValueForRange.ToString() + " and more", 0,
+                            (StartRangeValueForRange + CurrentRangeForSalaries), StartRangeValueForRange));
+                    }
+                    else
+                    {
+                        PureListOfValuesForWpfChart.Add(new DynamicKeyValuePair(StartRangeValueForRange.ToString() + "-" + (StartRangeValueForRange + CurrentRangeForSalaries).ToString(), 0,
+                            (StartRangeValueForRange + CurrentRangeForSalaries), StartRangeValueForRange));
+                    }
+                    StartRangeValueForRange += CurrentRangeForSalaries;
                 }
-                else
+                int MaxValueInsideChart = CurrentRangeForSalaries * CurrentAmountOfRanges;
+
+
+
+                foreach (SalaryInfo CurrentSalaryInfo in CurrentProfession.ListOfInfoAboutOffers)
                 {
-                    PureListOfValuesForWpfChart.Add(new DynamicKeyValuePair(StartRangeValueForRange.ToString() + "-" + (StartRangeValueForRange + CurrentRangeForSalaries).ToString(), 0,
-                        (StartRangeValueForRange + CurrentRangeForSalaries), StartRangeValueForRange));
+                    if (CurrentSalaryInfo.Salary > MaxValueInsideChart)
+                    {
+                        PureListOfValuesForWpfChart.Last().Value += 1;
+                    }
+                    else
+                    {
+                        PureListOfValuesForWpfChart.Where(CurrentKeyValuePair =>
+                            ((CurrentKeyValuePair.MinIntValue <= CurrentSalaryInfo.Salary) && (CurrentKeyValuePair.MaxIntValue >= CurrentSalaryInfo.Salary))).FirstOrDefault().Value += 1;
+                    }
                 }
-                StartRangeValueForRange += CurrentRangeForSalaries;
-            }
-            int MaxValueInsideChart = CurrentRangeForSalaries * CurrentAmountOfRanges;
-            foreach (SalaryInfo CurrentSalaryInfo in DataReceiver.ListOfInfoAboutProfessions.Where(CurrentProfession => CurrentProfession.ProfessionName == CurrentProfessionName).
-                FirstOrDefault().ListOfInfoAboutOffers)
-            {
-                if (CurrentSalaryInfo.Salary > MaxValueInsideChart)
+
+                Application.Current.Dispatcher.Invoke(new Action(() =>
                 {
-                    PureListOfValuesForWpfChart.Last().Value += 1;
-                }
-                else
-                {
-                    PureListOfValuesForWpfChart.Where(CurrentKeyValuePair =>
-                        ((CurrentKeyValuePair.MinIntValue <= CurrentSalaryInfo.Salary) && (CurrentKeyValuePair.MaxIntValue >= CurrentSalaryInfo.Salary))).FirstOrDefault().Value += 1;
-                }
+                    foreach (DynamicKeyValuePair CurrentKeyValuePair in PureListOfValuesForWpfChart)
+                    {
+                        ValueListForWpfChart.Add(CurrentKeyValuePair);
+                    }
+                }));
+
+                MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TitleForColumnChart = CurrentProfessionName;
             }
 
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-            {
-                foreach (DynamicKeyValuePair CurrentKeyValuePair in PureListOfValuesForWpfChart)
-                {
-                    ValueListForWpfChart.Add(CurrentKeyValuePair);
-                }
-            }));
-
-            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().TitleForColumnChart = CurrentProfessionName;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().GatherInfoAboutSalariesButtonIsEnabled = true;
+            MainWindowCodeBehind.GetSingleInstanceOfMainWindowCodeBehind().UIControlsAreEnabled = true;
         } 
     }
 }
