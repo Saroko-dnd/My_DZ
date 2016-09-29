@@ -16,7 +16,7 @@ public partial class _Default : System.Web.UI.Page
         }
     }
 
-    protected void AddSelectedToBasketButtonClick(object sender, EventArgs e)
+    protected void AddSelectedToBasket_ButtonClick(object sender, EventArgs e)
     {
         ListItemCollection ItemsForBasketInProductsListBox = new ListItemCollection();
         foreach (ListItem CurrentItem in this.ListBoxProducts.Items)
@@ -32,16 +32,39 @@ public partial class _Default : System.Web.UI.Page
             this.ListBoxProducts.Items.Remove(CurrentItem);
         }  
     }
-    protected void RemoveSelectedFromBasketButtonClick(object sender, EventArgs e)
+
+    protected void RemoveSelectedFromBasket_ButtonClick(object sender, EventArgs e)
     {
         ListItemCollection ItemsForRemoveActionInBasketListBox = new ListItemCollection();
         foreach (ListItem CurrentItem in this.ListBoxSelectedProducts.Items)
         {
-
+            if (CurrentItem.Selected)
+            {
+                this.ListBoxProducts.Items.Add(CurrentItem);
+                ItemsForRemoveActionInBasketListBox.Add(CurrentItem);
+            }
         }
         foreach (ListItem CurrentItem in ItemsForRemoveActionInBasketListBox)
         {
-
+            this.ListBoxSelectedProducts.Items.Remove(CurrentItem);
         }  
+    }
+
+    protected void PutAllInBasket_ButtonClick(object sender, EventArgs e)
+    {
+        foreach (ListItem CurrentItem in this.ListBoxProducts.Items)
+        {
+            this.ListBoxSelectedProducts.Items.Add(CurrentItem);
+        }
+        this.ListBoxProducts.Items.Clear();
+    }
+
+    protected void RemoveAllFromBasket_ButtonClick(object sender, EventArgs e)
+    {
+        foreach (ListItem CurrentItem in this.ListBoxSelectedProducts.Items)
+        {
+            this.ListBoxProducts.Items.Add(CurrentItem);
+        }
+        this.ListBoxSelectedProducts.Items.Clear();
     }
 }

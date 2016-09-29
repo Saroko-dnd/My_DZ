@@ -21,10 +21,10 @@
                 </div>
             </div>
             <div class="FlexColumn">
-                <asp:Button runat="server" Text="Add selected to basket" OnClick="AddSelectedToBasketButtonClick"/>
-                <asp:Button runat="server" Text="Remove selected from basket"/>
-                <asp:Button runat="server" Text="Add all to basket"/>
-                <asp:Button runat="server" Text="Remove all from basket"/>
+                <asp:Button runat="server" Text="Add selected to basket" OnClick="AddSelectedToBasket_ButtonClick"/>
+                <asp:Button runat="server" Text="Remove selected from basket" OnClick="RemoveSelectedFromBasket_ButtonClick"/>
+                <asp:Button runat="server" Text="Add all to basket" OnClick="PutAllInBasket_ButtonClick"/>
+                <asp:Button runat="server" Text="Remove all from basket" OnClick="RemoveAllFromBasket_ButtonClick"/>
             </div>
         </div>
     </form>
