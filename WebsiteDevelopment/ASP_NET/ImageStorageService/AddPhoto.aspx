@@ -13,6 +13,7 @@
     <div>
         <asp:FileUpload ID="FileUploadControl_ForImages" runat="server" CssClass="HorizontalAlignmentCenter" AllowMultiple="true" accept="image/png, image/jpeg, image/gif"/>
         <asp:Button runat="server" ID="Button_SendImagesOnServer" CssClass="HorizontalAlignmentCenter" Text="Upload images to server" OnClick="ButtonSendImagesOnServer_OnClick"/>
+        <asp:Button runat="server" ID="Button_ViewAllImagesOnServer" CssClass="HorizontalAlignmentCenter" OnClick="ButtonViewAllImagesOnServer_OnClick" Text="View all images on server"/>
     </div>
     </form>
 </body>

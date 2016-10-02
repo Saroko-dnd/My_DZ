@@ -11,6 +11,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <asp:Button runat="server" ID="Button_GoToPageForUploadingFiles" CssClass="PositionFixedInTopLeftCorner NoticeableButton" Text="Go to uploading page" OnClick="ButtonGoToPageForUploadingFiles_OnClick"/>
         <asp:Repeater runat="server" ID="RepeaterForShowingAllImages">
             <ItemTemplate>
                 <asp:Label runat="server" CssClass="HorizontalAlignmentCenter"> <%# DataBinder.Eval(Container.DataItem, "FileNameWithoutExtension") %> </asp:Label>

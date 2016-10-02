@@ -17,4 +17,9 @@ public partial class ViewPhotos : System.Web.UI.Page
             RepeaterForShowingAllImages.DataBind();
         }
     }
+
+    protected void ButtonGoToPageForUploadingFiles_OnClick(object sender, EventArgs e)
+    {
+        this.Response.Redirect("AddPhoto.aspx");
+    }
 }

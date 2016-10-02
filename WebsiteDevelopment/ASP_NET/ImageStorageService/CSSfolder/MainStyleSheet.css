@@ -10,7 +10,20 @@ script{
     margin-right:auto;
 }
 
-#Button_SendImagesOnServer{
+.PositionFixedInTopLeftCorner
+{
+    position:fixed;
+    top:10px;
+    left:10px;
+}
+
+.NoticeableButton
+{
+    font-size:20px;
+    font-weight:bold;
+}
+
+input[type=submit]{
     margin-top:10px;
 }
 
