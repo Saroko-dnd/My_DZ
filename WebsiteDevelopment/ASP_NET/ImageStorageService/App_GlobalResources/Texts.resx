@@ -129,6 +129,9 @@
   <data name="FullPathOfDirectoryForImages" xml:space="preserve">
     <value>L:\iteducation\my_dz\Saroko_DZ_copy\My_DZ\My_DZ\WebsiteDevelopment\ASP_NET\ImageStorageService\ImagesStorage</value>
   </data>
+  <data name="FullPathOfDirectoryForImagesForComputerInClass" xml:space="preserve">
+    <value>D:\USERS\Saroko_P31014\My_DZ\WebsiteDevelopment\ASP_NET\ImageStorageService\ImagesStorage</value>
+  </data>
   <data name="KeyForAlertScript" xml:space="preserve">
     <value>AlertMessageForResultOfUploadingFilesOnServer</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="PageNameForViewingPhotos" xml:space="preserve">
     <value>ViewPhotos.aspx</value>
+  </data>
+  <data name="ValidationErrorMessageWrongTypeOfFile" xml:space="preserve">
+    <value>Only jpg, png or gif files are allowed!</value>
   </data>
 </root>

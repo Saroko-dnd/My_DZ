@@ -14,7 +14,13 @@ public partial class AddPhoto : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            ScriptManager.ScriptResourceMapping.AddDefinition("jquery", new ScriptResourceDefinition
+            {
+                Path = "~/JSfolder/jquery-3.1.1.min.js",
+            });
+        }       
     }
 
     protected void ButtonSendImagesOnServer_OnClick(object sender, EventArgs e)
@@ -27,7 +33,7 @@ public partial class AddPhoto : System.Web.UI.Page
             foreach (HttpPostedFile CurrentPostedFile in FileUploadControl_ForImages.PostedFiles)
             {
                 PostedFileName = Path.GetFileName(CurrentPostedFile.FileName);
-                ServerFullFileName = Texts.FullPathOfDirectoryForImages + "\\" + PostedFileName;
+                ServerFullFileName = Texts.FullPathOfDirectoryForImagesForComputerInClass + "\\" + PostedFileName;
                 lock (GatesForFileSaving)
                 {
                     if (!File.Exists(ServerFullFileName))
