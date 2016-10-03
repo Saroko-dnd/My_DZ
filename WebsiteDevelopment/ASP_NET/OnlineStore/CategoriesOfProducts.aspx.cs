@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Resources;
 
 public partial class CategoriesOfProducts : System.Web.UI.Page
 {
@@ -11,9 +12,14 @@ public partial class CategoriesOfProducts : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            Repeater_CategoriesOfProducts.DataSource = Application["ListOfProductCategories"];
+            Repeater_CategoriesOfProducts.DataSource = Application[Texts.KeyForListOfProductCategories];
             Repeater_CategoriesOfProducts.DataBind();
-            Label_NameOfTheOnlineStore.Text = Application["OnlineStoreName"] as string;
+            Label_NameOfTheOnlineStore.Text = Application[Texts.KeyForNameOfTheOnlineStore] as string;
         }
     }
+
+    protected void ButtonForSelectionOfProductCategory_OnClick(object sender, EventArgs e)
+    {
+
+    } 
 }

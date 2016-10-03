@@ -1,4 +1,5 @@
 ﻿<%@ Application Language="C#" %>
+<%@ Import Namespace="Resources" %>
 
 <script runat="server">
 
@@ -7,14 +8,14 @@
         // Код, выполняемый при запуске приложения
         //Загружаем список категорий
         List<ProductCategory> ListOfProductCategories = new List<ProductCategory>();
-        ListOfProductCategories.Add(new ProductCategory("Category_1"));
-        ListOfProductCategories.Add(new ProductCategory("Category_2"));
-        ListOfProductCategories.Add(new ProductCategory("Category_3"));
-        ListOfProductCategories.Add(new ProductCategory("Category_4"));
-        ListOfProductCategories.Add(new ProductCategory("Category_5"));
-        Application["ListOfProductCategories"] = ListOfProductCategories;
+        ListOfProductCategories.Add(new ProductCategory(Texts.ProductCategoryName_1, null));
+        ListOfProductCategories.Add(new ProductCategory(Texts.ProductCategoryName_2, null));
+        ListOfProductCategories.Add(new ProductCategory(Texts.ProductCategoryName_3, null));
+        ListOfProductCategories.Add(new ProductCategory(Texts.ProductCategoryName_4, null));
+        ListOfProductCategories.Add(new ProductCategory(Texts.ProductCategoryName_5, null));
+        Application[Texts.KeyForListOfProductCategories] = ListOfProductCategories;
         //Загружаем название онлайн магазина
-        Application["OnlineStoreName"] = "Name of the online store";
+        Application[Texts.KeyForNameOfTheOnlineStore] = Texts.NameOfTheOnlineStore;
     }
     
     void Application_End(object sender, EventArgs e) 

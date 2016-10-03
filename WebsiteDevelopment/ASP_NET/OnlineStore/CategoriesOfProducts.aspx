@@ -14,7 +14,7 @@
         <asp:Label runat="server" ID="Label_NameOfTheOnlineStore" CssClass="HorizontalAlingmentCenter"></asp:Label>
         <asp:Repeater runat="server" ID="Repeater_CategoriesOfProducts">
             <ItemTemplate>
-                <asp:Button runat="server"  Text='<%# DataBinder.Eval(Container.DataItem, "ProductCategoryName") %>' CssClass="HorizontalAlingmentCenter"/>
+                <asp:Button runat="server"  Text='<%# DataBinder.Eval(Container.DataItem, "ProductCategoryName") %>' CssClass="HorizontalAlingmentCenter" OnClick="ButtonForSelectionOfProductCategory_OnClick"/>
             </ItemTemplate>
         </asp:Repeater>  
     </div>

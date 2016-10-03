@@ -8,6 +8,7 @@ using System.Web;
 /// </summary>
 public class ProductCategory
 {
+    private List<Product> products;
     private string productCategoryName = string.Empty;
 
     public string ProductCategoryName
@@ -23,8 +24,22 @@ public class ProductCategory
         }
     }
 
-    public ProductCategory(string NewNameForProductCategory)
+    public List<Product> Products
+    {
+        get
+        {
+            return products;
+        }
+
+        set
+        {
+            products = value;
+        }
+    }
+
+    public ProductCategory(string NewNameForProductCategory, List<Product> NewListOfProducts)
     {
         ProductCategoryName = NewNameForProductCategory;
+        Products = NewListOfProducts;
     }
 }
