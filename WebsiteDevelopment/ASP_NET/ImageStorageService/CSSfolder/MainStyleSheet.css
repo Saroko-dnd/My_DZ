@@ -17,10 +17,17 @@ script{
     left:10px;
 }
 
-.NoticeableButton
+.ObjectWithBorder
 {
-    font-size:20px;
+    border-color:black;
+    border-width:2px;
+    border-style:solid;
+}
+
+.NoticeableFont
+{
     font-weight:bold;
+    font-size:20px;
 }
 
 input[type=submit]{

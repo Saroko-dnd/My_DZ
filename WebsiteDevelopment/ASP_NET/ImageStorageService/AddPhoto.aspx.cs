@@ -10,6 +10,8 @@ using System.Text;
 
 public partial class AddPhoto : System.Web.UI.Page
 {
+    protected static object GatesForFileSaving = new object(); 
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -26,18 +28,21 @@ public partial class AddPhoto : System.Web.UI.Page
             {
                 PostedFileName = Path.GetFileName(CurrentPostedFile.FileName);
                 ServerFullFileName = Texts.FullPathOfDirectoryForImages + "\\" + PostedFileName;
-                if (!File.Exists(ServerFullFileName))
+                lock (GatesForFileSaving)
                 {
-                    CurrentPostedFile.SaveAs(ServerFullFileName);
-                }
-                else
-                {
-                    ListOfFileNamesThatAlreadyExist.Add(PostedFileName);
+                    if (!File.Exists(ServerFullFileName))
+                    {
+                        CurrentPostedFile.SaveAs(ServerFullFileName);
+                    }
+                    else
+                    {
+                        ListOfFileNamesThatAlreadyExist.Add(PostedFileName);
+                    }
                 }
             }
             if (ListOfFileNamesThatAlreadyExist.Count > 0)
             {
-                StringBuilder StringBuilderForAlertMessage = new StringBuilder("Files below cannot be uploaded to the server, because files with such names already exist! :(");
+                StringBuilder StringBuilderForAlertMessage = new StringBuilder(Texts.AlertMessageErrors);
                 StringBuilderForAlertMessage.Append("\\n");
                 foreach (string CurrentFileName in ListOfFileNamesThatAlreadyExist)
                 {
@@ -47,20 +52,20 @@ public partial class AddPhoto : System.Web.UI.Page
             }
             else
             {
-                ShowAlertMessage("All files have been successfully uploaded to the server! :)");
+                ShowAlertMessage(Texts.AlertMessageSuccess);
             }
         }
     }
 
     protected void ButtonViewAllImagesOnServer_OnClick(object sender, EventArgs e)
     {
-        this.Response.Redirect("ViewPhotos.aspx");
+        this.Response.Redirect(Texts.PageNameForViewingPhotos);
     }
 
     protected void ShowAlertMessage (string TextOfMessage)
     {
         StringBuilder TextOfScript = new StringBuilder();
         TextOfScript.Append("window.onload = function() {alert('" + TextOfMessage + "');};");
-        ScriptManager.RegisterClientScriptBlock(this, typeof(Page), "AlertMessageForResultOfUploadingFilesOnServer", TextOfScript.ToString(), true);
+        ScriptManager.RegisterClientScriptBlock(this, typeof(Page), Texts.KeyForAlertScript, TextOfScript.ToString(), true);
     }
 }

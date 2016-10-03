@@ -117,10 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlertMessageErrors" xml:space="preserve">
+    <value>Files below cannot be uploaded to the server, because files with such names already exist! :(</value>
+  </data>
+  <data name="AlertMessageSuccess" xml:space="preserve">
+    <value>All files have been successfully uploaded to the server! :)</value>
+  </data>
   <data name="DirectoryForImagesName" xml:space="preserve">
     <value>ImagesStorage</value>
   </data>
   <data name="FullPathOfDirectoryForImages" xml:space="preserve">
     <value>L:\iteducation\my_dz\Saroko_DZ_copy\My_DZ\My_DZ\WebsiteDevelopment\ASP_NET\ImageStorageService\ImagesStorage</value>
+  </data>
+  <data name="KeyForAlertScript" xml:space="preserve">
+    <value>AlertMessageForResultOfUploadingFilesOnServer</value>
+  </data>
+  <data name="PageNameForAddingPhotos" xml:space="preserve">
+    <value>AddPhoto.aspx</value>
+  </data>
+  <data name="PageNameForViewingPhotos" xml:space="preserve">
+    <value>ViewPhotos.aspx</value>
   </data>
 </root>
