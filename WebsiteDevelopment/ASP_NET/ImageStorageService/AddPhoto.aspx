@@ -20,7 +20,7 @@
         <asp:RegularExpressionValidator 
             id="RegularExpressionValidatorForUploadingImages" runat="server" 
             ErrorMessage="<%$ Resources:Texts, ValidationErrorMessageWrongTypeOfFile %>" 
-            ValidationExpression="^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.jpg|.png|.gif)$" 
+            ValidationExpression="(.*\.(jpg|png|gif)$)" 
             ControlToValidate="FileUploadControl_ForImages" 
             Display="Dynamic"
             ></asp:RegularExpressionValidator>
