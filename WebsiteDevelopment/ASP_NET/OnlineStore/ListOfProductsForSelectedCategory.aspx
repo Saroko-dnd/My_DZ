@@ -10,7 +10,14 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
+        <asp:GridView ID="DataGridForListOfProducts" runat="server" AllowPaging="true" PageSize="5" AutoGenerateColumns="false"   OnPageIndexChanging="DataGridForListOfProducts_PageIndexChanging">
+            <Columns>
+                <asp:BoundField DataField="Name" HeaderText="Name"/>
+                <asp:BoundField DataField="Description" HeaderText="Description"/>
+                <asp:BoundField DataField="Price" HeaderText="Price"/>
+                <asp:ImageField DataImageUrlField="ImageURL" HeaderText="Photo" ControlStyle-Height="100px" ControlStyle-Width="100px"></asp:ImageField>
+            </Columns>
+        </asp:GridView>
     </div>
     </form>
 </body>

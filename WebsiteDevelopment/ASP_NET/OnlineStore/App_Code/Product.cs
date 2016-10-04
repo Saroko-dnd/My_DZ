@@ -9,9 +9,14 @@ using System.Web;
 public class Product
 {
     private string imageURL;
+    private string name;
     private string description = string.Empty;
     private int price;
-
+    public string Name
+    {
+        get { return name; }
+        set { name = value; }
+    }
     public string Description
     {
         get
@@ -51,8 +56,9 @@ public class Product
         }
     }
 
-    public Product(string NewDescription, int NewPrice, string NewImageURL)
+    public Product(string NewName,string NewDescription, int NewPrice, string NewImageURL)
     {
+        Name = NewName;
         Description = NewDescription;
         Price = NewPrice;
         ImageURL = NewImageURL;
