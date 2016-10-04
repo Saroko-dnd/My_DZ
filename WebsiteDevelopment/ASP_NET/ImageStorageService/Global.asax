@@ -7,7 +7,8 @@
     void Application_Start(object sender, EventArgs e) 
     {
         // Код, выполняемый при запуске приложения
-        Directory.CreateDirectory(Texts.FullPathOfDirectoryForImagesForComputerInClass);
+        Directory.CreateDirectory(Texts.FullPathOfDirectoryForImages);
+        int gg = 0;
     }
     
     void Application_End(object sender, EventArgs e) 

@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Resources;
 using System.Text;
+using System.Text.RegularExpressions;
 
 public partial class AddPhoto : System.Web.UI.Page
 {
@@ -20,7 +21,7 @@ public partial class AddPhoto : System.Web.UI.Page
             {
                 Path = "~/JSfolder/jquery-3.1.1.min.js",
             });
-        }       
+        }    
     }
 
     protected void ButtonSendImagesOnServer_OnClick(object sender, EventArgs e)
@@ -33,7 +34,7 @@ public partial class AddPhoto : System.Web.UI.Page
             foreach (HttpPostedFile CurrentPostedFile in FileUploadControl_ForImages.PostedFiles)
             {
                 PostedFileName = Path.GetFileName(CurrentPostedFile.FileName);
-                ServerFullFileName = Texts.FullPathOfDirectoryForImagesForComputerInClass + "\\" + PostedFileName;
+                ServerFullFileName = Texts.FullPathOfDirectoryForImages + "\\" + PostedFileName;
                 lock (GatesForFileSaving)
                 {
                     if (!File.Exists(ServerFullFileName))

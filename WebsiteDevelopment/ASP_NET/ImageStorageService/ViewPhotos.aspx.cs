@@ -14,7 +14,7 @@ public partial class ViewPhotos : System.Web.UI.Page
         if (!IsPostBack)
         {
             List<ImageInStorage> AllImagesOnServer = new List<ImageInStorage>();
-            foreach (string CurrentFileName in Directory.GetFiles(Texts.FullPathOfDirectoryForImagesForComputerInClass))
+            foreach (string CurrentFileName in Directory.GetFiles(Texts.FullPathOfDirectoryForImages))
             {
                 AllImagesOnServer.Add(new ImageInStorage(Path.GetFileNameWithoutExtension(CurrentFileName), Texts.DirectoryForImagesName + "/" + Path.GetFileName(CurrentFileName)));
             }
