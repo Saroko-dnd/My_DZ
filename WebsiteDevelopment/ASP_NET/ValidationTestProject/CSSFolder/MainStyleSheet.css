@@ -1,0 +1,27 @@
+﻿body {
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    display:flex;
+    align-content:center;
+    justify-content:center;
+}
+
+script{
+    display:none;
+}
+
+.FlexRow{
+    flex-direction:row;
+}
+
+.FlexColumn{
+    flex-direction:column;
+}
+
+.FlexAlignmentFlexStart{
+    align-content:flex-start;
+    justify-content:flex-start;
+}
