@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using OnlineStoreObjects;
 
 /// <summary>
 /// Summary description for FakeRepository

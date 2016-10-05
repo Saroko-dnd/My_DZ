@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
-namespace Repositories
+namespace OnlineStoreLogic
 {
-    interface IRepository<DataType>
+    public interface IBusinessLogic<DataType>
     {
         IEnumerable<DataType> GetAllData();
     }

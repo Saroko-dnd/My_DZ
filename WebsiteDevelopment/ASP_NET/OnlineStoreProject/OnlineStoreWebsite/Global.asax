@@ -1,5 +1,6 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="Resources" %>
+<%@ Import Namespace="OnlineStoreObjects" %>
 
 <script runat="server">
 
