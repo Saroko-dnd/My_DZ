@@ -6,7 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "OnlineStoreWebsite", ".", "{AF3D63AE-31FB-4A6A-81BF-A31A310B395A}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6"
-		ProjectReferences = "{e912383a-4c79-426b-a41a-e4e83456898e}|OnlineStoreObjects.dll;"
+		ProjectReferences = "{e912383a-4c79-426b-a41a-e4e83456898e}|OnlineStoreObjects.dll;{62a7bcf4-8bda-47e8-848f-305bd021df7c}|OnlineStoreLogic.dll;{4A93D0EE-C6D9-49D9-86B6-59CD6DDBE6B0}|OnlineStoreDataAccess.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_51132"
 		Debug.AspNetCompiler.PhysicalPath = "..\OnlineStoreWebsite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51132\"
@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreObjects", "..\On
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreLogic", "..\OnlineStoreLogic\OnlineStoreLogic.csproj", "{62A7BCF4-8BDA-47E8-848F-305BD021DF7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreDataAccess", "..\OnlineStoreDataAccess\OnlineStoreDataAccess.csproj", "{4A93D0EE-C6D9-49D9-86B6-59CD6DDBE6B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{62A7BCF4-8BDA-47E8-848F-305BD021DF7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62A7BCF4-8BDA-47E8-848F-305BD021DF7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62A7BCF4-8BDA-47E8-848F-305BD021DF7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A93D0EE-C6D9-49D9-86B6-59CD6DDBE6B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A93D0EE-C6D9-49D9-86B6-59CD6DDBE6B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A93D0EE-C6D9-49D9-86B6-59CD6DDBE6B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A93D0EE-C6D9-49D9-86B6-59CD6DDBE6B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

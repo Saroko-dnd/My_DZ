@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using OnlineStoreLogic;
 
 public partial class ListOfProductsForSelectedCategory : System.Web.UI.Page
 {
@@ -11,10 +12,10 @@ public partial class ListOfProductsForSelectedCategory : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            FakeRepository TestFakeRepository = new FakeRepository();
-            DataGridForListOfProducts.DataSource = TestFakeRepository.GetAllData();
+            FakeRepositoryForProducts TestRepositoryForProducts = new FakeRepositoryForProducts();
+            DataGridForListOfProducts.DataSource = TestRepositoryForProducts.GetAllData();
             DataGridForListOfProducts.DataBind();
-            Session["ProductsForSelectedCategory"] = TestFakeRepository.GetAllData();
+            Session["ProductsForSelectedCategory"] = TestRepositoryForProducts.GetAllData();
         }
     }
 
@@ -23,5 +24,10 @@ public partial class ListOfProductsForSelectedCategory : System.Web.UI.Page
         DataGridForListOfProducts.PageIndex = e.NewPageIndex;
         DataGridForListOfProducts.DataSource = Session["ProductsForSelectedCategory"];
         DataGridForListOfProducts.DataBind();
+    }
+
+    protected void DataGridForListOfProducts_SortingByPrice(object sender, GridViewSortEventArgs e)
+    {
+
     }
 }

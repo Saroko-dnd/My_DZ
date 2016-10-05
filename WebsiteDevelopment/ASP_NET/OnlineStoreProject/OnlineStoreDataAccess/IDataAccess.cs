@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineStoreLogic
+namespace OnlineStoreDataAccess
 {
-    public interface IBusinessLogic<DataType>
+    public interface IDataAccess<DataType>
     {
-        IEnumerable<DataType> GetAllData();
+        IEnumerable<DataType> LoadData();
     }
 }
