@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OnlineStoreObjects;
+using System.Reflection;
 
-namespace OnlineStoreLogic
+namespace OnlineStoreDataAccess
 {
     public class FakeRepositoryForProducts : IRepository<Product>
     {
@@ -36,7 +37,29 @@ namespace OnlineStoreLogic
 
         public IEnumerable<Product> GetAllDataSortedByProperty(string PropertyName)
         {
-            return ListOfProducts.OrderBy(CurrentProduct => CurrentProduct.GetType().GetProperty(PropertyName).GetValue(CurrentProduct, null));
+            if (ListOfProducts.Count > 0)
+            {
+                PropertyInfo CurrentPropertyInfo = ListOfProducts[0].GetType().GetProperty(PropertyName);
+                return ListOfProducts.OrderBy(CurrentProduct => CurrentPropertyInfo.GetValue(CurrentProduct, null)).ToList();
+            }
+            else
+            {
+                return ListOfProducts;
+            }
+        }
+
+
+        public IEnumerable<Product> GetAllDataSortedByPropertyReverse(string PropertyName)
+        {
+            if (ListOfProducts.Count > 0)
+            {
+                PropertyInfo CurrentPropertyInfo = ListOfProducts[0].GetType().GetProperty(PropertyName);
+                return ListOfProducts.OrderByDescending(CurrentProduct => CurrentPropertyInfo.GetValue(CurrentProduct, null)).ToList();
+            }
+            else
+            {
+                return ListOfProducts;
+            }
         }
     }
 }

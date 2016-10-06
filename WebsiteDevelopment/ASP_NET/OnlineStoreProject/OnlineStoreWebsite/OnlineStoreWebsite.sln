@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "OnlineStoreWebsite", ".", "{AF3D63AE-31FB-4A6A-81BF-A31A310B395A}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.6"
-		ProjectReferences = "{e912383a-4c79-426b-a41a-e4e83456898e}|OnlineStoreObjects.dll;{62a7bcf4-8bda-47e8-848f-305bd021df7c}|OnlineStoreLogic.dll;"
+		ProjectReferences = "{e912383a-4c79-426b-a41a-e4e83456898e}|OnlineStoreObjects.dll;{62a7bcf4-8bda-47e8-848f-305bd021df7c}|OnlineStoreLogic.dll;{4a93d0ee-c6d9-49d9-86b6-59cd6ddbe6b0}|OnlineStoreDataAccess.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_51132"
 		Debug.AspNetCompiler.PhysicalPath = "..\OnlineStoreWebsite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51132\"

@@ -11,7 +11,7 @@
     <form id="form1" runat="server">
     <div>
         <asp:GridView ID="DataGridForListOfProducts" runat="server" AllowPaging="true" PageSize="8" AutoGenerateColumns="false"   OnPageIndexChanging="DataGridForListOfProducts_PageIndexChanging"
-            AllowSorting="true">
+            AllowSorting="true" OnSorting="DataGridForListOfProducts_SortingByPrice">
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="Name"/>
                 <asp:BoundField DataField="Description" HeaderText="Description"/>

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
+<%@ Register TagPrefix="MyControls" TagName="ThreeParagraphs" Src="~/TestUserControl.ascx" %>
 
 <!DOCTYPE html>
 
@@ -9,6 +10,7 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <MyControls:ThreeParagraphs runat="server"/>
         <asp:DetailsView ID="DetailsViewTestControl" runat="server" AutoGenerateRows="false" HeaderText="Person" AllowPaging="true">
             <Fields>            
                 <asp:BoundField  DataField="FirstName" HeaderText="First name" ReadOnly="true"/>

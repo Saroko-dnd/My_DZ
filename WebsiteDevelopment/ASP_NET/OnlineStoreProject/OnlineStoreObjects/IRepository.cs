@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineStoreLogic
+namespace OnlineStoreObjects
 {
     public interface IRepository<DataType>
     {
         IEnumerable<DataType> GetAllData();
         IEnumerable<DataType> GetAllDataSortedByProperty(string PropertyName);
+        IEnumerable<DataType> GetAllDataSortedByPropertyReverse(string PropertyName);
     }
 }
