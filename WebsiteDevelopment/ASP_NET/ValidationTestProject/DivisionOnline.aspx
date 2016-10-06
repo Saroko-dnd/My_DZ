@@ -9,28 +9,28 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="FlexColumn">
+    <div class="FlexColumn MarginLeftAndTop">
         <div class="FlexAlignmentFlexStart">
             <asp:TextBox runat="server" ID="TextBoxForFirstNumber" Width="300px"></asp:TextBox>
-            <asp:RequiredFieldValidator ForeColor="Red" runat="server" ErrorMessage="Field is not filled!" ControlToValidate="TextBoxForFirstNumber"
-                 Display="Dynamic"></asp:RequiredFieldValidator>
-            <asp:RegularExpressionValidator runat="server" ControlToValidate="TextBoxForFirstNumber" ValidationExpression="^(([-+]?[1-9]\d*)|(0))$" ErrorMessage="Illegal value" ForeColor="Red"
-                 Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RequiredFieldValidator ForeColor="Red" runat="server" ErrorMessage="<%$ Resources:ErrorMessagesForValidators, ErrorMessageForRequiredFieldValidator %>" 
+                ControlToValidate="TextBoxForFirstNumber" Display="Dynamic" CssClass="MarginLeft"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator runat="server" ControlToValidate="TextBoxForFirstNumber" ValidationExpression="^(([-+]?[1-9]\d*)|(0))$" 
+                ErrorMessage="<%$ Resources:ErrorMessagesForValidators, ErrorMessageForRegularExpressionValidator %>" ForeColor="Red" Display="Dynamic" CssClass="MarginLeft"></asp:RegularExpressionValidator>
             <asp:RangeValidator runat="server" ControlToValidate="TextBoxForFirstNumber" Display="Dynamic" MinimumValue="-2147483648" MaximumValue="2147483647" Type="Integer" ForeColor="Red" 
-                ErrorMessage="Number does not correspond to integer type"></asp:RangeValidator>
+                ErrorMessage="<%$ Resources:ErrorMessagesForValidators, ErrorMessageForRangeValidator %>" CssClass="MarginLeft"></asp:RangeValidator>
         </div>
         <div class="FlexAlignmentFlexStart">
             <asp:TextBox runat="server" ID="TextBoxForSecondNumber" Width="300px"></asp:TextBox>
-            <asp:RequiredFieldValidator ForeColor="Red" runat="server" ErrorMessage="Field is not filled!" ControlToValidate="TextBoxForSecondNumber"
-                 Display="Dynamic"></asp:RequiredFieldValidator>
-            <asp:RegularExpressionValidator runat="server" ControlToValidate="TextBoxForSecondNumber" ValidationExpression="^[-+]?[1-9]\d*$" ErrorMessage="Illegal value" ForeColor="Red" 
-                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RequiredFieldValidator ForeColor="Red" runat="server" ErrorMessage="<%$ Resources:ErrorMessagesForValidators, ErrorMessageForRequiredFieldValidator %>" 
+                ControlToValidate="TextBoxForSecondNumber" Display="Dynamic" CssClass="MarginLeft"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator runat="server" ControlToValidate="TextBoxForSecondNumber" ValidationExpression="^[-+]?[1-9]\d*$" 
+                ErrorMessage="<%$ Resources:ErrorMessagesForValidators, ErrorMessageForRegularExpressionValidator %>" ForeColor="Red" Display="Dynamic" CssClass="MarginLeft"></asp:RegularExpressionValidator>
             <asp:RangeValidator runat="server" ControlToValidate="TextBoxForSecondNumber" Display="Dynamic" MinimumValue="-2147483648" MaximumValue="2147483647" Type="Integer" ForeColor="Red" 
-                ErrorMessage="Number does not correspond to integer type"></asp:RangeValidator>
+                ErrorMessage="<%$ Resources:ErrorMessagesForValidators, ErrorMessageForRangeValidator %>" CssClass="MarginLeft"></asp:RangeValidator>
         </div>
         <div class="FlexRow FlexAlignmentFlexStart">
-            <asp:Button runat="server" Text="divide" ID="ButtonForDivision" OnClick="ButtonForDivision_OnClick"/>
-            <asp:Label runat="server" Text="Test text" ID="LabelForResultOfDivision"></asp:Label>
+            <asp:Button runat="server" Text="Divide" ID="ButtonForDivision" OnClick="ButtonForDivision_OnClick"/>
+            <asp:Label runat="server" ID="LabelForResultOfDivision" CssClass="MarginLeft"></asp:Label>
         </div>
     </div>
     </form>

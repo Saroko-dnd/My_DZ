@@ -40,15 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FakeRepositoryForProducts.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OnlineStoreDataAccess\OnlineStoreDataAccess.csproj">
-      <Project>{4a93d0ee-c6d9-49d9-86b6-59cd6ddbe6b0}</Project>
-      <Name>OnlineStoreDataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\OnlineStoreObjects\OnlineStoreObjects.csproj">
       <Project>{e912383a-4c79-426b-a41a-e4e83456898e}</Project>
       <Name>OnlineStoreObjects</Name>
