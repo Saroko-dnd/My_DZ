@@ -12,11 +12,21 @@
     <div class="FlexColumn">
         <div class="FlexAlignmentFlexStart">
             <asp:TextBox runat="server" ID="TextBoxForFirstNumber" Width="300px"></asp:TextBox>
-            <asp:RequiredFieldValidator ForeColor="Red" runat="server" ErrorMessage="Field is not filled!" ControlToValidate="TextBoxForFirstNumber"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ForeColor="Red" runat="server" ErrorMessage="Field is not filled!" ControlToValidate="TextBoxForFirstNumber"
+                 Display="Dynamic"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator runat="server" ControlToValidate="TextBoxForFirstNumber" ValidationExpression="^(([-+]?[1-9]\d*)|(0))$" ErrorMessage="Illegal value" ForeColor="Red"
+                 Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RangeValidator runat="server" ControlToValidate="TextBoxForFirstNumber" Display="Dynamic" MinimumValue="-2147483648" MaximumValue="2147483647" Type="Integer" ForeColor="Red" 
+                ErrorMessage="Number does not correspond to integer type"></asp:RangeValidator>
         </div>
         <div class="FlexAlignmentFlexStart">
             <asp:TextBox runat="server" ID="TextBoxForSecondNumber" Width="300px"></asp:TextBox>
-            <asp:RequiredFieldValidator ForeColor="Red" runat="server" ErrorMessage="Field is not filled!" ControlToValidate="TextBoxForSecondNumber"></asp:RequiredFieldValidator>
+            <asp:RequiredFieldValidator ForeColor="Red" runat="server" ErrorMessage="Field is not filled!" ControlToValidate="TextBoxForSecondNumber"
+                 Display="Dynamic"></asp:RequiredFieldValidator>
+            <asp:RegularExpressionValidator runat="server" ControlToValidate="TextBoxForSecondNumber" ValidationExpression="^[-+]?[1-9]\d*$" ErrorMessage="Illegal value" ForeColor="Red" 
+                Display="Dynamic"></asp:RegularExpressionValidator>
+            <asp:RangeValidator runat="server" ControlToValidate="TextBoxForSecondNumber" Display="Dynamic" MinimumValue="-2147483648" MaximumValue="2147483647" Type="Integer" ForeColor="Red" 
+                ErrorMessage="Number does not correspond to integer type"></asp:RangeValidator>
         </div>
         <div class="FlexRow FlexAlignmentFlexStart">
             <asp:Button runat="server" Text="divide" ID="ButtonForDivision" OnClick="ButtonForDivision_OnClick"/>

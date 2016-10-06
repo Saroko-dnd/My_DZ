@@ -20,8 +20,12 @@ public partial class DivisionOnline : System.Web.UI.Page
 
     protected void ButtonForDivision_OnClick(object sender, EventArgs e)
     {
-        double Dividend = Double.Parse(TextBoxForFirstNumber.Text);
-        double Divider = Double.Parse(TextBoxForSecondNumber.Text);
-        LabelForResultOfDivision.Text = (Dividend / Divider).ToString();
+        Validate();
+        if (IsValid)
+        {
+            double Dividend = Double.Parse(TextBoxForFirstNumber.Text);
+            double Divider = Double.Parse(TextBoxForSecondNumber.Text);
+            LabelForResultOfDivision.Text = (Dividend / Divider).ToString();
+        }
     }
 }
