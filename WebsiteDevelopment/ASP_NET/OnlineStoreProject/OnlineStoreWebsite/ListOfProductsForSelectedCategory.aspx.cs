@@ -26,10 +26,4 @@ public partial class ListOfProductsForSelectedCategory : System.Web.UI.Page
         DataGridForListOfProducts.DataSource = (Session["ProductsForSelectedCategory"] as FakeRepositoryForProducts).GetAllData();
         DataGridForListOfProducts.DataBind();
     }
-
-    protected void DataGridForListOfProducts_SortingByPrice(object sender, GridViewSortEventArgs e)
-    {      
-        DataGridForListOfProducts.DataSource = (Session["ProductsForSelectedCategory"] as FakeRepositoryForProducts).GetAllDataSortedByPropertyReverse(e.SortExpression);
-        DataGridForListOfProducts.DataBind();
-    }
 }

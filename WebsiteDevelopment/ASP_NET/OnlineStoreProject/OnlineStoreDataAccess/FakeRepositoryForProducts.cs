@@ -34,32 +34,5 @@ namespace OnlineStoreDataAccess
             }
             return ListOfProducts;
         }
-
-        public IEnumerable<Product> GetAllDataSortedByProperty(string PropertyName)
-        {
-            if (ListOfProducts.Count > 0)
-            {
-                PropertyInfo CurrentPropertyInfo = ListOfProducts[0].GetType().GetProperty(PropertyName);
-                return ListOfProducts.OrderBy(CurrentProduct => CurrentPropertyInfo.GetValue(CurrentProduct, null)).ToList();
-            }
-            else
-            {
-                return ListOfProducts;
-            }
-        }
-
-
-        public IEnumerable<Product> GetAllDataSortedByPropertyReverse(string PropertyName)
-        {
-            if (ListOfProducts.Count > 0)
-            {
-                PropertyInfo CurrentPropertyInfo = ListOfProducts[0].GetType().GetProperty(PropertyName);
-                return ListOfProducts.OrderByDescending(CurrentProduct => CurrentPropertyInfo.GetValue(CurrentProduct, null)).ToList();
-            }
-            else
-            {
-                return ListOfProducts;
-            }
-        }
     }
 }

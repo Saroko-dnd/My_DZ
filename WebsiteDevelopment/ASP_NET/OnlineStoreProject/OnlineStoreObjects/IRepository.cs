@@ -10,7 +10,5 @@ namespace OnlineStoreObjects
     public interface IRepository<DataType>
     {
         IEnumerable<DataType> GetAllData();
-        IEnumerable<DataType> GetAllDataSortedByProperty(string PropertyName);
-        IEnumerable<DataType> GetAllDataSortedByPropertyReverse(string PropertyName);
     }
 }
