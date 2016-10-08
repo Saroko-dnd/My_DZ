@@ -31,6 +31,18 @@ namespace OnlineStoreDataAccess
                 ListOfProducts.Add(new Product("Name 7", "Description 7", 700, "ProductImages/Category_1/TestImage.jpg"));
                 ListOfProducts.Add(new Product("Name 8", "Description 8", 800, "ProductImages/Category_1/TestImage.jpg"));
                 ListOfProducts.Add(new Product("Name 9", "Description 9", 900, "ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 10", "Description 10", 1000, "ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 11", "Description 11", 1100, "ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 12", "Description 12", 1200, "ProductImages/Category_1/TestImage.jpg"));
+                Random RandomForLikesAndDislikes = new Random();
+                int IDCounter = 1;
+                foreach (Product CurrentProduct in ListOfProducts)
+                {
+                    CurrentProduct.ProductID = IDCounter;
+                    CurrentProduct.Dislikes = RandomForLikesAndDislikes.Next(0, 101);
+                    CurrentProduct.Likes = RandomForLikesAndDislikes.Next(0, 101);
+                    ++IDCounter;
+                }
             }
             return ListOfProducts;
         }

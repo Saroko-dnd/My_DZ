@@ -19,7 +19,7 @@
                 <asp:ImageField DataImageUrlField="ImageURL" HeaderText="Photo" ControlStyle-Height="100px" ControlStyle-Width="100px"></asp:ImageField>
                 <asp:TemplateField HeaderText="Rating">
                     <ItemTemplate>
-                        <CustomControls:ControlForLikesAndDislikes runat="server"/>
+                        <CustomControls:ControlForLikesAndDislikes CurrentProductID_Int='<%# Eval("ProductID") %>' runat="server" />
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
