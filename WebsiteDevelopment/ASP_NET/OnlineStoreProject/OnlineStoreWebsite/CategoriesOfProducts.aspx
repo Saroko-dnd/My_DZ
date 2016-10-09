@@ -6,15 +6,15 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-    <link href="CSSfolder/CategoriesOfProductsPage.css" rel="stylesheet"/>
+    <link href="CSSfolder/MainStyleSheet.css" rel="stylesheet"/>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:Label runat="server" ID="Label_NameOfTheOnlineStore" CssClass="HorizontalAlingmentCenter"></asp:Label>
+    <div class="Flex FlexColumn">
+        <asp:Label runat="server" ID="Label_NameOfTheOnlineStore" CssClass="MarginCenter"></asp:Label>
         <asp:Repeater runat="server" ID="Repeater_CategoriesOfProducts">
             <ItemTemplate>
-                <asp:Button runat="server"  Text='<%# DataBinder.Eval(Container.DataItem, "ProductCategoryName") %>' CssClass="HorizontalAlingmentCenter" OnClick="ButtonForSelectionOfProductCategory_OnClick"/>
+                <asp:Button runat="server"  Text='<%# DataBinder.Eval(Container.DataItem, "ProductCategoryName") %>' OnClick="ButtonForSelectionOfProductCategory_OnClick" CssClass="MarginCenter"/>
             </ItemTemplate>
         </asp:Repeater>  
     </div>

@@ -21,7 +21,8 @@ public partial class ControlForLikesAndDislikes : System.Web.UI.UserControl
         set
         {
             ViewState["CurrentProductID_Int"] = value;
-            Product CurrentProduct = (Session["CurrentManagerOfProducts"] as ManagerOfProducts).GetProductByID(value);
+            AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
+            Product CurrentProduct = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().GetProductByID(value);
             if (CurrentProduct != null)
             {
                 LabelForLikes.Text = CurrentProduct.Likes.ToString();
@@ -32,13 +33,15 @@ public partial class ControlForLikesAndDislikes : System.Web.UI.UserControl
 
     protected void LikeButton_OnClick(object sender, EventArgs e)
     {
-        int NewAmountOfLikes = (Session["CurrentManagerOfProducts"] as ManagerOfProducts).ChangeRating(CurrentProductID_Int, true);
+        AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
+        int NewAmountOfLikes = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().ChangeRating(CurrentProductID_Int, true);
         LabelForLikes.Text = NewAmountOfLikes.ToString();
     }
 
     protected void DislikeButton_OnClick(object sender, EventArgs e)
     {
-        int NewAmountOfLikes = (Session["CurrentManagerOfProducts"] as ManagerOfProducts).ChangeRating(CurrentProductID_Int, false);
+        AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
+        int NewAmountOfLikes = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().ChangeRating(CurrentProductID_Int, false);
         LabelForDislikes.Text = NewAmountOfLikes.ToString();
     }
 

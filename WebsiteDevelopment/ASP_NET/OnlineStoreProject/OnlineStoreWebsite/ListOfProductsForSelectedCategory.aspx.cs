@@ -14,9 +14,9 @@ public partial class ListOfProductsForSelectedCategory : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            ManagerOfProducts CurrentManagerOfProducts = new ManagerOfProducts(new FakeRepositoryForProducts());
-            Session["CurrentManagerOfProducts"] = CurrentManagerOfProducts; //Must be added to Session before DataSource because of User Control for likes and dislikes
-            DataGridForListOfProducts.DataSource = CurrentManagerOfProducts.LoadProductsForPages();
+            AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
+            CurrentAccessorToSession.AddManagerOfProductsToSession(new ManagerOfProducts(new FakeRepositoryForProducts()));
+            DataGridForListOfProducts.DataSource = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().LoadProductsForPages();
             DataGridForListOfProducts.DataBind();
         }
     }
@@ -24,7 +24,8 @@ public partial class ListOfProductsForSelectedCategory : System.Web.UI.Page
     protected void DataGridForListOfProducts_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         DataGridForListOfProducts.PageIndex = e.NewPageIndex;
-        DataGridForListOfProducts.DataSource = (Session["CurrentManagerOfProducts"] as ManagerOfProducts).LoadProductsForPages();
+        AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
+        DataGridForListOfProducts.DataSource = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().LoadProductsForPages();
         DataGridForListOfProducts.DataBind();
     }
 }

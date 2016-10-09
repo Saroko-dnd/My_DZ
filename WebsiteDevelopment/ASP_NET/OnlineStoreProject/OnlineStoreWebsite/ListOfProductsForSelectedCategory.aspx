@@ -7,11 +7,13 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+    <link href="CSSfolder/MainStyleSheet.css" rel="stylesheet"/>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:GridView ID="DataGridForListOfProducts" runat="server" AllowPaging="true" PageSize="8" AutoGenerateColumns="false"   OnPageIndexChanging="DataGridForListOfProducts_PageIndexChanging">
+        <asp:GridView ID="DataGridForListOfProducts" runat="server" AllowPaging="true" PageSize="8" AutoGenerateColumns="false"   OnPageIndexChanging="DataGridForListOfProducts_PageIndexChanging" 
+            CssClass="MarginCenter">
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="Name"/>
                 <asp:BoundField DataField="Description" HeaderText="Description"/>

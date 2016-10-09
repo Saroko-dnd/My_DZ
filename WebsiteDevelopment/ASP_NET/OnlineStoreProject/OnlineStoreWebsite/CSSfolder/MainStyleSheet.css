@@ -1,2 +1,28 @@
-﻿body {
+﻿
+*{
+    margin:0;
+    padding:0;
+}
+
+.Flex{
+   display:flex;
+   align-content:center;
+   justify-content:center;
+}
+
+.FlexRow{
+   flex-direction:row;
+}
+
+.FlexColumn{
+    flex-direction:column;
+}
+
+.MarginCenter{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+script{
+    display:none;
 }
