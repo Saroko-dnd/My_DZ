@@ -17,6 +17,27 @@
                 <asp:BoundField  DataField="SecondName" HeaderText="Second name" ReadOnly="true"/>
             </Fields>         
         </asp:DetailsView>
+        <div style="border-color:black; border-width:2px; border-style:solid ">
+            <p>MultiView control (example)</p>
+            <asp:MultiView runat="server" ID="TestMultiView">
+                <asp:View runat="server" ID="ViewForStep_1">
+                    <asp:Label runat="server" Text="Step 1"></asp:Label>
+                    <asp:Button runat="server" ID="Step_1_Button" Text="Next step" OnClick="MultiViewNextStepButton_OnClick"/>
+                </asp:View>
+                <asp:View runat="server" ID="ViewForStep_2">
+                    <asp:Label runat="server" Text="Step 2"></asp:Label>
+                    <asp:Button runat="server" ID="Step_2_Button" Text="Next step" OnClick="MultiViewNextStepButton_OnClick"/>
+                </asp:View>
+                <asp:View runat="server" ID="ViewForStep_3">
+                    <asp:Label runat="server" Text="Step 3"></asp:Label>
+                    <asp:Button runat="server" ID="Step_3_Button" Text="Next step" OnClick="MultiViewNextStepButton_OnClick"/>
+                </asp:View>
+            </asp:MultiView>
+        </div>
+        <div>
+
+        </div>
+
     </div>
     </form>
 </body>
