@@ -15,11 +15,11 @@
         <asp:GridView ID="DataGridForListOfProducts" runat="server" AllowPaging="true" PageSize="8" AutoGenerateColumns="false"   OnPageIndexChanging="DataGridForListOfProducts_PageIndexChanging" 
             CssClass="MarginCenter">
             <Columns>
-                <asp:BoundField DataField="Name" HeaderText="Name"/>
-                <asp:BoundField DataField="Description" HeaderText="Description"/>
-                <asp:BoundField DataField="Price" HeaderText="Price"/>
-                <asp:ImageField DataImageUrlField="ImageURL" HeaderText="Photo" ControlStyle-Height="100px" ControlStyle-Width="100px"></asp:ImageField>
-                <asp:TemplateField HeaderText="Rating">
+                <asp:BoundField DataField="Name" HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_NameColumn %>"/>
+                <asp:BoundField DataField="Description" HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_DescriptionColumn %>"/>
+                <asp:BoundField DataField="Price" HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_PriceColumn %>"/>
+                <asp:ImageField DataImageUrlField="ImageURL" HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_PhotoColumn %>" ControlStyle-Height="100px" ControlStyle-Width="100px"></asp:ImageField>
+                <asp:TemplateField HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_RatingColumn %>">
                     <ItemTemplate>
                         <CustomControls:ControlForLikesAndDislikes CurrentProductID_Int='<%# Eval("ProductID") %>' runat="server" />
                     </ItemTemplate>

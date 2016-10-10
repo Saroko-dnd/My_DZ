@@ -117,11 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Header_DataGridForListOfProducts_DescriptionColumn" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Header_DataGridForListOfProducts_NameColumn" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Header_DataGridForListOfProducts_PhotoColumn" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="Header_DataGridForListOfProducts_PriceColumn" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="Header_DataGridForListOfProducts_RatingColumn" xml:space="preserve">
+    <value>Rating</value>
+  </data>
   <data name="KeyForListOfProductCategories" xml:space="preserve">
     <value>ListOfProductCategories</value>
   </data>
+  <data name="KeyForManagerOfProducts" xml:space="preserve">
+    <value>CurrentManagerOfProducts</value>
+  </data>
   <data name="KeyForNameOfTheOnlineStore" xml:space="preserve">
     <value>OnlineStoreName</value>
+  </data>
+  <data name="KeyForProductID" xml:space="preserve">
+    <value>CurrentProductID_Int</value>
   </data>
   <data name="KeyForSelectedProductCategory" xml:space="preserve">
     <value>SelectedProductCategory</value>

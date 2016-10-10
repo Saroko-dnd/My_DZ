@@ -15,12 +15,14 @@ public partial class ControlForLikesAndDislikes : System.Web.UI.UserControl
     {
         get
         {
-            return Convert.ToInt32(ViewState["CurrentProductID_Int"]);
+            AccessorToViewstateForLikesAndDislikesUserControl CurrentAccessorToViewstate = new AccessorToViewstateForLikesAndDislikesUserControl(ViewState);
+            return CurrentAccessorToViewstate.GetProductIDForCurrentViewstate();
         }
 
         set
         {
-            ViewState["CurrentProductID_Int"] = value;
+            AccessorToViewstateForLikesAndDislikesUserControl CurrentAccessorToViewstate = new AccessorToViewstateForLikesAndDislikesUserControl(ViewState);
+            CurrentAccessorToViewstate.AddProductIDToViewstate(value);
             AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
             Product CurrentProduct = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().GetProductByID(value);
             if (CurrentProduct != null)

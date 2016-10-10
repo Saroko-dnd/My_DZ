@@ -39,8 +39,8 @@ namespace OnlineStoreDataAccess
                 foreach (Product CurrentProduct in ListOfProducts)
                 {
                     CurrentProduct.ProductID = IDCounter;
-                    CurrentProduct.Dislikes = RandomForLikesAndDislikes.Next(0, 101);
-                    CurrentProduct.Likes = RandomForLikesAndDislikes.Next(0, 101);
+                    CurrentProduct.Dislikes = RandomForLikesAndDislikes.Next(0, 100001);
+                    CurrentProduct.Likes = RandomForLikesAndDislikes.Next(0, 100001);
                     ++IDCounter;
                 }
             }

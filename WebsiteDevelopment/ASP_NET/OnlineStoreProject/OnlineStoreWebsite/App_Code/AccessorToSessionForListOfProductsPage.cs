@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.SessionState;
 using OnlineStoreLogic;
+using Resources;
 
 /// <summary>
 /// Сводное описание для AccessToSession
@@ -14,12 +15,12 @@ public class AccessorToSessionForListOfProductsPage
 
     public void AddManagerOfProductsToSession(ManagerOfProducts CurrentManagerOfProducts)
     {
-        CurrentSession["CurrentManagerOfProducts"] = CurrentManagerOfProducts;
+        CurrentSession[Texts.KeyForManagerOfProducts] = CurrentManagerOfProducts;
     }
 
     public ManagerOfProducts GetManagerOfProductsForCurrentSession()
     {
-        return (CurrentSession["CurrentManagerOfProducts"] as ManagerOfProducts);
+        return (CurrentSession[Texts.KeyForManagerOfProducts] as ManagerOfProducts);
     }
 
     public AccessorToSessionForListOfProductsPage(HttpSessionState NewCurrentSession)
