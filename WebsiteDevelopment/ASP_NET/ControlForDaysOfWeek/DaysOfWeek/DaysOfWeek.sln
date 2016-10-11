@@ -1,30 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "CustomControlForDaysOfWeek(1)", "http://localhost:2009", "{C2F1B798-F22F-43F5-BDB9-1E300CE6B3A0}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "DaysOfWeek", ".", "{EDD99A32-AAA8-4364-983D-C7C9F54BD109}"
 	ProjectSection(WebsiteProperties) = preProject
-		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.2"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_2009"
-		Debug.AspNetCompiler.PhysicalPath = "..\CustomControlForDaysOfWeek\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2009\"
+		ProjectReferences = "{d7785902-62a0-45e3-909b-08101dd6ebbf}|DaysOfWeek.dll;"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_51173"
+		Debug.AspNetCompiler.PhysicalPath = "..\DaysOfWeek\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51173\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_2009"
-		Release.AspNetCompiler.PhysicalPath = "..\CustomControlForDaysOfWeek\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2009\"
+		Release.AspNetCompiler.VirtualPath = "/localhost_51173"
+		Release.AspNetCompiler.PhysicalPath = "..\DaysOfWeek\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_51173\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		SlnRelativePath = "..\CustomControlForDaysOfWeek\"
+		VWDPort = "51173"
+		SlnRelativePath = "..\DaysOfWeek\"
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaysOfWeek", "..\DaysOfWeek\DaysOfWeek.csproj", "{D7785902-62A0-45E3-909B-08101DD6EBBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DaysOfWeekCustomControl", "..\CustomControlForDaysOfWeek\DaysOfWeekCustomControl.csproj", "{D7785902-62A0-45E3-909B-08101DD6EBBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,10 +33,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C2F1B798-F22F-43F5-BDB9-1E300CE6B3A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2F1B798-F22F-43F5-BDB9-1E300CE6B3A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2F1B798-F22F-43F5-BDB9-1E300CE6B3A0}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2F1B798-F22F-43F5-BDB9-1E300CE6B3A0}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{EDD99A32-AAA8-4364-983D-C7C9F54BD109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD99A32-AAA8-4364-983D-C7C9F54BD109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD99A32-AAA8-4364-983D-C7C9F54BD109}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD99A32-AAA8-4364-983D-C7C9F54BD109}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{D7785902-62A0-45E3-909B-08101DD6EBBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D7785902-62A0-45E3-909B-08101DD6EBBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7785902-62A0-45E3-909B-08101DD6EBBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
