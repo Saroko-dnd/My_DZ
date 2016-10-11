@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DaysOfWeek</RootNamespace>
-    <AssemblyName>DaysOfWeek</AssemblyName>
+    <AssemblyName>CustomControlForDaysOfWeek</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Nonshipping>true</Nonshipping>

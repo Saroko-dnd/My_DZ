@@ -10,3 +10,5 @@
         <asp:ImageButton ID="DislikeButton" runat="server" style="margin-left:auto; margin-right:auto" Width="25px" Height="25px" ImageUrl="~/ImagesForControls/thumbs-down.png" OnClick="DislikeButton_OnClick"/>
     </div>
 </div>
+<asp:HiddenField runat="server" ID="HiddenFieldForProductID"/>
+
