@@ -15,7 +15,7 @@
         <asp:Repeater runat="server" ID="RepeaterForShowingAllImages">
             <ItemTemplate>
                 <div class="ObjectWithBorder HorizontalAlignmentCenter">
-                    <asp:Label runat="server" CssClass="HorizontalAlignmentCenter NoticeableFont"> <%# DataBinder.Eval(Container.DataItem, "FileNameWithoutExtension") %> </asp:Label>
+                    <asp:Label runat="server" CssClass="HorizontalAlignmentCenter NoticeableFont" style='/*<%# DataBinder.Eval(Container.DataItem, "FileNameWithoutExtension") %>*/'> <%# DataBinder.Eval(Container.DataItem, "FileNameWithoutExtension") %> </asp:Label>
                     <asp:Image ID="Image" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem, "ImageUrl") %>' CssClass="HorizontalAlignmentCenter" />
                 </div>
             </ItemTemplate>

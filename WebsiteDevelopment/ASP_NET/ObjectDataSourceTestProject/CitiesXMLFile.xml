@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+   <City>
+    <Name>City name 1</Name>
+  </City>
+  <City>
+    <Name>City name 2</Name>
+  </City>
+  <City>
+    <Name>City name 3</Name>
+  </City>
+  <City>
+    <Name>City name 4</Name>
+  </City>
+  <City>
+    <Name>City name 5</Name>
+  </City> 
+</root>
