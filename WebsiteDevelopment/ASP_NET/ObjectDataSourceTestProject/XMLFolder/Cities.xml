@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Cities>
+  <City Name="Grodno"></City>
+  <City Name="Vitebsk"></City>
+  <City Name="Minsk"></City>
+  <City Name="Brest"></City>
+  <City Name="Gomel"></City>
+  <City Name="Mogilev"></City>
+</Cities>

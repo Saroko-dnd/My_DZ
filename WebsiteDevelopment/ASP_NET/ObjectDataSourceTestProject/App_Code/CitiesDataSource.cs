@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -12,38 +13,24 @@ using System.Xml.Serialization;
 /// <summary>
 /// Summary description for CitiesDataSource
 /// </summary>
-public class CitiesDataSource : IHierarchicalDataSource
+public class CitiesDataSource
 {
-    private List<City> CityNames = new List<City>() { new City("City name 1"), new City("City name 2"), new City("City name 3"),new City("City name 4"), new City("City name 5") };
+    private List<City> ListOfCities = new List<City>();
+
     public IEnumerable<City> GetListOfCities()
     {
-        return CityNames;
+        return ListOfCities;
     }
 
-    public XmlDataSource GetDataSetOfCities()
-    {
-        DataSet SetOfCityNames = new DataSet();
-        SetOfCityNames.Tables.Add("City");
-        SetOfCityNames.Tables[0].Columns.Add("Name");
-        foreach (City CurrentCity in CityNames)
-        {
-            SetOfCityNames.Tables[0].Rows.Add(CurrentCity.Name);
-        }
-        XmlDataSource CitiesAsXml = new XmlDataSource();
-        CitiesAsXml.Data = SetOfCityNames.GetXml();
-        return CitiesAsXml;
-    }
-	public CitiesDataSource()
+    public CitiesDataSource()
 	{
-		//
-		// TODO: Add constructor logic here
-		//
-	}
-
-    public event EventHandler DataSourceChanged;
-
-    public HierarchicalDataSourceView GetHierarchicalView(string viewPath)
-    {
-        throw new NotImplementedException();
+        XmlDocument doc = new XmlDocument();
+        string FullPathToXmlFileWithCities = HttpRuntime.AppDomainAppPath + @"XMLFolder\Cities.xml";
+        doc.Load(FullPathToXmlFileWithCities);
+        XmlNodeList XmlCityNodes = doc.SelectNodes(@"/Cities/City");
+        foreach (XmlNode node in XmlCityNodes)
+        {
+            ListOfCities.Add(new City(node.Attributes["Name"].Value));
+        }
     }
 }
