@@ -14,9 +14,9 @@
         <asp:Button runat="server" ID="Button_GoToPageForUploadingFiles" CssClass="PositionFixedInTopLeftCorner NoticeableFont" Text="Go to uploading page" OnClick="ButtonGoToPageForUploadingFiles_OnClick"/>
         <asp:Repeater runat="server" ID="RepeaterForShowingAllImages">
             <ItemTemplate>
-                <div class="ObjectWithBorder HorizontalAlignmentCenter">
-                    <asp:Label runat="server" CssClass="HorizontalAlignmentCenter NoticeableFont" style='/*<%# DataBinder.Eval(Container.DataItem, "FileNameWithoutExtension") %>*/'> <%# DataBinder.Eval(Container.DataItem, "FileNameWithoutExtension") %> </asp:Label>
-                    <asp:Image ID="Image" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem, "ImageUrl") %>' CssClass="HorizontalAlignmentCenter" />
+                <div class="ObjectWithBorder HorizontalAlignmentCenter">                 
+                    <asp:Label runat="server" CssClass="HorizontalAlignmentCenter NoticeableFont"> <%# DataBinder.Eval(Container.DataItem, "FileNameWithoutExtension") %> </asp:Label>
+                    <img id="Image" src='.image?width=300&height=300&url=<%# DataBinder.Eval(Container.DataItem, "ImageUrl") %>' class="HorizontalAlignmentCenter" />
                 </div>
             </ItemTemplate>
         </asp:Repeater>

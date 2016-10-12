@@ -34,7 +34,7 @@ public partial class AddPhoto : System.Web.UI.Page
             foreach (HttpPostedFile CurrentPostedFile in FileUploadControl_ForImages.PostedFiles)
             {
                 PostedFileName = Path.GetFileName(CurrentPostedFile.FileName);
-                ServerFullFileName = Texts.FullPathOfDirectoryForImages + "\\" + PostedFileName;
+                ServerFullFileName = Texts.FullPathOfDirectoryForImagesForComputerInClass + "\\" + PostedFileName;
                 lock (GatesForFileSaving)
                 {
                     if (!File.Exists(ServerFullFileName))
