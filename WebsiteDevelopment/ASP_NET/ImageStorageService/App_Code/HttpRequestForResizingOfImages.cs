@@ -46,17 +46,17 @@ public class HttpRequestForResizingOfImages : IHttpHandler
                 MemoryStream objMemoryStream = new MemoryStream();
                 if (ImageUrl.EndsWith(".png"))
                 {
-                    context.Response.ContentType = "";
+                    context.Response.ContentType = "image/png";
                     CurrentThumbnail.Save(objMemoryStream, System.Drawing.Imaging.ImageFormat.Png);
                 }
                 else if (ImageUrl.EndsWith(".jpg"))
                 {
-                    context.Response.ContentType = "";
+                    context.Response.ContentType = "image/jpeg";
                     CurrentThumbnail.Save(objMemoryStream, System.Drawing.Imaging.ImageFormat.Jpeg);
                 }
                 else if (ImageUrl.EndsWith(".gif"))
                 {
-                    context.Response.ContentType = "";
+                    context.Response.ContentType = "image/gif";
                     CurrentThumbnail.Save(objMemoryStream, System.Drawing.Imaging.ImageFormat.Gif);
                 }
 
