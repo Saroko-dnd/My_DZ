@@ -38,7 +38,20 @@
             <asp:GridView runat="server"  DataKeyNames=""></asp:GridView>
             <asp:ListBox runat="server" ></asp:ListBox>
         </div>
-
+        <div>
+            <asp:Button runat="server" ID="JustID"></asp:Button>
+            <asp:ScriptManager runat="server" ID="TestScriptManager">
+                
+            </asp:ScriptManager>
+            <asp:UpdatePanel runat="server" ID="TestUpdatePanel">
+                <ContentTemplate>
+                    <asp:Button runat="server" ID="TestAjaxButton" Text ="Get some text with AJAX"/>
+                </ContentTemplate>
+                <Triggers>
+                    <asp:AsyncPostBackTrigger  ControlID="JustID"/>
+                </Triggers>
+            </asp:UpdatePanel>
+        </div>
     </div>
     </form>
 </body>

@@ -10,7 +10,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div class="Flex FlexColumn">
+    <div class="Flex FlexCenter FlexColumn">
         <asp:Label runat="server" ID="Label_NameOfTheOnlineStore" CssClass="MarginCenter"></asp:Label>
         <asp:Repeater runat="server" ID="Repeater_CategoriesOfProducts">
             <ItemTemplate>

@@ -1,5 +1,4 @@
 ﻿using OnlineStoreDataAccess;
-using OnlineStoreObjects;
 using OnlineStoreLogic;
 using System;
 using System.Collections.Generic;
@@ -8,9 +7,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class ListOfProductsForSelectedCategory : System.Web.UI.Page
+public partial class GridViewForListOfProducts : System.Web.UI.UserControl
 {
-    /*protected void Page_Load(object sender, EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
@@ -27,5 +26,5 @@ public partial class ListOfProductsForSelectedCategory : System.Web.UI.Page
         AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
         DataGridForListOfProducts.DataSource = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().LoadProductsForPages();
         DataGridForListOfProducts.DataBind();
-    }*/
+    }
 }

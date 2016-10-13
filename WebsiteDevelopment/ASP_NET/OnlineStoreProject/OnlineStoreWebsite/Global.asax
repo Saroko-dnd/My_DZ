@@ -1,12 +1,24 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import Namespace="Resources" %>
 <%@ Import Namespace="OnlineStoreObjects" %>
+<%@ Import Namespace="System.IO" %>
 
 <script runat="server">
 
     void Application_Start(object sender, EventArgs e) 
     {
         // Код, выполняемый при запуске приложения
+        // Mapping for jquery (for validators)
+        ScriptManager.ScriptResourceMapping.AddDefinition("jquery",
+        new ScriptResourceDefinition
+        {
+            Path = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+        });
+        
+        //Creating of directory for images
+        string FullPathToDirectoryForImages = HttpRuntime.AppDomainAppPath;
+        Directory.CreateDirectory(FullPathToDirectoryForImages + "ProductImages");
+        
         //Загружаем список категорий
         List<ProductCategory> ListOfProductCategories = new List<ProductCategory>();
         ListOfProductCategories.Add(new ProductCategory(Texts.ProductCategoryName_1, null));

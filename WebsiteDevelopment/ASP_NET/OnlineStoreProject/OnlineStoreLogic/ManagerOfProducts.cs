@@ -31,6 +31,11 @@ namespace OnlineStoreLogic
             return -1;
         }
 
+        public void AddNewProduct(string NewProductName, string NewProductDescription, int NewPrice, string NewImageName)
+        {
+            
+        }
+
         public Product GetProductByID(int CurrentPropductID)
         {
             Product FoundProduct = CurrentRepository.GetAllData().Where(CurrentProduct => CurrentProduct.ProductID == CurrentPropductID).FirstOrDefault();

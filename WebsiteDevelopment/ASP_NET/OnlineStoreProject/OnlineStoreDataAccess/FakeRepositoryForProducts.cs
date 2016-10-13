@@ -22,18 +22,18 @@ namespace OnlineStoreDataAccess
         {
             if (ListOfProducts.Count == 0)
             {
-                ListOfProducts.Add(new Product("Name 1", "Description 1", 100, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 2", "Description 2", 200, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 3", "Description 3", 300, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 4", "Description 4", 400, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 5", "Description 5", 500, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 6", "Description 6", 600, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 7", "Description 7", 700, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 8", "Description 8", 800, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 9", "Description 9", 900, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 10", "Description 10", 1000, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 11", "Description 11", 1100, "ProductImages/Category_1/TestImage.jpg"));
-                ListOfProducts.Add(new Product("Name 12", "Description 12", 1200, "ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 1", "Description 1", 100, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 2", "Description 2", 200, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 3", "Description 3", 300, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 4", "Description 4", 400, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 5", "Description 5", 500, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 6", "Description 6", 600, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 7", "Description 7", 700, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 8", "Description 8", 800, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 9", "Description 9", 900, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 10", "Description 10", 1000, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 11", "Description 11", 1100, "~/ProductImages/Category_1/TestImage.jpg"));
+                ListOfProducts.Add(new Product("Name 12", "Description 12", 1200, "~/ProductImages/Category_1/TestImage.jpg"));
                 Random RandomForLikesAndDislikes = new Random();
                 int IDCounter = 1;
                 foreach (Product CurrentProduct in ListOfProducts)
