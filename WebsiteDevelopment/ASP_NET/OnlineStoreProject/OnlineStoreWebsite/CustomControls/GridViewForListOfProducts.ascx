@@ -5,7 +5,11 @@
             CssClass="MarginCenter">
             <Columns>
                 <asp:BoundField DataField="Name" HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_NameColumn %>"/>
-                <asp:BoundField DataField="Description" HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_DescriptionColumn %>"/>
+                <asp:TemplateField HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_DescriptionColumn %>">
+                    <ItemTemplate>
+                        <asp:Label Text='<%# Eval("Description").ToString().Replace("\r\n","<br/>") %>' runat="server" />
+                    </ItemTemplate>
+                </asp:TemplateField>
                 <asp:BoundField DataField="Price" HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_PriceColumn %>"/>
                 <asp:ImageField DataImageUrlField="ImageURL" HeaderText="<%$ Resources:Texts, Header_DataGridForListOfProducts_PhotoColumn %>" ControlStyle-Height="100px" ControlStyle-Width="100px">
                 </asp:ImageField>

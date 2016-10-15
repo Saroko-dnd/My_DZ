@@ -27,4 +27,11 @@ public partial class GridViewForListOfProducts : System.Web.UI.UserControl
         DataGridForListOfProducts.DataSource = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().LoadProductsForPages();
         DataGridForListOfProducts.DataBind();
     }
+
+    public void RefreshBinding()
+    {
+        AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
+        DataGridForListOfProducts.DataSource = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().LoadProductsForPages();
+        DataGridForListOfProducts.DataBind();
+    }
 }

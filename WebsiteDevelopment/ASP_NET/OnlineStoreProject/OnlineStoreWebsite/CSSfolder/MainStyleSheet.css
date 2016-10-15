@@ -23,12 +23,20 @@
    justify-content:flex-end;
 }
 
+.JustifyFlexEnd{
+    justify-content:flex-end;
+}
+
 .FlexRow{
    flex-direction:row;
 }
 
 .FlexColumn{
     flex-direction:column;
+}
+
+.MarginLeft{
+    margin-left:auto;
 }
 
 .MarginCenter{

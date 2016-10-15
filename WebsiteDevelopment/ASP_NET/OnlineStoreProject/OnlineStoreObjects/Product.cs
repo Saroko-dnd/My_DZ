@@ -13,8 +13,8 @@ namespace OnlineStoreObjects
         private string name;
         private string description = string.Empty;
         private int price;
-        private int likes = 1;
-        private int dislikes = 1;
+        private int likes = 0;
+        private int dislikes = 0;
         public string Name
         {
             get { return name; }

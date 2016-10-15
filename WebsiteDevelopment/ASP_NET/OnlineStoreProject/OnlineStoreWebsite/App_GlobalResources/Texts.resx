@@ -147,6 +147,9 @@
   <data name="KeyForSelectedProductCategory" xml:space="preserve">
     <value>SelectedProductCategory</value>
   </data>
+  <data name="NameOfFolderForProductImages" xml:space="preserve">
+    <value>ProductImages</value>
+  </data>
   <data name="NameOfPageForCategoriesOfProducts" xml:space="preserve">
     <value>CategoriesOfProducts.aspx</value>
   </data>

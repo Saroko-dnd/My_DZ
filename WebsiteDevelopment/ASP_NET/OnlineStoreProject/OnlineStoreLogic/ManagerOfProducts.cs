@@ -31,9 +31,9 @@ namespace OnlineStoreLogic
             return -1;
         }
 
-        public void AddNewProduct(string NewProductName, string NewProductDescription, int NewPrice, string NewImageName)
+        public void AddNewProduct(string NewProductName, string NewProductDescription, int NewPrice, string NewImageUrl)
         {
-            
+            (CurrentRepository.GetAllData() as List<Product>).Add(new Product(NewProductName, NewProductDescription, NewPrice, NewImageUrl));
         }
 
         public Product GetProductByID(int CurrentPropductID)
