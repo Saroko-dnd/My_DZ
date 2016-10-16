@@ -12,7 +12,23 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:ScriptManager runat="server" ID="CurrentScriptManager">
+        <script>
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequest);
+
+            function EndRequest(sender, args)  
+            { 
+                if (args.get_error() != undefined)  
+                {            
+                    alert(args.get_error()); 
+                    args.set_errorHandled(true); 
+                }
+                else
+                {
+                    __doPostBack('AddNewProductButtonForHiddenPostBack', '');
+                }
+            } 
+        </script>
+        <asp:ScriptManager runat="server" ID="CurrentScriptManager" OnAsyncPostBackError="HandlerForAsyncPostBackErrors">
         </asp:ScriptManager>
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
@@ -48,23 +64,24 @@
                             <asp:Button runat="server" ID="AddNewProductButton" OnClick="AddNewProductButtonOnClick" Text="Add new product" ValidationGroup="ValidatorsForNewProduct"/>
                         </div>
                     </div>
-                    <asp:RequiredFieldValidator ControlToValidate="ProductImageFileUpload" ForeColor="Red" runat="server" CssClass="MarginCenter" Display="Dynamic" 
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidatorForUploadingOfImage" ControlToValidate="ProductImageFileUpload" ForeColor="Red" runat="server" CssClass="MarginCenter" Display="Dynamic" 
                         ErrorMessage="You must select an image for product!" ValidationGroup="ValidatorsForNewProduct"></asp:RequiredFieldValidator>
                     <asp:RegularExpressionValidator CssClass="MarginCenter" id="RegularExpressionValidatorForUploadingImages" runat="server" ErrorMessage="You can only load images (png, gif, jpg)!" 
                         ValidationExpression="(.*\.(jpg|png|gif)$)" ControlToValidate="ProductImageFileUpload" ForeColor="Red" Display="Dynamic" ValidationGroup="ValidatorsForNewProduct"></asp:RegularExpressionValidator>
-                     <div class="Flex FlexCenter FlexRow">
-                        <asp:Label runat="server" Text="Image:"></asp:Label>                  
-                        <asp:FileUpload runat="server" ID="ProductImageFileUpload" accept="image/jpeg, image/png, image/gif" ValidationGroup="ValidatorsForNewProduct"/>
-                     </div>
-                </div>
-                <div style="margin-top:10px; margin-bottom:10px">
-                    <CustomControls:ControlForListOfProducts runat="server" ID="CurrentListOfProducts"/>
                 </div>
             </ContentTemplate>
             <Triggers>
-                <asp:PostBackTrigger ControlID="AddNewProductButton"/>
+
             </Triggers>
         </asp:UpdatePanel>
+        <div class="Flex FlexCenter FlexRow">
+            <asp:Label runat="server" Text="Image:"></asp:Label>                  
+            <asp:FileUpload runat="server" ID="ProductImageFileUpload" accept="image/jpeg, image/png, image/gif" ValidationGroup="ValidatorsForNewProduct"/>
+        </div>
+        <div style="margin-top:10px; margin-bottom:10px">
+            <CustomControls:ControlForListOfProducts runat="server" ID="CurrentListOfProducts"/>
+        </div>
+        <asp:Button CssClass="CollapsedControl" runat="server" ID="AddNewProductButtonForHiddenPostBack" OnClick="AddNewProductButtonOnClick"/>
     </div>
     </form>
 </body>

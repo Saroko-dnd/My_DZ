@@ -31,9 +31,32 @@ namespace OnlineStoreLogic
             return -1;
         }
 
-        public void AddNewProduct(string NewProductName, string NewProductDescription, int NewPrice, string NewImageUrl)
+        public bool CheckProductNameForDuplicate(string CurrentNameOfProduct)
         {
-            (CurrentRepository.GetAllData() as List<Product>).Add(new Product(NewProductName, NewProductDescription, NewPrice, NewImageUrl));
+            if (CurrentRepository.GetAllData().Where(CurrentProduct => CurrentProduct.Name == CurrentNameOfProduct).FirstOrDefault() == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool AddNewProduct(string NewProductName, string NewProductDescription, int NewPrice, string NewImageUrl)
+        {
+            if (CurrentRepository.GetAllData().Where(CurrentProduct => CurrentProduct.Name == NewProductName).FirstOrDefault() == null)
+            {
+                Product BufferForNewProduct = new Product(NewProductName, NewProductDescription, NewPrice, NewImageUrl);
+                BufferForNewProduct.ProductID = CurrentRepository.GetAllData().Count() + 1;
+                (CurrentRepository.GetAllData() as List<Product>).Add(BufferForNewProduct);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
 
         public Product GetProductByID(int CurrentPropductID)

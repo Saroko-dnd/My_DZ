@@ -16,27 +16,47 @@ public partial class AddingOfNewProducts : System.Web.UI.Page
 
     }
 
+    protected void HandlerForAsyncPostBackErrors(object sender, AsyncPostBackErrorEventArgs e)
+    {
+        CurrentScriptManager.AsyncPostBackErrorMessage = e.Exception.Message;
+    }
+
     protected void AddNewProductButtonOnClick(object sender, EventArgs e)
     {
-        Validate();
-        if (IsValid)
+        if (ScriptManager.GetCurrent(this.Page).IsInAsyncPostBack)
         {
-            if (ProductImageFileUpload.HasFile)
+            if ((ProductNameTextBox.Text != null) && (ProductNameTextBox.Text != string.Empty))
             {
-                string ServerFullFileName = string.Empty;
-                ServerFullFileName = HttpContext.Current.Server.MapPath("/" + Texts.NameOfFolderForProductImages + "/" + ProductImageFileUpload.PostedFile.FileName);
-                lock (GatesForFileSaving)
+                AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
+                if (CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().CheckProductNameForDuplicate(ProductNameTextBox.Text))
                 {
-                    if (!File.Exists(ServerFullFileName))
-                    {
-                        ProductImageFileUpload.PostedFile.SaveAs(ServerFullFileName);
-                    }
+                    throw new Exception(Texts.ErrorMessageForAddingNewProduct_IllegalName);
                 }
             }
-            AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
-            CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().AddNewProduct(ProductNameTextBox.Text, ProductDescriptionTextBox.Text, Int32.Parse(ProductPriceTextBox.Text),
-                "~/" + Texts.NameOfFolderForProductImages + "/" + ProductImageFileUpload.PostedFile.FileName);
-            CurrentListOfProducts.RefreshBinding();
+        }
+        else
+        {
+            Validate();
+            if (IsValid)
+            {
+                if (ProductImageFileUpload.HasFile)
+                {
+                    string ServerFullFileName = string.Empty;
+                    ServerFullFileName = HttpContext.Current.Server.MapPath("/" + Texts.NameOfFolderForProductImages + "/" + ProductImageFileUpload.PostedFile.FileName);
+                    lock (GatesForFileSaving)
+                    {
+                        if (!File.Exists(ServerFullFileName))
+                        {
+                            ProductImageFileUpload.PostedFile.SaveAs(ServerFullFileName);
+                        }
+                    }
+                }
+                AccessorToSessionForListOfProductsPage CurrentAccessorToSession = new AccessorToSessionForListOfProductsPage(Session);
+
+                bool NewProductWasAdded = CurrentAccessorToSession.GetManagerOfProductsForCurrentSession().AddNewProduct(ProductNameTextBox.Text, ProductDescriptionTextBox.Text,
+                    Int32.Parse(ProductPriceTextBox.Text), "~/" + Texts.NameOfFolderForProductImages + "/" + ProductImageFileUpload.PostedFile.FileName);
+                CurrentListOfProducts.RefreshBinding();
+            }
         }
     }
 }
