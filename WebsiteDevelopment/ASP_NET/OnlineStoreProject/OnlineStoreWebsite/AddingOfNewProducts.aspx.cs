@@ -14,6 +14,17 @@ public partial class AddingOfNewProducts : System.Web.UI.Page
 {
     private static object GatesForFileSaving = new object();
 
+    protected String CurrentStateOfAddNewProductButton
+    {
+        get
+        {
+            return HiddenFieldForStateOfAddNewProductButton.Value;
+        }
+        set
+        {
+            HiddenFieldForStateOfAddNewProductButton.Value = value;
+        }
+    }
     protected String CurrentColorForResultOfAddingNewProduct
     {
         get
@@ -49,11 +60,12 @@ public partial class AddingOfNewProducts : System.Web.UI.Page
             LabelForResultOfAddingNewProject.CssClass = "MarginCenter HiddenControl";
             ConfirmResultButton.Attributes.Add("class", "MarginCenter HiddenControl ConspicuousText");
         }
-        else
+        else if (!ScriptManager.GetCurrent(this.Page).IsInAsyncPostBack)
         {
             LabelForResultOfAddingNewProject.CssClass = "MarginCenter";
             LabelForResultOfAddingNewProject.Text = CurrentResultOfAddingNewProduct;
             LabelForResultOfAddingNewProject.ForeColor = Color.FromName(CurrentColorForResultOfAddingNewProduct);
+            AddNewProductButton.Attributes.Add("disabled", CurrentStateOfAddNewProductButton);
             ConfirmResultButton.Attributes.Add("class", "MarginCenter ConspicuousText");
         }
     }

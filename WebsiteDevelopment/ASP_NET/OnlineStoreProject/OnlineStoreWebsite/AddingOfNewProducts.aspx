@@ -19,6 +19,7 @@
             function startRequest(sender, e)
             {
                 document.getElementById('<%=AddNewProductButton.ClientID%>').disabled = true;
+                document.getElementById('<%=HiddenFieldForStateOfAddNewProductButton.ClientID%>').value = true;
             }
 
             function EndRequest(sender, args)  
@@ -59,6 +60,7 @@
             function OperationComplete()
             {
                 document.getElementById('<%=AddNewProductButton.ClientID%>').disabled = false;
+                document.getElementById('<%=HiddenFieldForStateOfAddNewProductButton.ClientID%>').value = false;
                 document.getElementById('<%=LabelForResultOfAddingNewProject.ClientID%>').style.display = 'none';
                 document.getElementById('ConfirmResultButton').style.display = 'none';
             }
@@ -77,7 +79,7 @@
                         </ProgressTemplate>
                     </asp:UpdateProgress>
                     <asp:Label runat="server" ID="LabelForResultOfAddingNewProject" Font-Bold="true" Font-Size="Large"></asp:Label>
-                    <asp:HiddenField runat="server" ID="HiddenFieldForResultOfAddingNewProject"/>
+                    <asp:HiddenField runat="server" ID="HiddenFieldForResultOfAddingNewProject"/>                   
                     <asp:HiddenField runat="server" ID="HiddenFieldForColorOfLabelWithResultOfAddingNewProject"/>
                     <input runat="server" id="ConfirmResultButton" type="button" value="OK" onclick="OperationComplete()"/>
                     <div class="Flex FlexCenter FlexRow">
@@ -109,6 +111,7 @@
                         </div>
                         <div class="Flex FlexCenter FlexColumn">
                             <asp:Button runat="server" ID="AddNewProductButton" OnClick="AddNewProductButtonOnClick" Text="Add new product" ValidationGroup="ValidatorsForNewProduct"/>
+                            <asp:HiddenField runat="server" ID="HiddenFieldForStateOfAddNewProductButton"/>
                         </div>
                     </div>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorForUploadingOfImage" ControlToValidate="ProductImageFileUpload" ForeColor="Red" runat="server" CssClass="MarginCenter" Display="Dynamic" 
