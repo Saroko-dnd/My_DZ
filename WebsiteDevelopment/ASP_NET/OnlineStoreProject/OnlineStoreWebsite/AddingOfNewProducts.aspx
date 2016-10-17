@@ -13,26 +13,73 @@
     <form id="form1" runat="server">
     <div>
         <script>
+            Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(startRequest);
             Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequest);
 
+            function startRequest(sender, e)
+            {
+                document.getElementById('<%=AddNewProductButton.ClientID%>').disabled = true;
+            }
+
             function EndRequest(sender, args)  
-            { 
+            {
+                var LabelForResultOfPostBack = document.getElementById('<%=LabelForResultOfAddingNewProject.ClientID%>');
+                var HiddenFieldForResultOfPostBack = document.getElementById('<%=HiddenFieldForResultOfAddingNewProject.ClientID%>');
+                var HiddenFieldForResultTextColor = document.getElementById('<%=HiddenFieldForColorOfLabelWithResultOfAddingNewProject.ClientID%>');
+                var StringWithResultOfPostBack = '';
+                var StringWithTextColor = '';
                 if (args.get_error() != undefined)  
-                {            
-                    alert(args.get_error()); 
-                    args.set_errorHandled(true); 
+                {
+                    StringWithTextColor = 'red';
+                    LabelForResultOfPostBack.style.color = StringWithTextColor;
+                    HiddenFieldForResultTextColor.value = StringWithTextColor;
+
+                    StringWithResultOfPostBack = args.get_error().message.replace(/^.*?:/g, "");
+                    LabelForResultOfPostBack.innerText = StringWithResultOfPostBack;
+                    HiddenFieldForResultOfPostBack.value = StringWithResultOfPostBack;
+
+                    args.set_errorHandled(true);
                 }
                 else
                 {
+                    StringWithTextColor = 'green';
+                    LabelForResultOfPostBack.style.color = StringWithTextColor;
+                    HiddenFieldForResultTextColor.value = StringWithTextColor;
+
+                    StringWithResultOfPostBack = 'New product was successfully added to the database!';
+                    LabelForResultOfPostBack.innerText = StringWithResultOfPostBack;
+                    HiddenFieldForResultOfPostBack.value = StringWithResultOfPostBack;
+
                     __doPostBack('AddNewProductButtonForHiddenPostBack', '');
                 }
-            } 
+                LabelForResultOfPostBack.style.display = 'block';
+                document.getElementById('ConfirmResultButton').style.display = 'block';
+            }
+
+            function OperationComplete()
+            {
+                document.getElementById('<%=AddNewProductButton.ClientID%>').disabled = false;
+                document.getElementById('<%=LabelForResultOfAddingNewProject.ClientID%>').style.display = 'none';
+                document.getElementById('ConfirmResultButton').style.display = 'none';
+            }
         </script>
         <asp:ScriptManager runat="server" ID="CurrentScriptManager" OnAsyncPostBackError="HandlerForAsyncPostBackErrors">
         </asp:ScriptManager>
-        <asp:UpdatePanel runat="server">
+        <asp:UpdatePanel ID="UpdatePanelForAddingOfNewProduct" runat="server">          
             <ContentTemplate>
                 <div class="Flex FlexCenter FlexColumn">
+                    <asp:UpdateProgress runat="server" AssociatedUpdatePanelID="UpdatePanelForAddingOfNewProduct" class="MarginCenter">
+                        <ProgressTemplate>
+                            <div class="Flex FlexCenter FlexColumn">
+                                <asp:Label runat="server" CssClass="MarginCenter" Font-Size="Large" Font-Bold="true" Text="Please wait..."></asp:Label>
+                                <asp:Image runat="server" ImageUrl="~/ImagesForControls/ring-alt.gif"/>
+                            </div>
+                        </ProgressTemplate>
+                    </asp:UpdateProgress>
+                    <asp:Label runat="server" ID="LabelForResultOfAddingNewProject" Font-Bold="true" Font-Size="Large"></asp:Label>
+                    <asp:HiddenField runat="server" ID="HiddenFieldForResultOfAddingNewProject"/>
+                    <asp:HiddenField runat="server" ID="HiddenFieldForColorOfLabelWithResultOfAddingNewProject"/>
+                    <input runat="server" id="ConfirmResultButton" type="button" value="OK" onclick="OperationComplete()"/>
                     <div class="Flex FlexCenter FlexRow">
                         <div class="Flex FlexCenter FlexColumn">
                             <asp:RequiredFieldValidator runat="server" ControlToValidate="ProductNameTextBox" ValidationGroup="ValidatorsForNewProduct" CssClass="MarginLeft" ForeColor="Red" ErrorMessage="You must enter product name!" 
