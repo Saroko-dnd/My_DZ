@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ServiceModel;
+using System.Runtime.Serialization;
 
 namespace OnlineStoreObjects
 {
+    [DataContract]
     public class Product
     {
         private int productID;
@@ -15,11 +18,13 @@ namespace OnlineStoreObjects
         private int price;
         private int likes = 0;
         private int dislikes = 0;
+        [DataMember]
         public string Name
         {
             get { return name; }
             set { name = value; }
         }
+        [DataMember]
         public string Description
         {
             get
@@ -32,7 +37,7 @@ namespace OnlineStoreObjects
                 description = value;
             }
         }
-
+        [DataMember]
         public int Price
         {
             get
@@ -45,7 +50,7 @@ namespace OnlineStoreObjects
                 price = value;
             }
         }
-
+        [DataMember]
         public string ImageURL
         {
             get
@@ -58,7 +63,7 @@ namespace OnlineStoreObjects
                 imageURL = value;
             }
         }
-
+        [DataMember]
         public int ProductID
         {
             get
@@ -71,7 +76,7 @@ namespace OnlineStoreObjects
                 productID = value;
             }
         }
-
+        [DataMember]
         public int Likes
         {
             get
@@ -84,7 +89,7 @@ namespace OnlineStoreObjects
                 likes = value;
             }
         }
-
+        [DataMember]
         public int Dislikes
         {
             get

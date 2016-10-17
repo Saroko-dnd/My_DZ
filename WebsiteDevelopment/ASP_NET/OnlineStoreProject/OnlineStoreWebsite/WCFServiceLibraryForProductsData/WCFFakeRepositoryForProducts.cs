@@ -1,6 +1,7 @@
 ﻿using OnlineStoreDataAccess;
 using OnlineStoreObjects;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace WCFServiceLibraryForProductsData
 {
-    class WCFFakeRepositoryForProducts : IWCFRepository<Product>
+    public class WCFFakeRepositoryForProducts : IWCFRepository
     {
         protected FakeRepositoryForProducts CurrentFakeRepositoryForProducts = new FakeRepositoryForProducts();
 
@@ -17,9 +18,9 @@ namespace WCFServiceLibraryForProductsData
 
         }
 
-        public IEnumerable<Product> GetAllData()
+        public List<Product> GetAllData()
         {
-            return CurrentFakeRepositoryForProducts.GetAllData();
+            return CurrentFakeRepositoryForProducts.GetAllData().ToList();
         }
     }
 }

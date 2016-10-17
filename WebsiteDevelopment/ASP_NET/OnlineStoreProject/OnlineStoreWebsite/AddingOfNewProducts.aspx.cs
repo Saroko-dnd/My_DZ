@@ -1,5 +1,7 @@
-﻿using Resources;
+﻿using OnlineStoreObjects;
+using Resources;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -38,6 +40,10 @@ public partial class AddingOfNewProducts : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        //Just wcf service test *******
+        /*NamespaceForWcfDataAccessToProducts.WCFRepositoryClient TestObjectForWCF = new NamespaceForWcfDataAccessToProducts.WCFRepositoryClient();
+        IEnumerable TestCollectionOfProducts = TestObjectForWCF.GetAllData();*/ 
+        //*****************************
         if (!IsPostBack)
         {
             LabelForResultOfAddingNewProject.CssClass = "MarginCenter HiddenControl";

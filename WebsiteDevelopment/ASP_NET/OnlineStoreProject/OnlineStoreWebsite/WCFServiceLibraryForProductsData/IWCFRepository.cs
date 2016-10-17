@@ -1,4 +1,6 @@
-﻿using System;
+﻿using OnlineStoreObjects;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -8,9 +10,9 @@ using System.Threading.Tasks;
 namespace WCFServiceLibraryForProductsData
 {
     [ServiceContract]
-    public interface IWCFRepository<DataType>
+    public interface IWCFRepository
     {
         [OperationContract]
-        IEnumerable<DataType> GetAllData();
+        List<Product> GetAllData();
     }
 }

@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreObjects", "..\On
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServiceLibraryForProductsData", "WCFServiceLibraryForProductsData\WCFServiceLibraryForProductsData.csproj", "{67FFC132-521A-4575-A5EE-225DDAF46B8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFHostForProductData", "..\WCFHostForProductData\WCFHostForProductData.csproj", "{C9422698-4AF2-445B-A07B-68E789DBBB3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{67FFC132-521A-4575-A5EE-225DDAF46B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67FFC132-521A-4575-A5EE-225DDAF46B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67FFC132-521A-4575-A5EE-225DDAF46B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9422698-4AF2-445B-A07B-68E789DBBB3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9422698-4AF2-445B-A07B-68E789DBBB3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9422698-4AF2-445B-A07B-68E789DBBB3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9422698-4AF2-445B-A07B-68E789DBBB3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
