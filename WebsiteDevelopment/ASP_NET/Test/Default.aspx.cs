@@ -5,12 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class ControlForTest : System.Web.UI.UserControl
+public partial class _Default : System.Web.UI.Page
 {
-    public void SetTestForThisControl(Test NewTest)
-    {
-
-    }
     protected void Page_Load(object sender, EventArgs e)
     {
 
