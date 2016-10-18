@@ -80,7 +80,7 @@ public partial class ControlForTest : System.Web.UI.UserControl
     {
         if (CurrentQuestion is QuestionWithOneCorrectAnswer)
         {
-            ControlForQuestionWithRadioButtons CurrentControlForQuestion = new ControlForQuestionWithRadioButtons();
+            ControlForQuestionWithRadioButtons CurrentControlForQuestion = Page.LoadControl("~/UserControls/ControlForQuestionWithRadioButtons.ascx") as ControlForQuestionWithRadioButtons;
             CurrentControlForQuestion.SetNewQuestion(CurrentQuestion as QuestionWithOneCorrectAnswer);
             return CurrentControlForQuestion;
         }

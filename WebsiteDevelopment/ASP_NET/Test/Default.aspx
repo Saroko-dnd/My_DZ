@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" %>
 <%@ Register TagPrefix="UserControls" TagName="ControlForTest" Src="~/UserControls/ControlForTest.ascx" %>
+<%@ Register TagPrefix="UserControls" TagName="SimpleControlForEndOfTest" Src="~/UserControls/SimpleControlForEndOfTest.ascx" %>
 
 <!DOCTYPE html>
 
@@ -11,7 +12,9 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <UserControls:ControlForTest runat="server" ID="CurrentControlForTest" />
+        <asp:Panel runat="server" ID="PanelForTestControl">
+
+        </asp:Panel>
     </div>
     </form>
 </body>

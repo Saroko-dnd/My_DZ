@@ -9,7 +9,7 @@ public partial class SimpleControlForEndOfTest : System.Web.UI.UserControl
 {
     public void SetScore(uint UserScore, uint MaxScore)
     {
-        LabelForTestResult.Text = UserScore.ToString() + "/" + MaxScore.ToString();
+        ScoreLabel.Text = UserScore.ToString() + "/" + MaxScore.ToString();
     }
 
     protected void Page_Load(object sender, EventArgs e)
