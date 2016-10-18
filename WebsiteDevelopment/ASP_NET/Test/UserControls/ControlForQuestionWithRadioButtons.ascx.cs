@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class ControlForQuestionWithRadioButtons : System.Web.UI.UserControl
+public partial class ControlForQuestionWithRadioButtons : System.Web.UI.UserControl, IControlForQuestion
 {
     public void SetNewQuestion(QuestionWithOneCorrectAnswer NewQuestion)
     {
