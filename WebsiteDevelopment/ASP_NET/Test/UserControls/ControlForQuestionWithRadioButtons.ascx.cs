@@ -13,6 +13,10 @@ public partial class ControlForQuestionWithRadioButtons : System.Web.UI.UserCont
         HiddenFieldForScore.Value = NewQuestion.Score.ToString();
         RepeaterForAnswers.DataSource = NewQuestion.CurrentCollectionOfAnswers;
         RepeaterForAnswers.DataBind();
+        foreach (RepeaterItem CurrentItem in RepeaterForAnswers.Items)
+        {
+            (CurrentItem.FindControl("RadioButtonForAnswer") as RadioButton).GroupName = "RadioButtonsForAnswers";
+        }
     }
 
     public uint GetScore()

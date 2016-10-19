@@ -66,7 +66,7 @@ public partial class ControlForTest : System.Web.UI.UserControl
     protected void FinishButtonClickEventHandlerForWizard (object Sender, WizardNavigationEventArgs e)
     {
         uint BufferForUserScore = 0;
-        for (int Index = 0; Index < CurrentWizardForTest.WizardSteps.Count - 2; ++Index)
+        for (int Index = 0; Index < CurrentWizardForTest.WizardSteps.Count - 1; ++Index)
         {
             BufferForUserScore += (CurrentWizardForTest.WizardSteps[Index].Controls[0] as IControlForQuestion).GetScore();
         }
