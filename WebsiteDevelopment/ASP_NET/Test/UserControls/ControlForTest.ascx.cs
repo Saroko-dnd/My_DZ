@@ -8,7 +8,7 @@ using ASP;
 
 public partial class ControlForTest : System.Web.UI.UserControl
 {
-    public void SetTestForThisControl(Test NewTest, UserControl ControlForResultOfTest)
+    public void SetTestForThisControl(Test NewTest, UserControl ControlForResultOfTest, bool UserScoreCollectionNeedToBeAddedToSession)
     {
         if (NewTest.CurrentCollectonOfQuestions.Count() == 0)
         {
@@ -22,11 +22,21 @@ public partial class ControlForTest : System.Web.UI.UserControl
         {
             throw new ArgumentException("UserControl for result of test must have label with id='ScoreLabel'");
         }
+        AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
         foreach (Question Currentquestion in NewTest.CurrentCollectonOfQuestions)
         {
             WizardStep NewWizardStep = new WizardStep();
             NewWizardStep.Controls.Add(CreateControlForQuestion(Currentquestion));
             CurrentWizardForTest.WizardSteps.Add(NewWizardStep);
+        }
+        if (UserScoreCollectionNeedToBeAddedToSession)
+        {
+            Dictionary<uint, uint> CollectionOfUserScore = new Dictionary<uint, uint>();
+            foreach (Question Currentquestion in NewTest.CurrentCollectonOfQuestions)
+            {
+                CollectionOfUserScore[Currentquestion.ID] = 0;
+            }
+            CurrentAccessorToSession.CurrentUserScoreCollection = CollectionOfUserScore;
         }
         WizardStep LastWizardStep = new WizardStep();
         LastWizardStep.Controls.Add(ControlForResultOfTest);
@@ -63,14 +73,30 @@ public partial class ControlForTest : System.Web.UI.UserControl
         }
     }
 
+    protected void NextButtonClickEventHandlerForWizard(object Sender, WizardNavigationEventArgs e)
+    {
+        UpdateUserScore();
+    }
+
+    protected void UpdateUserScore()
+    {
+        IControlForQuestion CurrentControlForQuestion = CurrentWizardForTest.ActiveStep.Controls[0] as IControlForQuestion;
+        uint CurrentQuestionID = CurrentControlForQuestion.GetQuestionID();
+        AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
+        Dictionary<uint, uint> TestDictionary = CurrentAccessorToSession.CurrentUserScoreCollection;
+        CurrentAccessorToSession.CurrentUserScoreCollection[CurrentQuestionID] = CurrentControlForQuestion.GetScore();
+    }
+
     protected void FinishButtonClickEventHandlerForWizard (object Sender, WizardNavigationEventArgs e)
     {
+        UpdateUserScore();
         uint BufferForUserScore = 0;
+        AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
+        Dictionary<uint, uint> CurrentCollectionOfUserScore = CurrentAccessorToSession.CurrentUserScoreCollection;
         for (int Index = 0; Index < CurrentWizardForTest.WizardSteps.Count - 1; ++Index)
         {
-            BufferForUserScore += (CurrentWizardForTest.WizardSteps[Index].Controls[0] as IControlForQuestion).GetScore();
+            BufferForUserScore += CurrentCollectionOfUserScore[(CurrentWizardForTest.WizardSteps[Index].Controls[0] as IControlForQuestion).GetQuestionID()];
         }
-        AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
         SimpleControlForEndOfTest CurrentControlForEndOfTest = (SimpleControlForEndOfTest)CurrentWizardForTest.WizardSteps[CurrentWizardForTest.WizardSteps.Count - 1].Controls[0];
         CurrentControlForEndOfTest.SetScore(BufferForUserScore, CurrentAccessorToSession.CurrentTest.MaxScore);
     }

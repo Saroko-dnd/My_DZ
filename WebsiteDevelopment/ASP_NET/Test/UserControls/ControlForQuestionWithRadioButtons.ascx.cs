@@ -10,6 +10,7 @@ public partial class ControlForQuestionWithRadioButtons : System.Web.UI.UserCont
     public void SetNewQuestion(QuestionWithOneCorrectAnswer NewQuestion)
     {
         LabelForTextOfQuestion.Text = NewQuestion.Text;
+        HiddenFieldForQuestionID.Value = NewQuestion.ID.ToString();
         HiddenFieldForScore.Value = NewQuestion.Score.ToString();
         RepeaterForAnswers.DataSource = NewQuestion.CurrentCollectionOfAnswers;
         RepeaterForAnswers.DataBind();
@@ -31,6 +32,11 @@ public partial class ControlForQuestionWithRadioButtons : System.Web.UI.UserCont
             }
         }
         return 0;
+    }
+
+    public uint GetQuestionID()
+    {
+        return UInt32.Parse(HiddenFieldForQuestionID.Value);
     }
 
     protected void Page_Load(object sender, EventArgs e)

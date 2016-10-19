@@ -10,6 +10,7 @@ using System.Web.SessionState;
 public class AccessorToSession
 {
     private HttpSessionState CurrentSession;
+
     public Test CurrentTest
     {
         get
@@ -19,6 +20,18 @@ public class AccessorToSession
         set
         {
             CurrentSession["TestOnCurrentPage"] = value;
+        }
+    }
+
+    public Dictionary<uint,uint> CurrentUserScoreCollection
+    {
+        get
+        {
+            return (Dictionary<uint, uint>)CurrentSession["CurrentUserScoreCollection"];
+        }
+        set
+        {
+            CurrentSession["CurrentUserScoreCollection"] = value;
         }
     }
 	public AccessorToSession(HttpSessionState NewSession)

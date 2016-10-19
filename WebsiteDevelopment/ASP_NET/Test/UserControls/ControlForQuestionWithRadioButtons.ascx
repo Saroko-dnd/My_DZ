@@ -11,3 +11,4 @@
     </ItemTemplate>
 </asp:Repeater>
 <asp:HiddenField runat="server" ID="HiddenFieldForScore"/>
+<asp:HiddenField ID="HiddenFieldForQuestionID" runat="server"/>

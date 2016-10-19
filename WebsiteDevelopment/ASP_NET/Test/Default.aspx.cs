@@ -15,7 +15,7 @@ public partial class _Default : System.Web.UI.Page
             ControlForTest NewControlForTest = Page.LoadControl("~/UserControls/ControlForTest.ascx") as ControlForTest;
             SimpleControlForEndOfTest CurrentTestControlForEndOfTest = Page.LoadControl("~/UserControls/SimpleControlForEndOfTest.ascx") as SimpleControlForEndOfTest;
             AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
-            NewControlForTest.SetTestForThisControl(CurrentAccessorToSession.CurrentTest, CurrentTestControlForEndOfTest);
+            NewControlForTest.SetTestForThisControl(CurrentAccessorToSession.CurrentTest, CurrentTestControlForEndOfTest, false);
             PanelForTestControl.Controls.Add(NewControlForTest);
         }
     }
@@ -38,7 +38,7 @@ public partial class _Default : System.Web.UI.Page
             Test CurrentTestObject = new Test(TestListOfQuestions);
             AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
             CurrentAccessorToSession.CurrentTest = CurrentTestObject;
-            NewControlForTest.SetTestForThisControl(CurrentTestObject, CurrentTestControlForEndOfTest);
+            NewControlForTest.SetTestForThisControl(CurrentTestObject, CurrentTestControlForEndOfTest, true);
             PanelForTestControl.Controls.Add(NewControlForTest);
         }
     }

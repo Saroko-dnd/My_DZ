@@ -9,4 +9,5 @@ using System.Web;
 public interface IControlForQuestion
 {
     uint GetScore();
+    uint GetQuestionID();
 }
