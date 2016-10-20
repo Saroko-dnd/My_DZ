@@ -1,15 +1,15 @@
 ﻿<%@ Application Language="C#" %>
 <%@ Import  Namespace="System.IO" %>
 <%@ Import  Namespace="Newtonsoft.Json" %>
+<%@ Import  Namespace="Resources" %>
 
 <script runat="server">
 
     void Application_Start(object sender, EventArgs e)
     {
         // Code that runs on application startup
-        string JsonFileName = "JsonDatabase.json";
-        string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/JsonDatabase");
-        string FullPathToFile = FullPathToJsonDirectory + "/" + JsonFileName;
+        string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + Texts.NameOfDirectoryForJsonData);
+        string FullPathToFile = FullPathToJsonDirectory + "/" + Texts.NameOfFileForJsonData;
         Directory.CreateDirectory(FullPathToJsonDirectory);
         if (!File.Exists(FullPathToFile))
         {
@@ -17,7 +17,7 @@
         }
         else
         {
-            JsonBasedMembershipProvider.DataStorageForJson.CurrentCollectionOfUsers = JsonConvert.DeserializeObject<List<JsonBasedMembershipProvider.CustomUser>>(File.ReadAllText(FullPathToFile));
+            JsonBasedMembershipProvider.DataStorageForJson.CurrentCollectionOfUsers = JsonConvert.DeserializeObject<List<JsonBasedMembershipProvider.CustomUser>>(File.ReadAllText(FullPathToFile, Encoding.UTF8));
         }
         if (JsonBasedMembershipProvider.DataStorageForJson.CurrentCollectionOfUsers == null)
         {
@@ -28,7 +28,7 @@
     void Application_End(object sender, EventArgs e)
     {
         //  Code that runs on application shutdown
-        string UsersDataJson = JsonConvert.SerializeObject(JsonBasedMembershipProvider.DataStorageForJson.CurrentCollectionOfUsers);
+
     }
 
     void Application_Error(object sender, EventArgs e)
@@ -40,7 +40,7 @@
     void Session_Start(object sender, EventArgs e)
     {
         // Code that runs when a new session is started
-
+        Session["Nothing"] = 8;
     }
 
     void Session_End(object sender, EventArgs e)

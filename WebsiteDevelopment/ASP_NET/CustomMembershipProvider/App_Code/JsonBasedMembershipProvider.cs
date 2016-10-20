@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Security;
 using Newtonsoft.Json;
 using System.IO;
+using Resources;
+using System.Text;
 
 /// <summary>
 /// Summary description for JsonBasedMembershipProvider
@@ -32,6 +34,12 @@ public class JsonBasedMembershipProvider : MembershipProvider
 
         public CustomUser(string NewUserName, string NewUserPassword)
         {
+            UserName = NewUserName;
+            UserPassword = NewUserPassword;
+        }
+
+        public CustomUser()
+        {
 
         }
     }
@@ -52,11 +60,16 @@ public class JsonBasedMembershipProvider : MembershipProvider
                 currentCollectionOfUsers = value;
             }
         }
+
         public static void AddNewUser(CustomUser NewCustomUser)
         {
             lock (GatesToUsers)
             {
                 CurrentCollectionOfUsers.Add(NewCustomUser);
+                string UsersDataJson = JsonConvert.SerializeObject(CurrentCollectionOfUsers);
+                string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + Texts.NameOfDirectoryForJsonData);
+                string FullPathToFile = FullPathToJsonDirectory + "/" + Texts.NameOfFileForJsonData;
+                File.WriteAllText(FullPathToFile, UsersDataJson, Encoding.UTF8);
             }
         }
     }

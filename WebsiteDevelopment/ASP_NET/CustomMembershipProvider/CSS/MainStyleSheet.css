@@ -1,0 +1,21 @@
+﻿
+*
+{
+    margin:0;
+    padding:0;
+}
+
+.MarginCenter
+{
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+}
+
+.BigGreenFont
+{
+    font-size:20px;
+    font-weight:bold;
+    color:green;
+}
+
