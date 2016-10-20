@@ -8,8 +8,8 @@
     void Application_Start(object sender, EventArgs e)
     {
         // Code that runs on application startup
-        string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + Texts.NameOfDirectoryForJsonData);
-        string FullPathToFile = FullPathToJsonDirectory + "/" + Texts.NameOfFileForJsonData;
+        string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + Paths.NameOfDirectoryForJsonData);
+        string FullPathToFile = FullPathToJsonDirectory + "/" + Paths.NameOfFileForJsonData;
         Directory.CreateDirectory(FullPathToJsonDirectory);
         if (!File.Exists(FullPathToFile))
         {
@@ -23,6 +23,7 @@
         {
             JsonBasedMembershipProvider.DataStorageForJson.CurrentCollectionOfUsers = new List<JsonBasedMembershipProvider.CustomUser>();
         }
+        Application["GlobalChat"] = new List<UserMessage>();
     }
 
     void Application_End(object sender, EventArgs e)
@@ -40,7 +41,7 @@
     void Session_Start(object sender, EventArgs e)
     {
         // Code that runs when a new session is started
-        Session["Nothing"] = 8;
+
     }
 
     void Session_End(object sender, EventArgs e)

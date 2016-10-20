@@ -67,8 +67,8 @@ public class JsonBasedMembershipProvider : MembershipProvider
             {
                 CurrentCollectionOfUsers.Add(NewCustomUser);
                 string UsersDataJson = JsonConvert.SerializeObject(CurrentCollectionOfUsers);
-                string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + Texts.NameOfDirectoryForJsonData);
-                string FullPathToFile = FullPathToJsonDirectory + "/" + Texts.NameOfFileForJsonData;
+                string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + Paths.NameOfDirectoryForJsonData);
+                string FullPathToFile = FullPathToJsonDirectory + "/" + Paths.NameOfFileForJsonData;
                 File.WriteAllText(FullPathToFile, UsersDataJson, Encoding.UTF8);
             }
         }

@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ButtonSendMessage" xml:space="preserve">
-    <value>Send message</value>
-  </data>
-  <data name="Label_LoginSuccess" xml:space="preserve">
-    <value>Congratulations, you have successfully logged in!</value>
+    <value>Отправить сообщение</value>
   </data>
 </root>
