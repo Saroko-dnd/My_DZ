@@ -9,7 +9,8 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    
+      <asp:Login runat="server"></asp:Login>
+       <asp:CreateUserWizard runat="server"></asp:CreateUserWizard>
     </div>
     </form>
 </body>

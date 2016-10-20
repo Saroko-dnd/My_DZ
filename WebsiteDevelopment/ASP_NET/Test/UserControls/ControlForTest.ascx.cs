@@ -8,6 +8,25 @@ using ASP;
 
 public partial class ControlForTest : System.Web.UI.UserControl
 {
+    public void StopTest()
+    {
+        CountUserScore();
+        CurrentWizardForTest.ActiveStepIndex = CurrentWizardForTest.WizardSteps.Count - 1;
+    }
+
+    private void CountUserScore()
+    {
+        uint BufferForUserScore = 0;
+        AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
+        Dictionary<uint, uint> CurrentCollectionOfUserScore = CurrentAccessorToSession.CurrentUserScoreCollection;
+        for (int Index = 0; Index < CurrentWizardForTest.WizardSteps.Count - 1; ++Index)
+        {
+            BufferForUserScore += CurrentCollectionOfUserScore[(CurrentWizardForTest.WizardSteps[Index].Controls[0] as IControlForQuestion).GetQuestionID()];
+        }
+        SimpleControlForEndOfTest CurrentControlForEndOfTest = (SimpleControlForEndOfTest)CurrentWizardForTest.WizardSteps[CurrentWizardForTest.WizardSteps.Count - 1].Controls[0];
+        CurrentControlForEndOfTest.SetScore(BufferForUserScore, CurrentAccessorToSession.CurrentTest.MaxScore);
+    }
+
     public void SetTestForThisControl(Test NewTest, UserControl ControlForResultOfTest, bool UserScoreCollectionNeedToBeAddedToSession)
     {
         if (NewTest.CurrentCollectonOfQuestions.Count() == 0)
@@ -90,15 +109,7 @@ public partial class ControlForTest : System.Web.UI.UserControl
     protected void FinishButtonClickEventHandlerForWizard (object Sender, WizardNavigationEventArgs e)
     {
         UpdateUserScore();
-        uint BufferForUserScore = 0;
-        AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
-        Dictionary<uint, uint> CurrentCollectionOfUserScore = CurrentAccessorToSession.CurrentUserScoreCollection;
-        for (int Index = 0; Index < CurrentWizardForTest.WizardSteps.Count - 1; ++Index)
-        {
-            BufferForUserScore += CurrentCollectionOfUserScore[(CurrentWizardForTest.WizardSteps[Index].Controls[0] as IControlForQuestion).GetQuestionID()];
-        }
-        SimpleControlForEndOfTest CurrentControlForEndOfTest = (SimpleControlForEndOfTest)CurrentWizardForTest.WizardSteps[CurrentWizardForTest.WizardSteps.Count - 1].Controls[0];
-        CurrentControlForEndOfTest.SetScore(BufferForUserScore, CurrentAccessorToSession.CurrentTest.MaxScore);
+        CountUserScore();
     }
 
 

@@ -42,4 +42,10 @@ public partial class _Default : System.Web.UI.Page
             PanelForTestControl.Controls.Add(NewControlForTest);
         }
     }
+
+    protected void TimeExpiredEventHandler(object sender, EventArgs e)
+    {
+        ControlForTest CurrentControlForTest = (ControlForTest)PanelForTestControl.Controls.Cast<Control>().Where(CurrentControl => CurrentControl is ControlForTest).FirstOrDefault();
+        CurrentControlForTest.StopTest();
+    }
 }

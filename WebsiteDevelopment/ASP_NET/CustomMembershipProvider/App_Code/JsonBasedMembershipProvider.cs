@@ -65,7 +65,9 @@ public class JsonBasedMembershipProvider : MembershipProvider
 	{
 
 	}
+
     private string applicationName;
+
     public override string ApplicationName
     {
         get
@@ -164,6 +166,11 @@ public class JsonBasedMembershipProvider : MembershipProvider
         }
     }
 
+    public override MembershipUser GetUser(object providerUserKey, bool userIsOnline)
+    {
+        throw new NotImplementedException();
+    }
+
     public override string GetUserNameByEmail(string email)
     {
         throw new NotImplementedException();
@@ -201,7 +208,7 @@ public class JsonBasedMembershipProvider : MembershipProvider
 
     public override bool RequiresQuestionAndAnswer
     {
-        get { throw new NotImplementedException(); }
+        get { return false; }
     }
 
     public override bool RequiresUniqueEmail

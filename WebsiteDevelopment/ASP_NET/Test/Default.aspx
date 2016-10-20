@@ -14,9 +14,10 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <div class="FlexRow">
+        <div id="DivWithTimeControls" class="FlexRow">
+            <asp:Label runat="server" ID="UserRunOutOfTimeLabel" Text="Time has expired!" CssClass="BigRedFont HiddenControl"></asp:Label>
             <asp:Label runat="server" ID="LabelForMinutes"></asp:Label>
-            <asp:Label runat="server" Text=":"></asp:Label>
+            <asp:Label runat="server" Text=":" ID="LabelForDelimiter"></asp:Label>
             <asp:Label runat="server" ID="LabelForSeconds"></asp:Label>
         </div>
         <script>
@@ -24,6 +25,8 @@
             var TimeForTest = { Minutes: 15, Seconds: 0 };
             var LabelForMinutes;
             var LabelForSeconds;
+            var TimeExpired = false;
+
 
             window.onload = SetTimeForTestAndStartTimer();
         
@@ -48,15 +51,22 @@
                 else
                 {
                     clearInterval(IntervalForTickOfTimer);
-                    //End of test + postback
+                    $('#<%= UserRunOutOfTimeLabel.ClientID %>').show();
+                    $("#DivWithTimeControls > :not(#<%= UserRunOutOfTimeLabel.ClientID %>)").hide();
+                    TimeExpired = true;
                 }
                 LabelForSeconds.innerText = TimeForTest.Seconds;
                 LabelForMinutes.innerText = TimeForTest.Minutes;
+                if (TimeExpired)
+                {
+                    __doPostBack('<%= ButtonForHiddenPostBackWhenTimeRunsOut.ClientID %>', '');
+                }
             }
         </script>
         <asp:ScriptManager runat="server" ID="CurrentScriptManager"></asp:ScriptManager>
         <asp:UpdatePanel runat="server">
             <ContentTemplate>
+                <asp:Button runat="server" ID="ButtonForHiddenPostBackWhenTimeRunsOut" CssClass="HiddenControl" OnClick="TimeExpiredEventHandler"/>
                 <asp:Panel runat="server" ID="PanelForTestControl" ClientIDMode="Static">
 
                 </asp:Panel>
