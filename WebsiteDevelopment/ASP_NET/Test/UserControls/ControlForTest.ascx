@@ -3,3 +3,4 @@
 <%@ Register TagPrefix="UserControls" TagName="SimpleControlForEndOfTest" Src="~/UserControls/SimpleControlForEndOfTest.ascx" %>
 
 <asp:Wizard runat="server" ID="CurrentWizardForTest" OnFinishButtonClick="FinishButtonClickEventHandlerForWizard" OnNextButtonClick="NextButtonClickEventHandlerForWizard"></asp:Wizard>
+<asp:HiddenField runat="server" ID="HiddenFieldForStateOfTestWizard" ClientIDMode="Static"/>

@@ -9,17 +9,20 @@ using System.Web.SessionState;
 /// </summary>
 public class AccessorToSession
 {
+    private static readonly string KeyForTest = "TestOnCurrentPage";
+    private static readonly string KeyForUserScoreCollection = "CurrentUserScoreCollection";
+
     private HttpSessionState CurrentSession;
 
     public Test CurrentTest
     {
         get
         {
-            return (CurrentSession["TestOnCurrentPage"] as Test);
+            return (CurrentSession[KeyForTest] as Test);
         }
         set
         {
-            CurrentSession["TestOnCurrentPage"] = value;
+            CurrentSession[KeyForTest] = value;
         }
     }
 
@@ -27,11 +30,11 @@ public class AccessorToSession
     {
         get
         {
-            return (Dictionary<uint, uint>)CurrentSession["CurrentUserScoreCollection"];
+            return (Dictionary<uint, uint>)CurrentSession[KeyForUserScoreCollection];
         }
         set
         {
-            CurrentSession["CurrentUserScoreCollection"] = value;
+            CurrentSession[KeyForUserScoreCollection] = value;
         }
     }
 	public AccessorToSession(HttpSessionState NewSession)

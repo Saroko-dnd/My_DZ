@@ -27,6 +27,15 @@
             var LabelForSeconds;
             var TimeExpired = false;
 
+            Sys.WebForms.PageRequestManager.getInstance().add_endRequest(CheckStateOfTest);
+
+            function CheckStateOfTest(sender, args)
+            {             
+                if ($("#HiddenFieldForStateOfTestWizard").attr("value") == "Completed")
+                {
+                    clearInterval(IntervalForTickOfTimer);
+                }
+            }
 
             window.onload = SetTimeForTestAndStartTimer();
         

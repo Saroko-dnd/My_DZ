@@ -5,9 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ASP;
+using Resources;
 
 public partial class ControlForTest : System.Web.UI.UserControl
 {
+    public static class TestStates
+    {
+        public static readonly string InProgress = "InProgress";
+        public static readonly string Completed = "Completed";
+    }
+
     public void StopTest()
     {
         CountUserScore();
@@ -25,13 +32,14 @@ public partial class ControlForTest : System.Web.UI.UserControl
         }
         SimpleControlForEndOfTest CurrentControlForEndOfTest = (SimpleControlForEndOfTest)CurrentWizardForTest.WizardSteps[CurrentWizardForTest.WizardSteps.Count - 1].Controls[0];
         CurrentControlForEndOfTest.SetScore(BufferForUserScore, CurrentAccessorToSession.CurrentTest.MaxScore);
+        HiddenFieldForStateOfTestWizard.Value = TestStates.Completed;
     }
 
     public void SetTestForThisControl(Test NewTest, UserControl ControlForResultOfTest, bool UserScoreCollectionNeedToBeAddedToSession)
     {
         if (NewTest.CurrentCollectonOfQuestions.Count() == 0)
         {
-            throw new ArgumentException("Object of type Test must have at least one question");
+            throw new ArgumentException(Texts.ExceptionMessageForTestControl_TestIsEmpty);
         }
         try
         {
@@ -39,8 +47,9 @@ public partial class ControlForTest : System.Web.UI.UserControl
         }
         catch
         {
-            throw new ArgumentException("UserControl for result of test must have label with id='ScoreLabel'");
+            throw new ArgumentException(Texts.ExceptionMessageForTestControl_LabelForScoreIsMissing);
         }
+        HiddenFieldForStateOfTestWizard.Value = TestStates.InProgress;
         AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
         foreach (Question Currentquestion in NewTest.CurrentCollectonOfQuestions)
         {
@@ -62,6 +71,11 @@ public partial class ControlForTest : System.Web.UI.UserControl
         CurrentWizardForTest.WizardSteps.Add(LastWizardStep);
         int IndexOfLastWizardStep = CurrentWizardForTest.WizardSteps.Count - 1;
         int IndexOfFinishStep = CurrentWizardForTest.WizardSteps.Count - 2;
+        ConfigureWizardSteps(IndexOfLastWizardStep, IndexOfFinishStep);
+    }
+
+    private void ConfigureWizardSteps(int IndexOfLastWizardStep, int IndexOfFinishStep)
+    {
         if (IndexOfFinishStep == 0)
         {
             CurrentWizardForTest.WizardSteps[IndexOfFinishStep].StepType = WizardStepType.Finish;
@@ -117,7 +131,7 @@ public partial class ControlForTest : System.Web.UI.UserControl
     {
         if (CurrentQuestion is QuestionWithOneCorrectAnswer)
         {
-            ControlForQuestionWithRadioButtons CurrentControlForQuestion = Page.LoadControl("~/UserControls/ControlForQuestionWithRadioButtons.ascx") as ControlForQuestionWithRadioButtons;
+            ControlForQuestionWithRadioButtons CurrentControlForQuestion = Page.LoadControl(VirtualPathsToUserControls.ControlForQuestionWithRadioButtons) as ControlForQuestionWithRadioButtons;
             CurrentControlForQuestion.SetNewQuestion(CurrentQuestion as QuestionWithOneCorrectAnswer);
             return CurrentControlForQuestion;
         }
