@@ -27,9 +27,9 @@ public partial class _Default : System.Web.UI.Page
             ControlForTest NewControlForTest = Page.LoadControl(VirtualPathsToUserControls.ControlForTest) as ControlForTest;
             SimpleControlForEndOfTest CurrentTestControlForEndOfTest = Page.LoadControl(VirtualPathsToUserControls.SimpleControlForEndOfTest) as SimpleControlForEndOfTest;
             List<AnswerForQuestionWithOneCorrectAnswer> TestListOfAnswers = new List<AnswerForQuestionWithOneCorrectAnswer>();
-            TestListOfAnswers.Add(new AnswerForQuestionWithOneCorrectAnswer("Answer 1", true));
-            TestListOfAnswers.Add(new AnswerForQuestionWithOneCorrectAnswer("Answer 2", false));
-            TestListOfAnswers.Add(new AnswerForQuestionWithOneCorrectAnswer("Answer 3", false));
+            TestListOfAnswers.Add(new AnswerForQuestionWithOneCorrectAnswer("Correct answer", true));
+            TestListOfAnswers.Add(new AnswerForQuestionWithOneCorrectAnswer("Wrong answer", false));
+            TestListOfAnswers.Add(new AnswerForQuestionWithOneCorrectAnswer("Wrong answer", false));
             List<QuestionWithOneCorrectAnswer> TestListOfQuestions = new List<QuestionWithOneCorrectAnswer>();
             for (uint CounterOfQuestions = 0; CounterOfQuestions < 5; ++CounterOfQuestions)
             {

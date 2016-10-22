@@ -18,14 +18,26 @@ public partial class ControlForQuestionWithRadioButtons : System.Web.UI.UserCont
 
     public uint GetScore()
     {
+        AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
+        QuestionWithOneCorrectAnswer FoundQuestionWithSameID = (QuestionWithOneCorrectAnswer)CurrentAccessorToSession.CurrentTest.CurrentCollectonOfQuestions.
+            Where(CurrentQuestion => CurrentQuestion.ID == UInt32.Parse(HiddenFieldForQuestionID.Value)).FirstOrDefault();
+        int IndexOfAnswer = 0;
+        RadioButton CurrentRadioButton = null;
         foreach (RepeaterItem CurrentItem in RepeaterForAnswers.Items)
         {
-            RadioButton CurrentRadioButton = (RadioButton)CurrentItem.FindControl("RadioButtonForAnswer");
-            HiddenField CurrentHiddenField = (HiddenField)CurrentItem.FindControl("HiddenField_IsAnswerCorrect");
-            if (CurrentRadioButton.Checked && CurrentHiddenField.Value == true.ToString())
+            CurrentRadioButton = (RadioButton)CurrentItem.FindControl("RadioButtonForAnswer");
+            if (CurrentRadioButton.Checked)
             {
-                return UInt32.Parse(HiddenFieldForScore.Value);
+                if (FoundQuestionWithSameID.CurrentCollectionOfAnswers.ElementAt(IndexOfAnswer).CorrectAnswer)
+                {
+                    return UInt32.Parse(HiddenFieldForScore.Value);
+                }
+                else 
+                {
+                    return 0;
+                }
             }
+            ++IndexOfAnswer;
         }
         return 0;
     }

@@ -12,7 +12,7 @@ namespace CustomControlForRadioButton
 {
     [DefaultProperty("Text")]
     [ToolboxData("<{0}:RadioButtonForRepeater runat=server></{0}:RadioButtonForRepeater>")]
-    public class RadioButtonForRepeater : RadioButton
+    public class RadioButtonForRepeater : RadioButton, IPostBackEventHandler
     {
         public override bool Checked
         {
@@ -32,6 +32,56 @@ namespace CustomControlForRadioButton
             {
                 base.Checked = value;
             }
+        }
+
+        public override string GroupName
+        {
+            get
+            {
+                return base.ID;
+            }
+
+            set
+            {
+                base.ID = value;
+            }
+        }
+
+        private string Value
+        {
+            get
+            {
+                string val = base.ClientID;
+                //val = val == null ? UniqueID : (UniqueID + "_") + val;
+                return val;
+            }
+        }
+
+        protected override bool LoadPostData(string postDataKey, System.Collections.Specialized.NameValueCollection postCollection)
+        {
+            bool result = false;
+            string value__1 = postCollection[base.ID];
+            if ((value__1 != null) && (value__1 == Value))
+            {
+                if (!Checked)
+                {
+                    Checked = true;
+                    result = true;
+                }
+            }
+            else
+            {
+                if (Checked)
+                {
+                    RaisePostDataChangedEvent();
+                }
+            }
+            return result;
+        }
+
+        public void RaisePostBackEvent(string eventArgument)
+        {
+            base.RaisePostDataChangedEvent();
         }
 
         protected override void Render(HtmlTextWriter writer)
