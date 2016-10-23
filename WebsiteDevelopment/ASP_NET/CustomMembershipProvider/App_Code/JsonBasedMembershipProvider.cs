@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.IO;
 using Resources;
 using System.Text;
+using System.Configuration;
 
 /// <summary>
 /// Summary description for JsonBasedMembershipProvider
@@ -67,8 +68,9 @@ public class JsonBasedMembershipProvider : MembershipProvider
             {
                 CurrentCollectionOfUsers.Add(NewCustomUser);
                 string UsersDataJson = JsonConvert.SerializeObject(CurrentCollectionOfUsers);
-                string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + Paths.NameOfDirectoryForJsonData);
-                string FullPathToFile = FullPathToJsonDirectory + "/" + Paths.NameOfFileForJsonData;
+                AccessorToWebConfig CurrentAccessorToWebConfig = new AccessorToWebConfig();
+                string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + CurrentAccessorToWebConfig.NameOfDirectoryForJsonData);
+                string FullPathToFile = FullPathToJsonDirectory + "/" + CurrentAccessorToWebConfig.NameOfFileForJsonData;
                 File.WriteAllText(FullPathToFile, UsersDataJson, Encoding.UTF8);
             }
         }

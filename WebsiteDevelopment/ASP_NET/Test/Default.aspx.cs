@@ -35,7 +35,10 @@ public partial class _Default : System.Web.UI.Page
             {
                 TestListOfQuestions.Add(new QuestionWithOneCorrectAnswer(CounterOfQuestions, 5, "Question_" + CounterOfQuestions.ToString(), TestListOfAnswers));
             }
-            Test CurrentTestObject = new Test(TestListOfQuestions);
+            Test CurrentTestObject = new Test(TestListOfQuestions, 0, 15 ,0);
+            HiddenFieldForTestHours.Value = CurrentTestObject.Hours.ToString();
+            HiddenFieldForTestMinutes.Value = CurrentTestObject.Minutes.ToString();
+            HiddenFieldForTestSeconds.Value = CurrentTestObject.Seconds.ToString();
             AccessorToSession CurrentAccessorToSession = new AccessorToSession(Session);
             CurrentAccessorToSession.CurrentTest = CurrentTestObject;
             NewControlForTest.SetTestForThisControl(CurrentTestObject, CurrentTestControlForEndOfTest, true);

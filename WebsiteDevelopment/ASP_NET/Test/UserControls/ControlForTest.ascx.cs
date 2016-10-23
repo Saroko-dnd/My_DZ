@@ -37,6 +37,11 @@ public partial class ControlForTest : System.Web.UI.UserControl
 
     public void SetTestForThisControl(Test NewTest, UserControl ControlForResultOfTest, bool UserScoreCollectionNeedToBeAddedToSession)
     {
+        /*if (UserScoreCollectionNeedToBeAddedToSession)
+        {
+            string Script = "alert('Hello i am test control inside update panel!');";
+            ScriptManager..RegisterStartupScript(this.Page, this.Page.GetType(), Guid.NewGuid().ToString(), Script, true);
+        }*/
         if (NewTest.CurrentCollectonOfQuestions.Count() == 0)
         {
             throw new ArgumentException(Texts.ExceptionMessageForTestControl_TestIsEmpty);

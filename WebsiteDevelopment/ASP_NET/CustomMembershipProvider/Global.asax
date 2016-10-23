@@ -8,8 +8,9 @@
     void Application_Start(object sender, EventArgs e)
     {
         // Code that runs on application startup
-        string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + Paths.NameOfDirectoryForJsonData);
-        string FullPathToFile = FullPathToJsonDirectory + "/" + Paths.NameOfFileForJsonData;
+        AccessorToWebConfig CurrentAccessorToWebConfig = new AccessorToWebConfig();
+        string FullPathToJsonDirectory = HttpContext.Current.Server.MapPath("/" + CurrentAccessorToWebConfig.NameOfDirectoryForJsonData);
+        string FullPathToFile = FullPathToJsonDirectory + "/" + CurrentAccessorToWebConfig.NameOfFileForJsonData;
         Directory.CreateDirectory(FullPathToJsonDirectory);
         if (!File.Exists(FullPathToFile))
         {

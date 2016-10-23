@@ -14,15 +14,31 @@
 <body>
     <form id="form1" runat="server">
     <div>
+        <asp:HiddenField runat="server" ID="HiddenFieldForTestHours"/>
+        <asp:HiddenField runat="server" ID="HiddenFieldForTestMinutes"/>
+        <asp:HiddenField runat="server" ID="HiddenFieldForTestSeconds"/>
         <div id="DivWithTimeControls" class="FlexRow">
             <asp:Label runat="server" ID="UserRunOutOfTimeLabel" Text="Time has expired!" CssClass="BigRedFont HiddenControl"></asp:Label>
+            <asp:Label runat="server" ID="LabelForHours"></asp:Label>
+            <asp:Label runat="server" Text=":"></asp:Label>
             <asp:Label runat="server" ID="LabelForMinutes"></asp:Label>
-            <asp:Label runat="server" Text=":" ID="LabelForDelimiter"></asp:Label>
+            <asp:Label runat="server" Text=":"></asp:Label>
             <asp:Label runat="server" ID="LabelForSeconds"></asp:Label>
         </div>
+
+        <asp:ScriptManager runat="server" ID="CurrentScriptManager"></asp:ScriptManager>
+        <asp:UpdatePanel runat="server">
+            <ContentTemplate>
+                <asp:Button runat="server" ID="ButtonForHiddenPostBackWhenTimeRunsOut" CssClass="HiddenControl" OnClick="TimeExpiredEventHandler"/>
+                <asp:Panel runat="server" ID="PanelForTestControl" ClientIDMode="Static">
+
+                </asp:Panel>
+            </ContentTemplate>
+        </asp:UpdatePanel>
         <script>
             var IntervalForTickOfTimer;
-            var TimeForTest = { Minutes: 15, Seconds: 0 };
+            var TimeForTest = { Hours: 0, Minutes: 0, Seconds: 0 };
+            var LabelForHours;
             var LabelForMinutes;
             var LabelForSeconds;
             var TimeExpired = false;
@@ -41,8 +57,12 @@
         
             function SetTimeForTestAndStartTimer()
             {
+                TimeForTest.Hours = parseInt($('#<%= HiddenFieldForTestHours.ClientID %>').attr("value"));
+                TimeForTest.Minutes = parseInt($('#<%= HiddenFieldForTestMinutes.ClientID %>').attr("value"));
+                TimeForTest.Seconds = parseInt($('#<%= HiddenFieldForTestSeconds.ClientID %>').attr("value"));
                 LabelForSeconds = document.getElementById('<%= LabelForSeconds.ClientID %>');
                 LabelForMinutes = document.getElementById('<%= LabelForMinutes.ClientID %>');
+                LabelForHours = document.getElementById('<%= LabelForHours.ClientID %>');
                 IntervalForTickOfTimer = setInterval(TickForTimer, 1000);
             }
 
@@ -57,6 +77,12 @@
                     TimeForTest.Seconds = 59;
                     TimeForTest.Minutes -= 1;
                 }
+                else if (TimeForTest.Hours > 0)
+                {
+                    TimeForTest.Seconds = 59;
+                    TimeForTest.Minutes = 59;
+                    TimeForTest.Hours -= 1;
+                }
                 else
                 {
                     clearInterval(IntervalForTickOfTimer);
@@ -66,21 +92,13 @@
                 }
                 LabelForSeconds.innerText = TimeForTest.Seconds;
                 LabelForMinutes.innerText = TimeForTest.Minutes;
+                LabelForHours.innerText = TimeForTest.Hours;
                 if (TimeExpired)
                 {
                     __doPostBack('<%= ButtonForHiddenPostBackWhenTimeRunsOut.ClientID %>', '');
                 }
             }
         </script>
-        <asp:ScriptManager runat="server" ID="CurrentScriptManager"></asp:ScriptManager>
-        <asp:UpdatePanel runat="server">
-            <ContentTemplate>
-                <asp:Button runat="server" ID="ButtonForHiddenPostBackWhenTimeRunsOut" CssClass="HiddenControl" OnClick="TimeExpiredEventHandler"/>
-                <asp:Panel runat="server" ID="PanelForTestControl" ClientIDMode="Static">
-
-                </asp:Panel>
-            </ContentTemplate>
-        </asp:UpdatePanel>
     </div>
     </form>
 </body>
