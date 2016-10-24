@@ -8,22 +8,24 @@ using System.Web;
 /// </summary>
 public class AccessorToApplication
 {
-    private HttpApplicationState CurrentApplication;
+    private static readonly string KeyForChatMessages = "GlobalChat";
+    private static bool ChatWasInitialized = false;
+    private static object GatesToChatCreation = new object();
 
-    private int amountOfMessagesForSendingToClientAtOnce;
+    private static int amountOfMessagesForSendingToClientAtOnce = 20;
 
-    public int AmountOfMessagesForSendingToClientAtOnce
+    public static int AmountOfMessagesForSendingToClientAtOnce
     {
         get { return amountOfMessagesForSendingToClientAtOnce; }
-        set { amountOfMessagesForSendingToClientAtOnce = value; }
+        private set { amountOfMessagesForSendingToClientAtOnce = value; }
     }
 
     private static int maxAmountOfMessagesInMemory = 100;
 
     public static int MaxAmountOfMessagesInMemory
     {
-        get { return AccessorToApplication.maxAmountOfMessagesInMemory; }
-        set { AccessorToApplication.maxAmountOfMessagesInMemory = value; }
+        get { return maxAmountOfMessagesInMemory; }
+        private set { maxAmountOfMessagesInMemory = value; }
     }
 
     private object GatesToApplication = new object();
@@ -32,7 +34,7 @@ public class AccessorToApplication
     {
         lock (GatesToApplication)
         {
-            List<UserMessage> BufferForAllMessages = (CurrentApplication["GlobalChat"] as List<UserMessage>);
+            List<UserMessage> BufferForAllMessages = (HttpContext.Current.Application[KeyForChatMessages] as List<UserMessage>);
             BufferForAllMessages.Add(NewUserMessage);
             if (BufferForAllMessages.Count > MaxAmountOfMessagesInMemory)
             {
@@ -43,18 +45,22 @@ public class AccessorToApplication
 
     public List<UserMessage> GetLastChatMessages()
     {
-        List<UserMessage> BufferForAllMessages = (CurrentApplication["GlobalChat"] as List<UserMessage>);
+        List<UserMessage> BufferForAllMessages = (HttpContext.Current.Application[KeyForChatMessages] as List<UserMessage>);
         return BufferForAllMessages.Skip(Math.Max(0, BufferForAllMessages.Count() - AmountOfMessagesForSendingToClientAtOnce)).ToList();
     }
 
-    public AccessorToApplication(HttpApplicationState Application, int AmountOfMessagesToGet)
+    public AccessorToApplication()
 	{
-        AmountOfMessagesForSendingToClientAtOnce = AmountOfMessagesToGet;
-        CurrentApplication = Application;
-	}
-
-    public AccessorToApplication(HttpApplicationState Application)
-    {
-        CurrentApplication = Application;
+        if (!ChatWasInitialized)
+        {
+            lock (GatesToChatCreation)
+            {
+                if (!ChatWasInitialized)
+                {
+                    HttpContext.Current.Application[KeyForChatMessages] = new List<UserMessage>();
+                    ChatWasInitialized = true;
+                }
+            }
+        }
     }
 }

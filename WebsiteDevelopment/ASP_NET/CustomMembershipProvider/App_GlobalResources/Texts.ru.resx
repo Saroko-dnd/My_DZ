@@ -120,4 +120,7 @@
   <data name="ButtonSendMessage" xml:space="preserve">
     <value>Отправить сообщение</value>
   </data>
+  <data name="MessageFrom" xml:space="preserve">
+    <value>Сообщение от</value>
+  </data>
 </root>

@@ -23,14 +23,14 @@ public partial class DefaultPageForUsers : System.Web.UI.Page
 
     protected void RefreshDataSourceInRepeaterForChat()
     {
-        AccessorToApplication CurrentAccessorToApplication = new AccessorToApplication(Application, 20);
+        AccessorToApplication CurrentAccessorToApplication = new AccessorToApplication();
         RepeaterForChatMessages.DataSource = CurrentAccessorToApplication.GetLastChatMessages();
         RepeaterForChatMessages.DataBind();
     }
 
     protected void AddNewMessageToChatButtonClick(object sender, EventArgs e)
     {
-        AccessorToApplication CurrentAccessorToApplication = new AccessorToApplication(Application);
+        AccessorToApplication CurrentAccessorToApplication = new AccessorToApplication();
         UserMessage CurrentUserMessage = new UserMessage(TextBoxForTypingNewMessage.Text, Membership.GetUser().UserName);
         CurrentAccessorToApplication.AddNewMessageToChat(CurrentUserMessage);
         RefreshDataSourceInRepeaterForChat();

@@ -123,4 +123,7 @@
   <data name="Label_LoginSuccess" xml:space="preserve">
     <value>Congratulations, you have successfully logged in!</value>
   </data>
+  <data name="MessageFrom" xml:space="preserve">
+    <value>Message from</value>
+  </data>
 </root>

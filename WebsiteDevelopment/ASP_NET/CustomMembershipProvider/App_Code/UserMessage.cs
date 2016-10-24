@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,17 +16,17 @@ public class UserMessage
         get { return currentMessage; }
         set { currentMessage = value; }
     }
-    private string currentUserName;
+    private string messageSource;
 
-    public string CurrentUserName
+    public string MessageSource
     {
-        get { return currentUserName; }
-        set { currentUserName = value; }
+        get { return messageSource; }
+        set { messageSource = value; }
     }
     public UserMessage(string NewMessage, string UserName)
     {
         CurrentMessage = NewMessage;
-        CurrentUserName = UserName;
+        MessageSource = Texts.MessageFrom + " " + UserName;
     }
 	public UserMessage()
 	{

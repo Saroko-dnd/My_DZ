@@ -9,10 +9,10 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:Login DestinationPageUrl="~/Chat.aspx" runat="server" CssClass="MarginCenter"></asp:Login>
-        <asp:CreateUserWizard runat="server" CssClass="MarginCenter" RequireEmail="false"></asp:CreateUserWizard>
-    </div>
+        <div>
+            <asp:Login DestinationPageUrl="~/Chat.aspx" runat="server" CssClass="MarginCenter"></asp:Login>
+            <asp:CreateUserWizard runat="server" CssClass="MarginCenter" RequireEmail="false"></asp:CreateUserWizard>
+        </div>
     </form>
 </body>
 </html>

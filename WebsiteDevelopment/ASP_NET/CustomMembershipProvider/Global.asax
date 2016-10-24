@@ -24,7 +24,6 @@
         {
             JsonBasedMembershipProvider.DataStorageForJson.CurrentCollectionOfUsers = new List<JsonBasedMembershipProvider.CustomUser>();
         }
-        Application["GlobalChat"] = new List<UserMessage>();
     }
 
     void Application_End(object sender, EventArgs e)

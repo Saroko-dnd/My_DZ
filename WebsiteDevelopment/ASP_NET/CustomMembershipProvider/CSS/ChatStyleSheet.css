@@ -1,0 +1,23 @@
+﻿
+.DivForChatMessages
+{
+    height:600px;
+    width:600px;
+    overflow:scroll;
+}
+
+.DivWithChatMessage:nth-of-type(odd)
+{
+    color:blue;
+}
+
+.DivWithChatMessage:nth-of-type(even)
+{
+    color:violet;
+}
+
+.DivWithChatMessage > *:nth-child(1)
+{
+    font-weight:bold;
+}
+
