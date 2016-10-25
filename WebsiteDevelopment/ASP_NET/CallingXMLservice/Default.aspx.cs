@@ -8,6 +8,7 @@ using System.Data;
 using System.Net;
 using System.IO;
 using System.Text;
+using Resources;
 
 public partial class _Default : System.Web.UI.Page
 {
@@ -24,10 +25,31 @@ public partial class _Default : System.Web.UI.Page
         RefreshCurrencyDataInGridView();
     }
 
+    protected void HandlerForAsyncPostBackErrors(object sender, AsyncPostBackErrorEventArgs e)
+    {
+        CurrentScriptManager.AsyncPostBackErrorMessage = e.Exception.Message;
+    }
+
     protected void RefreshCurrencyDataInGridView()
     {
         AccessorToCurrencyInfoService CurrentAccessorToCurrencyInfoService = new AccessorToCurrencyInfoService();
-        GridViewForCurrency.DataSource = CurrentAccessorToCurrencyInfoService.GetCurrency();
-        GridViewForCurrency.DataBind();
+        IEnumerable<object> NewListOfCurrencyInfo = CurrentAccessorToCurrencyInfoService.GetCurrency();
+        if (NewListOfCurrencyInfo != null)
+        {
+            GridViewForCurrency.DataSource = NewListOfCurrencyInfo;
+            GridViewForCurrency.DataBind();
+        }
+        else
+        {
+            if (IsPostBack)
+            {
+                throw new Exception(Texts.Exception_ProgramCantRefreshCurrencyInfo);
+            }
+            else
+            {
+                LabelToShowOnExceptionDuringLoadData.Text = Texts.Exception_ProgramCantLoadCurrencyInfo;
+            }
+
+        }
     }
 }

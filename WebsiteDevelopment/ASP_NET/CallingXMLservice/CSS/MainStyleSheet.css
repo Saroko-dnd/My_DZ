@@ -8,4 +8,26 @@
 {
     margin-left:auto;
     margin-right:auto;
+    text-align:center;
 }
+
+.FlexRowCenter
+{
+    display:flex;
+    flex-direction:row;
+    align-content:center;
+    justify-content:center;    
+}
+
+.FlexItemWithText
+{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;    
+}
+
+.ErrorMessage{
+    color:red;
+    font-size:20px;
+}
+

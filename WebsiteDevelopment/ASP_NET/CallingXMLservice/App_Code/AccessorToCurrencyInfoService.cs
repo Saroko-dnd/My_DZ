@@ -14,33 +14,39 @@ using System.Web;
 public class AccessorToCurrencyInfoService : IAccessorToCurrencyInfoService
 {
     private static readonly string ApiForGettingCurrentCurrencyData = "http://www.nbrb.by/API/ExRates/Rates?onDate=2016-7-6&Periodicity=0";
+
     public IEnumerable<object> GetCurrency()
     {
-        string UrlAddressOfJsonDataForCurrency = "http://www.nbrb.by/API/ExRates/Rates?onDate=2016-7-6&Periodicity=0";
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(UrlAddressOfJsonDataForCurrency);
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-        string JsonCurrencyData = string.Empty;
-        if (response.StatusCode == HttpStatusCode.OK)
+        try
         {
-            Stream receiveStream = response.GetResponseStream();
-            StreamReader readStream = null;
-
-            if (response.CharacterSet == null)
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ApiForGettingCurrentCurrencyData);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string JsonCurrencyData = string.Empty;
+            if (response.StatusCode == HttpStatusCode.OK)
             {
-                readStream = new StreamReader(receiveStream);
-            }
-            else
-            {
-                readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-            }
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = null;
 
-            JsonCurrencyData = readStream.ReadToEnd();
+                if (response.CharacterSet == null)
+                {
+                    readStream = new StreamReader(receiveStream);
+                }
+                else
+                {
+                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                }
 
-            response.Close();
-            readStream.Close();
+                JsonCurrencyData = readStream.ReadToEnd();
+
+                response.Close();
+                readStream.Close();
+            }
+            return JsonConvert.DeserializeObject<List<CurrencyInfo>>(JsonCurrencyData);
         }
-
-        return JsonConvert.DeserializeObject<List<CurrencyInfo>>(JsonCurrencyData);
+        catch
+        {
+            return null;
+        }
     }
 
 	public AccessorToCurrencyInfoService()
