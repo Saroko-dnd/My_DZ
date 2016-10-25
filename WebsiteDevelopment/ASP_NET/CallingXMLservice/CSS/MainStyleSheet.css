@@ -1,0 +1,11 @@
+﻿
+*{
+    margin:0;
+    padding:0;
+}
+
+.MarginCenter
+{
+    margin-left:auto;
+    margin-right:auto;
+}
