@@ -22,13 +22,12 @@
             </Triggers>
         </asp:UpdatePanel>
         <asp:Label runat="server" ID="LabelToShowOnExceptionDuringLoadData" CssClass="ErrorMessage MarginCenter" Text=""></asp:Label>
-        <asp:Panel runat="server" ID="UpdateProgressForRefreshingCurrencyData">
-            <ProgressTemplate>
-                <div class="FlexRowCenter">
-                    <asp:Image runat="server" ImageUrl="~/images/spin.gif" />
-                    <asp:Label runat="server" CssClass="FlexItemWithText" Text="<%$ Resources:Texts, Label_RefreshingCurrencyData %>"></asp:Label>
-                </div>
-            </ProgressTemplate>
+        <%-- Не стал использовать asp:UpdateProgress так как он продолжает показывать содержимое, если на сервере было брошено исключение. --%>
+        <asp:Panel runat="server" ID="UpdateProgressForRefreshingCurrencyData">          
+            <div class="FlexRowCenter">
+                <asp:Image runat="server" ImageUrl="~/images/spin.gif" />
+                <asp:Label runat="server" CssClass="FlexItemWithText" Text="<%$ Resources:Texts, Label_RefreshingCurrencyData %>"></asp:Label>
+            </div>
         </asp:Panel>
         <asp:Timer runat="server" ID="RefreshCurrencyTimer" Interval="15000" OnTick="RefreshCurrencyDataOnTimerThick"></asp:Timer>
     </div>
