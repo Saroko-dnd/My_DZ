@@ -9,14 +9,19 @@ namespace SecondTestMVCApplication.Controllers
     public class HomeController : Controller
     {
         // GET: Home
-       /* public ActionResult Index()
+        /* public ActionResult Index()
+         {
+             return View();
+         }*/
+
+        /*public string Index()
+        {
+            return "<p>This image was provided by SecondTestMVCApplication (this is String from HomeController)</p><img src='~/Images/BrownChecker.png' width='120' height='120' alt='Checker'> ";
+        } */
+
+        public ViewResult Index()
         {
             return View();
-        }*/
-
-        public string Index()
-        {
-            return "<p>This image was provided by SecondTestMVCApplication</p><img src='Images/BrownChecker.png' width='120' height='120' alt='Checker'> ";
         }
     }
 }
