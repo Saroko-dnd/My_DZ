@@ -16,6 +16,7 @@ namespace SecondTestMVCApplication
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
+                namespaces: new string[]{"SecondTestMVCApplication.Controllers"},
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }

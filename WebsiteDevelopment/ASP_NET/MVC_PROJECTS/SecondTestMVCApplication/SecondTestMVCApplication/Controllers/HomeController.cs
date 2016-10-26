@@ -18,7 +18,14 @@ namespace SecondTestMVCApplication.Controllers
         {
             return "<p>This image was provided by SecondTestMVCApplication (this is String from HomeController)</p><img src='~/Images/BrownChecker.png' width='120' height='120' alt='Checker'> ";
         } */
-
+        public ViewResult About()
+        {
+            return View();
+        }
+        public ViewResult Contacts()
+        {
+            return View();
+        }
         public ViewResult Index()
         {
             return View();

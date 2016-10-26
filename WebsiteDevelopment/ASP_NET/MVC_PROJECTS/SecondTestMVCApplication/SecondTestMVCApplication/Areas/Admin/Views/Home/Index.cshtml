@@ -1,0 +1,22 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        <p>Admin area Index View</p>
+        @Html.ActionLink("Link to common area", "Index", new { controller = "Home", area = "" });
+        @Html.ActionLink("View all products", "Index", "Products");
+        @Html.ActionLink("Delete product", "Delete", "Products");
+        @Html.ActionLink("Create product", "Create", "Products");
+    </div>
+</body>
+</html>
