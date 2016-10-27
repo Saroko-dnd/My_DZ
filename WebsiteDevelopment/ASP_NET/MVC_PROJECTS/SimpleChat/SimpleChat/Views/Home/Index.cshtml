@@ -1,0 +1,41 @@
+﻿
+@model SimpleChat.Models.UserChatPage
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link  href="~/CSS/MainStyleSheet.css" rel="stylesheet"/>
+</head>
+<body>
+    <div> 
+        @using (Html.BeginForm("AddNewMessage", "Home", new { area = "" }, FormMethod.Post))
+        {
+            <p>Your name:</p>
+            @Html.TextBoxFor(CurrentUser => CurrentUser.UserName);
+            <p>Message:</p>
+            @Html.TextBoxFor(CurrentUser => CurrentUser.UserMessage);
+            <input type="submit" value="Отправить сообщение" />
+        }
+
+        @using (Html.BeginForm("RefreshMessagesOnUserPage", "Home", new { area = "" }, FormMethod.Post))
+        {
+            <input type="submit" value="Обновить список сообщений" />
+            foreach (var CurrentUserMessage in Model.LastMessages)
+            {
+                <div class="DivWithSolidBlackBorder">
+                    <p>@CurrentUserMessage.Date.ToString()</p>
+                    <p>From @CurrentUserMessage.UserName.ToString()</p>
+                    <p>@CurrentUserMessage.Message</p>
+                </div>
+            }
+        }
+    </div>
+</body>
+</html>
