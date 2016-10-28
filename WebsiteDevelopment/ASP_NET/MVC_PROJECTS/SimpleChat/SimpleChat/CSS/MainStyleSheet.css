@@ -1,4 +1,12 @@
-﻿body {
+﻿
+*{
+    margin:0;
+    padding:0;
+}
+
+.DisplayAsBlock
+{
+    display:block;
 }
 
 .DivWithSolidBlackBorder
@@ -6,4 +14,49 @@
     border-color:black;
     border-width:2px;
     border-style:solid;
+}
+
+.FlexRowCenter
+{
+    display:flex;
+    flex-direction:row;
+    align-content:center;
+    justify-content:center;
+}
+
+.FlexRow
+{
+    display:flex;
+    flex-direction:row;
+}
+
+.FlexColumnCenter
+{
+    display:flex;
+    flex-direction:column;
+    align-content:center;
+    justify-content:center;
+}
+
+.MarginCenterTextToRight
+{
+    margin-left:auto;
+    margin-right:auto;
+    text-align:right;
+}
+
+.TableLikeUserForm
+{
+    display:table;
+    empty-cells:show;
+}
+
+.TableLikeUserForm > *
+{
+    display:table-row;
+}
+
+.TableLikeUserForm > * > *
+{
+    display:table-cell;
 }

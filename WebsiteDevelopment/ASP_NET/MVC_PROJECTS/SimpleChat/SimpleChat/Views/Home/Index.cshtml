@@ -1,4 +1,6 @@
 ﻿
+@using SimpleChat.Models
+
 @model SimpleChat.Models.UserChatPage
 
 @{
@@ -17,16 +19,41 @@
     <div> 
         @using (Html.BeginForm("AddNewMessage", "Home", new { area = "" }, FormMethod.Post))
         {
-            <p>Your name:</p>
-            @Html.TextBoxFor(CurrentUser => CurrentUser.UserName);
-            <p>Message:</p>
-            @Html.TextBoxFor(CurrentUser => CurrentUser.UserMessage);
-            <input type="submit" value="Отправить сообщение" />
+            <div class="MarginCenterTextToRight TableLikeUserForm">
+                <div>
+                    <p>Your name:</p>
+                     @Html.TextBoxFor(CurrentUser => CurrentUser.UserName)
+                    <div>
+                        jkjkjk
+                    </div>
+                </div>
+                <div>
+                    <p>Message:</p>
+                    @Html.TextBoxFor(CurrentUser => CurrentUser.UserMessage)
+                    <input type="submit" value="Отправить сообщение" />
+                </div>
+            </div>
         }
 
         @using (Html.BeginForm("RefreshMessagesOnUserPage", "Home", new { area = "" }, FormMethod.Post))
         {
             <input type="submit" value="Обновить список сообщений" />
+
+            <div>
+                <div class="FlexRow">
+                    @Html.RadioButtonFor(model => model.SortingForMessages, UserChatPage.DoNotSortMessages)
+                    <p>@UserChatPage.DoNotSortMessages</p>
+                </div>
+                <div class="FlexRow">
+                    @Html.RadioButtonFor(model => model.SortingForMessages, UserChatPage.SortMessagesByUserName)
+                    <p>@UserChatPage.SortMessagesByUserName</p>
+                </div>
+                <div class="FlexRow">
+                    @Html.RadioButtonFor(model => model.SortingForMessages, UserChatPage.SortMessagesByDate)
+                    <p>@UserChatPage.SortMessagesByDate</p>
+                </div>
+            </div>
+
             foreach (var CurrentUserMessage in Model.LastMessages)
             {
                 <div class="DivWithSolidBlackBorder">
