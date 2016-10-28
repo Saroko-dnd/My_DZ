@@ -14,24 +14,28 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link  href="~/CSS/MainStyleSheet.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div> 
-        @using (Html.BeginForm("AddNewMessage", "Home", new { area = "" }, FormMethod.Post))
+        @using (Html.BeginForm("AddNewMessage", "Home", new { area = "" }, FormMethod.Post, htmlAttributes: new { @class = "form-horizontal" }))
         {
-            <div class="MarginCenterTextToRight TableLikeUserForm">
-                <div>
-                    <p>Your name:</p>
-                     @Html.TextBoxFor(CurrentUser => CurrentUser.UserName)
-                    <div>
-                        jkjkjk
-                    </div>
+            <div class="form-group">
+                <p class="col-sm-2 control-label">Your name:</p>
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(CurrentUser => CurrentUser.UserName)
                 </div>
-                <div>
-                    <p>Message:</p>
-                    @Html.TextBoxFor(CurrentUser => CurrentUser.UserMessage)
-                    <input type="submit" value="Отправить сообщение" />
+            </div>
+            <div class="form-group">
+                <p class="col-sm-2 control-label">Message:</p>
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(CurrentUser => CurrentUser.UserMessage, htmlAttributes: new { @class = "col-sm-11 TextAreaForUserMessage" })
                 </div>
+            </div>
+            <div class="col-sm-offset-2 col-sm-10">
+                <input class="btn btn-default" type="submit" value="Отправить сообщение" />
             </div>
         }
 

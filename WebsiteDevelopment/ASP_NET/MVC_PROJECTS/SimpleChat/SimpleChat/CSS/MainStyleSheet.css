@@ -45,18 +45,7 @@
     text-align:right;
 }
 
-.TableLikeUserForm
+.TextAreaForUserMessage
 {
-    display:table;
-    empty-cells:show;
-}
-
-.TableLikeUserForm > *
-{
-    display:table-row;
-}
-
-.TableLikeUserForm > * > *
-{
-    display:table-cell;
+    height:100px;
 }
