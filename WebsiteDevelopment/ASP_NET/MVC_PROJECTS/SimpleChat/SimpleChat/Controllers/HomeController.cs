@@ -15,26 +15,39 @@ namespace SimpleChat.Controllers
         {
             UserChatPage NewUserChatPage = new UserChatPage();
             AccessorToApplicationForChat CurrentAccessorToApplicationForChat = new AccessorToApplicationForChat();
-            NewUserChatPage.LastMessages = CurrentAccessorToApplicationForChat.GetLastMessages();
+            NewUserChatPage.LastMessages = CurrentAccessorToApplicationForChat.GetMessages();         
             return View(NewUserChatPage);
         }
 
         [HttpPost]
-        public ActionResult AddNewMessage(UserChatPage CurrentUserPage_)
+        [MultipleButton(Name = "action", Argument = "AddNewMessage")]
+        public ActionResult AddNewMessage(UserChatPage CurrentUserPage)
         {
             AccessorToApplicationForChat CurrentAccessorToApplicationForChat = new AccessorToApplicationForChat();
-            CurrentAccessorToApplicationForChat.AddNewMessageToChat(CurrentUserPage_.UserMessage, CurrentUserPage_.UserName);
-            CurrentUserPage_.LastMessages = CurrentAccessorToApplicationForChat.GetLastMessages();
+            CurrentAccessorToApplicationForChat.AddNewMessageToChat(CurrentUserPage.UserMessage, CurrentUserPage.UserName);
+            CurrentUserPage.LastMessages = CurrentAccessorToApplicationForChat.GetMessages();
+            AccessorToUserSession CurrentAccessorToUserSession = new AccessorToUserSession(Session);
+            CurrentAccessorToUserSession.AddNewMessage(CurrentUserPage.UserMessage, CurrentUserPage.UserName);
             ModelState.Clear();
-            return View("Index", CurrentUserPage_);
+            return View("Index", CurrentUserPage);
         }
 
         [HttpPost]
+        [MultipleButton(Name = "action", Argument = "RefreshMessagesOnUserPage")]
         public ActionResult RefreshMessagesOnUserPage(UserChatPage CurrentUserPage)
         {
-            AccessorToApplicationForChat CurrentAccessorToApplicationForChat = new AccessorToApplicationForChat();
-            CurrentUserPage.LastMessages = CurrentAccessorToApplicationForChat.GetLastMessages();
-            return View("Index");
+            if (CurrentUserPage.ReceiveOnlyMessagesCreatedByCurrentUser)
+            {
+                AccessorToUserSession CurrentAccessorToUserSession = new AccessorToUserSession(Session);
+                CurrentUserPage.LastMessages = CurrentAccessorToUserSession.GetMessages();
+            }
+            else
+            {
+                AccessorToApplicationForChat CurrentAccessorToApplicationForChat = new AccessorToApplicationForChat();
+                CurrentUserPage.LastMessages = CurrentAccessorToApplicationForChat.GetMessages();
+            }
+            ModelState.Clear();
+            return View("Index", CurrentUserPage);
         }
     }
 }

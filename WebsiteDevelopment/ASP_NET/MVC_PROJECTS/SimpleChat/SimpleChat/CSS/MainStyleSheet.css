@@ -1,4 +1,8 @@
 ﻿
+.MarginTop{
+    margin-top:50px;
+}
+
 *{
     margin:0;
     padding:0;
@@ -9,19 +13,41 @@
     display:block;
 }
 
-.DivWithSolidBlackBorder
+.DivWithUserMessage
 {
     border-color:black;
     border-width:2px;
     border-style:solid;
 }
 
-.FlexRowCenter
+.DivWithUserMessage > p:nth-child(1)
+{
+    font-weight:bold;
+}
+
+.DivWithUserMessage > p:nth-child(2)
+{
+    color:blue;
+}
+
+.DivWithUserMessage span
+{
+    font-weight:bold;
+    color:red;
+}
+
+.FlexRowCenterWithSpaceBetweenItems
 {
     display:flex;
     flex-direction:row;
     align-content:center;
     justify-content:center;
+    padding:5px;
+}
+
+.FlexRowCenterWithSpaceBetweenItems > *
+{
+    margin:5px;
 }
 
 .FlexRow
@@ -36,13 +62,14 @@
     flex-direction:column;
     align-content:center;
     justify-content:center;
+    text-align:center;
 }
 
-.MarginCenterTextToRight
+.MarginCenter
 {
     margin-left:auto;
     margin-right:auto;
-    text-align:right;
+    text-align:center;
 }
 
 .TextAreaForUserMessage

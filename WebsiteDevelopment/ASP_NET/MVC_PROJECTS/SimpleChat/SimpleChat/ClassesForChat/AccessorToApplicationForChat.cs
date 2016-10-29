@@ -8,13 +8,12 @@ namespace SimpleChat.ClassesForChat
     public class AccessorToApplicationForChat
     {       
         private static readonly int MaxAmountOfMessages = 20;
-        private static readonly int MaxAmountOfMessagesForOneUser = 10;
         private static readonly string KeyToChatMessages = "ChatMessages";
         private static readonly object GatesToMessages = new object();
-        public List<UserMessage> GetLastMessages()
+
+        public List<UserMessage> GetMessages()
         {
-            List<UserMessage> CurrentListOfMessages = (HttpContext.Current.Application[KeyToChatMessages] as List<UserMessage>);
-            return CurrentListOfMessages.Skip(Math.Max(0, CurrentListOfMessages.Count() - MaxAmountOfMessagesForOneUser)).ToList();
+            return (HttpContext.Current.Application[KeyToChatMessages] as List<UserMessage>);
         }
 
         public void AddNewMessageToChat(string TextOfMessage, string UserName)

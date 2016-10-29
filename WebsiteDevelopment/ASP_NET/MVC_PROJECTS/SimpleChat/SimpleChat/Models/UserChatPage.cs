@@ -12,21 +12,22 @@ namespace SimpleChat.Models
         private static readonly string doNotSortMessages = "No sorting";
 
         private string userName = "User";
+        private bool receiveOnlyMessagesCreatedByCurrentUser = false;
+        private string userMessage = string.Empty;
+        private string sortingForMessages = DoNotSortMessages;
+        private List<UserMessage> lastMessages;
 
         public string UserName
         {
             get { return userName; }
             set { userName = value; }
         }
-        private string userMessage = string.Empty;
 
         public string UserMessage
         {
             get { return userMessage; }
             set { userMessage = value; }
         }
-
-        private string sortingForMessages = DoNotSortMessages;
 
         public string SortingForMessages
         {
@@ -40,8 +41,6 @@ namespace SimpleChat.Models
                 sortingForMessages = value;
             }
         }
-
-        private List<UserMessage> lastMessages;
 
         public List<UserMessage> LastMessages
         {
@@ -70,6 +69,19 @@ namespace SimpleChat.Models
             get
             {
                 return doNotSortMessages;
+            }
+        }
+
+        public bool ReceiveOnlyMessagesCreatedByCurrentUser
+        {
+            get
+            {
+                return receiveOnlyMessagesCreatedByCurrentUser;
+            }
+
+            set
+            {
+                receiveOnlyMessagesCreatedByCurrentUser = value;
             }
         }
     }
