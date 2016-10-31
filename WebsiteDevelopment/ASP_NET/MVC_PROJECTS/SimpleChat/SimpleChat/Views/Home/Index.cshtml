@@ -55,16 +55,16 @@
                     </div>
                     <div class="FlexRow">
                         @Html.RadioButtonFor(model => model.SortingForMessages, UserChatPage.SortMessagesByUserName)
-                        <p>@UserChatPage.SortMessagesByUserName</p>
+                        <p>@Resources.Texts.PSortMessagesByUserName</p>
                     </div>
                     <div class="FlexRow">
                         @Html.RadioButtonFor(model => model.SortingForMessages, UserChatPage.SortMessagesByDate)
-                        <p>@UserChatPage.SortMessagesByDate</p>
+                        <p>@Resources.Texts.PSortMessagesByDate</p>
                     </div>
                 </div>
             </div>
 
-            List<UserMessage> CurrentListOfMessages = Model.LastMessages;
+            IEnumerable<UserMessage> CurrentListOfMessages = Model.LastMessages;
             if (Model.SortingForMessages == UserChatPage.SortMessagesByDate)
             {
                 CurrentListOfMessages = CurrentListOfMessages.OrderBy(CurrentMessage => CurrentMessage.Date).ToList();
@@ -78,7 +78,7 @@
             {
                 <div class="DivWithUserMessage FlexColumnCenter">
                     <p>@CurrentUserMessage.Date.ToString()</p>
-                    <p><span>From: </span>@CurrentUserMessage.UserName.ToString()</p>
+                    <p><span>@Resources.Texts.PSpanSourceOfMessage </span>@CurrentUserMessage.UserName.ToString()</p>
                     <p>@CurrentUserMessage.Message</p>
                 </div>
             }

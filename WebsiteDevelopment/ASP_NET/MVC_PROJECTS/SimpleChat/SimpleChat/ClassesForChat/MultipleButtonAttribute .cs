@@ -24,7 +24,7 @@ namespace SimpleChat.ClassesForChat
                 controllerContext.Controller.ControllerContext.RouteData.Values[Name] = Argument;
                 isValidName = true;
             }
-
+            
             return isValidName;
         }
     }

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SimpleChat.ClassesForChat
 {
-    public class AccessorToUserSession
+    public class AccessorToUserSession : IAccessorToUserSession
     {
         private static readonly int MaxAmountOfMessages = 10;
         private static readonly string KeyForMessagesCreatedByCurrentUser = "MessagesCreatedByCurrentUser";
@@ -23,7 +23,7 @@ namespace SimpleChat.ClassesForChat
             }
         }
 
-        public List<UserMessage> GetMessages()
+        public IEnumerable<UserMessage> GetMessages()
         {
              return (CurrentUserSession[KeyForMessagesCreatedByCurrentUser] as List<UserMessage>);
         }

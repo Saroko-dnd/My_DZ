@@ -5,13 +5,13 @@ using System.Web;
 
 namespace SimpleChat.ClassesForChat
 {
-    public class AccessorToApplicationForChat
+    public class AccessorToApplicationForChat : IAccessorToApplicationForChat
     {       
         private static readonly int MaxAmountOfMessages = 20;
         private static readonly string KeyToChatMessages = "ChatMessages";
         private static readonly object GatesToMessages = new object();
 
-        public List<UserMessage> GetMessages()
+        public IEnumerable<UserMessage> GetMessages()
         {
             return (HttpContext.Current.Application[KeyToChatMessages] as List<UserMessage>);
         }

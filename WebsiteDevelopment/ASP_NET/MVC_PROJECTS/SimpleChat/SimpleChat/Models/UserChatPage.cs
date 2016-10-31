@@ -15,7 +15,7 @@ namespace SimpleChat.Models
         private bool receiveOnlyMessagesCreatedByCurrentUser = false;
         private string userMessage = string.Empty;
         private string sortingForMessages = DoNotSortMessages;
-        private List<UserMessage> lastMessages;
+        private IEnumerable<UserMessage> lastMessages;
 
         public string UserName
         {
@@ -42,7 +42,7 @@ namespace SimpleChat.Models
             }
         }
 
-        public List<UserMessage> LastMessages
+        public IEnumerable<UserMessage> LastMessages
         {
             get { return lastMessages; }
             set { lastMessages = value; }

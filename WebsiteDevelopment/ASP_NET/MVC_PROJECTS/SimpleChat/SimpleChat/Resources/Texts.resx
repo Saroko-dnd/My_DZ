@@ -129,6 +129,15 @@
   <data name="POnlyCurrentUserMessages" xml:space="preserve">
     <value>Only my messages</value>
   </data>
+  <data name="PSortMessagesByDate" xml:space="preserve">
+    <value>Sort messages by date</value>
+  </data>
+  <data name="PSortMessagesByUserName" xml:space="preserve">
+    <value>Sort messages by user name</value>
+  </data>
+  <data name="PSpanSourceOfMessage" xml:space="preserve">
+    <value>From:</value>
+  </data>
   <data name="PUserMessage" xml:space="preserve">
     <value>Message:</value>
   </data>

@@ -97,6 +97,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Sort messages by date.
+        /// </summary>
+        public static string PSortMessagesByDate {
+            get {
+                return ResourceManager.GetString("PSortMessagesByDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Sort messages by user name.
+        /// </summary>
+        public static string PSortMessagesByUserName {
+            get {
+                return ResourceManager.GetString("PSortMessagesByUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на From:.
+        /// </summary>
+        public static string PSpanSourceOfMessage {
+            get {
+                return ResourceManager.GetString("PSpanSourceOfMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Message:.
         /// </summary>
         public static string PUserMessage {
