@@ -1,4 +1,4 @@
-﻿using NewsEntities;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -17,7 +17,7 @@ namespace NewsDataAccess
 
         public NewsWebsiteContext(string ConnectionStringName): base(ConnectionStringName)
         {
-
+            Database.SetInitializer(new NewsWebsiteDBInitializer());
         }
     }
 }

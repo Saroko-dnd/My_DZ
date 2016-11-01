@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewsEntities
+namespace NewsDataAccess
 {
     public class UserOpinion
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public uint UserOpinionID { get; set; }
+        public long UserOpinionID { get; set; }
         public bool Like { get; set; }
         public News News { get; set; }
         public User Author { get; set; }

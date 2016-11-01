@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewsEntities
+namespace NewsDataAccess
 {
     public class Comment
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public uint CommentID { get; set; }
+        public long CommentID { get; set; }
         public string Message{ get; set; }
         public DateTime Date{ get; set; }
         public News News { get; set; }

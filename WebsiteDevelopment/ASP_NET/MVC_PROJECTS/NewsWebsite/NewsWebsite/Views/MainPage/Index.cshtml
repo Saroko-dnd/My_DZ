@@ -1,0 +1,35 @@
+﻿
+@using NewsDataAccess
+@model NewsWebsite.Models.TestClassWithWebsiteData
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/CSS/Main.css" rel="stylesheet"/>
+    <link href="~/CSS/MainPage.css" rel="stylesheet"/>
+</head>
+<body>
+    <div>
+        <div class="FlexColumnCenter">
+            <p class="HeaderForMainPage">@Resources.Texts.PLatestNews</p>
+        </div>
+        @foreach (News CurrentNews in Model.TestListOfNews)
+        {
+            <div class="DivWithNewsHeaderOrFooter FlexColumnCenter">
+                <p>@CurrentNews.Header</p>
+            </div>
+            <p>@CurrentNews.Body</p>
+            <div class="DivWithNewsHeaderOrFooter FlexColumnCenter">
+                <p>@CurrentNews.Date.ToString()</p>
+            </div>       
+        }
+    </div>
+</body>
+</html>

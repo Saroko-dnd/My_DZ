@@ -5,28 +5,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewsEntities
+namespace NewsDataAccess
 {
     public class News
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public uint NewsID { get; set; }
+        public long NewsID { get; set; }
         public string Header{ get; set; }
         public string Body{ get; set; }
         public DateTime Date{ get; set; }
         public bool HotNews { get; set; }
+        public bool Advertising { get; set; }
 
         public News()
         {
 
         }
 
-        public News(DateTime NewsDate, string NewsHeader, string NewsBody, bool IsThisNewsHot)
+        public News(DateTime NewsDate, string NewsHeader, string NewsBody, bool IsThisNewsHot, bool ThisIsAdvertising)
         {
             Header = NewsHeader;
             Body = NewsBody;
             Date = NewsDate;
             HotNews = IsThisNewsHot;
+            Advertising = ThisIsAdvertising;
         }
     }
 }

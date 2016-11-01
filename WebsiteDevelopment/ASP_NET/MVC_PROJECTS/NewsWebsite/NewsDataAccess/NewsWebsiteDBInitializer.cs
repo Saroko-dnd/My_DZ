@@ -1,4 +1,4 @@
-﻿using NewsEntities;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NewsDataAccess
 {
-    public class NewsWebsiteDBInitializer : DropCreateDatabaseAlways<NewsWebsiteContext>
+    public class NewsWebsiteDBInitializer : CreateDatabaseIfNotExists<NewsWebsiteContext>
     {
         protected override void Seed(NewsWebsiteContext Context)
         {
@@ -21,11 +21,11 @@ namespace NewsDataAccess
             {
                 if (CounterOfNews == 0)
                 {
-                    Context.News.Add(new News(DateTime.Now, "Header_" + (CounterOfNews + 1).ToString(), "News body", false));
+                    Context.News.Add(new News(DateTime.Now, "Header_" + (CounterOfNews + 1).ToString(), "News body", false, true));
                 }
                 else
                 {
-                    Context.News.Add(new News(DateTime.Now, "Header_" + (CounterOfNews + 1).ToString(), "News body", true));
+                    Context.News.Add(new News(DateTime.Now, "Header_" + (CounterOfNews + 1).ToString(), "News body", true, false));
                 }
             }
 
