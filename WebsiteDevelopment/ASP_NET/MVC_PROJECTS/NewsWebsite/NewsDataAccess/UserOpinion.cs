@@ -13,5 +13,19 @@ namespace NewsEntities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public uint UserOpinionID { get; set; }
         public bool Like { get; set; }
+        public News News { get; set; }
+        public User Author { get; set; }
+
+        public UserOpinion()
+        {
+
+        }
+
+        public UserOpinion(News NewsForLikeOrDislike, User CurrentUser, bool LikeIt)
+        {
+            Like = LikeIt;
+            News = NewsForLikeOrDislike;
+            Author = CurrentUser;
+        }
     }
 }

@@ -10,8 +10,10 @@ namespace NewsDataAccess
 {
     public class NewsWebsiteContext : DbContext
     {
-        public DbSet<News> Students { get; set; }
-        public DbSet<User> Standards { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<UserOpinion> LikesAndDislikes { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public NewsWebsiteContext(string ConnectionStringName): base(ConnectionStringName)
         {

@@ -15,7 +15,18 @@ namespace NewsEntities
         public string Body{ get; set; }
         public DateTime Date{ get; set; }
         public bool HotNews { get; set; }
-        public ICollection<UserOpinion> LikesAndDislikes { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+
+        public News()
+        {
+
+        }
+
+        public News(DateTime NewsDate, string NewsHeader, string NewsBody, bool IsThisNewsHot)
+        {
+            Header = NewsHeader;
+            Body = NewsBody;
+            Date = NewsDate;
+            HotNews = IsThisNewsHot;
+        }
     }
 }
