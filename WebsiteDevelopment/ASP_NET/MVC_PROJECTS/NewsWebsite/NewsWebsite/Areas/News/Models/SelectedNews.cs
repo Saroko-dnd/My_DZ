@@ -10,8 +10,6 @@ namespace NewsWebsite.Areas.News.Models
     {
         private NewsDataAccess.News currentSelectedNews;
         private IEnumerable<Comment> commentsForSelectedNews;
-        private long likes;
-        private long dislikes;
         public NewsDataAccess.News CurrentSelectedNews
         {
             get
@@ -35,32 +33,6 @@ namespace NewsWebsite.Areas.News.Models
             set
             {
                 commentsForSelectedNews = value;
-            }
-        }
-
-        public long Likes
-        {
-            get
-            {
-                return likes;
-            }
-
-            set
-            {
-                likes = value;
-            }
-        }
-
-        public long Dislikes
-        {
-            get
-            {
-                return dislikes;
-            }
-
-            set
-            {
-                dislikes = value;
             }
         }
     }

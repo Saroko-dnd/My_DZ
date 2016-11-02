@@ -1,0 +1,26 @@
+﻿
+@using NewsDataAccess
+@model NewsDataAccess.Comment
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm(null, "Home", FormMethod.Post))
+{
+    <p>@Model.Author</p>
+    <p>@Model.Message</p>
+    int AmountOfLikes = Model.LikesAndDislikes.Where(CurrentUserOpinion => CurrentUserOpinion.Like == true).Count();
+    int AmountOfDislikes = Model.LikesAndDislikes.Where(CurrentUserOpinion => CurrentUserOpinion.Like == false).Count();
+    <div>
+        <p>@AmountOfLikes.ToString()</p>
+        <input type="image" src="~/Images/thumbs-up.png" border="0" alt="Submit" name="action:AddNewLike"/>
+    </div>
+    <div>
+        <p>@AmountOfDislikes.ToString()</p>
+        <input type="image" src="~/Images/thumbs-up.png" border="0" alt="Submit" name="action:AddNewDislike"/>
+    </div>
+}
+
+
+
+

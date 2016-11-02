@@ -9,5 +9,6 @@ namespace NewsWebsite.ClassesForNewsWebsite
     {
         public static readonly string ConnectionStringName = "NewsWebsiteDB_NewVersion";
         public static readonly string PathFromRouteToNewsPartialView = "~/Areas/News/Views/Shared/NewsPartial.cshtml";
+        public static readonly string PathFromRouteToCommentPartialView = "~/Areas/News/Views/Shared/CommentPartial.cshtml";
     }
 }

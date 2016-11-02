@@ -1,5 +1,7 @@
 ﻿
-@model NewsWebsite.Areas.News.Models.SelectedNews
+@using NewsDataAccess
+@using NewsWebsite.ClassesForNewsWebsite
+@model NewsDataAccess.News
 @{
     Layout = null;
 }
@@ -10,9 +12,20 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ShowSelectedNews</title>
+    <link href="~/CSS/Main.css" rel="stylesheet" />
+    <link href="~/CSS/News.css" rel="stylesheet" />
 </head>
 <body>
     <div> 
+        <div class="FlexColumnCenter">
+            @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, Model)
+        </div>
+        @foreach (Comment CurrentComment in Model.Comments)
+        {
+            <div>
+                @Html.Partial(ApplicationConstants.PathFromRouteToCommentPartialView, CurrentComment)
+            </div>
+        }
     </div>
 </body>
 </html>

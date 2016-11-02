@@ -18,11 +18,10 @@ namespace NewsWebsite.Areas.News.Controllers
             return View(CurrentPageWithListOfNews);
         }
 
-        public ActionResult ShowSelectedNews()
+        [HttpPost]
+        public ActionResult ShowSelectedNews(NewsDataAccess.News CurrentSelectedNews)
         {
-            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
-            PageWithListOfNews CurrentPageWithListOfNews = new PageWithListOfNews(CurrentAccessorToNewsWebsiteDBForMainPage.GetAllNews());
-            return View(CurrentPageWithListOfNews);
+            return View(CurrentSelectedNews);
         }
     }
 }

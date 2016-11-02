@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на More details.
+        /// </summary>
+        public static string ButtonDetailsAboutNews {
+            get {
+                return ResourceManager.GetString("ButtonDetailsAboutNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Latest news.
         /// </summary>
         public static string HeaderLatestNews {

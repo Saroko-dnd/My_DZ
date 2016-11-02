@@ -28,7 +28,10 @@
         @foreach (News CurrentNews in Model.TestListOfNews)
         {
             <div class="FlexColumnCenter">
-                @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, CurrentNews)
+                @using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post))
+                {
+                    @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, CurrentNews)
+                }
             </div>
         }
     </div>
