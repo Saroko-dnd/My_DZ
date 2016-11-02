@@ -17,7 +17,7 @@ namespace NewsDataAccess
         public long NewsID { get; set; }
         [ForeignKey("NewsID")]
         public News News { get; set; }
-        public long AuthorID { get; set; }
+        public long? AuthorID { get; set; }
         [ForeignKey("AuthorID")]
         public User Author { get; set; }
         public ICollection<UserOpinion> LikesAndDislikes { get; set; }
@@ -27,12 +27,12 @@ namespace NewsDataAccess
 
         }
 
-        public Comment(User CommentAuthor, News NewsToComment, string CommentBody)
+        public Comment(News CurrentNews, User CurrentUser, string CommentBody)
         {
-            Date = DateTime.Now;
+            News = CurrentNews;
+            Author = CurrentUser;
             Message = CommentBody;
-            News = NewsToComment;
-            Author = CommentAuthor;
+            Date = DateTime.Now;
         }
     }
 }
