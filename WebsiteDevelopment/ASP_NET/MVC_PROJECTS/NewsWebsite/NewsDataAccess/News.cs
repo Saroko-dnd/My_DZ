@@ -16,6 +16,7 @@ namespace NewsDataAccess
         public DateTime Date{ get; set; }
         public bool HotNews { get; set; }
         public bool Advertising { get; set; }
+        public ICollection<Comment> Comments { get; set; }
 
         public News()
         {

@@ -7,6 +7,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
 {
     public static class ApplicationConstants
     {
-        public static readonly string ConnectionStringName = "NewsWebsiteDB";
+        public static readonly string ConnectionStringName = "NewsWebsiteDB_NewVersion";
+        public static readonly string PathFromRouteToNewsPartialView = "~/Areas/News/Views/Shared/NewsPartial.cshtml";
     }
 }

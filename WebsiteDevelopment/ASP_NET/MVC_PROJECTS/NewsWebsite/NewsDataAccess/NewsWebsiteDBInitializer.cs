@@ -29,22 +29,30 @@ namespace NewsDataAccess
                 }
             }
 
-            int CounterForCreatingOfComments = 0;
             foreach (User CurrentUser in Context.Users)
             {
                 foreach (News CurrentNews in Context.News)
                 {
-                    Context.Comments.Add(new Comment(CurrentUser, CurrentNews, "This is comment"));
-                    if (CounterForCreatingOfComments == 1)
+                    CurrentNews.Comments.Add(new Comment(CurrentUser, CurrentNews, "This is comment"));
+                }
+            }
+
+            int SecondCounterOfUsers;
+            foreach (Comment CurrentComment in Context.Comments)
+            {
+                SecondCounterOfUsers = 0;
+                foreach (User CurrentUser in Context.Users.Where(FoundUser => FoundUser != CurrentComment.Author))
+                {
+                    if ((SecondCounterOfUsers % 2) == 0)
                     {
-                        Context.LikesAndDislikes.Add(new UserOpinion(CurrentNews, CurrentUser, false));
+                        Context.LikesAndDislikes.Add(new UserOpinion(CurrentComment, CurrentUser, true));
                     }
                     else
                     {
-                        Context.LikesAndDislikes.Add(new UserOpinion(CurrentNews, CurrentUser, true));
+                        Context.LikesAndDislikes.Add(new UserOpinion(CurrentComment, CurrentUser, false));
                     }
+                    ++SecondCounterOfUsers;
                 }
-                ++CounterForCreatingOfComments;
             }
 
             base.Seed(Context);

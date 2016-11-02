@@ -17,7 +17,7 @@ namespace NewsWebsite.Areas.News
             context.MapRoute(
                 "News_default",
                 "News/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller = "News", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

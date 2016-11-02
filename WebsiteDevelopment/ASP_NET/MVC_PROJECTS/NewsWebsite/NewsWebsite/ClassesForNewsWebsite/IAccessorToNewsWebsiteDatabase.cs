@@ -8,6 +8,8 @@ namespace NewsWebsite.ClassesForNewsWebsite
 {
     public interface IAccessorToNewsWebsiteDatabase
     {
-        IEnumerable<News> GetImportantNews();
+        IEnumerable<News> GetHotNews();
+        IEnumerable<News> GetAllNews();
+        IEnumerable<Comment> GetAllCommentsForNews(News SelectedNews);
     }
 }

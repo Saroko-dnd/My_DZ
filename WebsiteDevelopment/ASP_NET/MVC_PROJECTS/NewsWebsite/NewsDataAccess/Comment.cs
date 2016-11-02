@@ -14,8 +14,13 @@ namespace NewsDataAccess
         public long CommentID { get; set; }
         public string Message{ get; set; }
         public DateTime Date{ get; set; }
+        public long NewsID { get; set; }
+        [ForeignKey("NewsID")]
         public News News { get; set; }
+        public long AuthorID { get; set; }
+        [ForeignKey("AuthorID")]
         public User Author { get; set; }
+        public ICollection<UserOpinion> LikesAndDislikes { get; set; }
 
         public Comment()
         {

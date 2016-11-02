@@ -1,4 +1,6 @@
 ﻿
+@using NewsWebsite.ClassesForNewsWebsite
+@using NewsDataAccess
 @model NewsWebsite.Areas.News.Models.PageWithListOfNews
 
 @{
@@ -11,13 +13,19 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="~/CSS/Main.css" rel="stylesheet" />
+    <link href="~/CSS/News.css" rel="stylesheet" />
 </head>
 <body>
     <div> 
-        <p>News list</p>
-        @foreach (NewsDataAccess.News CurrentNews in Model.AllNews)
+        <div class="FlexColumnCenter">
+            <p class="HeaderForMainPage">@Resources.Texts.HeaderNews</p>
+        </div>
+        @foreach (News CurrentNews in Model.AllNews)
         {
-            
+            <div class="FlexColumnCenter">
+                @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, CurrentNews)
+            </div>
         }
     </div>
 </body>

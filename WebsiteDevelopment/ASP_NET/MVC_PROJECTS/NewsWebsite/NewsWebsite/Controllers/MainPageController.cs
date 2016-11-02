@@ -16,7 +16,7 @@ namespace NewsWebsite.Controllers
         {
             TestClassWithWebsiteData TestDataObject = new TestClassWithWebsiteData();
             AccessorToNewsWebsiteDBForMainPage TestObjectForGettingData = new AccessorToNewsWebsiteDBForMainPage();
-            TestDataObject.TestListOfNews = TestObjectForGettingData.GetImportantNews();
+            TestDataObject.TestListOfNews = TestObjectForGettingData.GetHotNews();
             return View(TestDataObject);
         }
     }

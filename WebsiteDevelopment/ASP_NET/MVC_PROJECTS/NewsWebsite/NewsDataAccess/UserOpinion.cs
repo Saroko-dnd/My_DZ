@@ -13,7 +13,11 @@ namespace NewsDataAccess
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long UserOpinionID { get; set; }
         public bool Like { get; set; }
-        public News News { get; set; }
+        public long CommentID { get; set; }
+        [ForeignKey("CommentID")]
+        public Comment Comment { get; set; }
+        public long UserID { get; set; }
+        [ForeignKey("UserID")]
         public User Author { get; set; }
 
         public UserOpinion()
@@ -21,10 +25,10 @@ namespace NewsDataAccess
 
         }
 
-        public UserOpinion(News NewsForLikeOrDislike, User CurrentUser, bool LikeIt)
+        public UserOpinion(Comment CommentForLikeOrDislike, User CurrentUser, bool LikeIt)
         {
             Like = LikeIt;
-            News = NewsForLikeOrDislike;
+            Comment = CommentForLikeOrDislike;
             Author = CurrentUser;
         }
     }

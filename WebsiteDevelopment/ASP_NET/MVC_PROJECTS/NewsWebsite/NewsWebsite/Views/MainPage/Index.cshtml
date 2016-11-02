@@ -1,4 +1,5 @@
 ﻿
+@using NewsWebsite.ClassesForNewsWebsite
 @using NewsDataAccess
 @model NewsWebsite.Models.TestClassWithWebsiteData
 
@@ -13,22 +14,22 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link href="~/CSS/Main.css" rel="stylesheet"/>
-    <link href="~/CSS/MainPage.css" rel="stylesheet"/>
+    <link href="~/CSS/News.css" rel="stylesheet"/>
 </head>
 <body>
     <div>
+        
         <div class="FlexColumnCenter">
-            <p class="HeaderForMainPage">@Resources.Texts.PLatestNews</p>
+            <p class="HeaderForMainPage">@Resources.Texts.HeaderLatestNews</p>
+            <div class="DivWithDisguisedLink">
+                @Html.ActionLink(Resources.Texts.LinkToAllNews, "Index", new { area = "News", controller = "News" })
+            </div>
         </div>
         @foreach (News CurrentNews in Model.TestListOfNews)
         {
-            <div class="DivWithNewsHeaderOrFooter FlexColumnCenter">
-                <p>@CurrentNews.Header</p>
+            <div class="FlexColumnCenter">
+                @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, CurrentNews)
             </div>
-            <p>@CurrentNews.Body</p>
-            <div class="DivWithNewsHeaderOrFooter FlexColumnCenter">
-                <p>@CurrentNews.Date.ToString()</p>
-            </div>       
         }
     </div>
 </body>

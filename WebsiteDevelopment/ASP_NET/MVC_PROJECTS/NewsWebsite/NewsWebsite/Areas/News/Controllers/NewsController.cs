@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NewsWebsite.Areas.News.Models;
+using NewsWebsite.ClassesForNewsWebsite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,16 @@ namespace NewsWebsite.Areas.News.Controllers
         // GET: News/News
         public ActionResult Index()
         {
-            return View();
+            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
+            PageWithListOfNews CurrentPageWithListOfNews = new PageWithListOfNews(CurrentAccessorToNewsWebsiteDBForMainPage.GetAllNews());
+            return View(CurrentPageWithListOfNews);
+        }
+
+        public ActionResult ShowSelectedNews()
+        {
+            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
+            PageWithListOfNews CurrentPageWithListOfNews = new PageWithListOfNews(CurrentAccessorToNewsWebsiteDBForMainPage.GetAllNews());
+            return View(CurrentPageWithListOfNews);
         }
     }
 }
