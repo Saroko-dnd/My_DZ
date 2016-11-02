@@ -16,9 +16,10 @@
     <link href="~/CSS/News.css" rel="stylesheet" />
 </head>
 <body>
-    <div> 
+    <div class="FlexColumnCenter"> 
+        @Html.ActionLink(Resources.Texts.LinkBackToAllNews, "Index", new { controller="News", area="News" });
         <div class="FlexColumnCenter">
-            @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, Model)
+            @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(Model) { Selected = true })
         </div>
         @foreach (Comment CurrentComment in Model.Comments)
         {

@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\News\Controllers\NewsController.cs" />
     <Compile Include="Areas\News\Models\PageWithListOfNews.cs" />
     <Compile Include="Areas\News\Models\SelectedNews.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="ClassesForNewsWebsite\AccessorToNewsWebsiteDBForMainPage.cs" />
     <Compile Include="ClassesForNewsWebsite\IAccessorToNewsWebsiteDatabase.cs" />
     <Compile Include="ClassesForNewsWebsite\ApplicationConstants.cs" />
+    <Compile Include="ClassesForNewsWebsite\NewsForPartialView.cs" />
     <Compile Include="Models\TestClassWithWebsiteData.cs" />
     <Compile Include="Controllers\MainPageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -127,6 +129,9 @@
     <Content Include="Areas\News\Views\Shared\NewsPartial.cshtml" />
     <Content Include="Areas\News\Views\News\ShowSelectedNews.cshtml" />
     <Content Include="Areas\News\Views\Shared\CommentPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\MenuForCreationgNews.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\NewsEditor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -139,9 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\News\Classes\" />
     <Folder Include="Images\" />
   </ItemGroup>

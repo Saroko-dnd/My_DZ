@@ -17,8 +17,7 @@
     <link href="~/CSS/News.css" rel="stylesheet"/>
 </head>
 <body>
-    <div>
-        
+    <div> 
         <div class="FlexColumnCenter">
             <p class="HeaderForMainPage">@Resources.Texts.HeaderLatestNews</p>
             <div class="DivWithDisguisedLink">
@@ -28,10 +27,7 @@
         @foreach (News CurrentNews in Model.TestListOfNews)
         {
             <div class="FlexColumnCenter">
-                @using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post))
-                {
-                    @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, CurrentNews)
-                }
+                    @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(CurrentNews))               
             </div>
         }
     </div>

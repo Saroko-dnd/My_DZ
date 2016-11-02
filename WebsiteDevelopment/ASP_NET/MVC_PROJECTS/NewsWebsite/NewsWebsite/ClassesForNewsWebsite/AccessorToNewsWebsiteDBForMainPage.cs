@@ -4,11 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace NewsWebsite.ClassesForNewsWebsite
 {
     public class AccessorToNewsWebsiteDBForMainPage : IAccessorToNewsWebsiteDatabase
-    {
+    {      
         public IEnumerable<Comment> GetAllCommentsForNews(News SelectedNews)
         {
             List<Comment> ListOfComments;
@@ -27,6 +28,17 @@ namespace NewsWebsite.ClassesForNewsWebsite
                 NewsList = TestDBContext.News.ToList();
             }
             return NewsList;
+        }
+
+        public News GetNewsByID(long NewsIDForSearch)
+        {
+            News FoundNews = null;
+            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            {
+                FoundNews = TestDBContext.News.Where(CurNews => CurNews.NewsID == NewsIDForSearch).FirstOrDefault();
+                FoundNews.Comments = TestDBContext.Comments.Where(CurComment => CurComment.NewsID == FoundNews.NewsID).Include(FoundComment => FoundComment.LikesAndDislikes).ToList();
+            }
+            return FoundNews;
         }
 
         public IEnumerable<News> GetHotNews()

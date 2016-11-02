@@ -19,9 +19,10 @@ namespace NewsWebsite.Areas.News.Controllers
         }
 
         [HttpPost]
-        public ActionResult ShowSelectedNews(NewsDataAccess.News CurrentSelectedNews)
+        public ActionResult ShowSelectedNews(long SelectedNewsID)
         {
-            return View(CurrentSelectedNews);
+            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
+            return View(CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByID(SelectedNewsID));
         }
     }
 }

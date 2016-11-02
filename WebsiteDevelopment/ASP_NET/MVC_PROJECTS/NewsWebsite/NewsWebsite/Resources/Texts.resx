@@ -120,11 +120,26 @@
   <data name="ButtonDetailsAboutNews" xml:space="preserve">
     <value>More details</value>
   </data>
+  <data name="EditorForNews_Advertising" xml:space="preserve">
+    <value>Advertising:</value>
+  </data>
+  <data name="EditorForNews_Body" xml:space="preserve">
+    <value>Body:</value>
+  </data>
+  <data name="EditorForNews_Header" xml:space="preserve">
+    <value>Header:</value>
+  </data>
+  <data name="EditorForNews_HotNews" xml:space="preserve">
+    <value>Hot news:</value>
+  </data>
   <data name="HeaderLatestNews" xml:space="preserve">
     <value>Latest news</value>
   </data>
   <data name="HeaderNews" xml:space="preserve">
     <value>News</value>
+  </data>
+  <data name="LinkBackToAllNews" xml:space="preserve">
+    <value>Back to all news</value>
   </data>
   <data name="LinkToAllNews" xml:space="preserve">
     <value>View all news</value>

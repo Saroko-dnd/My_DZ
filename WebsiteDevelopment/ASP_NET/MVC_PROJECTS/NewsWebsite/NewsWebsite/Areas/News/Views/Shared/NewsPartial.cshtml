@@ -1,18 +1,26 @@
 ﻿
-@model NewsDataAccess.News
+@model NewsWebsite.ClassesForNewsWebsite.NewsForPartialView
 
 @{
     Layout = null;
 }
 
-<div>
-    <p>@Model.Header</p>
-    <input type="submit" value="@Resources.Texts.ButtonDetailsAboutNews" />
-</div>
-<p>@Model.Body</p>
-<div>
-    <p>@Model.Date.ToString()</p>
-</div>
+@using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post))
+{
+    <div>
+        <p>@Model.Header</p>
+        @if (!Model.Selected)
+        {
+            <input type="submit" value="@Resources.Texts.ButtonDetailsAboutNews" />
+        }
+        <input type="hidden" value="@Model.NewsID" name="SelectedNewsID" />
+    </div>
+    <p>@Model.Body</p>
+    <div>
+        <p>@Model.Date.ToString()</p>
+    </div>
+}
+
 
 
 

@@ -24,7 +24,7 @@
         @foreach (News CurrentNews in Model.AllNews)
         {
             <div class="FlexColumnCenter">
-                @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, CurrentNews)
+                @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(CurrentNews))
             </div>
         }
     </div>

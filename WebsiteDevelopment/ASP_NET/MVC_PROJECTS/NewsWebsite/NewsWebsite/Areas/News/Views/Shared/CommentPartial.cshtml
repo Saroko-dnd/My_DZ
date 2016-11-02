@@ -13,11 +13,11 @@
     int AmountOfDislikes = Model.LikesAndDislikes.Where(CurrentUserOpinion => CurrentUserOpinion.Like == false).Count();
     <div>
         <p>@AmountOfLikes.ToString()</p>
-        <input type="image" src="~/Images/thumbs-up.png" border="0" alt="Submit" name="action:AddNewLike"/>
+        <input type="image" src="~/Images/small_thumbs-up.png" border="0" alt="Submit" name="action:AddNewLike"/>
     </div>
     <div>
         <p>@AmountOfDislikes.ToString()</p>
-        <input type="image" src="~/Images/thumbs-up.png" border="0" alt="Submit" name="action:AddNewDislike"/>
+        <input type="image" src="~/Images/small_thumbs-down.png" border="0" alt="Submit" name="action:AddNewDislike" />
     </div>
 }
 
