@@ -124,6 +124,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на This page is for print.
+        /// </summary>
+        public static string HeaderPrintVersion {
+            get {
+                return ResourceManager.GetString("HeaderPrintVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Back to admin home page.
+        /// </summary>
+        public static string LinkBackToAdminMainPage {
+            get {
+                return ResourceManager.GetString("LinkBackToAdminMainPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Back to all news.
         /// </summary>
         public static string LinkBackToAllNews {
@@ -138,6 +156,24 @@ namespace Resources {
         public static string LinkBackToHomePage {
             get {
                 return ResourceManager.GetString("LinkBackToHomePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Site home page.
+        /// </summary>
+        public static string LinkBackToSiteHomePage {
+            get {
+                return ResourceManager.GetString("LinkBackToSiteHomePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на View this news as usual.
+        /// </summary>
+        public static string LinkBackToUsualViewFromPrintView {
+            get {
+                return ResourceManager.GetString("LinkBackToUsualViewFromPrintView", resourceCulture);
             }
         }
         

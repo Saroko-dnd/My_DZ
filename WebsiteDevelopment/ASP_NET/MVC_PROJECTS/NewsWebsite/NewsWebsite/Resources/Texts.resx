@@ -138,11 +138,23 @@
   <data name="HeaderNews" xml:space="preserve">
     <value>News</value>
   </data>
+  <data name="HeaderPrintVersion" xml:space="preserve">
+    <value>This page is for print</value>
+  </data>
+  <data name="LinkBackToAdminMainPage" xml:space="preserve">
+    <value>Back to admin home page</value>
+  </data>
   <data name="LinkBackToAllNews" xml:space="preserve">
     <value>Back to all news</value>
   </data>
   <data name="LinkBackToHomePage" xml:space="preserve">
     <value>To home page</value>
+  </data>
+  <data name="LinkBackToSiteHomePage" xml:space="preserve">
+    <value>Site home page</value>
+  </data>
+  <data name="LinkBackToUsualViewFromPrintView" xml:space="preserve">
+    <value>View this news as usual</value>
   </data>
   <data name="LinkCreateNews" xml:space="preserve">
     <value>Create news</value>

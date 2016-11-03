@@ -25,5 +25,12 @@ namespace NewsWebsite.Areas.News.Controllers
             AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
             return View(CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByID(SelectedNewsID));
         }
+
+        [HttpPost]
+        public ActionResult ShowNewsPrintVersion(long SelectedNewsID)
+        {
+            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
+            return View(CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByID(SelectedNewsID));
+        }
     }
 }

@@ -10,10 +10,11 @@ namespace NewsWebsite.ClassesForNewsWebsite
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            string UserWantPrintPage = filterContext.Controller.ValueProvider.GetValue("NewsPrintVersion").AttemptedValue;
-            if (UserWantPrintPage == Resources.Texts.LinkToPrintVersion)
+            ValueProviderResult FoundValue = filterContext.Controller.ValueProvider.GetValue("NewsPrintVersion");
+            if (FoundValue != null && FoundValue.AttemptedValue == Resources.Texts.LinkToPrintVersion)
             {
-                filterContext.RouteData.Values["action"] = "Index";
+                filterContext.RouteData.Values["action"] = "ShowNewsPrintVersion";
+                filterContext.RouteData.Values["controller"] = "News";
             }
         }
     }

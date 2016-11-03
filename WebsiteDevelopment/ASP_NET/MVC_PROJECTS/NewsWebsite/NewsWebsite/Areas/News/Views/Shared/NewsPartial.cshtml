@@ -13,8 +13,15 @@
         {
             <input type="submit" value="@Resources.Texts.ButtonDetailsAboutNews" />
         }
+        @if (Model.PrintView)
+        {
+            <input type="submit" value="@Resources.Texts.LinkBackToUsualViewFromPrintView" />
+        }
+        else
+        {
+            <input type="submit" value="@Resources.Texts.LinkToPrintVersion" name="NewsPrintVersion" />
+        }
         <input type="hidden" value="@Model.NewsID" name="SelectedNewsID" />
-        <input type="submit" value="@Resources.Texts.LinkToPrintVersion" name="NewsPrintVersion" />
     </div>
     <p>@Model.Body</p>
     <div>

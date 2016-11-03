@@ -1,0 +1,24 @@
+﻿
+@using NewsWebsite.ClassesForNewsWebsite
+@model NewsDataAccess.News
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ShowNewsPrintVersion</title>
+    <link href="~/CSS/Main.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="FlexColumnCenter BigText" >
+        <h1>@Resources.Texts.HeaderPrintVersion</h1>
+        <div>
+            @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(Model) { Selected = true, PrintView = true })
+        </div>
+    </div>
+</body>
+</html>

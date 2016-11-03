@@ -14,3 +14,14 @@
 {
 
 }
+
+.HalfWidth
+{
+    width:50%;
+}
+
+.BigText
+{
+    font-size:20px;
+    font-weight:bold;
+}

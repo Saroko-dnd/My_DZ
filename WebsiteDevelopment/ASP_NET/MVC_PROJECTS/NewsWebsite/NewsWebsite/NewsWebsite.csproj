@@ -135,6 +135,7 @@
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\MenuForCreationgNews.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\NewsForEditInEditorTemplate.cshtml" />
+    <Content Include="Areas\News\Views\News\ShowNewsPrintVersion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
