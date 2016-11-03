@@ -1,6 +1,6 @@
 ﻿
 @using NewsWebsite.ClassesForNewsWebsite 
-@model NewsWebsite.Areas.Admin.Models.ModelForNewsCreationMenu
+@model NewsWebsite.Areas.Admin.Models.NewsForEditInEditorTemplateModel
 @{
     Layout = null;
 }
@@ -16,7 +16,7 @@
 <body>
     <div>
         @Html.ActionLink(Resources.Texts.LinkBackToAdminMainPage, "Index", new { controller = "Admin", area = "Admin" })
-        @Html.EditorFor(m => m.CurrentNews)
+        @Html.EditorFor(m => m)
     </div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 ﻿using NewsWebsite.Areas.Admin.Models;
+using NewsWebsite.ClassesForNewsWebsite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,15 @@ namespace NewsWebsite.Areas.Admin.Controllers
 
         public ActionResult MenuForCreationgNews()
         {
-            ModelForNewsCreationMenu CurrentModelForNewsCreationMenu = new ModelForNewsCreationMenu();
-            CurrentModelForNewsCreationMenu.CurrentNews = new ClassesForNewsWebsite.NewsForEditInEditorTemplate();
-            return View(CurrentModelForNewsCreationMenu);
+            return View(new NewsForEditInEditorTemplateModel());
+        }
+
+        [HttpPost]
+        public ActionResult AddNewNewsToDatabase(NewsForEditInEditorTemplateModel CreatedNews)
+        {
+            AccessorToNewsWebsiteDBForMainPage TestObjectForGettingData = new AccessorToNewsWebsiteDBForMainPage();
+            TestObjectForGettingData.AddNewNews(CreatedNews.GetPureNews());
+            return RedirectToAction("Index", new { controller = "Admin", area = "Admin" });
         }
     }
 }

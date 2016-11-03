@@ -7,7 +7,7 @@
 
 @using (Html.BeginForm(null, "Home", FormMethod.Post))
 {
-    <p>@Model.Author</p>
+    <p>@Model.Author.UserName</p>
     <p>@Model.Message</p>
     int AmountOfLikes = Model.LikesAndDislikes.Where(CurrentUserOpinion => CurrentUserOpinion.Like == true).Count();
     int AmountOfDislikes = Model.LikesAndDislikes.Where(CurrentUserOpinion => CurrentUserOpinion.Like == false).Count();

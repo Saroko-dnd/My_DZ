@@ -36,7 +36,8 @@ namespace NewsWebsite.ClassesForNewsWebsite
             using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
             {
                 FoundNews = TestDBContext.News.Where(CurNews => CurNews.NewsID == NewsIDForSearch).FirstOrDefault();
-                FoundNews.Comments = TestDBContext.Comments.Where(CurComment => CurComment.NewsID == FoundNews.NewsID).Include(FoundComment => FoundComment.LikesAndDislikes).ToList();
+                FoundNews.Comments = TestDBContext.Comments.Where(CurComment => CurComment.NewsID == FoundNews.NewsID).Include(FoundComment => FoundComment.LikesAndDislikes).
+                    Include(ResComment => ResComment.Author).ToList();       
             }
             return FoundNews;
         }
@@ -49,6 +50,17 @@ namespace NewsWebsite.ClassesForNewsWebsite
                 CurrentCollectionOfImportantNews = TestDBContext.News.Where(CurrentNews => CurrentNews.HotNews == true).ToList();
             }
             return CurrentCollectionOfImportantNews;
+        }
+
+
+        public void AddNewNews(News NewNews)
+        {
+            NewNews.Date = DateTime.Now;
+            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            {
+                TestDBContext.News.Add(NewNews);
+                TestDBContext.SaveChanges();
+            }
         }
     }
 }

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace NewsWebsite.ClassesForNewsWebsite
+namespace NewsWebsite.Areas.Admin.Models
 {
-    public class NewsForEditInEditorTemplate : News
+    public class NewsForEditInEditorTemplateModel : NewsDataAccess.News
     {
         private NewsTypes currentTypeOfNews;
 
@@ -26,7 +26,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
 
         public enum NewsTypes : int { Science, Politics, Games, Sport, Business };
 
-        public NewsForEditInEditorTemplate(News BaseNewsData)
+        public NewsForEditInEditorTemplateModel(NewsDataAccess.News BaseNewsData)
         {
             CurrentTypeOfNews = (NewsTypes)BaseNewsData.Type;
             Date = BaseNewsData.Date;
@@ -37,7 +37,12 @@ namespace NewsWebsite.ClassesForNewsWebsite
             Body = BaseNewsData.Body;
         }
 
-        public NewsForEditInEditorTemplate()
+        public NewsDataAccess.News GetPureNews()
+        {
+            return new NewsDataAccess.News(Date, Header, Body, HotNews, (int)CurrentTypeOfNews);
+        }
+
+        public NewsForEditInEditorTemplateModel()
         {
 
         }

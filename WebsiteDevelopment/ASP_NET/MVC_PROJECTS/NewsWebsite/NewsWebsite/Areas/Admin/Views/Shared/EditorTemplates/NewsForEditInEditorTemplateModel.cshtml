@@ -1,0 +1,22 @@
+﻿
+@using NewsWebsite.ClassesForNewsWebsite
+@model NewsWebsite.Areas.Admin.Models.NewsForEditInEditorTemplateModel
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm(new { controller = "Admin", area = "Admin", action = "AddNewNewsToDatabase" }))
+{
+    <p>@Resources.Texts.EditorForNews_Header</p>
+    <input type="text" name="Header" />
+    <p>@Resources.Texts.EditorForNews_Body</p>
+    <textarea name="Body"></textarea>
+    <p>@Resources.Texts.EditorForNews_HotNews</p>
+    @*@<input type="checkbox" name="HotNews" />*@
+    <input id="HotNews" type="checkbox" value="true" name="HotNews" />
+    <input type="hidden" value="false" name="HotNews" />
+    <p>@Resources.Texts.EditorForNews_NewsType</p>
+    @Html.EnumDropDownListFor(m => m.CurrentTypeOfNews)
+    @*@Html.DropDownList("CurrentTypeOfNews", EnumHelper.GetSelectList(typeof(NewsWebsite.ClassesForNewsWebsite.NewsForEditInEditorTemplate.NewsTypes)), "LabelDDD", new { name = "CurrentTypeOfNews" })*@
+    <input type="submit" name="Save" value="@Resources.Texts.ButtonCreateNews" />
+}

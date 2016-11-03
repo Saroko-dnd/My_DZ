@@ -93,13 +93,14 @@
     <Content Include="CSS\Main.css" />
     <Content Include="CSS\News.css" />
     <Content Include="Global.asax" />
+    <Content Include="jquery.inlineedit.js" />
+    <Content Include="JS\jquery.inlineedit.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
-    <Compile Include="Areas\Admin\Models\ModelForNewsCreationMenu.cs" />
     <Compile Include="Areas\News\Controllers\NewsController.cs" />
     <Compile Include="Areas\News\Models\PageWithListOfNews.cs" />
     <Compile Include="Areas\News\Models\SelectedNews.cs" />
@@ -107,7 +108,7 @@
     <Compile Include="ClassesForNewsWebsite\AccessorToNewsWebsiteDBForMainPage.cs" />
     <Compile Include="ClassesForNewsWebsite\IAccessorToNewsWebsiteDatabase.cs" />
     <Compile Include="ClassesForNewsWebsite\ApplicationConstants.cs" />
-    <Compile Include="ClassesForNewsWebsite\NewsForEditInEditorTemplate.cs" />
+    <Compile Include="Areas\Admin\Models\NewsForEditInEditorTemplateModel.cs" />
     <Compile Include="ClassesForNewsWebsite\NewsForPartialView.cs" />
     <Compile Include="ClassesForNewsWebsite\PrintPageFilter.cs" />
     <Compile Include="Models\TestClassWithWebsiteData.cs" />
@@ -134,7 +135,7 @@
     <Content Include="Areas\News\Views\Shared\CommentPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\MenuForCreationgNews.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\NewsForEditInEditorTemplate.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\NewsForEditInEditorTemplateModel.cshtml" />
     <Content Include="Areas\News\Views\News\ShowNewsPrintVersion.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
