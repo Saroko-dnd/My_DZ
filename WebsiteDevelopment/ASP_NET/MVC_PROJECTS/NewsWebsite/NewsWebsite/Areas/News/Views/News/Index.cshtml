@@ -19,6 +19,7 @@
 <body>
     <div> 
         <div class="FlexColumnCenter">
+            @Html.ActionLink(Resources.Texts.LinkBackToHomePage, "Index", new { controller = "MainPage", area = "" });
             <p class="HeaderForMainPage">@Resources.Texts.HeaderNews</p>
         </div>
         @foreach (News CurrentNews in Model.AllNews)

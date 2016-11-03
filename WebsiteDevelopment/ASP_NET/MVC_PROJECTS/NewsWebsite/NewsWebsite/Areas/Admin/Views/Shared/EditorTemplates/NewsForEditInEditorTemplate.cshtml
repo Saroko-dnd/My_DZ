@@ -1,6 +1,6 @@
 ﻿
 @using NewsWebsite.ClassesForNewsWebsite
-@model NewsDataAccess.News
+@model NewsWebsite.ClassesForNewsWebsite.NewsForEditInEditorTemplate
 @{
     Layout = null;
 }
@@ -11,5 +11,5 @@
 <textarea name="Body"></textarea>
 <p>@Resources.Texts.EditorForNews_HotNews</p>
 <input type="checkbox" name="HotNews" />
-<p>@Resources.Texts.EditorForNews_Advertising</p>
-@Html.EnumDropDownListFor(m => )
+<p>@Resources.Texts.EditorForNews_NewsType</p>
+@Html.EnumDropDownListFor(m => m.CurrentTypeOfNews)

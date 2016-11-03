@@ -19,7 +19,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
         public NewsForPartialView(News BaseNewsData)
         {
             Date = BaseNewsData.Date;
-            Advertising = BaseNewsData.Advertising;
+            Type = BaseNewsData.Type;
             Comments = BaseNewsData.Comments;
             HotNews = BaseNewsData.HotNews;
             NewsID = BaseNewsData.NewsID;

@@ -1,4 +1,6 @@
 ﻿
+@using NewsWebsite.ClassesForNewsWebsite 
+@model NewsWebsite.Areas.Admin.Models.ModelForNewsCreationMenu
 @{
     Layout = null;
 }
@@ -11,8 +13,8 @@
     <title>MenuForCreationgNews</title>
 </head>
 <body>
-    <div> 
-
+    <div>
+        @Html.EditorFor(m => m.CurrentNews)
     </div>
 </body>
 </html>

@@ -15,7 +15,7 @@ namespace NewsDataAccess
         public string Body{ get; set; }
         public DateTime Date{ get; set; }
         public bool HotNews { get; set; }
-        public bool Advertising { get; set; }
+        public int Type { get; set; }
         public ICollection<Comment> Comments { get; set; }
 
         public News()
@@ -23,13 +23,13 @@ namespace NewsDataAccess
 
         }
 
-        public News(DateTime NewsDate, string NewsHeader, string NewsBody, bool IsThisNewsHot, bool ThisIsAdvertising)
+        public News(DateTime NewsDate, string NewsHeader, string NewsBody, bool IsThisNewsHot, int NewsType)
         {
             Header = NewsHeader;
             Body = NewsBody;
             Date = NewsDate;
             HotNews = IsThisNewsHot;
-            Advertising = ThisIsAdvertising;
+            Type = NewsType;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NewsWebsite.Areas.Admin.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,9 @@ namespace NewsWebsite.Areas.Admin.Controllers
 
         public ActionResult MenuForCreationgNews()
         {
-            return View();
+            ModelForNewsCreationMenu CurrentModelForNewsCreationMenu = new ModelForNewsCreationMenu();
+            CurrentModelForNewsCreationMenu.CurrentNews = new ClassesForNewsWebsite.NewsForEditInEditorTemplate();
+            return View(CurrentModelForNewsCreationMenu);
         }
     }
 }

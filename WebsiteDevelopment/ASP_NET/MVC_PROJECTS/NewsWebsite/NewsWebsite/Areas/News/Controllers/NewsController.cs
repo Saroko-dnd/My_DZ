@@ -19,6 +19,7 @@ namespace NewsWebsite.Areas.News.Controllers
         }
 
         [HttpPost]
+        [PrintPageFilter]
         public ActionResult ShowSelectedNews(long SelectedNewsID)
         {
             AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();

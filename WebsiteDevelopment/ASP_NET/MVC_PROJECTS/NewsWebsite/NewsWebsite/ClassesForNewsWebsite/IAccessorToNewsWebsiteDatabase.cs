@@ -11,5 +11,6 @@ namespace NewsWebsite.ClassesForNewsWebsite
         IEnumerable<News> GetHotNews();
         IEnumerable<News> GetAllNews();
         IEnumerable<Comment> GetAllCommentsForNews(News SelectedNews);
+        News GetNewsByID(long NewsIDForSearch);
     }
 }
