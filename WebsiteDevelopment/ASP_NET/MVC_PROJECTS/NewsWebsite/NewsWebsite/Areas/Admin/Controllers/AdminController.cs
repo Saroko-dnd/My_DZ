@@ -16,6 +16,11 @@ namespace NewsWebsite.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult TestAction(string id, string name)
+        {
+            return RedirectToAction("Index", new { controller = "Admin", area = "Admin" });
+        }
+
         public ActionResult MenuForCreationgNews()
         {
             return View(new NewsForEditInEditorTemplateModel());

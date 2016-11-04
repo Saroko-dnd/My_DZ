@@ -94,7 +94,9 @@
     <Content Include="CSS\News.css" />
     <Content Include="Global.asax" />
     <Content Include="jquery.inlineedit.js" />
+    <Content Include="JS\EditableNews.js" />
     <Content Include="JS\jquery.inlineedit.js" />
+    <Content Include="JS\jquery.jeditable.mini.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

@@ -11,10 +11,18 @@ namespace NewsWebsite.Areas.News.Controllers
     public class NewsController : Controller
     {
         // GET: News/News
-        public ActionResult Index()
+        public ActionResult Index(bool? EditingEnabled)
         {
             AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
             PageWithListOfNews CurrentPageWithListOfNews = new PageWithListOfNews(CurrentAccessorToNewsWebsiteDBForMainPage.GetAllNews());
+            if (EditingEnabled == true)
+            {
+                CurrentPageWithListOfNews.AdminIsHere = true;
+            }
+            else
+            {
+                CurrentPageWithListOfNews.AdminIsHere = false;
+            }
             return View(CurrentPageWithListOfNews);
         }
 

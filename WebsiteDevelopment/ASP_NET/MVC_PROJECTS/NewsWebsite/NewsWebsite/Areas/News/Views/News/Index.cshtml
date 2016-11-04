@@ -15,6 +15,12 @@
     <title>Index</title>
     <link href="~/CSS/Main.css" rel="stylesheet" />
     <link href="~/CSS/News.css" rel="stylesheet" />
+    @if (Model.AdminIsHere)
+    {
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="~/JS/jquery.jeditable.mini.js"></script>
+        <script type="text/javascript" src="~/JS/EditableNews.js"></script>
+    }
 </head>
 <body>
     <div> 

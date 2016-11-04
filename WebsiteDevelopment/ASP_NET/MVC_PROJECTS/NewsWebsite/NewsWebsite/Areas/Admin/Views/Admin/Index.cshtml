@@ -13,7 +13,8 @@
 <body>
     <div> 
        @Html.ActionLink(@Resources.Texts.LinkCreateNews, "MenuForCreationgNews", new { controller="Admin", area="Admin" }) 
-       @Html.ActionLink(@Resources.Texts.LinkBackToSiteHomePage, "Index", new { controller = "MainPage", area = "" })        
+       @Html.ActionLink(@Resources.Texts.LinkBackToSiteHomePage, "Index", new { controller = "MainPage", area = "" }) 
+       @Html.ActionLink(@Resources.Texts.LinkToAllNewsForAdmin, "Index", new { controller = "News", area = "News", EditingEnabled = true })          
     </div>
 </body>
 </html>

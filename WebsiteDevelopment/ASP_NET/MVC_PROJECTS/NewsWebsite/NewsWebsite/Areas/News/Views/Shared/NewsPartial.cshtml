@@ -7,8 +7,8 @@
 
 @using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post))
 {
+    <span class="editable">@Model.Header</span>
     <div>
-        <p>@Model.Header</p>
         @if (!Model.Selected)
         {
             <input type="submit" value="@Resources.Texts.ButtonDetailsAboutNews" />
@@ -23,7 +23,7 @@
         }
         <input type="hidden" value="@Model.NewsID" name="SelectedNewsID" />
     </div>
-    <p>@Model.Body</p>
+    <span class="editable">@Model.Body</span>
     <div>
         <p>@Model.Date.ToString()</p>
     </div>

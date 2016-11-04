@@ -168,6 +168,9 @@
   <data name="LinkToAllNews" xml:space="preserve">
     <value>View all news</value>
   </data>
+  <data name="LinkToAllNewsForAdmin" xml:space="preserve">
+    <value>View and edit all news</value>
+  </data>
   <data name="LinkToPrintVersion" xml:space="preserve">
     <value>Print version</value>
   </data>
