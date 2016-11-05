@@ -115,6 +115,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Unable to find news in database with the identifier.
+        /// </summary>
+        public static string ExceptionCantFindNewsWithID {
+            get {
+                return ResourceManager.GetString("ExceptionCantFindNewsWithID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на News object does not contain a property with name .
+        /// </summary>
+        public static string ExceptionNewsPropertyWithSuchNameDoesNotExist {
+            get {
+                return ResourceManager.GetString("ExceptionNewsPropertyWithSuchNameDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Latest news.
         /// </summary>
         public static string HeaderLatestNews {

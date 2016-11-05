@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data.Entity;
+using System.Reflection;
 
 namespace NewsWebsite.ClassesForNewsWebsite
 {
@@ -62,5 +63,33 @@ namespace NewsWebsite.ClassesForNewsWebsite
                 TestDBContext.SaveChanges();
             }
         }
+
+        // I created exceptions in this method only to make debug easier
+        public void UpdateNewsProperty(string PropertyName, object PropertyValue, long CurrentNewsID)
+        {
+            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            {
+                News FoundNews = TestDBContext.News.Where(CurrentNews => CurrentNews.NewsID == CurrentNewsID).FirstOrDefault();
+                if (FoundNews == null)
+                {
+                    throw new Exception(Resources.Texts.ExceptionCantFindNewsWithID + " = " + CurrentNewsID.ToString());
+                }
+                else
+                {
+                    Type CurrentType = FoundNews.GetType();
+                    PropertyInfo NewsProperty = CurrentType.GetProperty(PropertyName);
+                    if (NewsProperty == null)
+                    {
+                        throw new Exception(Resources.Texts.ExceptionNewsPropertyWithSuchNameDoesNotExist + " " + PropertyName);
+                    }
+                    else
+                    {
+                        NewsProperty.SetValue(FoundNews, PropertyValue, null);
+                    }
+                }
+                TestDBContext.SaveChanges();
+            }
+        }
+
     }
 }

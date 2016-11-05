@@ -5,9 +5,9 @@
     Layout = null;
 }
 
-@using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post))
+@using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post, new { id = Model.NewsID }))
 {
-    <span class="editable">@Model.Header</span>
+    <span class="EditableNewsHeader">@Model.Header</span>
     <div>
         @if (!Model.Selected)
         {
@@ -21,12 +21,12 @@
         {
             <input type="submit" value="@Resources.Texts.LinkToPrintVersion" name="NewsPrintVersion" />
         }
-        <input type="hidden" value="@Model.NewsID" name="SelectedNewsID" />
     </div>
-    <span class="editable">@Model.Body</span>
+    <span class="EditableNewsBody">@Model.Body</span>
     <div>
         <p>@Model.Date.ToString()</p>
     </div>
+    <input type="hidden" value="@Model.NewsID" name="SelectedNewsID" />
 }
 
 

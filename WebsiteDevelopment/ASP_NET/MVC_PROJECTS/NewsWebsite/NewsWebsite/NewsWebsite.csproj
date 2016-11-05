@@ -108,11 +108,12 @@
     <Compile Include="Areas\News\Models\SelectedNews.cs" />
     <Compile Include="Areas\News\NewsAreaRegistration.cs" />
     <Compile Include="ClassesForNewsWebsite\AccessorToNewsWebsiteDBForMainPage.cs" />
+    <Compile Include="ClassesForNewsWebsite\FilterForNewsPartialSubmit.cs" />
     <Compile Include="ClassesForNewsWebsite\IAccessorToNewsWebsiteDatabase.cs" />
     <Compile Include="ClassesForNewsWebsite\ApplicationConstants.cs" />
     <Compile Include="Areas\Admin\Models\NewsForEditInEditorTemplateModel.cs" />
     <Compile Include="ClassesForNewsWebsite\NewsForPartialView.cs" />
-    <Compile Include="ClassesForNewsWebsite\PrintPageFilter.cs" />
+    <Compile Include="ClassesForNewsWebsite\FilterForPrintPage.cs" />
     <Compile Include="Models\TestClassWithWebsiteData.cs" />
     <Compile Include="Controllers\MainPageController.cs" />
     <Compile Include="Global.asax.cs">

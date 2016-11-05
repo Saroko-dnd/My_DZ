@@ -27,14 +27,14 @@ namespace NewsWebsite.Areas.News.Controllers
         }
 
         [HttpPost]
-        [PrintPageFilter]
+        [FilterForPrintPage]
+        [FilterForNewsPartialSubmit]
         public ActionResult ShowSelectedNews(long SelectedNewsID)
         {
             AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
             return View(CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByID(SelectedNewsID));
         }
 
-        [HttpPost]
         public ActionResult ShowNewsPrintVersion(long SelectedNewsID)
         {
             AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();

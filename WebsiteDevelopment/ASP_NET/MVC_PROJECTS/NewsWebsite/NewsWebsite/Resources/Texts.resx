@@ -135,6 +135,12 @@
   <data name="EditorForNews_NewsType" xml:space="preserve">
     <value>News type:</value>
   </data>
+  <data name="ExceptionCantFindNewsWithID" xml:space="preserve">
+    <value>Unable to find news in database with the identifier</value>
+  </data>
+  <data name="ExceptionNewsPropertyWithSuchNameDoesNotExist" xml:space="preserve">
+    <value>News object does not contain a property with name </value>
+  </data>
   <data name="HeaderLatestNews" xml:space="preserve">
     <value>Latest news</value>
   </data>

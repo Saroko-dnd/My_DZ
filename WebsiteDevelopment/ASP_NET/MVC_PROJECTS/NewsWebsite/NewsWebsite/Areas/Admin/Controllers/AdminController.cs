@@ -16,14 +16,16 @@ namespace NewsWebsite.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult TestAction(string id, string name)
-        {
-            return RedirectToAction("Index", new { controller = "Admin", area = "Admin" });
-        }
-
         public ActionResult MenuForCreationgNews()
         {
             return View(new NewsForEditInEditorTemplateModel());
+        }
+
+        public ActionResult SaveChangesInNewsAfterEdit(string PropertyName, string NewValue, long SelectedNewsID)
+        {
+            AccessorToNewsWebsiteDBForMainPage TestObjectForGettingData = new AccessorToNewsWebsiteDBForMainPage();
+            TestObjectForGettingData.UpdateNewsProperty(PropertyName, NewValue, SelectedNewsID);
+            return RedirectToAction("Index", new { controller = "News", area = "News", EditingEnabled = true });
         }
 
         [HttpPost]
