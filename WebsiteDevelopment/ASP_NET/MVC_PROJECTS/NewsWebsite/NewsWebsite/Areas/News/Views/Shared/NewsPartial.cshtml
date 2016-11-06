@@ -6,28 +6,29 @@
 }
 
 @using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post, new { id = Model.NewsID }))
-{
-    <span class="EditableNewsHeader">@Model.Header</span>
-    <div>
-        @if (!Model.Selected)
-        {
-            <input type="submit" value="@Resources.Texts.ButtonDetailsAboutNews" />
-        }
-        @if (Model.PrintView)
-        {
-            <input type="submit" value="@Resources.Texts.LinkBackToUsualViewFromPrintView" />
-        }
-        else
-        {
-            <input type="submit" value="@Resources.Texts.LinkToPrintVersion" name="NewsPrintVersion" />
-        }
-    </div>
-    <span class="EditableNewsBody">@Model.Body</span>
-    <div>
-        <p>@Model.Date.ToString()</p>
-    </div>
-    <input type="hidden" value="@Model.NewsID" name="SelectedNewsID" />
-}
+    {
+        <span class="EditableNewsHeader">@Model.Header</span>
+        <div>
+            @if (!Model.Selected)
+            {
+                <input type="submit" value="@Resources.Texts.ButtonDetailsAboutNews" />
+            }
+            @if (Model.PrintView)
+            {
+                <input type="submit" value="@Resources.Texts.LinkBackToUsualViewFromPrintView" />
+            }
+            else
+            {
+                <input type="submit" value="@Resources.Texts.LinkToPrintVersion" name="NewsPrintVersion" />
+            }
+        </div>
+        <span class="EditableNewsBody">@Model.Body</span>
+        <div>
+            <p>@Model.Date.ToString()</p>
+        </div>
+        <input type="hidden" value="@Model.NewsID" name="SelectedNewsID" />
+    }
+
 
 
 

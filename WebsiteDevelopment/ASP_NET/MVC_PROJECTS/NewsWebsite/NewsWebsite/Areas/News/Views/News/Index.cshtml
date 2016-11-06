@@ -1,6 +1,8 @@
 ﻿
+@using NewsWebsite.App_Start
 @using NewsWebsite.ClassesForNewsWebsite
 @using NewsDataAccess
+@using System.Web.Optimization
 @model NewsWebsite.Areas.News.Models.PageWithListOfNews
 
 @{
@@ -17,9 +19,13 @@
     <link href="~/CSS/News.css" rel="stylesheet" />
     @if (Model.AdminIsHere)
     {
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-        <script type="text/javascript" src="~/JS/jquery.jeditable.mini.js"></script>
-        <script type="text/javascript" src="~/JS/EditableNews.js"></script>
+        /*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="~/JS/jquery.jeditable.js"></script>
+        <script type="text/javascript" src="~/JS/EditableNews.js"></script>*/
+        <text>
+            @Scripts.Render(BundleConfig.VirtualPathForJqueryBundle)
+            @Scripts.Render(BundleConfig.VirtualPathForEditableNewsBundle)
+        </text>
     }
 </head>
 <body>
@@ -30,7 +36,8 @@
         </div>
         @foreach (News CurrentNews in Model.AllNews)
         {
-            <div class="FlexColumnCenter">
+            string CurrentDivId = "DivForNews_" + CurrentNews.NewsID.ToString();
+            <div class="FlexColumnCenter" id="@CurrentDivId">
                 @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(CurrentNews))
             </div>
         }
