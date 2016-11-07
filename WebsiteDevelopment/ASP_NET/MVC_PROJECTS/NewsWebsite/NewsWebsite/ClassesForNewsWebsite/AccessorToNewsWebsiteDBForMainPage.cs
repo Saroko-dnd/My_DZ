@@ -64,12 +64,19 @@ namespace NewsWebsite.ClassesForNewsWebsite
             }
         }
 
-        // I created exceptions in this method only to make debug easier
-        public void UpdateNewsProperty(string PropertyName, object PropertyValue, long CurrentNewsID)
+        /// <summary>
+        /// Sets a new value for the selected property of the News objec with selected id, saves changes in the database and returns modified News object.
+        /// </summary>
+        /// <param name="PropertyName"></param>
+        /// <param name="PropertyValue"></param>
+        /// <param name="CurrentNewsID"></param>
+        /// <returns></returns>
+        public News UpdateNewsProperty(string PropertyName, object PropertyValue, long CurrentNewsID)
         {
+            News FoundNews = null;
             using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
             {
-                News FoundNews = TestDBContext.News.Where(CurrentNews => CurrentNews.NewsID == CurrentNewsID).FirstOrDefault();
+                FoundNews = TestDBContext.News.Where(CurrentNews => CurrentNews.NewsID == CurrentNewsID).FirstOrDefault();
                 if (FoundNews == null)
                 {
                     throw new Exception(Resources.Texts.ExceptionCantFindNewsWithID + " = " + CurrentNewsID.ToString());
@@ -89,6 +96,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
                 }
                 TestDBContext.SaveChanges();
             }
+            return FoundNews;
         }
 
     }

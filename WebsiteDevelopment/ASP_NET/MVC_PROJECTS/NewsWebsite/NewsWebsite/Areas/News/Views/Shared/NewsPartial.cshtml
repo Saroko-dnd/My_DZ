@@ -5,7 +5,7 @@
     Layout = null;
 }
 
-@using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post, new { id = Model.NewsID }))
+@using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post, new { id = "NewsPartialForm_" + Model.NewsID.ToString() }))
     {
         <span class="EditableNewsHeader">@Model.Header</span>
         <div>

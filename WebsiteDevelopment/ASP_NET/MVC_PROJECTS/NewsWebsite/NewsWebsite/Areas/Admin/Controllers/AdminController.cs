@@ -24,8 +24,9 @@ namespace NewsWebsite.Areas.Admin.Controllers
         public ActionResult SaveChangesInNewsAfterEdit(string PropertyName, string NewValue, long SelectedNewsID)
         {
             AccessorToNewsWebsiteDBForMainPage TestObjectForGettingData = new AccessorToNewsWebsiteDBForMainPage();
-            TestObjectForGettingData.UpdateNewsProperty(PropertyName, NewValue, SelectedNewsID);
-            return RedirectToAction("Index", new { controller = "News", area = "News", EditingEnabled = true });
+            NewsDataAccess.News ChangedNews = TestObjectForGettingData.UpdateNewsProperty(PropertyName, NewValue, SelectedNewsID);
+            return PartialView(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(ChangedNews));
+            //return RedirectToAction("Index", new { controller = "News", area = "News", EditingEnabled = true });
         }
 
         [HttpPost]
