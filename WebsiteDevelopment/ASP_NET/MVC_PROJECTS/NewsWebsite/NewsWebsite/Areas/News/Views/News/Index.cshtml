@@ -18,13 +18,14 @@
     <title>Index</title>
     <link href="~/CSS/Main.css" rel="stylesheet" />
     <link href="~/CSS/News.css" rel="stylesheet" />
+    @Scripts.Render(BundleConfig.VirtualPathForJqueryBundle)
+    @Scripts.Render(BundleConfig.VirtualPathForSearchNewsSystemBundle)
     @if (Model.AdminIsHere)
     {
         /*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="~/JS/jquery.jeditable.js"></script>
         <script type="text/javascript" src="~/JS/EditableNews.js"></script>*/
         <text>
-            @Scripts.Render(BundleConfig.VirtualPathForJqueryBundle)
             @Scripts.Render(BundleConfig.VirtualPathForEditableNewsBundle)
         </text>
         using (Ajax.BeginForm("SaveChangesInNewsAfterEdit",new { controller = "Admin", area = "Admin" }, new AjaxOptions { UpdateTargetId = "NoTarget", OnSuccess = "EditableNews.MakeEditableUpdatedNews()" },
@@ -39,14 +40,19 @@
         <div class="FlexColumnCenter">
             @Html.ActionLink(Resources.Texts.LinkBackToHomePage, "Index", new { controller = "MainPage", area = "" });
             <p class="HeaderForMainPage">@Resources.Texts.HeaderNews</p>
-        </div>
-        @foreach (News CurrentNews in Model.AllNews)
-        {
-            string CurrentDivId = "DivForNews_" + CurrentNews.NewsID.ToString();
-            <div class="FlexColumnCenter" id="@CurrentDivId">
-                @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(CurrentNews))
+            <div>
+                @using (Ajax.BeginForm("ReturnNewsWithSelectedType", new { controller = "News", area = "News" }, new AjaxOptions { UpdateTargetId = "DivWithAllNews"}, new { id = "AjaxFormForSearchingNews" }))
+                {
+                    <p>@Resources.Texts.ParagraphSearchNewsByType</p>
+                    @Html.EnumDropDownListFor(m => m.TypeOfNewsForSearch, new { id = "DropDownListForNewsType" })
+                    <input type="button" value="Search" onclick="SearchNewsSystem.SubmitAjaxFormForSearchNewsByType()"/>
+                }
             </div>
-        }
+        </div>
+
+        <div id ="DivWithAllNews">
+            @Html.Partial(ApplicationConstants.PathFromRouteToNewsCollectionPartialView, Model.AllNews)
+        </div>
     </div>
 </body>
 </html>

@@ -123,6 +123,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\News\Scripts\SearchNewsSystem.js" />
     <Content Include="CSS\Main.css" />
     <Content Include="CSS\News.css" />
     <Content Include="Global.asax" />
@@ -177,6 +178,7 @@
     <Content Include="Areas\Admin\Views\Admin\MenuForCreationgNews.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\EditorTemplates\NewsForEditInEditorTemplateModel.cshtml" />
     <Content Include="Areas\News\Views\News\ShowNewsPrintVersion.cshtml" />
+    <Content Include="Areas\News\Views\Shared\NewsCollectionPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

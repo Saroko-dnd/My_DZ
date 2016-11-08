@@ -7,6 +7,9 @@
 
 @using (Html.BeginForm("ShowSelectedNews", "News", new { area = "News" }, FormMethod.Post, new { id = "NewsPartialForm_" + Model.NewsID.ToString() }))
     {
+        <div>
+            <span>@Model.TypeOfNewsAsEnum.ToString()</span>
+        </div>
         <span class="EditableNewsHeader">@Model.Header</span>
         <div>
             @if (!Model.Selected)

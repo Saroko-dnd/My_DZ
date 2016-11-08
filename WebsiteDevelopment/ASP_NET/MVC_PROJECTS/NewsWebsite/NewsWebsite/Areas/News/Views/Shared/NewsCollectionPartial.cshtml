@@ -1,0 +1,16 @@
+﻿
+@using NewsWebsite.ClassesForNewsWebsite
+@using NewsInfrastructure
+@model IEnumerable<News>
+
+@{
+    Layout = null;
+}
+
+@foreach (News CurrentNews in Model)
+{
+    string CurrentDivId = "DivForNews_" + CurrentNews.NewsID.ToString();
+    <div class="FlexColumnCenter" id="@CurrentDivId">
+        @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(CurrentNews))
+    </div>
+}

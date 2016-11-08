@@ -1,4 +1,5 @@
-﻿using NewsWebsite.Areas.News.Models;
+﻿using NewsWebsite.Areas.Admin.Models;
+using NewsWebsite.Areas.News.Models;
 using NewsWebsite.ClassesForNewsWebsite;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,13 @@ namespace NewsWebsite.Areas.News.Controllers
                 CurrentPageWithListOfNews.AdminIsHere = false;
             }
             return View(CurrentPageWithListOfNews);
+        }
+
+        public ActionResult ReturnNewsWithSelectedType(int SelectedNewsType)
+        {
+            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
+            IEnumerable<NewsInfrastructure.News> CollectionOfNewsWithSelectedType = CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByType((NewsForEditInEditorTemplateModel.NewsTypes)SelectedNewsType);
+            return PartialView(ApplicationConstants.PathFromRouteToNewsCollectionPartialView, CollectionOfNewsWithSelectedType);
         }
 
         [HttpPost]

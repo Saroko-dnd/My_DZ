@@ -147,6 +147,9 @@
   <data name="HeaderNews" xml:space="preserve">
     <value>News</value>
   </data>
+  <data name="HeaderNewsHomePage" xml:space="preserve">
+    <value>News home page</value>
+  </data>
   <data name="HeaderPrintVersion" xml:space="preserve">
     <value>This page is for print</value>
   </data>
@@ -179,5 +182,8 @@
   </data>
   <data name="LinkToPrintVersion" xml:space="preserve">
     <value>Print version</value>
+  </data>
+  <data name="ParagraphSearchNewsByType" xml:space="preserve">
+    <value>Search news by type:</value>
   </data>
 </root>
