@@ -15,8 +15,8 @@ namespace NewsWebsite.App_Start
         {
             bundles.UseCdn = true;
             string JqueryCdnPath = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js";
-            bundles.Add(new ScriptBundle(VirtualPathForJqueryBundle, JqueryCdnPath).Include("~/JS/jquery-{version}.js")); 
-            bundles.Add(new ScriptBundle(VirtualPathForEditableNewsBundle).Include("~/JS/jquery.jeditable.js").Include("~/JS/EditableNews.js").Include("~/Scripts/jquery.unobtrusive-ajax.js"));
+            bundles.Add(new ScriptBundle(VirtualPathForJqueryBundle, JqueryCdnPath).Include("~/Scripts/jquery-{version}.js")); 
+            bundles.Add(new ScriptBundle(VirtualPathForEditableNewsBundle).Include("~/Scripts/jquery.jeditable.js").Include("~/Scripts/EditableNews.js").Include("~/Scripts/jquery.unobtrusive-ajax.js"));
             //BundleTable.EnableOptimizations = true;
         }
     }

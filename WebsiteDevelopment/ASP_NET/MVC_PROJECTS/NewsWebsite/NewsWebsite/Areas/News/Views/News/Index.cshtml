@@ -26,7 +26,7 @@
             @Scripts.Render(BundleConfig.VirtualPathForJqueryBundle)
             @Scripts.Render(BundleConfig.VirtualPathForEditableNewsBundle)
         </text>
-        using (Ajax.BeginForm("SaveChangesInNewsAfterEdit",new { controller = "Admin", area = "Admin" }, new AjaxOptions { UpdateTargetId = "NoTarget", OnSuccess = "MakeEditableUpdatedNews()" },
+        using (Ajax.BeginForm("SaveChangesInNewsAfterEdit",new { controller = "Admin", area = "Admin" }, new AjaxOptions { UpdateTargetId = "NoTarget", OnSuccess = "EditableNews.MakeEditableUpdatedNews()" },
             new { id = "AjaxFormForUpdatingNewsData" }))
         {
 
