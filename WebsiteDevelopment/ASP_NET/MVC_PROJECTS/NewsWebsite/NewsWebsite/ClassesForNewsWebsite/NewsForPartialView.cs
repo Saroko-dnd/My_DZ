@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using NewsDataAccess;
+using NewsInfrastructure;
 
 namespace NewsWebsite.ClassesForNewsWebsite
 {

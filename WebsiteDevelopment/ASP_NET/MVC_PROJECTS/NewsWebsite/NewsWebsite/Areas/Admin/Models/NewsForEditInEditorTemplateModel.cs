@@ -6,7 +6,7 @@ using System.Web;
 
 namespace NewsWebsite.Areas.Admin.Models
 {
-    public class NewsForEditInEditorTemplateModel : NewsDataAccess.News
+    public class NewsForEditInEditorTemplateModel : NewsInfrastructure.News
     {
         private NewsTypes currentTypeOfNews;
 
@@ -26,7 +26,7 @@ namespace NewsWebsite.Areas.Admin.Models
 
         public enum NewsTypes : int { Science, Politics, Games, Sport, Business };
 
-        public NewsForEditInEditorTemplateModel(NewsDataAccess.News BaseNewsData)
+        public NewsForEditInEditorTemplateModel(NewsInfrastructure.News BaseNewsData)
         {
             CurrentTypeOfNews = (NewsTypes)BaseNewsData.Type;
             Date = BaseNewsData.Date;
@@ -37,9 +37,9 @@ namespace NewsWebsite.Areas.Admin.Models
             Body = BaseNewsData.Body;
         }
 
-        public NewsDataAccess.News GetPureNews()
+        public NewsInfrastructure.News GetPureNews()
         {
-            return new NewsDataAccess.News(Date, Header, Body, HotNews, (int)CurrentTypeOfNews);
+            return new NewsInfrastructure.News(Date, Header, Body, HotNews, (int)CurrentTypeOfNews);
         }
 
         public NewsForEditInEditorTemplateModel()

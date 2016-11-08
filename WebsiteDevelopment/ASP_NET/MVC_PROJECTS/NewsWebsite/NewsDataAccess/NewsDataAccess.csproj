@@ -72,13 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Comment.cs" />
-    <Compile Include="News.cs" />
     <Compile Include="NewsWebsiteContext.cs" />
     <Compile Include="NewsWebsiteDBInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserOpinion.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ExternalLibs\" />
@@ -86,6 +82,12 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NewsInfrastructure\NewsInfrastructure.csproj">
+      <Project>{21c7c4f0-ae02-46aa-8157-78df605707fd}</Project>
+      <Name>NewsInfrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

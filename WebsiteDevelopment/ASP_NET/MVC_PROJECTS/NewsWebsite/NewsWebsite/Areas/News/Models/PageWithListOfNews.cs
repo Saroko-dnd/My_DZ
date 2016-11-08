@@ -7,10 +7,10 @@ namespace NewsWebsite.Areas.News.Models
 {
     public class PageWithListOfNews
     {
-        private IEnumerable<NewsDataAccess.News> allNews;
+        private IEnumerable<NewsInfrastructure.News> allNews;
         private bool adminIsHere;
 
-        public IEnumerable<NewsDataAccess.News> AllNews
+        public IEnumerable<NewsInfrastructure.News> AllNews
         {
             get { return allNews; }
             set { allNews = value; }
@@ -29,7 +29,7 @@ namespace NewsWebsite.Areas.News.Models
             }
         }
 
-        public PageWithListOfNews(IEnumerable<NewsDataAccess.News> ListOfNews)
+        public PageWithListOfNews(IEnumerable<NewsInfrastructure.News> ListOfNews)
         {
             AllNews = ListOfNews;
         }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewsDataAccess
+namespace NewsInfrastructure
 {
     public class User
     {

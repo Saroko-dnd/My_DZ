@@ -1,4 +1,5 @@
 ﻿
+using NewsInfrastructure;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -62,19 +63,19 @@ namespace NewsDataAccess
 
             foreach (News CurNews in TestListOfNews)
             {
-                Context.News.Add(CurNews);
+                Context.AddNews(CurNews);
             }
             foreach (User CurUser in TestListOfUsers)
             {
-                Context.Users.Add(CurUser);
+                Context.AddUser(CurUser);
             }
             foreach (Comment CurComment in TestListOfComments)
             {
-                Context.Comments.Add(CurComment);
+                Context.AddComment(CurComment);
             }
             foreach (UserOpinion CurUserOpinion in TestListOfLikesAndDislikes)
             {
-                Context.LikesAndDislikes.Add(CurUserOpinion);
+                Context.AddLikeOrDislike(CurUserOpinion);
             }
 
             base.Seed(Context);

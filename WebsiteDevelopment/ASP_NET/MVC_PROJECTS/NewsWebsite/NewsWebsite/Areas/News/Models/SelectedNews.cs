@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using NewsDataAccess;
+using NewsInfrastructure;
 
 namespace NewsWebsite.Areas.News.Models
 {
     public class SelectedNews
     {
-        private NewsDataAccess.News currentSelectedNews;
+        private NewsInfrastructure.News currentSelectedNews;
         private IEnumerable<Comment> commentsForSelectedNews;
-        public NewsDataAccess.News CurrentSelectedNews
+        public NewsInfrastructure.News CurrentSelectedNews
         {
             get
             {

@@ -197,6 +197,10 @@
       <Project>{7f307ddf-d925-4fec-bccd-7293567ab419}</Project>
       <Name>NewsDataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NewsInfrastructure\NewsInfrastructure.csproj">
+      <Project>{21c7c4f0-ae02-46aa-8157-78df605707fd}</Project>
+      <Name>NewsInfrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Texts.resx">

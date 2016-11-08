@@ -1,4 +1,5 @@
 ﻿using NewsDataAccess;
+using NewsInfrastructure;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
             List<Comment> ListOfComments;
             using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
             {
-                ListOfComments = TestDBContext.Comments.Where(CurrentComment => CurrentComment.News == SelectedNews).ToList();
+                ListOfComments = TestDBContext.AllComments.Where(CurrentComment => CurrentComment.News == SelectedNews).ToList();
             }
             return ListOfComments;
         }
@@ -26,7 +27,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
             List<News> NewsList;
             using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
             {
-                NewsList = TestDBContext.News.ToList();
+                NewsList = TestDBContext.AllNews.ToList();
             }
             return NewsList;
         }
@@ -36,9 +37,13 @@ namespace NewsWebsite.ClassesForNewsWebsite
             News FoundNews = null;
             using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
             {
-                FoundNews = TestDBContext.News.Where(CurNews => CurNews.NewsID == NewsIDForSearch).FirstOrDefault();
-                FoundNews.Comments = TestDBContext.Comments.Where(CurComment => CurComment.NewsID == FoundNews.NewsID).Include(FoundComment => FoundComment.LikesAndDislikes).
-                    Include(ResComment => ResComment.Author).ToList();       
+                FoundNews = TestDBContext.AllNews.Where(CurNews => CurNews.NewsID == NewsIDForSearch).FirstOrDefault();
+                FoundNews.Comments = TestDBContext.AllComments.Where(CurComment => CurComment.NewsID == FoundNews.NewsID).ToList();
+                foreach (Comment CurrentComment in FoundNews.Comments)
+                {
+                    CurrentComment.Author = TestDBContext.AllUsers.Where(CurrentUser => CurrentUser.UserID == CurrentComment.AuthorID).FirstOrDefault();
+                    CurrentComment.LikesAndDislikes = TestDBContext.AllLikesAndDislikes.Where(CurrentUserOpinion => CurrentUserOpinion.CommentID == CurrentComment.CommentID).ToList();
+                }       
             }
             return FoundNews;
         }
@@ -48,7 +53,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
             List<News> CurrentCollectionOfImportantNews;
             using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
             {
-                CurrentCollectionOfImportantNews = TestDBContext.News.Where(CurrentNews => CurrentNews.HotNews == true).ToList();
+                CurrentCollectionOfImportantNews = TestDBContext.AllNews.Where(CurrentNews => CurrentNews.HotNews == true).ToList();
             }
             return CurrentCollectionOfImportantNews;
         }
@@ -59,8 +64,8 @@ namespace NewsWebsite.ClassesForNewsWebsite
             NewNews.Date = DateTime.Now;
             using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
             {
-                TestDBContext.News.Add(NewNews);
-                TestDBContext.SaveChanges();
+                TestDBContext.AddNews(NewNews);
+                TestDBContext.SaveAllChangesMadeInsideCollections();
             }
         }
 
@@ -73,30 +78,16 @@ namespace NewsWebsite.ClassesForNewsWebsite
         /// <returns></returns>
         public News UpdateNewsProperty(string PropertyName, object PropertyValue, long CurrentNewsID)
         {
-            News FoundNews = null;
+            News ChangedNews = null;
             using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
             {
-                FoundNews = TestDBContext.News.Where(CurrentNews => CurrentNews.NewsID == CurrentNewsID).FirstOrDefault();
-                if (FoundNews == null)
-                {
-                    throw new Exception(Resources.Texts.ExceptionCantFindNewsWithID + " = " + CurrentNewsID.ToString());
-                }
-                else
-                {
-                    Type CurrentType = FoundNews.GetType();
-                    PropertyInfo NewsProperty = CurrentType.GetProperty(PropertyName);
-                    if (NewsProperty == null)
-                    {
-                        throw new Exception(Resources.Texts.ExceptionNewsPropertyWithSuchNameDoesNotExist + " " + PropertyName);
-                    }
-                    else
-                    {
-                        NewsProperty.SetValue(FoundNews, PropertyValue, null);
-                    }
-                }
-                TestDBContext.SaveChanges();
+                ChangedNews = TestDBContext.AllNews.Where(CurrentNews => CurrentNews.NewsID == CurrentNewsID).FirstOrDefault();
+                Type CurrentType = ChangedNews.GetType();
+                PropertyInfo NewsProperty = CurrentType.GetProperty(PropertyName);
+                NewsProperty.SetValue(ChangedNews, PropertyValue, null);
+                TestDBContext.SaveAllChangesMadeInsideCollections();
             }
-            return FoundNews;
+            return ChangedNews;
         }
 
     }
