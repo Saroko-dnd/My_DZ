@@ -149,7 +149,6 @@
     <Compile Include="ClassesForNewsWebsite\FilterForNewsPartialSubmit.cs" />
     <Compile Include="ClassesForNewsWebsite\IAccessorToNewsWebsiteDatabase.cs" />
     <Compile Include="ClassesForNewsWebsite\ApplicationConstants.cs" />
-    <Compile Include="Areas\Admin\Models\NewsForEditInEditorTemplateModel.cs" />
     <Compile Include="ClassesForNewsWebsite\NewsForPartialView.cs" />
     <Compile Include="ClassesForNewsWebsite\FilterForPrintPage.cs" />
     <Compile Include="Models\TestClassWithWebsiteData.cs" />
@@ -176,7 +175,7 @@
     <Content Include="Areas\News\Views\Shared\CommentPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\MenuForCreationgNews.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\NewsForEditInEditorTemplateModel.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\News.cshtml" />
     <Content Include="Areas\News\Views\News\ShowNewsPrintVersion.cshtml" />
     <Content Include="Areas\News\Views\Shared\NewsCollectionPartial.cshtml" />
     <None Include="Web.Debug.config">
@@ -191,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\News\Classes\" />
     <Folder Include="Images\" />
   </ItemGroup>

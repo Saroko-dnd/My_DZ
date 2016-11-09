@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using NewsInfrastructure;
-using NewsWebsite.Areas.Admin.Models;
 
 namespace NewsWebsite.ClassesForNewsWebsite
 {
     public class NewsForPartialView : News
     {
-        private NewsForEditInEditorTemplateModel.NewsTypes typeOfNewsAsEnum;
+        private Enums.NewsTypes typeOfNewsAsEnum;
 
-        public NewsForEditInEditorTemplateModel.NewsTypes TypeOfNewsAsEnum
+        public Enums.NewsTypes TypeOfNewsAsEnum
         {
             get { return typeOfNewsAsEnum; }
             set { typeOfNewsAsEnum = value; }
@@ -47,7 +46,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
             NewsID = BaseNewsData.NewsID;
             Header = BaseNewsData.Header;
             Body = BaseNewsData.Body;
-            TypeOfNewsAsEnum = (NewsForEditInEditorTemplateModel.NewsTypes)BaseNewsData.Type;
+            TypeOfNewsAsEnum = (Enums.NewsTypes)BaseNewsData.Type;
         }
     }
 }

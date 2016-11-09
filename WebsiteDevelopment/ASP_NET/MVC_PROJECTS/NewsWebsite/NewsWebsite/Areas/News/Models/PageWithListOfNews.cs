@@ -1,16 +1,17 @@
-﻿using NewsWebsite.Areas.Admin.Models;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using NewsInfrastructure;
 
 namespace NewsWebsite.Areas.News.Models
 {
     public class PageWithListOfNews
     {
-        private NewsForEditInEditorTemplateModel.NewsTypes typeOfNewsForSearch;
+        private Enums.NewsTypes typeOfNewsForSearch;
 
-        public NewsForEditInEditorTemplateModel.NewsTypes TypeOfNewsForSearch
+        public Enums.NewsTypes TypeOfNewsForSearch
         {
             get { return typeOfNewsForSearch; }
             set { typeOfNewsForSearch = value; }

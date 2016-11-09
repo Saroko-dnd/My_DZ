@@ -15,7 +15,7 @@ namespace NewsInfrastructure
         public string Body{ get; set; }
         public DateTime Date{ get; set; }
         public bool HotNews { get; set; }
-        public int Type { get; set; }
+        public Enums.NewsTypes Type { get; set; }
         public ICollection<Comment> Comments { get; set; }
 
         public News()
@@ -23,7 +23,7 @@ namespace NewsInfrastructure
 
         }
 
-        public News(DateTime NewsDate, string NewsHeader, string NewsBody, bool IsThisNewsHot, int NewsType)
+        public News(DateTime NewsDate, string NewsHeader, string NewsBody, bool IsThisNewsHot, Enums.NewsTypes NewsType)
         {
             Header = NewsHeader;
             Body = NewsBody;

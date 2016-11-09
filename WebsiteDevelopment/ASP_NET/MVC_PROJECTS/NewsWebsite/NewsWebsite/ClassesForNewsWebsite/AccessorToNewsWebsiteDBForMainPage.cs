@@ -68,16 +68,17 @@ namespace NewsWebsite.ClassesForNewsWebsite
                 TestDBContext.SaveAllChangesMadeInsideCollections();
             }
         }
-        public IEnumerable<News> GetNewsByType(Areas.Admin.Models.NewsForEditInEditorTemplateModel.NewsTypes SelectedTypeOfNews)
+
+        public IEnumerable<News> GetNewsByType(Enums.NewsTypes SelectedTypeOfNews)
         {
             List<News> ListOfNewsWithSelectedType;
-            int TypeInNewsObject = (int)SelectedTypeOfNews;
             using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
             {
-                ListOfNewsWithSelectedType = TestDBContext.AllNews.Where(FoundNews => FoundNews.Type == TypeInNewsObject).ToList();
+                ListOfNewsWithSelectedType = TestDBContext.AllNews.Where(FoundNews => FoundNews.Type == SelectedTypeOfNews).ToList();
             }
             return ListOfNewsWithSelectedType;
         }
+
         /// <summary>
         /// Sets a new value for the selected property of the News objec with selected id, saves changes in the database and returns modified News object.
         /// </summary>

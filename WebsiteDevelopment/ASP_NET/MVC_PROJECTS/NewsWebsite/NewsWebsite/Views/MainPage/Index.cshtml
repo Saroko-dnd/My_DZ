@@ -28,14 +28,6 @@
         </div>
         <div id="DivWithAllNews">
             @Html.Partial(ApplicationConstants.PathFromRouteToNewsCollectionPartialView, Model.TestListOfNews)
-            @*
-            @foreach (News CurrentNews in Model.TestListOfNews)
-            {
-                <div class="FlexColumnCenter">
-                    @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(CurrentNews))
-                </div>
-            }
-            *@
         </div>
     </div>
 </body>

@@ -1,4 +1,4 @@
-﻿using NewsWebsite.Areas.Admin.Models;
+﻿
 using NewsWebsite.Areas.News.Models;
 using NewsWebsite.ClassesForNewsWebsite;
 using System;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NewsInfrastructure;
 
 namespace NewsWebsite.Areas.News.Controllers
 {
@@ -30,7 +31,7 @@ namespace NewsWebsite.Areas.News.Controllers
         public ActionResult ReturnNewsWithSelectedType(int SelectedNewsType)
         {
             AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
-            IEnumerable<NewsInfrastructure.News> CollectionOfNewsWithSelectedType = CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByType((NewsForEditInEditorTemplateModel.NewsTypes)SelectedNewsType);
+            IEnumerable<NewsInfrastructure.News> CollectionOfNewsWithSelectedType = CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByType((Enums.NewsTypes)SelectedNewsType);
             return PartialView(ApplicationConstants.PathFromRouteToNewsCollectionPartialView, CollectionOfNewsWithSelectedType);
         }
 

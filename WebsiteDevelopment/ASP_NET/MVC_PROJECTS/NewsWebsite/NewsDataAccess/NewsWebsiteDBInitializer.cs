@@ -27,11 +27,11 @@ namespace NewsDataAccess
             {
                 if (CounterOfNews == 0)
                 {
-                    TestListOfNews.Add(new News(DateTime.Now, "Header_" + (CounterOfNews + 1).ToString(), "News body", false, 1));
+                    TestListOfNews.Add(new News(DateTime.Now, "Header_" + (CounterOfNews + 1).ToString(), "News body", false, Enums.NewsTypes.Business));
                 }
                 else
                 {
-                    TestListOfNews.Add(new News(DateTime.Now, "Header_" + (CounterOfNews + 1).ToString(), "News body", true, 1));
+                    TestListOfNews.Add(new News(DateTime.Now, "Header_" + (CounterOfNews + 1).ToString(), "News body", true, Enums.NewsTypes.Business));
                 }
             }
 

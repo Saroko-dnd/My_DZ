@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comment.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="INewsWebsiteRepository.cs" />
     <Compile Include="News.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
