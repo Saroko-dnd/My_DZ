@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using NewsInfrastructure;
 
-namespace NewsWebsite.ClassesForNewsWebsite
+namespace NewsWebsite.Areas.News.Models
 {
-    public class NewsForPartialView : News
+    public class NewsForPartialView : NewsInfrastructure.News
     {
         private Enums.NewsTypes typeOfNewsAsEnum;
 
@@ -37,7 +37,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
             }
         }
 
-        public NewsForPartialView(News BaseNewsData)
+        public NewsForPartialView(NewsInfrastructure.News BaseNewsData)
         {
             Date = BaseNewsData.Date;
             Type = BaseNewsData.Type;

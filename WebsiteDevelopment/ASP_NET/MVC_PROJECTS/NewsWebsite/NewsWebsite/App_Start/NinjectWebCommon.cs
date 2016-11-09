@@ -1,66 +1,27 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NewsWebsite.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NewsWebsite.App_Start.NinjectWebCommon), "Stop")]
+
+using System;
+using System.Web;
+using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using Ninject;
+using Ninject.Web.Common;
+using NewsInfrastructure;
+using NewsDataAccess;
+using NewsWebsite.ClassesForNewsWebsite;
+using NewsLogic;
 
 namespace NewsWebsite.App_Start
 {
-    using System;
-    using System.Web;
 
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
-    using Ninject;
-    using Ninject.Web.Common;
 
     public static class NinjectWebCommon 
     {
-        private static readonly Bootstrapper bootstrapper = new Bootstrapper();
+        public static IKernel NinjectKernel;
 
-        /// <summary>
-        /// Starts the application
-        /// </summary>
-        public static void Start() 
+        public static void ConfigureNinject()
         {
-            DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
-            DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            bootstrapper.Initialize(CreateKernel);
+            NinjectKernel = new StandardKernel();
+            NinjectKernel.Bind<INewsWebsiteRepository>().To<NewsWebsiteContext>().WithConstructorArgument("ConnectionStringName", ApplicationConstants.ConnectionStringName);
+            NinjectKernel.Bind<INewsWebsiteDataManager>().To<NewsWebsiteDataManager>().WithConstructorArgument("NewKernelWithRepositoryBinding", NinjectKernel);
         }
-        
-        /// <summary>
-        /// Stops the application.
-        /// </summary>
-        public static void Stop()
-        {
-            bootstrapper.ShutDown();
-        }
-        
-        /// <summary>
-        /// Creates the kernel that will manage your application.
-        /// </summary>
-        /// <returns>The created kernel.</returns>
-        private static IKernel CreateKernel()
-        {
-            var kernel = new StandardKernel();
-            try
-            {
-                kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-
-                RegisterServices(kernel);
-                return kernel;
-            }
-            catch
-            {
-                kernel.Dispose();
-                throw;
-            }
-        }
-
-        /// <summary>
-        /// Load your modules or register your services here!
-        /// </summary>
-        /// <param name="kernel">The kernel.</param>
-        private static void RegisterServices(IKernel kernel)
-        {
-        }        
     }
 }

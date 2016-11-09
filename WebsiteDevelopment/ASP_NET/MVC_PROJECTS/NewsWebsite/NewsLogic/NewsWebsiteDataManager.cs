@@ -1,21 +1,22 @@
-﻿using NewsDataAccess;
-using NewsInfrastructure;
+﻿using NewsInfrastructure;
+using Ninject;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Data.Entity;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace NewsWebsite.ClassesForNewsWebsite
+namespace NewsLogic
 {
-    public class AccessorToNewsWebsiteDBForMainPage : IAccessorToNewsWebsiteDatabase
-    {      
+    public class NewsWebsiteDataManager : INewsWebsiteDataManager
+    {
+        private IKernel CurrentKernelWithRepositoryBinding;
+
         public IEnumerable<Comment> GetAllCommentsForNews(News SelectedNews)
         {
             List<Comment> ListOfComments;
-            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            using (INewsWebsiteRepository TestDBContext = CurrentKernelWithRepositoryBinding.Get<INewsWebsiteRepository>())
             {
                 ListOfComments = TestDBContext.AllComments.Where(CurrentComment => CurrentComment.News == SelectedNews).ToList();
             }
@@ -25,7 +26,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
         public IEnumerable<News> GetAllNews()
         {
             List<News> NewsList;
-            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            using (INewsWebsiteRepository TestDBContext = CurrentKernelWithRepositoryBinding.Get<INewsWebsiteRepository>())
             {
                 NewsList = TestDBContext.AllNews.ToList();
             }
@@ -35,7 +36,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
         public News GetNewsByID(long NewsIDForSearch)
         {
             News FoundNews = null;
-            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            using (INewsWebsiteRepository TestDBContext = CurrentKernelWithRepositoryBinding.Get<INewsWebsiteRepository>())
             {
                 FoundNews = TestDBContext.AllNews.Where(CurNews => CurNews.NewsID == NewsIDForSearch).FirstOrDefault();
                 FoundNews.Comments = TestDBContext.AllComments.Where(CurComment => CurComment.NewsID == FoundNews.NewsID).ToList();
@@ -43,7 +44,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
                 {
                     CurrentComment.Author = TestDBContext.AllUsers.Where(CurrentUser => CurrentUser.UserID == CurrentComment.AuthorID).FirstOrDefault();
                     CurrentComment.LikesAndDislikes = TestDBContext.AllLikesAndDislikes.Where(CurrentUserOpinion => CurrentUserOpinion.CommentID == CurrentComment.CommentID).ToList();
-                }       
+                }
             }
             return FoundNews;
         }
@@ -51,7 +52,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
         public IEnumerable<News> GetHotNews()
         {
             List<News> CurrentCollectionOfImportantNews;
-            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            using (INewsWebsiteRepository TestDBContext = CurrentKernelWithRepositoryBinding.Get<INewsWebsiteRepository>())
             {
                 CurrentCollectionOfImportantNews = TestDBContext.AllNews.Where(CurrentNews => CurrentNews.HotNews == true).ToList();
             }
@@ -62,7 +63,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
         public void AddNewNews(News NewNews)
         {
             NewNews.Date = DateTime.Now;
-            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            using (INewsWebsiteRepository TestDBContext = CurrentKernelWithRepositoryBinding.Get<INewsWebsiteRepository>())
             {
                 TestDBContext.AddNews(NewNews);
                 TestDBContext.SaveAllChangesMadeInsideCollections();
@@ -72,7 +73,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
         public IEnumerable<News> GetNewsByType(Enums.NewsTypes SelectedTypeOfNews)
         {
             List<News> ListOfNewsWithSelectedType;
-            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            using (INewsWebsiteRepository TestDBContext = CurrentKernelWithRepositoryBinding.Get<INewsWebsiteRepository>())
             {
                 ListOfNewsWithSelectedType = TestDBContext.AllNews.Where(FoundNews => FoundNews.Type == SelectedTypeOfNews).ToList();
             }
@@ -89,7 +90,7 @@ namespace NewsWebsite.ClassesForNewsWebsite
         public News UpdateNewsProperty(string PropertyName, object PropertyValue, long CurrentNewsID)
         {
             News ChangedNews = null;
-            using (NewsWebsiteContext TestDBContext = new NewsWebsiteContext(ApplicationConstants.ConnectionStringName))
+            using (INewsWebsiteRepository TestDBContext = CurrentKernelWithRepositoryBinding.Get<INewsWebsiteRepository>())
             {
                 ChangedNews = TestDBContext.AllNews.Where(CurrentNews => CurrentNews.NewsID == CurrentNewsID).FirstOrDefault();
                 Type CurrentType = ChangedNews.GetType();
@@ -100,5 +101,9 @@ namespace NewsWebsite.ClassesForNewsWebsite
             return ChangedNews;
         }
 
+        public NewsWebsiteDataManager(IKernel NewKernelWithRepositoryBinding)
+        {
+            CurrentKernelWithRepositoryBinding = NewKernelWithRepositoryBinding;
+        }
     }
 }

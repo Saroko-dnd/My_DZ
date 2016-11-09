@@ -12,11 +12,11 @@
     <p>@Resources.Texts.EditorForNews_Body</p>
     <textarea name="Body"></textarea>
     <p>@Resources.Texts.EditorForNews_HotNews</p>
-    @*@<input type="checkbox" name="HotNews" />*@
     <input id="HotNews" type="checkbox" value="true" name="HotNews" />
     <input type="hidden" value="false" name="HotNews" />
     <p>@Resources.Texts.EditorForNews_NewsType</p>
     @Html.EnumDropDownListFor(m => m.Type)
-    @*@Html.DropDownList("CurrentTypeOfNews", EnumHelper.GetSelectList(typeof(NewsWebsite.ClassesForNewsWebsite.NewsForEditInEditorTemplate.NewsTypes)), "LabelDDD", new { name = "CurrentTypeOfNews" })*@
-    <input type="submit" name="Save" value="@Resources.Texts.ButtonCreateNews" />
+    <div>
+        <input type="submit" name="Save" value="@Resources.Texts.ButtonCreateNews" />
+    </div>
 }

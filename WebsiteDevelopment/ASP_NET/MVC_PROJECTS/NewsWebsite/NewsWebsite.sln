@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsDataAccess", "NewsDataA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsInfrastructure", "NewsInfrastructure\NewsInfrastructure.csproj", "{21C7C4F0-AE02-46AA-8157-78DF605707FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsLogic", "NewsLogic\NewsLogic.csproj", "{3FBE1DA1-6743-414B-877C-583CC1C4B590}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,12 @@ Global
 		{21C7C4F0-AE02-46AA-8157-78DF605707FD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21C7C4F0-AE02-46AA-8157-78DF605707FD}.VS2015|Any CPU.ActiveCfg = Release|Any CPU
 		{21C7C4F0-AE02-46AA-8157-78DF605707FD}.VS2015|Any CPU.Build.0 = Release|Any CPU
+		{3FBE1DA1-6743-414B-877C-583CC1C4B590}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FBE1DA1-6743-414B-877C-583CC1C4B590}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FBE1DA1-6743-414B-877C-583CC1C4B590}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FBE1DA1-6743-414B-877C-583CC1C4B590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FBE1DA1-6743-414B-877C-583CC1C4B590}.VS2015|Any CPU.ActiveCfg = Release|Any CPU
+		{3FBE1DA1-6743-414B-877C-583CC1C4B590}.VS2015|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

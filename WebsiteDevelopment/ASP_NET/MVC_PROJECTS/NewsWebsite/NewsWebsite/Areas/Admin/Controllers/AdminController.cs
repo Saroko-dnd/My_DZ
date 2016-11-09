@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NewsInfrastructure;
+using Ninject;
+using NewsWebsite.App_Start;
+using NewsWebsite.Areas.News.Models;
 
 namespace NewsWebsite.Areas.Admin.Controllers
 {
@@ -23,17 +27,16 @@ namespace NewsWebsite.Areas.Admin.Controllers
 
         public ActionResult SaveChangesInNewsAfterEdit(string PropertyName, string NewValue, long SelectedNewsID)
         {
-            AccessorToNewsWebsiteDBForMainPage TestObjectForGettingData = new AccessorToNewsWebsiteDBForMainPage();
-            NewsInfrastructure.News ChangedNews = TestObjectForGettingData.UpdateNewsProperty(PropertyName, NewValue, SelectedNewsID);
+            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
+            NewsInfrastructure.News ChangedNews = CurrentNewsWebsiteDataManager.UpdateNewsProperty(PropertyName, NewValue, SelectedNewsID);
             return PartialView(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(ChangedNews));
-            //return RedirectToAction("Index", new { controller = "News", area = "News", EditingEnabled = true });
         }
 
         [HttpPost]
         public ActionResult AddNewNewsToDatabase(NewsInfrastructure.News CreatedNews)
         {
-            AccessorToNewsWebsiteDBForMainPage TestObjectForGettingData = new AccessorToNewsWebsiteDBForMainPage();
-            TestObjectForGettingData.AddNewNews(CreatedNews);
+            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
+            CurrentNewsWebsiteDataManager.AddNewNews(CreatedNews);
             return RedirectToAction("Index", new { controller = "Admin", area = "Admin" });
         }
     }

@@ -8,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
+using NewsInfrastructure;
+using Ninject;
 
 namespace NewsWebsite.Controllers
 {
@@ -16,10 +18,9 @@ namespace NewsWebsite.Controllers
         // GET: MainPage
         public ActionResult Index()
         {
-            //BundleConfig.RegisterBundles(BundleTable.Bundles);
             TestClassWithWebsiteData TestDataObject = new TestClassWithWebsiteData();
-            AccessorToNewsWebsiteDBForMainPage TestObjectForGettingData = new AccessorToNewsWebsiteDBForMainPage();
-            TestDataObject.TestListOfNews = TestObjectForGettingData.GetHotNews();
+            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
+            TestDataObject.TestListOfNews = CurrentNewsWebsiteDataManager.GetHotNews();
             return View(TestDataObject);
         }
     }

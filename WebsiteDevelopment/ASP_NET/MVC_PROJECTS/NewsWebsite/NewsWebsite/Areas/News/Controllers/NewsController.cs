@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NewsInfrastructure;
+using Ninject;
+using NewsWebsite.App_Start;
 
 namespace NewsWebsite.Areas.News.Controllers
 {
@@ -15,8 +17,8 @@ namespace NewsWebsite.Areas.News.Controllers
         // GET: News/News
         public ActionResult Index(bool? EditingEnabled)
         {
-            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
-            PageWithListOfNews CurrentPageWithListOfNews = new PageWithListOfNews(CurrentAccessorToNewsWebsiteDBForMainPage.GetAllNews());
+            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
+            PageWithListOfNews CurrentPageWithListOfNews = new PageWithListOfNews(CurrentNewsWebsiteDataManager.GetAllNews());
             if (EditingEnabled == true)
             {
                 CurrentPageWithListOfNews.AdminIsHere = true;
@@ -30,8 +32,8 @@ namespace NewsWebsite.Areas.News.Controllers
 
         public ActionResult ReturnNewsWithSelectedType(int SelectedNewsType)
         {
-            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
-            IEnumerable<NewsInfrastructure.News> CollectionOfNewsWithSelectedType = CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByType((Enums.NewsTypes)SelectedNewsType);
+            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
+            IEnumerable<NewsInfrastructure.News> CollectionOfNewsWithSelectedType = CurrentNewsWebsiteDataManager.GetNewsByType((Enums.NewsTypes)SelectedNewsType);
             return PartialView(ApplicationConstants.PathFromRouteToNewsCollectionPartialView, CollectionOfNewsWithSelectedType);
         }
 
@@ -40,14 +42,14 @@ namespace NewsWebsite.Areas.News.Controllers
         [FilterForNewsPartialSubmit]
         public ActionResult ShowSelectedNews(long SelectedNewsID)
         {
-            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
-            return View(CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByID(SelectedNewsID));
+            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
+            return View(CurrentNewsWebsiteDataManager.GetNewsByID(SelectedNewsID));
         }
 
         public ActionResult ShowNewsPrintVersion(long SelectedNewsID)
         {
-            AccessorToNewsWebsiteDBForMainPage CurrentAccessorToNewsWebsiteDBForMainPage = new AccessorToNewsWebsiteDBForMainPage();
-            return View(CurrentAccessorToNewsWebsiteDBForMainPage.GetNewsByID(SelectedNewsID));
+            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
+            return View(CurrentNewsWebsiteDataManager.GetNewsByID(SelectedNewsID));
         }
     }
 }

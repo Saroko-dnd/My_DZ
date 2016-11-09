@@ -145,11 +145,9 @@
     <Compile Include="Areas\News\Models\PageWithListOfNews.cs" />
     <Compile Include="Areas\News\Models\SelectedNews.cs" />
     <Compile Include="Areas\News\NewsAreaRegistration.cs" />
-    <Compile Include="ClassesForNewsWebsite\AccessorToNewsWebsiteDBForMainPage.cs" />
     <Compile Include="ClassesForNewsWebsite\FilterForNewsPartialSubmit.cs" />
-    <Compile Include="ClassesForNewsWebsite\IAccessorToNewsWebsiteDatabase.cs" />
     <Compile Include="ClassesForNewsWebsite\ApplicationConstants.cs" />
-    <Compile Include="ClassesForNewsWebsite\NewsForPartialView.cs" />
+    <Compile Include="Areas\News\Models\NewsForPartialView.cs" />
     <Compile Include="ClassesForNewsWebsite\FilterForPrintPage.cs" />
     <Compile Include="Models\TestClassWithWebsiteData.cs" />
     <Compile Include="Controllers\MainPageController.cs" />
@@ -202,6 +200,10 @@
     <ProjectReference Include="..\NewsInfrastructure\NewsInfrastructure.csproj">
       <Project>{21c7c4f0-ae02-46aa-8157-78df605707fd}</Project>
       <Name>NewsInfrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NewsLogic\NewsLogic.csproj">
+      <Project>{3fbe1da1-6743-414b-877c-583cc1c4b590}</Project>
+      <Name>NewsLogic</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
