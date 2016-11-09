@@ -39,10 +39,12 @@
 <body>
     <div> 
         <div class="FlexColumnCenter">
-            @Html.ActionLink(Resources.Texts.LinkBackToHomePage, "Index", new { controller = "MainPage", area = "" });
+            @Html.ActionLink(Resources.Texts.LinkBackToHomePage, "Index", new { controller = "MainPage", area = "" })
             <p class="HeaderForMainPage">@Resources.Texts.HeaderNews</p>
             <div>
-                @using (Ajax.BeginForm("ReturnNewsWithSelectedType", new { controller = "News", area = "News" }, new AjaxOptions { UpdateTargetId = "DivWithAllNews"}, new { id = "AjaxFormForSearchingNews" }))
+                @using (Ajax.BeginForm("ReturnNewsWithSelectedType", new { controller = "News", area = "News" },
+                    new AjaxOptions { UpdateTargetId = "DivWithAllNews", OnSuccess = "EditableNews.MakeAllNewsEditableAgain()" }, 
+                    new { id = "AjaxFormForSearchingNews"}))
                 {
                     <p>@Resources.Texts.ParagraphSearchNewsByType</p>
                     @Html.EnumDropDownListFor(m => m.TypeOfNewsForSearch, new { id = "DropDownListForNewsType" })

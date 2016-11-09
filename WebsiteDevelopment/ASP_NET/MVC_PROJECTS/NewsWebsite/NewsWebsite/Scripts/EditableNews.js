@@ -22,6 +22,10 @@ var EditableNews = (function () {
         $(AjaxFormForSendingChangesInNews).attr("action", ParameterlessActionValueForAjaxForm);
     }
 
+    PublicMembers.MakeAllNewsEditableAgain = function () {
+        MakeNewsEditable('.' + NameOfEditableClassForNewsHeader, '.' + NameOfEditableClassForNewsBody);
+    }
+
     function MakeNewsEditable(NewsHeaderObject, NewsBodyObject) {
         $(NewsHeaderObject).editable(function (value, settings) {
             var IdOfCurrentNews = $(this).siblings("[name=SelectedNewsID]").val();

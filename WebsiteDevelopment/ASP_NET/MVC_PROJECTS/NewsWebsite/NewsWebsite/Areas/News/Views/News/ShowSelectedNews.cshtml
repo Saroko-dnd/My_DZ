@@ -2,6 +2,7 @@
 @using NewsDataAccess
 @using NewsInfrastructure
 @using NewsWebsite.ClassesForNewsWebsite
+@using NewsWebsite.Areas.News.Models
 @model NewsInfrastructure.News
 @{
     Layout = null;
@@ -18,7 +19,7 @@
 </head>
 <body>
     <div class="FlexColumnCenter"> 
-        @Html.ActionLink(Resources.Texts.LinkBackToAllNews, "Index", new { controller="News", area="News" });
+        @Html.ActionLink(Resources.Texts.LinkBackToAllNews, "Index", new { controller="News", area="News" })
         <div class="FlexColumnCenter">
             @Html.Partial(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(Model) { Selected = true })
         </div>
