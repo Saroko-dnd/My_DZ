@@ -238,6 +238,10 @@
       <Project>{3fbe1da1-6743-414b-877c-583cc1c4b590}</Project>
       <Name>NewsLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SuperLinqExstensionMethods\SuperLinqExstensionMethods.csproj">
+      <Project>{bc455769-2b5b-467c-bcc3-3222be1f8dc3}</Project>
+      <Name>SuperLinqExstensionMethods</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Texts.resx">

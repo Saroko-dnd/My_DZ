@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsWebsite", "NewsWebsite\NewsWebsite.csproj", "{05078FE0-45D1-4C76-8DA0-F4A5DAFC65FA}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsInfrastructure", "NewsInfrastructure\NewsInfrastructure.csproj", "{21C7C4F0-AE02-46AA-8157-78DF605707FD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsLogic", "NewsLogic\NewsLogic.csproj", "{3FBE1DA1-6743-414B-877C-583CC1C4B590}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperLinqExstensionMethods", "SuperLinqExstensionMethods\SuperLinqExstensionMethods.csproj", "{BC455769-2B5B-467C-BCC3-3222BE1F8DC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,12 @@ Global
 		{3FBE1DA1-6743-414B-877C-583CC1C4B590}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3FBE1DA1-6743-414B-877C-583CC1C4B590}.VS2015|Any CPU.ActiveCfg = Release|Any CPU
 		{3FBE1DA1-6743-414B-877C-583CC1C4B590}.VS2015|Any CPU.Build.0 = Release|Any CPU
+		{BC455769-2B5B-467C-BCC3-3222BE1F8DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC455769-2B5B-467C-BCC3-3222BE1F8DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC455769-2B5B-467C-BCC3-3222BE1F8DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC455769-2B5B-467C-BCC3-3222BE1F8DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC455769-2B5B-467C-BCC3-3222BE1F8DC3}.VS2015|Any CPU.ActiveCfg = Release|Any CPU
+		{BC455769-2B5B-467C-BCC3-3222BE1F8DC3}.VS2015|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

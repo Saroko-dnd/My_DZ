@@ -1,11 +1,13 @@
 ﻿using NewsInfrastructure;
 using Ninject;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using SuperLinqExstensionMethods;
 
 namespace NewsLogic
 {
@@ -99,6 +101,16 @@ namespace NewsLogic
                 TestDBContext.SaveAllChangesMadeInsideCollections();
             }
             return ChangedNews;
+        }
+
+        public IEnumerable<News> GetDistinctNewsWithSimilarHeader(string HeaderForSearch)
+        {
+            List<News> FoundNews = null;
+            using (INewsWebsiteRepository TestDBContext = CurrentKernelWithRepositoryBinding.Get<INewsWebsiteRepository>())
+            {
+                FoundNews = TestDBContext.AllNews.Where(CurrentNews => CurrentNews.Header.Contains(HeaderForSearch)).DistinctBy(ResultNews => ResultNews.Header).ToList();
+            }
+            return FoundNews;
         }
 
         public NewsWebsiteDataManager(IKernel NewKernelWithRepositoryBinding)

@@ -48,15 +48,13 @@
                 {
                     <p>@Resources.Texts.ParagraphSearchNewsByType</p>
                     @Html.EnumDropDownListFor(m => m.TypeOfNewsForSearch, new { id = "DropDownListForNewsType" })
-                    <input type="button" value="Search" onclick="SearchNewsSystem.SubmitAjaxFormForSearchNewsByType()"/>
+                    <input type="button" value="@Resources.Texts.ButtonSearch" onclick="SearchNewsSystem.SubmitAjaxFormForSearchNewsByType()"/>
                 }
                 <p>@Resources.Texts.ParagraphSearchNewsByHeader</p>
-                <input id="InputForNewsHeader" list="ListOfNewsWithSimilarName" type="text">
+                <input id="InputForNewsHeader" list="ListOfNewsWithSimilarName" type="text" oninput="SearchNewsSystem.SearchNewsByHeader()">
                 <datalist id="ListOfNewsWithSimilarName">
-                    <option value="small"></option>
-                    <option value="medium"></option>
-                    <option value="large"></option>
                 </datalist>
+                <input type="button" value="@Resources.Texts.ButtonSearchNewsByHeaderText" />
             </div>
         </div>
 

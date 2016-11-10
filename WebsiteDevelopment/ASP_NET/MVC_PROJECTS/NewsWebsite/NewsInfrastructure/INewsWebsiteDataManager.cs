@@ -21,6 +21,7 @@ namespace NewsInfrastructure
         void AddNewNews(News NewNews);
 
         IEnumerable<News> GetNewsByType(Enums.NewsTypes SelectedTypeOfNews);
+        IEnumerable<News> GetDistinctNewsWithSimilarHeader(string HeaderForSearch);
 
         News UpdateNewsProperty(string PropertyName, object PropertyValue, long CurrentNewsID);
 

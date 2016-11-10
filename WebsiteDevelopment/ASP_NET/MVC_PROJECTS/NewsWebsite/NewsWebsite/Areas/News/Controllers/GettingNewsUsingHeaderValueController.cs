@@ -13,6 +13,7 @@ using NewsInfrastructure;
 using Microsoft.Data.OData;
 using NewsWebsite.App_Start;
 using Ninject;
+using NewsWebsite.ClassesForNewsWebsite;
 
 namespace NewsWebsite.Areas.News.Controllers
 {
@@ -45,8 +46,14 @@ namespace NewsWebsite.Areas.News.Controllers
             }
 
             INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
-
-            return CurrentNewsWebsiteDataManager.GetAllNews().Where(FoundNews => FoundNews.Header.Contains(NewsHeaderForSearch)).AsQueryable();
+            if (NewsHeaderForSearch != null)
+            {
+                return CurrentNewsWebsiteDataManager.GetDistinctNewsWithSimilarHeader(NewsHeaderForSearch).AsQueryable();
+            }
+            else
+            {
+                return null;
+            }
         }
 
         // GET: NewsOdata/GettingNewsUsingHeaderValue(5)

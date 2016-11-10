@@ -9,6 +9,7 @@ var SearchNewsSystem = (function () {
     var DropDownListDomObject;
     var CurrentSiteName;
     var DataListForNewsHeaderInput;
+    var TextInputForNewsHeader;
 
     PublicMembers.GetInfoAboutAjaxForm = function ()
     {
@@ -17,6 +18,7 @@ var SearchNewsSystem = (function () {
         DropDownListDomObject = $("#DropDownListForNewsType");
         CurrentSiteName = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
         DataListForNewsHeaderInput = $("#ListOfNewsWithSimilarName");
+        TextInputForNewsHeader = $("#InputForNewsHeader");
     }
 
     PublicMembers.SubmitAjaxFormForSearchNewsByType = function () {
@@ -25,23 +27,26 @@ var SearchNewsSystem = (function () {
     }
 
     PublicMembers.SearchNewsByHeader = function () {
-        $.ajax({
-            type: "get",
-            async: false,
-            url: CurrentSiteName + "/NewsOdata/GettingNewsUsingHeaderValue?NewsHeaderForSearch=orror&$select=Header",
-            success: function (data) {
-                $(DataListForNewsHeaderInput).empty();
-                for (var CounterOfValues = 0; CounterOfValues < data.value.length; ++CounterOfValues)
-                {
-                    $(DataListForNewsHeaderInput).append('<option value="' + data.value[CounterOfValues].Header + '"></option>');
-                }
+        var CurrentTextOfHeader = $(TextInputForNewsHeader).val();
+        if (CurrentTextOfHeader != "")
+        {
+            $.ajax({
+                type: "get",
+                async: true,
+                url: CurrentSiteName + "/NewsOdata/GettingNewsUsingHeaderValue?NewsHeaderForSearch=" + CurrentTextOfHeader + "&$select=Header&$top=5",
+                success: function (data) {
+                    $(DataListForNewsHeaderInput).empty();
+                    for (var CounterOfValues = 0; CounterOfValues < data.value.length; ++CounterOfValues) {
+                        $(DataListForNewsHeaderInput).append('<option value="' + data.value[CounterOfValues].Header + '"></option>');
+                    }
 
-                //alert(data.value[0].Header + data.value.length);
-            },
-            error: function (xhr, textStatus, errorMessage) {
-                alert(errorMessage);
-            }
-        });
+                    //alert(data.value[0].Header + data.value.length);
+                },
+                error: function (xhr, textStatus, errorMessage) {
+                    alert(errorMessage);
+                }
+            });
+        }
     }
 
     return PublicMembers;

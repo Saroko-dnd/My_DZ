@@ -123,6 +123,12 @@
   <data name="ButtonDetailsAboutNews" xml:space="preserve">
     <value>More details</value>
   </data>
+  <data name="ButtonSearch" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="ButtonSearchNewsByHeaderText" xml:space="preserve">
+    <value>Search news with this header</value>
+  </data>
   <data name="EditorForNews_Body" xml:space="preserve">
     <value>Body:</value>
   </data>
