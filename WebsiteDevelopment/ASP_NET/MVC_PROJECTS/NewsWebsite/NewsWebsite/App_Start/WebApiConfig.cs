@@ -17,7 +17,7 @@ namespace NewsWebsite
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
             builder.EntitySet<News>("GettingNewsUsingHeaderValue");
             builder.EntitySet<Comment>("Comments");
-            config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
+            config.Routes.MapODataServiceRoute("odata", "NewsOdata", builder.GetEdmModel());
 
 
             config.Routes.MapHttpRoute(

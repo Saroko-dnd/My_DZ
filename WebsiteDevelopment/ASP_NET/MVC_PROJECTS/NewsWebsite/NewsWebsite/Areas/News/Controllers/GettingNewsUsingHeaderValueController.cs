@@ -30,9 +30,9 @@ namespace NewsWebsite.Areas.News.Controllers
     {
         private static ODataValidationSettings _validationSettings = new ODataValidationSettings();
 
-        // GET: odata/GettingNewsUsingHeaderValue
+        // GET: NewsOdata/GettingNewsUsingHeaderValue
         [EnableQuery]
-        public IQueryable<NewsInfrastructure.News> GetGettingNewsUsingHeaderValue(ODataQueryOptions<NewsInfrastructure.News> queryOptions)
+        public IQueryable<NewsInfrastructure.News> GetGettingNewsUsingHeaderValue(ODataQueryOptions<NewsInfrastructure.News> queryOptions, string NewsHeaderForSearch)
         {
             // validate the query.
             try
@@ -46,11 +46,10 @@ namespace NewsWebsite.Areas.News.Controllers
 
             INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
 
-            // return Ok<IEnumerable<News>>(news);
-            return CurrentNewsWebsiteDataManager.GetAllNews().AsQueryable();
+            return CurrentNewsWebsiteDataManager.GetAllNews().Where(FoundNews => FoundNews.Header.Contains(NewsHeaderForSearch)).AsQueryable();
         }
 
-        // GET: odata/GettingNewsUsingHeaderValue(5)
+        // GET: NewsOdata/GettingNewsUsingHeaderValue(5)
         public IHttpActionResult GetNews([FromODataUri] long key, ODataQueryOptions<NewsInfrastructure.News> queryOptions)
         {
             // validate the query.
@@ -67,7 +66,7 @@ namespace NewsWebsite.Areas.News.Controllers
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        // PUT: odata/GettingNewsUsingHeaderValue(5)
+        // PUT: NewsOdata/GettingNewsUsingHeaderValue(5)
         public IHttpActionResult Put([FromODataUri] long key, Delta<NewsInfrastructure.News> delta)
         {
             Validate(delta.GetEntity());
@@ -87,7 +86,7 @@ namespace NewsWebsite.Areas.News.Controllers
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        // POST: odata/GettingNewsUsingHeaderValue
+        // POST: NewsOdata/GettingNewsUsingHeaderValue
         public IHttpActionResult Post(NewsInfrastructure.News news)
         {
             if (!ModelState.IsValid)
@@ -101,7 +100,7 @@ namespace NewsWebsite.Areas.News.Controllers
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        // PATCH: odata/GettingNewsUsingHeaderValue(5)
+        // PATCH: NewsOdata/GettingNewsUsingHeaderValue(5)
         [AcceptVerbs("PATCH", "MERGE")]
         public IHttpActionResult Patch([FromODataUri] long key, Delta<NewsInfrastructure.News> delta)
         {
@@ -122,7 +121,7 @@ namespace NewsWebsite.Areas.News.Controllers
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        // DELETE: odata/GettingNewsUsingHeaderValue(5)
+        // DELETE: NewsOdata/GettingNewsUsingHeaderValue(5)
         public IHttpActionResult Delete([FromODataUri] long key)
         {
             // TODO: Add delete logic here.

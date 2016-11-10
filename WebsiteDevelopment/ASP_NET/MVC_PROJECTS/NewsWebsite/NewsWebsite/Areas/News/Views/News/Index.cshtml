@@ -50,6 +50,13 @@
                     @Html.EnumDropDownListFor(m => m.TypeOfNewsForSearch, new { id = "DropDownListForNewsType" })
                     <input type="button" value="Search" onclick="SearchNewsSystem.SubmitAjaxFormForSearchNewsByType()"/>
                 }
+                <p>@Resources.Texts.ParagraphSearchNewsByHeader</p>
+                <input id="InputForNewsHeader" list="ListOfNewsWithSimilarName" type="text">
+                <datalist id="ListOfNewsWithSimilarName">
+                    <option value="small"></option>
+                    <option value="medium"></option>
+                    <option value="large"></option>
+                </datalist>
             </div>
         </div>
 

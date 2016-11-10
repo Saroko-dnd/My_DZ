@@ -183,6 +183,9 @@
   <data name="LinkToPrintVersion" xml:space="preserve">
     <value>Print version</value>
   </data>
+  <data name="ParagraphSearchNewsByHeader" xml:space="preserve">
+    <value>Search news by header:</value>
+  </data>
   <data name="ParagraphSearchNewsByType" xml:space="preserve">
     <value>Search news by type:</value>
   </data>
