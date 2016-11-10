@@ -32,7 +32,7 @@ namespace NewsWebsite.Areas.News.Controllers
 
         // GET: odata/GettingNewsUsingHeaderValue
         [EnableQuery]
-        public HttpResponseMessage GetGettingNewsUsingHeaderValue(ODataQueryOptions<NewsInfrastructure.News> queryOptions)
+        public IQueryable<NewsInfrastructure.News> GetGettingNewsUsingHeaderValue(ODataQueryOptions<NewsInfrastructure.News> queryOptions)
         {
             // validate the query.
             try
@@ -41,13 +41,13 @@ namespace NewsWebsite.Areas.News.Controllers
             }
             catch (ODataException ex)
             {
-                return Request.CreateResponse(HttpStatusCode.NotFound, "We all doomed!!!");
+                return null;
             }
 
             INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
 
             // return Ok<IEnumerable<News>>(news);
-            return Request.CreateResponse(HttpStatusCode.NotFound, queryOptions.ApplyTo(CurrentNewsWebsiteDataManager.GetAllNews().AsQueryable()));
+            return CurrentNewsWebsiteDataManager.GetAllNews().AsQueryable();
         }
 
         // GET: odata/GettingNewsUsingHeaderValue(5)
