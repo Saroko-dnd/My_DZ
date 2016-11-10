@@ -1,0 +1,134 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.ModelBinding;
+using System.Web.Http.OData;
+using System.Web.Http.OData.Query;
+using System.Web.Http.OData.Routing;
+using NewsInfrastructure;
+using Microsoft.Data.OData;
+using NewsWebsite.App_Start;
+using Ninject;
+
+namespace NewsWebsite.Areas.News.Controllers
+{
+    /*
+    Для класса WebApiConfig может понадобиться внесение дополнительных изменений, чтобы добавить маршрут в этот контроллер. Объедините эти инструкции в методе Register класса WebApiConfig соответствующим образом. Обратите внимание, что в URL-адресах OData учитывается регистр символов.
+
+    using System.Web.Http.OData.Builder;
+    using System.Web.Http.OData.Extensions;
+    using NewsInfrastructure;
+    ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+    builder.EntitySet<News>("GettingNewsUsingHeaderValue");
+    config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
+    */
+    public class GettingNewsUsingHeaderValueController : ODataController
+    {
+        private static ODataValidationSettings _validationSettings = new ODataValidationSettings();
+
+        // GET: odata/GettingNewsUsingHeaderValue
+        [EnableQuery]
+        public HttpResponseMessage GetGettingNewsUsingHeaderValue(ODataQueryOptions<NewsInfrastructure.News> queryOptions)
+        {
+            // validate the query.
+            try
+            {
+                queryOptions.Validate(_validationSettings);
+            }
+            catch (ODataException ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "We all doomed!!!");
+            }
+
+            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
+
+            // return Ok<IEnumerable<News>>(news);
+            return Request.CreateResponse(HttpStatusCode.NotFound, queryOptions.ApplyTo(CurrentNewsWebsiteDataManager.GetAllNews().AsQueryable()));
+        }
+
+        // GET: odata/GettingNewsUsingHeaderValue(5)
+        public IHttpActionResult GetNews([FromODataUri] long key, ODataQueryOptions<NewsInfrastructure.News> queryOptions)
+        {
+            // validate the query.
+            try
+            {
+                queryOptions.Validate(_validationSettings);
+            }
+            catch (ODataException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            // return Ok<News>(news);
+            return StatusCode(HttpStatusCode.NotImplemented);
+        }
+
+        // PUT: odata/GettingNewsUsingHeaderValue(5)
+        public IHttpActionResult Put([FromODataUri] long key, Delta<NewsInfrastructure.News> delta)
+        {
+            Validate(delta.GetEntity());
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // TODO: Get the entity here.
+
+            // delta.Put(news);
+
+            // TODO: Save the patched entity.
+
+            // return Updated(news);
+            return StatusCode(HttpStatusCode.NotImplemented);
+        }
+
+        // POST: odata/GettingNewsUsingHeaderValue
+        public IHttpActionResult Post(NewsInfrastructure.News news)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // TODO: Add create logic here.
+
+            // return Created(news);
+            return StatusCode(HttpStatusCode.NotImplemented);
+        }
+
+        // PATCH: odata/GettingNewsUsingHeaderValue(5)
+        [AcceptVerbs("PATCH", "MERGE")]
+        public IHttpActionResult Patch([FromODataUri] long key, Delta<NewsInfrastructure.News> delta)
+        {
+            Validate(delta.GetEntity());
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // TODO: Get the entity here.
+
+            // delta.Patch(news);
+
+            // TODO: Save the patched entity.
+
+            // return Updated(news);
+            return StatusCode(HttpStatusCode.NotImplemented);
+        }
+
+        // DELETE: odata/GettingNewsUsingHeaderValue(5)
+        public IHttpActionResult Delete([FromODataUri] long key)
+        {
+            // TODO: Add delete logic here.
+
+            // return StatusCode(HttpStatusCode.NoContent);
+            return StatusCode(HttpStatusCode.NotImplemented);
+        }
+    }
+}
