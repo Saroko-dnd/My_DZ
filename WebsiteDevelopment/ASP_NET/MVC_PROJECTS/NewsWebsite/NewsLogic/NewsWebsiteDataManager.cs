@@ -83,6 +83,11 @@ namespace NewsLogic
             return ChangedNews;
         }
 
+        public IEnumerable<News> GetNewsByHeader(string SelectedNewsHeader)
+        {
+            return CurrentNewsWebsiteRepository.AllNews.Where(FoundNews => FoundNews.Header == SelectedNewsHeader).ToList();
+        }
+
         public NewsWebsiteDataManager(INewsWebsiteRepository SelectedNewsWebsiteRepository)
         {
             CurrentNewsWebsiteRepository = SelectedNewsWebsiteRepository;

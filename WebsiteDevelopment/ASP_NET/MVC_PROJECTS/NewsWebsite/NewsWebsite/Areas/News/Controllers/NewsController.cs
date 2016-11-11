@@ -41,6 +41,12 @@ namespace NewsWebsite.Areas.News.Controllers
             return PartialView(ApplicationConstants.PathFromRouteToNewsCollectionPartialView, CollectionOfNewsWithSelectedType);
         }
 
+        public ActionResult ReturnNewsWithSelectedHeader(string SelectedNewsHeader)
+        {
+            IEnumerable<NewsInfrastructure.News> CollectionOfNewsWithSelectedHeader = CurrentNewsWebsiteDataManager.GetNewsByHeader(SelectedNewsHeader);
+            return PartialView(ApplicationConstants.PathFromRouteToNewsCollectionPartialView, CollectionOfNewsWithSelectedHeader);
+        }
+
         [HttpPost]
         [FilterForPrintPage]
         [FilterForNewsPartialSubmit]

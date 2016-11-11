@@ -22,6 +22,8 @@ namespace NewsInfrastructure
 
         IEnumerable<News> GetNewsByType(Enums.NewsTypes SelectedTypeOfNews);
 
+        IEnumerable<News> GetNewsByHeader(string SelectedNewsHeader);
+
         News UpdateNewsProperty(string PropertyName, object PropertyValue, long CurrentNewsID);
 
     }
