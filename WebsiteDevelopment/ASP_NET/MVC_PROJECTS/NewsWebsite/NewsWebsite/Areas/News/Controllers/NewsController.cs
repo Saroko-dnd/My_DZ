@@ -14,10 +14,15 @@ namespace NewsWebsite.Areas.News.Controllers
 {
     public class NewsController : Controller
     {
+        INewsWebsiteDataManager CurrentNewsWebsiteDataManager;
+
+        public NewsController(INewsWebsiteDataManager SelectedNewsWebsiteDataManager)
+        {
+            CurrentNewsWebsiteDataManager = SelectedNewsWebsiteDataManager;
+        }
         // GET: News/News
         public ActionResult Index(bool? EditingEnabled)
         {
-            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
             PageWithListOfNews CurrentPageWithListOfNews = new PageWithListOfNews(CurrentNewsWebsiteDataManager.GetAllNews());
             if (EditingEnabled == true)
             {
@@ -32,7 +37,6 @@ namespace NewsWebsite.Areas.News.Controllers
 
         public ActionResult ReturnNewsWithSelectedType(int SelectedNewsType)
         {
-            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
             IEnumerable<NewsInfrastructure.News> CollectionOfNewsWithSelectedType = CurrentNewsWebsiteDataManager.GetNewsByType((Enums.NewsTypes)SelectedNewsType);
             return PartialView(ApplicationConstants.PathFromRouteToNewsCollectionPartialView, CollectionOfNewsWithSelectedType);
         }
@@ -42,13 +46,11 @@ namespace NewsWebsite.Areas.News.Controllers
         [FilterForNewsPartialSubmit]
         public ActionResult ShowSelectedNews(long SelectedNewsID)
         {
-            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
             return View(CurrentNewsWebsiteDataManager.GetNewsByID(SelectedNewsID));
         }
 
         public ActionResult ShowNewsPrintVersion(long SelectedNewsID)
         {
-            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
             return View(CurrentNewsWebsiteDataManager.GetNewsByID(SelectedNewsID));
         }
     }

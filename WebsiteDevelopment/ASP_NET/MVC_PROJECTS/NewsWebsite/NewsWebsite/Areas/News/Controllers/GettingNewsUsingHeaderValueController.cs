@@ -14,6 +14,7 @@ using Microsoft.Data.OData;
 using NewsWebsite.App_Start;
 using Ninject;
 using NewsWebsite.ClassesForNewsWebsite;
+using SuperLinqExstensionMethods;
 
 namespace NewsWebsite.Areas.News.Controllers
 {
@@ -31,6 +32,12 @@ namespace NewsWebsite.Areas.News.Controllers
     {
         private static ODataValidationSettings _validationSettings = new ODataValidationSettings();
 
+        private INewsWebsiteRepository CurrentNewsWebsiteRepository;
+
+        public GettingNewsUsingHeaderValueController(INewsWebsiteRepository SelectedNewsWebsiteRepository)
+        {
+            CurrentNewsWebsiteRepository = SelectedNewsWebsiteRepository;
+        }
         // GET: NewsOdata/GettingNewsUsingHeaderValue
         [EnableQuery]
         public IQueryable<NewsInfrastructure.News> GetGettingNewsUsingHeaderValue(ODataQueryOptions<NewsInfrastructure.News> queryOptions, string NewsHeaderForSearch)
@@ -45,10 +52,9 @@ namespace NewsWebsite.Areas.News.Controllers
                 return null;
             }
 
-            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
             if (NewsHeaderForSearch != null)
             {
-                return CurrentNewsWebsiteDataManager.GetDistinctNewsWithSimilarHeader(NewsHeaderForSearch).AsQueryable();
+                return CurrentNewsWebsiteRepository.AllNews.Where(CurrentNews => CurrentNews.Header.Contains(NewsHeaderForSearch)).DistinctBy(ResultNews => ResultNews.Header).AsQueryable();
             }
             else
             {

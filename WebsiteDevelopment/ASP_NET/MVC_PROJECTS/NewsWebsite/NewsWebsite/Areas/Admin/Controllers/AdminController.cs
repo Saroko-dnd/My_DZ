@@ -14,6 +14,12 @@ namespace NewsWebsite.Areas.Admin.Controllers
 {
     public class AdminController : Controller
     {
+        INewsWebsiteDataManager CurrentNewsWebsiteDataManager;
+
+        public AdminController(INewsWebsiteDataManager SelectedNewsWebsiteDataManager)
+        {
+            CurrentNewsWebsiteDataManager = SelectedNewsWebsiteDataManager;
+        }
         // GET: Admin/Admin
         public ActionResult Index()
         {
@@ -27,7 +33,6 @@ namespace NewsWebsite.Areas.Admin.Controllers
 
         public ActionResult SaveChangesInNewsAfterEdit(string PropertyName, string NewValue, long SelectedNewsID)
         {
-            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
             NewsInfrastructure.News ChangedNews = CurrentNewsWebsiteDataManager.UpdateNewsProperty(PropertyName, NewValue, SelectedNewsID);
             return PartialView(ApplicationConstants.PathFromRouteToNewsPartialView, new NewsForPartialView(ChangedNews));
         }
@@ -35,7 +40,6 @@ namespace NewsWebsite.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult AddNewNewsToDatabase(NewsInfrastructure.News CreatedNews)
         {
-            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
             CurrentNewsWebsiteDataManager.AddNewNews(CreatedNews);
             return RedirectToAction("Index", new { controller = "Admin", area = "Admin" });
         }

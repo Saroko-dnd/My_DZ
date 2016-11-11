@@ -15,11 +15,16 @@ namespace NewsWebsite.Controllers
 {
     public class MainPageController : Controller
     {
+        INewsWebsiteDataManager CurrentNewsWebsiteDataManager;
+
+        public MainPageController(INewsWebsiteDataManager SelecteNewsWebsitedManager)
+        {
+            CurrentNewsWebsiteDataManager = SelecteNewsWebsitedManager;
+        }
         // GET: MainPage
         public ActionResult Index()
         {
             TestClassWithWebsiteData TestDataObject = new TestClassWithWebsiteData();
-            INewsWebsiteDataManager CurrentNewsWebsiteDataManager = NinjectWebCommon.NinjectKernel.Get<INewsWebsiteDataManager>();
             TestDataObject.TestListOfNews = CurrentNewsWebsiteDataManager.GetHotNews();
             return View(TestDataObject);
         }

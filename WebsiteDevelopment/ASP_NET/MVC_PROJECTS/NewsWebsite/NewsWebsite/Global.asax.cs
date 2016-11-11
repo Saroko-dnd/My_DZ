@@ -20,8 +20,7 @@ namespace NewsWebsite
                 WebApiConfig.Register(config);
             });
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-            NinjectWebCommon.ConfigureNinject();
+            BundleConfig.RegisterBundles(BundleTable.Bundles);          
         }
     }
 }
