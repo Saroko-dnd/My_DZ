@@ -44,17 +44,21 @@
             <div>
                 @using (Ajax.BeginForm("ReturnNewsWithSelectedType", new { controller = "News", area = "News" },
                     new AjaxOptions { UpdateTargetId = "DivWithAllNews", OnSuccess = "EditableNews.MakeAllNewsEditableAgain()" }, 
-                    new { id = "AjaxFormForSearchingNews"}))
+                    new { id = "AjaxFormForSearchingNewsByType"}))
                 {
                     <p>@Resources.Texts.ParagraphSearchNewsByType</p>
                     @Html.EnumDropDownListFor(m => m.TypeOfNewsForSearch, new { id = "DropDownListForNewsType" })
                     <input type="button" value="@Resources.Texts.ButtonSearch" onclick="SearchNewsSystem.SubmitAjaxFormForSearchNewsByType()"/>
                 }
                 <p>@Resources.Texts.ParagraphSearchNewsByHeader</p>
-                <input id="InputForNewsHeader" list="ListOfNewsWithSimilarName" type="text" oninput="SearchNewsSystem.SearchNewsByHeader()">
-                <datalist id="ListOfNewsWithSimilarName">
-                </datalist>
-                <input type="button" value="@Resources.Texts.ButtonSearchNewsByHeaderText" />
+                @using (Ajax.BeginForm("ReturnNewsWithSelectedHeader", new { controller = "News", area = "News" },
+                    new AjaxOptions { UpdateTargetId = "DivWithAllNews", OnSuccess = "EditableNews.MakeAllNewsEditableAgain()" },
+                    new { id = "AjaxFormForSearchingNewsByHeader" }))
+                {
+                    <input name="SelectedNewsHeader" id="InputForNewsHeader" list="ListOfNewsWithSimilarName" type="text" oninput="SearchNewsSystem.SearchNewsByHeader()">
+                    <datalist id="ListOfNewsWithSimilarName"></datalist>
+                    <input type="submit" value="@Resources.Texts.ButtonSearchNewsByHeaderText" />
+                }
             </div>
         </div>
 

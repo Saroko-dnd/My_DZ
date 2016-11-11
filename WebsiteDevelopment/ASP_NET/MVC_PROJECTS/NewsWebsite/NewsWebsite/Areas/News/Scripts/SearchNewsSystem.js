@@ -4,7 +4,7 @@ var SearchNewsSystem = (function () {
 
     var PublicMembers = {};
 
-    var AjaxFormForSearchingNews;
+    var AjaxFormForSearchingNewsByType;
     var ParameterlessActionValueForAjaxForm;
     var DropDownListDomObject;
     var CurrentSiteName;
@@ -13,8 +13,8 @@ var SearchNewsSystem = (function () {
 
     PublicMembers.GetInfoAboutAjaxForm = function ()
     {
-        AjaxFormForSearchingNews = $("#AjaxFormForSearchingNews");
-        ParameterlessActionValueForAjaxForm = $(AjaxFormForSearchingNews).attr("action");
+        AjaxFormForSearchingNewsByType = $("#AjaxFormForSearchingNewsByType");
+        ParameterlessActionValueForAjaxForm = $(AjaxFormForSearchingNewsByType).attr("action");
         DropDownListDomObject = $("#DropDownListForNewsType");
         CurrentSiteName = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
         DataListForNewsHeaderInput = $("#ListOfNewsWithSimilarName");
@@ -23,7 +23,7 @@ var SearchNewsSystem = (function () {
 
     PublicMembers.SubmitAjaxFormForSearchNewsByType = function () {
         var SelectedTypeValue = $(DropDownListDomObject).val();
-        $(AjaxFormForSearchingNews).attr("action", ParameterlessActionValueForAjaxForm + "?SelectedNewsType=" + SelectedTypeValue).submit();
+        $(AjaxFormForSearchingNewsByType).attr("action", ParameterlessActionValueForAjaxForm + "?SelectedNewsType=" + SelectedTypeValue).submit();
     }
 
     PublicMembers.SearchNewsByHeader = function () {
