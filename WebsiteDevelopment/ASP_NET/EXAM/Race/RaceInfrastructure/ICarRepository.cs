@@ -8,7 +8,7 @@ namespace RaceInfrastructure
 {
     public interface ICarRepository
     {
-        IEnumerable<Car> AllCars { get; set; }
+        IEnumerable<Car> AllCars { get;}
         void AddNewCar(Car NewCar);
     }
 }
