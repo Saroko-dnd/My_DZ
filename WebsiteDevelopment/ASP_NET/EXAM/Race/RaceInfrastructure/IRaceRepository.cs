@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RaceInfrastructure
 {
-    public interface ICarRepository
+    public interface IRaceRepository
     {
         IEnumerable<Car> AllCars { get;}
         void AddNewCar(Car NewCar);

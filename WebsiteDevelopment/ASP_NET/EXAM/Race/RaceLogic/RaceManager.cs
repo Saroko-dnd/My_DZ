@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RaceLogic
 {
-    public class Race : IRace
+    public class RaceManager : IRaceManager
     {
 
         public void MoveCars()
@@ -25,7 +25,7 @@ namespace RaceLogic
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Car> Cars
+        public IEnumerable<Car> GetAllCars
         {
             get
             {

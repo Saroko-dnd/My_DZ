@@ -1,4 +1,6 @@
 ﻿
+@using RaceWebsite.ClassesForRaceWebsite
+
 @model RaceWebsite.Areas.Admin.Models.RaceAdminModel
 
 @{
@@ -14,10 +16,7 @@
 </head>
 <body>
     <div> 
-        @foreach (RaceInfrastructure.Car CurrentCar in Model.ListOfCars)
-        {
-            
-        }
+        @Html.Partial(ApplicationConstants.PathFromRouteToCarsCollectionPartialView, Model.ListOfCars); 
     </div>
 </body>
 </html>

@@ -49,8 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car.cs" />
-    <Compile Include="ICarRepository.cs" />
-    <Compile Include="IRace.cs" />
+    <Compile Include="IRaceRepository.cs" />
+    <Compile Include="IRaceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

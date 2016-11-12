@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace RaceInfrastructure
 {
-    public interface IRace
+    public interface IRaceManager
     {
         Car Winner { get; set; }
-        IEnumerable<Car> Cars {get; set;}
+        IEnumerable<Car> GetAllCars { get; set;}
         void MoveCars();
         void StopRace();
         void ResumeRace();

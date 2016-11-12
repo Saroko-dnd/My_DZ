@@ -1,0 +1,14 @@
+﻿
+@using RaceInfrastructure
+@using RaceWebsite.ClassesForRaceWebsite
+
+@model IEnumerable<Car>
+
+@{
+    Layout = null;
+}
+
+@foreach (Car CurrentCar in Model)
+{
+    Html.Partial(ApplicationConstants.PathFromRouteToCarPartialView, CurrentCar);
+}

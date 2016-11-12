@@ -10,6 +10,9 @@ namespace RaceWebsite.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using Ninject.Web.Mvc;
+    using System.Web.Mvc;
+    using System.Web.Http;
 
     public static class NinjectWebCommon 
     {
@@ -46,6 +49,7 @@ namespace RaceWebsite.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+                //GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
                 return kernel;
             }
             catch
@@ -61,6 +65,8 @@ namespace RaceWebsite.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            RaceWebsite.ClassesForRaceWebsite.NinjectDependencyResolver CurrentNinjectDependencyResolver = new RaceWebsite.ClassesForRaceWebsite.NinjectDependencyResolver(kernel);
+            DependencyResolver.SetResolver(CurrentNinjectDependencyResolver);
         }        
     }
 }

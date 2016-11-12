@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace RaceDataAccess
 {
-    public class RaceWebsiteDbContext : DbContext, ICarRepository
+    public class RaceWebsiteDbContext : DbContext, IRaceRepository
     {
         public DbSet<Car> Cars { get; set; }
 
