@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace RaceInfrastructure
 {
-    public interface IRaceRepository
+    public interface IAccessorToRaceInfo
     {
-        IEnumerable<Car> AllCars { get;}
-        void AddNewCar(Car NewCar);
-        void SaveAllChanges();
+        bool NewRaceCanBeCreated { get; set; }
+        long FinishDistance { get; set; }
     }
 }

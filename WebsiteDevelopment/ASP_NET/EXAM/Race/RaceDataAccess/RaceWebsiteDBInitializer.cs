@@ -18,6 +18,11 @@ namespace RaceDataAccess
             TestListOfCars.Add(new Car("0011FF", "Second car", 150));
             TestListOfCars.Add(new Car("48A41A", "Third car", 50));
 
+            foreach (Car CurrentTestCar in TestListOfCars)
+            {
+                Context.Cars.Add(CurrentTestCar);
+            }
+
             base.Seed(Context);
         }
     }

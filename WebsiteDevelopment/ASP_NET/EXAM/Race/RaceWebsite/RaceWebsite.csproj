@@ -128,12 +128,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\UsualNinjectConfigForNoncontrollers.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Models\RaceAdminModel.cs" />
     <Compile Include="ClassesForRaceWebsite\ApplicationConstants.cs" />
     <Compile Include="ClassesForRaceWebsite\NinjectDependencyResolver .cs" />
+    <Compile Include="ClassesForRaceWebsite\RaceBackgroundWorker.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\DisableGlobalFilterForIEUsers.cs" />
     <Compile Include="Filters\FilterForIEUsers.cs" />
@@ -141,6 +143,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\Texts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Texts.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -175,6 +182,13 @@
       <Project>{6b9c7e8d-9851-4450-9df2-fdd34e4c7117}</Project>
       <Name>RaceLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Texts.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

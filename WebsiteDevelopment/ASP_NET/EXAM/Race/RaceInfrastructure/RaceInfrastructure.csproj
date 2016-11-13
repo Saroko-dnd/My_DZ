@@ -52,6 +52,7 @@
     <Compile Include="IRaceRepository.cs" />
     <Compile Include="IRaceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IAccessorToRaceInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

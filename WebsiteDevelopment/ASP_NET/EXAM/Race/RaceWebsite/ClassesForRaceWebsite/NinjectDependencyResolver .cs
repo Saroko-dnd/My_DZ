@@ -29,8 +29,9 @@ namespace RaceWebsite.ClassesForRaceWebsite
         }
         private void AddBindings()
         {
-            kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().InRequestScope().WithConstructorArgument("ConnectionStringName", ApplicationConstants.ConnectionStringName);
-            kernel.Bind<IRaceManager>().To<RaceManager>(); 
+            kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().InThreadScope().WithConstructorArgument("ConnectionStringName", ApplicationConstants.ConnectionStringName);
+            kernel.Bind<IRaceManager>().To<RaceManager>();
+            kernel.Bind<IAccessorToRaceInfo>().To<AccessorToRaceInfo>().InSingletonScope();
         }
     }
 }

@@ -29,6 +29,11 @@ namespace RaceDataAccess
             Cars.Add(NewCar);
         }
 
+        public void SaveAllChanges()
+        {
+            base.SaveChanges();
+        }
+
         public RaceWebsiteDbContext(string ConnectionStringName): base(ConnectionStringName)
         {
             Database.SetInitializer(new RaceWebsiteDBInitializer());

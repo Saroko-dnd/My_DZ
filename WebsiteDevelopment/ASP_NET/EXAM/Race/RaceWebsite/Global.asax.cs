@@ -1,7 +1,12 @@
-﻿using RaceWebsite.Filters;
+﻿using RaceDataAccess;
+using RaceLogic;
+using RaceWebsite.App_Start;
+using RaceWebsite.ClassesForRaceWebsite;
+using RaceWebsite.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -14,8 +19,8 @@ namespace RaceWebsite
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            GlobalFilters.Filters.Add(new FilterForIEUsers());
 
-            GlobalFilters.Filters.Add(new FilterForIEUsers());   
         }
     }
 }

@@ -9,10 +9,7 @@ namespace RaceInfrastructure
     public interface IRaceManager
     {
         Car Winner { get; set; }
-        IEnumerable<Car> GetAllCars { get; set;}
-        void MoveCars();
-        void StopRace();
-        void ResumeRace();
-        void RestartRace();
+        bool NewRaceCanBeCreated { get; }
+        IEnumerable<Car> GetAllCars();
     }
 }

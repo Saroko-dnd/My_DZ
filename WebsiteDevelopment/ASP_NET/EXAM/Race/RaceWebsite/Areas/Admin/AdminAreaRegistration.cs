@@ -17,7 +17,7 @@ namespace RaceWebsite.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { controller = "Admin", action = "Index"/*, area = "Admin"*/, id = UrlParameter.Optional }
+                new { controller = "Admin", action = "Index", area = "Admin", id = UrlParameter.Optional }
             );
         }
     }
