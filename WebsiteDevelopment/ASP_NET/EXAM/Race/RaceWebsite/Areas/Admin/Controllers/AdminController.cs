@@ -16,7 +16,7 @@ namespace RaceWebsite.Areas.Admin.Controllers
         // GET: Admin/Admin
         public ActionResult Index()
         {
-            CurrentRaceManager.StartRaceManagementAsync(2000);
+            //CurrentRaceManager.StartRaceManagementAsync(2000);
             ModelState.Clear();
             return View(new RaceParticipantsModel(true, CurrentRaceManager));
         }

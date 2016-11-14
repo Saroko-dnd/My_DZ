@@ -31,7 +31,7 @@
             <span>@Resources.Texts.SpanRaceHasAlreadyStartedYouMustWait</span>
             <input type="hidden" id="HiddenFieldWithFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()"/>
         }
-        @Html.Partial(ApplicationConstants.PathFromRouteToCarsCollectionPartialView, Model); 
+        @Html.Partial(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, Model); 
     </div>
 </body>
 </html>

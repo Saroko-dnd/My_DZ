@@ -1,0 +1,27 @@
+﻿
+@using RaceInfrastructure
+@using RaceWebsite.ClassesForRaceWebsite
+
+@model RaceWebsite.Models.RaceParticipantsModel
+
+@{
+    Layout = null;
+}
+
+<span>Participants</span>
+@if (Model.AdminIsHere)
+{
+    if (Model.CurrentRaceManager.NewRaceCanBeCreated)
+    {
+        foreach (Car CurrentCar in Model.CurrentRaceManager.GetAllCars())
+        {
+            <span>Car name:@CurrentCar.Name</span>
+            <input type="hidden" name="SelectedCarID" value="@CurrentCar.CarID.ToString()"/>
+        }
+    }
+    else
+    {
+
+    }
+
+}
