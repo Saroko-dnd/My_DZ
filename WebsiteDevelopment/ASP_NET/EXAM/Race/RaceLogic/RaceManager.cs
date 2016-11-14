@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RaceLogic
@@ -10,41 +11,89 @@ namespace RaceLogic
     public class RaceManager : IRaceManager
     {
 
-        IRaceRepository CurrentRaceRepository;
-        IAccessorToRaceInfo CurrentAccessorToRaceInfo;
+        private IRaceRepository CurrentRaceRepository;
+        private IAccessorToRaceInfo CurrentAccessorToRaceInfo;
 
         public Car Winner
         {
             get
             {
-                throw new NotImplementedException();
+                return CurrentAccessorToRaceInfo.Winner;
             }
 
-            set
+            private set
             {
-                throw new NotImplementedException();
+                CurrentAccessorToRaceInfo.Winner = value;
             }
         }
 
         public bool NewRaceCanBeCreated
         {
             get
-            { 
+            {
+                return CurrentAccessorToRaceInfo.NewRaceCanBeCreated;
+            }
 
-                
-                throw new NotImplementedException();
+            private set
+            {
+                CurrentAccessorToRaceInfo.NewRaceCanBeCreated = value;
             }
         }
 
-        public IEnumerable<Car> GetAllCars()
+        public long CurrentFinishDistance
         {
-            return CurrentRaceRepository.AllCars;
+            get
+            {
+                return CurrentAccessorToRaceInfo.FinishDistance;
+            }
+
+            private set
+            {
+                CurrentAccessorToRaceInfo.FinishDistance = value;
+            }
         }
 
-        public RaceManager(IRaceRepository NewRaceRepository, IAccessorToRaceInfo NewRaceState)
+
+        public IEnumerable<Car> GetAllCars()
+        {
+            return CurrentRaceRepository.AllCars.ToList();
+        }
+
+        private void BackgroundRaceManagement()
+        {
+            while (Winner == null)
+            {
+                foreach (Car CurrentCar in CurrentRaceRepository.AllCars)
+                {
+                    CurrentCar.DistanceCovered += CurrentCar.Speed;
+                }
+                CurrentRaceRepository.SaveAllChanges();
+                Thread.Sleep(1000);
+                Winner = CurrentRaceRepository.AllCars.Where(FoundCar => FoundCar.DistanceCovered >= CurrentFinishDistance).FirstOrDefault();
+            }
+
+            NewRaceCanBeCreated = true;
+        }
+
+        public void StartRaceManagementAsync(long NewFinishDistance)
+        {
+            NewRaceCanBeCreated = false;
+            Winner = null;
+            CurrentFinishDistance = NewFinishDistance;
+
+            foreach (Car CurrentCar in CurrentRaceRepository.AllCars)
+            {
+                CurrentCar.DistanceCovered = 0;
+            }
+            CurrentRaceRepository.SaveAllChanges();
+
+            ThreadPool.QueueUserWorkItem(o => this.BackgroundRaceManagement());
+        }
+
+        public RaceManager(IRaceRepository NewRaceRepository, IAccessorToRaceInfo NewAccessorToRaceInfo)
         {
             CurrentRaceRepository = NewRaceRepository;
-            CurrentAccessorToRaceInfo = NewRaceState;
+            CurrentAccessorToRaceInfo = NewAccessorToRaceInfo;
         }
     }
 }

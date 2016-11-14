@@ -1,12 +1,15 @@
 ﻿using Ninject;
+using Ninject.Extensions.NamedScope;
 using Ninject.Web.Common;
 using RaceDataAccess;
 using RaceInfrastructure;
 using RaceLogic;
+using RaceWebsite.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Http.OData;
 using System.Web.Mvc;
 
 namespace RaceWebsite.ClassesForRaceWebsite
@@ -29,7 +32,10 @@ namespace RaceWebsite.ClassesForRaceWebsite
         }
         private void AddBindings()
         {
-            kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().InThreadScope().WithConstructorArgument("ConnectionStringName", ApplicationConstants.ConnectionStringName);
+            kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().WhenInjectedInto(typeof(IRaceManager)).InParentScope().WithConstructorArgument("ConnectionStringName",
+                ApplicationConstants.ConnectionStringName);
+            kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().WhenInjectedInto(typeof(ODataController)).InRequestScope().WithConstructorArgument("ConnectionStringName",
+                ApplicationConstants.ConnectionStringName);
             kernel.Bind<IRaceManager>().To<RaceManager>();
             kernel.Bind<IAccessorToRaceInfo>().To<AccessorToRaceInfo>().InSingletonScope();
         }

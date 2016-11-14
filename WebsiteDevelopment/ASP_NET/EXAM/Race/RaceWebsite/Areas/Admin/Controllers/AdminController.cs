@@ -1,5 +1,4 @@
 ﻿using RaceInfrastructure;
-using RaceWebsite.Areas.Admin.Models;
 using RaceWebsite.ClassesForRaceWebsite;
 using System;
 using System.Collections.Generic;
@@ -7,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using RaceWebsite.Models;
 
 namespace RaceWebsite.Areas.Admin.Controllers
 {
@@ -16,11 +16,9 @@ namespace RaceWebsite.Areas.Admin.Controllers
         // GET: Admin/Admin
         public ActionResult Index()
         {
-            RaceBackgroundWorker TestRaceBackgroundWorker = new RaceBackgroundWorker();
-            ThreadPool.QueueUserWorkItem(o => TestRaceBackgroundWorker.StartRaceManagement());
-            List<Car> hhh = CurrentRaceManager.GetAllCars().ToList();
+            CurrentRaceManager.StartRaceManagementAsync(2000);
             ModelState.Clear();
-            return View(new RaceAdminModel(hhh, true));
+            return View(new RaceParticipantsModel(true, CurrentRaceManager));
         }
 
         public AdminController(IRaceManager NewRaceManager)

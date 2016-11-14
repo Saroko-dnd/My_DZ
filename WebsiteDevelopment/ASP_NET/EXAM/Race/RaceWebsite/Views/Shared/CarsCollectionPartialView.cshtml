@@ -2,14 +2,14 @@
 @using RaceInfrastructure
 @using RaceWebsite.ClassesForRaceWebsite
 
-@model IEnumerable<Car>
+@model RaceWebsite.Models.RaceParticipantsModel
 
 @{
     Layout = null;
 }
 
 <span>Participants</span>
-@foreach (Car CurrentCar in Model)
+@foreach (Car CurrentCar in Model.CurrentRaceManager.GetAllCars())
 {
     @Html.Partial(ApplicationConstants.PathFromRouteToCarPartialView, CurrentCar);
 }

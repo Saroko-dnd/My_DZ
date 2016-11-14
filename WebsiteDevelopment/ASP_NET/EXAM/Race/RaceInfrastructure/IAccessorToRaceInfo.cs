@@ -10,5 +10,6 @@ namespace RaceInfrastructure
     {
         bool NewRaceCanBeCreated { get; set; }
         long FinishDistance { get; set; }
+        Car Winner { get; set; }
     }
 }

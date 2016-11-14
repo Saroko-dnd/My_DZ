@@ -1,7 +1,7 @@
 ﻿
 @using RaceWebsite.ClassesForRaceWebsite
 
-@model RaceWebsite.Areas.Admin.Models.RaceAdminModel
+@model RaceWebsite.Models.RaceParticipantsModel
 
 @{
     Layout = null;
@@ -17,17 +17,21 @@
 </head>
 <body>
     <div class="FlexColumnCenter">
-        @if (Model.RaceHasNotStartedYet)
+        @if (Model.CurrentRaceManager.NewRaceCanBeCreated)
         {
             <div>
-                <input type="button" value="@Resources.Texts.ButtonStartRace" />
+                <input type="button" id="StartNewRaceButton" value="@Resources.Texts.ButtonStartRace" />
             </div>
         }
         else
         {
+            <div>
+                <input type="button" id="StartNewRaceButton" value="@Resources.Texts.ButtonStartRace" disabled/>
+            </div>
             <span>@Resources.Texts.SpanRaceHasAlreadyStartedYouMustWait</span>
+            <input type="hidden" id="HiddenFieldWithFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()"/>
         }
-        @Html.Partial(ApplicationConstants.PathFromRouteToCarsCollectionPartialView, Model.ListOfCars); 
+        @Html.Partial(ApplicationConstants.PathFromRouteToCarsCollectionPartialView, Model); 
     </div>
 </body>
 </html>

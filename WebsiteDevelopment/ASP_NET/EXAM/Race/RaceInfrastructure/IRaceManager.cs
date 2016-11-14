@@ -8,8 +8,10 @@ namespace RaceInfrastructure
 {
     public interface IRaceManager
     {
-        Car Winner { get; set; }
+        Car Winner { get; }
         bool NewRaceCanBeCreated { get; }
+        long CurrentFinishDistance { get; }
+        void StartRaceManagementAsync(long CurrentFinishDistance);
         IEnumerable<Car> GetAllCars();
     }
 }
