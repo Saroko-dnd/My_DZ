@@ -15,10 +15,15 @@ namespace RaceWebsite.Areas.Admin.Controllers
         IRaceManager CurrentRaceManager;
         // GET: Admin/Admin
         public ActionResult Index()
-        {
-            //CurrentRaceManager.StartRaceManagementAsync(2000);
+        {            
             ModelState.Clear();
             return View(new RaceParticipantsModel(true, CurrentRaceManager));
+        }
+
+        public ActionResult StartNewRace(long NewFinishDistance)
+        {
+            CurrentRaceManager.StartRaceManagementAsync(NewFinishDistance);
+            return PartialView(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, new RaceParticipantsModel(true, CurrentRaceManager));
         }
 
         public AdminController(IRaceManager NewRaceManager)

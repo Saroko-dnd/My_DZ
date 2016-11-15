@@ -12,6 +12,6 @@ namespace RaceInfrastructure
         bool NewRaceCanBeCreated { get; }
         long CurrentFinishDistance { get; }
         void StartRaceManagementAsync(long CurrentFinishDistance);
-        IEnumerable<Car> GetAllCars();
+        IRaceRepository RaceRepository { get; }
     }
 }

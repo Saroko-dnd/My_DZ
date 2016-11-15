@@ -8,8 +8,10 @@ namespace RaceInfrastructure
 {
     public interface IRaceRepository
     {
-        IEnumerable<Car> AllCars { get;}
+        IQueryable<Car> AllCars { get;}
+        IQueryable<Racer> AllRacers { get; }
         void AddNewCar(Car NewCar);
+        void AddNewRacer(Racer NewRacer);
         void SaveAllChanges();
     }
 }

@@ -11,22 +11,34 @@ namespace RaceDataAccess
     public class RaceWebsiteDbContext : DbContext, IRaceRepository
     {
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Racer> Racers { get; set; }
 
-        public IEnumerable<Car> AllCars
+        public IQueryable<Car> AllCars
         {
             get
             {
                 return Cars;
             }
-            private set
+        }
+
+        public IQueryable<Racer> AllRacers
+        {
+            get
             {
-                throw new NotImplementedException();
+                return Racers;
             }
         }
 
         public void AddNewCar(Car NewCar)
         {
             Cars.Add(NewCar);
+            base.SaveChanges();
+        }
+
+        public void AddNewRacer(Racer NewRacer)
+        {
+            Racers.Add(NewRacer);
+            base.SaveChanges();
         }
 
         public void SaveAllChanges()

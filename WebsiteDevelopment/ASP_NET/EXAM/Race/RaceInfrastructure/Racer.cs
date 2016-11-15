@@ -15,5 +15,12 @@ namespace RaceInfrastructure
         public string SecondName { get; set; }
         public string Biography { get; set; }
         public Car SelectedCar { get; set; }
+
+        public Racer(string RacerFirstName, string RacerSecondName, string RacerBiography)
+        {
+            FirstName = RacerFirstName;
+            SecondName = RacerSecondName;
+            Biography = RacerBiography;
+        }
     }
 }

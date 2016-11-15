@@ -53,10 +53,12 @@ namespace RaceLogic
             }
         }
 
-
-        public IEnumerable<Car> GetAllCars()
+        public IRaceRepository RaceRepository
         {
-            return CurrentRaceRepository.AllCars.ToList();
+            get
+            {
+                return CurrentRaceRepository;
+            }
         }
 
         private void BackgroundRaceManagement()

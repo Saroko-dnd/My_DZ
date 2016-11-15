@@ -32,10 +32,9 @@ namespace RaceWebsite.ClassesForRaceWebsite
         }
         private void AddBindings()
         {
-            kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().WhenInjectedInto(typeof(IRaceManager)).InParentScope().WithConstructorArgument("ConnectionStringName",
-                ApplicationConstants.ConnectionStringName);
-            kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().WhenInjectedInto(typeof(ODataController)).InRequestScope().WithConstructorArgument("ConnectionStringName",
-                ApplicationConstants.ConnectionStringName);
+            kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().When(o => HttpContext.Current.Request.Url.ToString().Contains("/Admin/Admin/StartNewRace")).InParentScope().
+                WithConstructorArgument("ConnectionStringName", ApplicationConstants.ConnectionStringName);
+            kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().InRequestScope().WithConstructorArgument("ConnectionStringName", ApplicationConstants.ConnectionStringName);
             kernel.Bind<IRaceManager>().To<RaceManager>();
             kernel.Bind<IAccessorToRaceInfo>().To<AccessorToRaceInfo>().InSingletonScope();
         }

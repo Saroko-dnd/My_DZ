@@ -13,7 +13,7 @@
 {
     if (Model.CurrentRaceManager.NewRaceCanBeCreated)
     {
-        foreach (Car CurrentCar in Model.CurrentRaceManager.GetAllCars())
+        foreach (Car CurrentCar in Model.CurrentRaceManager.RaceRepository.AllCars)
         {
             <span>Car name:@CurrentCar.Name</span>
             <input type="hidden" name="SelectedCarID" value="@CurrentCar.CarID.ToString()"/>

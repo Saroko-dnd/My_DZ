@@ -43,7 +43,7 @@ namespace RaceWebsite.Controllers
                 return null;
             }
             // return Ok<IEnumerable<Car>>(cars);
-            return CurrentRaceRepository.AllCars.AsQueryable();
+            return CurrentRaceRepository.AllCars;
         }
 
         // GET: odata/Cars(5)
