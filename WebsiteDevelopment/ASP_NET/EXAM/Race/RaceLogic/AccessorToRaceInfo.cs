@@ -11,7 +11,7 @@ namespace RaceLogic
     {
         public long FinishDistance { get; set; }
         public bool NewRaceCanBeCreated { get; set; }
-        public Car Winner { get; set; }
+        public Racer Winner { get; set; }
 
         public AccessorToRaceInfo()
         {

@@ -1,0 +1,30 @@
+﻿
+@model RaceInfrastructure.Racer
+
+@{
+    Layout = null;
+}
+
+<p>
+    <span class="Title">@Resources.Texts.SpanFirstName: </span>@Model.FirstName
+</p>
+<p>
+    <span class="Title">@Resources.Texts.SpanSecondName: </span>@Model.SecondName
+</p>
+<div>
+    <p class="Title">@Resources.Texts.SpanBiography</p>
+    <p>@Model.Biography</p>
+</div>
+<p>
+    <span class="Title">@Resources.Texts.SpanCarName: </span>@Model.CarName
+</p>
+<p>
+    <span class="Title">@Resources.Texts.SpanCarSpeed: </span>@Model.CarSpeedKph.ToString() @Resources.Texts.SpanKph
+</p>
+<div>
+    <p class="Title">@Resources.Texts.SpanColor</p>
+    <div class="DivWithRacerColor" style="background-color:#@Model.ColorCode"></div>
+</div>
+
+
+

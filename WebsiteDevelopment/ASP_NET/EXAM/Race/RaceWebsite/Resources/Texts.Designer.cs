@@ -70,11 +70,83 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Biography.
+        /// </summary>
+        public static string SpanBiography {
+            get {
+                return ResourceManager.GetString("SpanBiography", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Car.
+        /// </summary>
+        public static string SpanCarName {
+            get {
+                return ResourceManager.GetString("SpanCarName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Car speed.
+        /// </summary>
+        public static string SpanCarSpeed {
+            get {
+                return ResourceManager.GetString("SpanCarSpeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Color.
+        /// </summary>
+        public static string SpanColor {
+            get {
+                return ResourceManager.GetString("SpanColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на First name.
+        /// </summary>
+        public static string SpanFirstName {
+            get {
+                return ResourceManager.GetString("SpanFirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Kph.
+        /// </summary>
+        public static string SpanKph {
+            get {
+                return ResourceManager.GetString("SpanKph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Participants.
+        /// </summary>
+        public static string SpanParticipants {
+            get {
+                return ResourceManager.GetString("SpanParticipants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на The race has already started. You must wait until the end of the current race, to start a new one..
         /// </summary>
         public static string SpanRaceHasAlreadyStartedYouMustWait {
             get {
                 return ResourceManager.GetString("SpanRaceHasAlreadyStartedYouMustWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Second name.
+        /// </summary>
+        public static string SpanSecondName {
+            get {
+                return ResourceManager.GetString("SpanSecondName", resourceCulture);
             }
         }
     }

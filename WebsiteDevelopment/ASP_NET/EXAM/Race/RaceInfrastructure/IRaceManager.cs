@@ -8,7 +8,7 @@ namespace RaceInfrastructure
 {
     public interface IRaceManager
     {
-        Car Winner { get; }
+        Racer Winner { get; }
         bool NewRaceCanBeCreated { get; }
         long CurrentFinishDistance { get; }
         void StartRaceManagementAsync(long CurrentFinishDistance);

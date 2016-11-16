@@ -120,7 +120,31 @@
   <data name="ButtonStartRace" xml:space="preserve">
     <value>Start  race</value>
   </data>
+  <data name="SpanBiography" xml:space="preserve">
+    <value>Biography</value>
+  </data>
+  <data name="SpanCarName" xml:space="preserve">
+    <value>Car</value>
+  </data>
+  <data name="SpanCarSpeed" xml:space="preserve">
+    <value>Car speed</value>
+  </data>
+  <data name="SpanColor" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="SpanFirstName" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="SpanKph" xml:space="preserve">
+    <value>Kph</value>
+  </data>
+  <data name="SpanParticipants" xml:space="preserve">
+    <value>Participants</value>
+  </data>
   <data name="SpanRaceHasAlreadyStartedYouMustWait" xml:space="preserve">
     <value>The race has already started. You must wait until the end of the current race, to start a new one.</value>
+  </data>
+  <data name="SpanSecondName" xml:space="preserve">
+    <value>Second name</value>
   </data>
 </root>

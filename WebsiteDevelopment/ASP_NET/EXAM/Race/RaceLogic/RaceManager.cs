@@ -14,7 +14,7 @@ namespace RaceLogic
         private IRaceRepository CurrentRaceRepository;
         private IAccessorToRaceInfo CurrentAccessorToRaceInfo;
 
-        public Car Winner
+        public Racer Winner
         {
             get
             {
@@ -65,13 +65,13 @@ namespace RaceLogic
         {
             while (Winner == null)
             {
-                foreach (Car CurrentCar in CurrentRaceRepository.AllCars)
+                foreach (Racer CurrentRacer in CurrentRaceRepository.AllRacers)
                 {
-                    CurrentCar.DistanceCovered += CurrentCar.Speed;
+                    CurrentRacer.DistanceCoveredInKm += CurrentRacer.CarSpeedKph;
                 }
                 CurrentRaceRepository.SaveAllChanges();
                 Thread.Sleep(1000);
-                Winner = CurrentRaceRepository.AllCars.Where(FoundCar => FoundCar.DistanceCovered >= CurrentFinishDistance).FirstOrDefault();
+                Winner = CurrentRaceRepository.AllRacers.Where(FoundRacer => FoundRacer.DistanceCoveredInKm >= CurrentFinishDistance).FirstOrDefault();
             }
 
             NewRaceCanBeCreated = true;
@@ -83,9 +83,9 @@ namespace RaceLogic
             Winner = null;
             CurrentFinishDistance = NewFinishDistance;
 
-            foreach (Car CurrentCar in CurrentRaceRepository.AllCars)
+            foreach (Racer CurrentRacer in CurrentRaceRepository.AllRacers)
             {
-                CurrentCar.DistanceCovered = 0;
+                CurrentRacer.DistanceCoveredInKm = 0;
             }
             CurrentRaceRepository.SaveAllChanges();
 

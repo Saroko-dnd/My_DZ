@@ -1,0 +1,33 @@
+﻿
+@model RaceWebsite.Models.RacerInfo
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>RacerInfo</title>
+    <link href="~/CSS/Main.css" rel="stylesheet"/>
+    @if (!Model.EditingAllowed)
+    {
+        <link href="~/CSS/Admin.css" rel="stylesheet"/>
+    }
+</head>
+<body>
+    <div class="FlexColumnCenter DivWithRacerInfo"> 
+        @if (Model.EditingAllowed)
+        {
+
+        }
+        else
+        {
+            @Html.EditorFor(m => m.SelectedRacer)
+           
+        }
+    </div>
+</body>
+</html>

@@ -8,15 +8,15 @@
     Layout = null;
 }
 
-<span>Participants</span>
+<span>@Resources.Texts.SpanParticipants</span>
 @if (Model.AdminIsHere)
 {
     if (Model.CurrentRaceManager.NewRaceCanBeCreated)
     {
-        foreach (Car CurrentCar in Model.CurrentRaceManager.RaceRepository.AllCars)
+        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
         {
-            <span>Car name:@CurrentCar.Name</span>
-            <input type="hidden" name="SelectedCarID" value="@CurrentCar.CarID.ToString()"/>
+            <span>@CurrentRacer.FirstName @CurrentRacer.SecondName</span>
+            <input type="hidden" name="SelectedCarID" value="@CurrentRacer.RacerID.ToString()"/>
         }
     }
     else

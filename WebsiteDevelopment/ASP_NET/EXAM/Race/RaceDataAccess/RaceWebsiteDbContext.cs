@@ -10,16 +10,7 @@ namespace RaceDataAccess
 {
     public class RaceWebsiteDbContext : DbContext, IRaceRepository
     {
-        public DbSet<Car> Cars { get; set; }
         public DbSet<Racer> Racers { get; set; }
-
-        public IQueryable<Car> AllCars
-        {
-            get
-            {
-                return Cars;
-            }
-        }
 
         public IQueryable<Racer> AllRacers
         {
@@ -27,12 +18,6 @@ namespace RaceDataAccess
             {
                 return Racers;
             }
-        }
-
-        public void AddNewCar(Car NewCar)
-        {
-            Cars.Add(NewCar);
-            base.SaveChanges();
         }
 
         public void AddNewRacer(Racer NewRacer)

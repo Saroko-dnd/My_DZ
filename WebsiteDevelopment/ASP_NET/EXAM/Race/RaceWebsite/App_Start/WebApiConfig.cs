@@ -15,7 +15,7 @@ namespace RaceWebsite
             config.MapHttpAttributeRoutes();
 
             ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-            builder.EntitySet<Car>("Cars");
+            builder.EntitySet<Racer>("Racers");
             config.Routes.MapODataServiceRoute("odata", "RaceApi", builder.GetEdmModel());
 
             config.Routes.MapHttpRoute(

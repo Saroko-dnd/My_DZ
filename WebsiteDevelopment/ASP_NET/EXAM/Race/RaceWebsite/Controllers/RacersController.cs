@@ -21,17 +21,16 @@ namespace RaceWebsite.Controllers
     using System.Web.Http.OData.Extensions;
     using RaceInfrastructure;
     ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
-    builder.EntitySet<Car>("Cars");
+    builder.EntitySet<Racer>("Racers");
     config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
     */
-    public class CarsController : ODataController
+    public class RacersController : ODataController
     {
         private IRaceRepository CurrentRaceRepository;
         private static ODataValidationSettings _validationSettings = new ODataValidationSettings();
 
-        // GET: RaceApi/Cars
-        [EnableQuery]
-        public IQueryable<Car> GetCars(ODataQueryOptions<Car> queryOptions)
+        // GET: RaceApi/Racers
+        public IQueryable<Racer> GetRacers(ODataQueryOptions<Racer> queryOptions)
         {
             // validate the query.
             try
@@ -42,12 +41,13 @@ namespace RaceWebsite.Controllers
             {
                 return null;
             }
-            // return Ok<IEnumerable<Car>>(cars);
-            return CurrentRaceRepository.AllCars;
+
+            // return Ok<IEnumerable<Racer>>(racers);
+            return CurrentRaceRepository.AllRacers;
         }
 
-        // GET: odata/Cars(5)
-        public IHttpActionResult GetCar([FromODataUri] long key, ODataQueryOptions<Car> queryOptions)
+        // GET: odata/Racers(5)
+        public IHttpActionResult GetRacer([FromODataUri] long key, ODataQueryOptions<Racer> queryOptions)
         {
             // validate the query.
             try
@@ -59,12 +59,12 @@ namespace RaceWebsite.Controllers
                 return BadRequest(ex.Message);
             }
 
-            // return Ok<Car>(car);
+            // return Ok<Racer>(racer);
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        // PUT: odata/Cars(5)
-        public IHttpActionResult Put([FromODataUri] long key, Delta<Car> delta)
+        // PUT: odata/Racers(5)
+        public IHttpActionResult Put([FromODataUri] long key, Delta<Racer> delta)
         {
             Validate(delta.GetEntity());
 
@@ -75,16 +75,16 @@ namespace RaceWebsite.Controllers
 
             // TODO: Get the entity here.
 
-            // delta.Put(car);
+            // delta.Put(racer);
 
             // TODO: Save the patched entity.
 
-            // return Updated(car);
+            // return Updated(racer);
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        // POST: odata/Cars
-        public IHttpActionResult Post(Car car)
+        // POST: odata/Racers
+        public IHttpActionResult Post(Racer racer)
         {
             if (!ModelState.IsValid)
             {
@@ -93,13 +93,13 @@ namespace RaceWebsite.Controllers
 
             // TODO: Add create logic here.
 
-            // return Created(car);
+            // return Created(racer);
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        // PATCH: odata/Cars(5)
+        // PATCH: odata/Racers(5)
         [AcceptVerbs("PATCH", "MERGE")]
-        public IHttpActionResult Patch([FromODataUri] long key, Delta<Car> delta)
+        public IHttpActionResult Patch([FromODataUri] long key, Delta<Racer> delta)
         {
             Validate(delta.GetEntity());
 
@@ -110,15 +110,15 @@ namespace RaceWebsite.Controllers
 
             // TODO: Get the entity here.
 
-            // delta.Patch(car);
+            // delta.Patch(racer);
 
             // TODO: Save the patched entity.
 
-            // return Updated(car);
+            // return Updated(racer);
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        // DELETE: odata/Cars(5)
+        // DELETE: odata/Racers(5)
         public IHttpActionResult Delete([FromODataUri] long key)
         {
             // TODO: Add delete logic here.
@@ -127,7 +127,7 @@ namespace RaceWebsite.Controllers
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        public CarsController(IRaceRepository NewRaceRepository)
+        public RacersController(IRaceRepository NewRaceRepository)
         {
             CurrentRaceRepository = NewRaceRepository;
         }
