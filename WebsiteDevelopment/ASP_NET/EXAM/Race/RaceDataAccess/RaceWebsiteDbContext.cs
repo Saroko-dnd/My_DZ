@@ -1,6 +1,7 @@
 ﻿using RaceInfrastructure;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,11 @@ namespace RaceDataAccess
 
         public void SaveAllChanges()
         {
-            using (var dbContextTransaction = base.Database.BeginTransaction())
+            /*base.Database.Connection.Close();
+            base.Database.Connection.Open();
+            base.SaveChanges();*/
+            
+            using (var dbContextTransaction = base.Database.BeginTransaction(IsolationLevel.RepeatableRead))
             {
                 try
                 {
@@ -39,7 +44,7 @@ namespace RaceDataAccess
                 {
                     dbContextTransaction.Rollback();
                 }
-            }
+            } 
         }
 
         public void UpdateRacerWithSameId(Racer UpdatedRacer)

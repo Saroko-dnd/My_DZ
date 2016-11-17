@@ -27,7 +27,7 @@
     {
         foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
         {
-            using (Html.BeginForm("RacerInfo", "Home", new { area = "" }))
+            using (Html.BeginForm("RacerInfo", "Home", new { area = "" }, FormMethod.Post, new { id = "RacerID_" + CurrentRacer.RacerID.ToString() }))
             {
                 <p>@CurrentRacer.FirstName @CurrentRacer.SecondName @Resources.Texts.PDistanceCovered: @CurrentRacer.DistanceCoveredInKm/@Model.CurrentRaceManager.CurrentFinishDistance.ToString() 
                     @Resources.Texts.PKilometers
