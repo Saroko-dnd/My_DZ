@@ -1,4 +1,6 @@
 ﻿
+@using System.Web.Optimization
+@using RaceWebsite.App_Start
 @using RaceWebsite.ClassesForRaceWebsite
 
 @model RaceWebsite.Models.RaceParticipantsModel
@@ -14,24 +16,40 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link href="~/CSS/Main.css" rel="stylesheet"/>
+    @Scripts.Render(BundleConfig.VirtualPathForJqueryBundle)
+    @Scripts.Render(BundleConfig.VirtualPathForUnobtrusiveAjaxBundle)
 </head>
 <body>
     <div class="FlexColumnCenter">
         @if (Model.CurrentRaceManager.NewRaceCanBeCreated)
         {
-            <div>
-                <input type="button" id="StartNewRaceButton" value="@Resources.Texts.ButtonStartRace" />
-            </div>
+            using (Ajax.BeginForm("StartNewRace", new { controller = "Admin", area = "Admin" }, new AjaxOptions
+            {
+                UpdateTargetId = "DivWithRaceParticipants",
+            }, new { id = "AjaxFormForChangingOfRaceParticipantsView" }))
+            {
+                <input type="submit" id="StartNewRaceButton" value="@Resources.Texts.ButtonStartRace" />
+                <p>@Resources.Texts.PEnterFinishDistance</p>
+                <input type="number" name="NewFinishDistance" value="1"/>
+            }
         }
         else
         {
-            <div>
-                <input type="button" id="StartNewRaceButton" value="@Resources.Texts.ButtonStartRace" disabled/>
-            </div>
+            using (Ajax.BeginForm("StartNewRace", new { controller = "Admin", area = "Admin" }, new AjaxOptions
+            {
+                UpdateTargetId = "DivWithRaceParticipants",
+            }, new { id = "AjaxFormForChangingOfRaceParticipantsView" }))
+            {
+                <input type="submit" id="StartNewRaceButton" value="@Resources.Texts.ButtonStartRace" disabled />
+                <p>@Resources.Texts.PEnterFinishDistance</p>
+                <input type="number" name="NewFinishDistance" value="1" />
+            }
             <span>@Resources.Texts.SpanRaceHasAlreadyStartedYouMustWait</span>
             <input type="hidden" id="HiddenFieldWithFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()"/>
         }
-        @Html.Partial(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, Model); 
+        <div id="DivWithRaceParticipants">
+            @Html.Partial(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, Model)
+        </div>
     </div>
 </body>
 </html>

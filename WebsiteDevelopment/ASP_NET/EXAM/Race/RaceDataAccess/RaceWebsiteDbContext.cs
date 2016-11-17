@@ -28,7 +28,25 @@ namespace RaceDataAccess
 
         public void SaveAllChanges()
         {
-            base.SaveChanges();
+            using (var dbContextTransaction = base.Database.BeginTransaction())
+            {
+                try
+                {
+                    base.SaveChanges();
+                    dbContextTransaction.Commit();
+                }
+                catch (Exception)
+                {
+                    dbContextTransaction.Rollback();
+                }
+            }
+        }
+
+        public void UpdateRacerWithSameId(Racer UpdatedRacer)
+        {
+            Racers.Attach(UpdatedRacer);
+            Entry(UpdatedRacer).State = EntityState.Modified;
+            SaveChanges();
         }
 
         public RaceWebsiteDbContext(string ConnectionStringName): base(ConnectionStringName)

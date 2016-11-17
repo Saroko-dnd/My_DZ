@@ -9,5 +9,6 @@ namespace RaceWebsite.ClassesForRaceWebsite
     {
         public static readonly string ConnectionStringName = "RaceWebsiteDB_NewVersion";
         public static readonly string PathFromRouteToRaceParticipantsPartialView = "~/Views/Shared/RaceParticipantsPartialView.cshtml";
+        public static readonly string PathFromRouteToRacerInfoView = "~/Views/Home/RacerInfo.cshtml";
     }
 }

@@ -61,11 +61,83 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Save changes.
+        /// </summary>
+        public static string ButtonSaveChanges {
+            get {
+                return ResourceManager.GetString("ButtonSaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Start  race.
         /// </summary>
         public static string ButtonStartRace {
             get {
                 return ResourceManager.GetString("ButtonStartRace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на More details.
+        /// </summary>
+        public static string DetailsButton {
+            get {
+                return ResourceManager.GetString("DetailsButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Edit.
+        /// </summary>
+        public static string EditButton {
+            get {
+                return ResourceManager.GetString("EditButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Distance covered.
+        /// </summary>
+        public static string PDistanceCovered {
+            get {
+                return ResourceManager.GetString("PDistanceCovered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Distance from start to finish (Km).
+        /// </summary>
+        public static string PEnterFinishDistance {
+            get {
+                return ResourceManager.GetString("PEnterFinishDistance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Km.
+        /// </summary>
+        public static string PKilometers {
+            get {
+                return ResourceManager.GetString("PKilometers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Failed to save changes!.
+        /// </summary>
+        public static string PSaveChangesFail {
+            get {
+                return ResourceManager.GetString("PSaveChangesFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Changes have been successfully saved!.
+        /// </summary>
+        public static string PSaveChangesSuccess {
+            get {
+                return ResourceManager.GetString("PSaveChangesSuccess", resourceCulture);
             }
         }
         

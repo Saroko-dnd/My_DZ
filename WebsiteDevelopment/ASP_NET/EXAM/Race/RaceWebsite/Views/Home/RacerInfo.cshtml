@@ -1,4 +1,7 @@
 ﻿
+@using System.Web.Optimization
+@using RaceWebsite.App_Start
+
 @model RaceWebsite.Models.RacerInfo
 
 @{
@@ -12,21 +15,28 @@
     <meta name="viewport" content="width=device-width" />
     <title>RacerInfo</title>
     <link href="~/CSS/Main.css" rel="stylesheet"/>
-    @if (!Model.EditingAllowed)
+    @if (Model.EditingAllowed)
     {
         <link href="~/CSS/Admin.css" rel="stylesheet"/>
+        <text>
+            @Scripts.Render(BundleConfig.VirtualPathForJqueryBundle)
+            @Scripts.Render(BundleConfig.VirtualPathForChangingRacerInfoBundle)
+        </text>
     }
 </head>
 <body>
     <div class="FlexColumnCenter DivWithRacerInfo"> 
+        @Html.ActionLink("Admin main page", "Index", new { controller = "Admin", area = "Admin" });
         @if (Model.EditingAllowed)
         {
-
+            @Html.EditorFor(m => m.SelectedRacer)
+            <input id="SaveChangesInRacerButton" type="button" value="@Resources.Texts.ButtonSaveChanges" onclick="PostChangerRacerToOdataController()"/>
+            <p id="PForSaveChangesButtonSuccessMessage" style="display:none">@Resources.Texts.PSaveChangesSuccess</p>
+            <p id="PForSaveChangesButtonFailMessage" style="display:none">@Resources.Texts.PSaveChangesFail</p>
         }
         else
         {
-            @Html.EditorFor(m => m.SelectedRacer)
-           
+            @Html.DisplayFor(m => m.SelectedRacer)
         }
     </div>
 </body>

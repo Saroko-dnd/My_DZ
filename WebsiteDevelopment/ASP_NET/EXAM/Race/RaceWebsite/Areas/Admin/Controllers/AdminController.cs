@@ -26,6 +26,13 @@ namespace RaceWebsite.Areas.Admin.Controllers
             return PartialView(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, new RaceParticipantsModel(true, CurrentRaceManager));
         }
 
+        public ActionResult EditRacerInfo(long SelectedRacerID)
+        {
+            Racer SelectedRacer = CurrentRaceManager.RaceRepository.AllRacers.Where(FoundRacer => FoundRacer.RacerID == SelectedRacerID).FirstOrDefault();
+            RacerInfo SelectedRacerInfo = new RacerInfo(true, SelectedRacer);
+            return View(ApplicationConstants.PathFromRouteToRacerInfoView, SelectedRacerInfo);
+        }
+
         public AdminController(IRaceManager NewRaceManager)
         {
             CurrentRaceManager = NewRaceManager;

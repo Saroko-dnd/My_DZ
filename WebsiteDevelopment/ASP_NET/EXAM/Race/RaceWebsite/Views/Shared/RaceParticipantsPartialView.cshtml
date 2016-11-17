@@ -15,13 +15,27 @@
     {
         foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
         {
-            <span>@CurrentRacer.FirstName @CurrentRacer.SecondName</span>
-            <input type="hidden" name="SelectedCarID" value="@CurrentRacer.RacerID.ToString()"/>
+            using (Html.BeginForm("EditRacerInfo","Admin", new { area = "Admin"}))
+            {
+                <span>@CurrentRacer.FirstName @CurrentRacer.SecondName</span>
+                <input type="hidden" name="SelectedRacerID" value="@CurrentRacer.RacerID.ToString()" />
+                <input type="submit" value="@Resources.Texts.EditButton" />
+            }
         }
     }
     else
     {
-
+        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
+        {
+            using (Html.BeginForm("RacerInfo", "Home", new { area = "" }))
+            {
+                <p>@CurrentRacer.FirstName @CurrentRacer.SecondName @Resources.Texts.PDistanceCovered: @CurrentRacer.DistanceCoveredInKm/@Model.CurrentRaceManager.CurrentFinishDistance.ToString() 
+                    @Resources.Texts.PKilometers
+                </p>
+                <input type="hidden" name="SelectedRacerID" value="@CurrentRacer.RacerID.ToString()" />
+                <input type="submit" value="@Resources.Texts.DetailsButton" />
+            }
+        }
     }
 
 }

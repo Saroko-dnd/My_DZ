@@ -83,18 +83,17 @@ namespace RaceWebsite.Controllers
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        // POST: odata/Racers
-        public IHttpActionResult Post(Racer racer)
+        // POST: RaceApi/Racers
+        public IHttpActionResult Post(Racer ChangedRacer)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            // TODO: Add create logic here.
+            CurrentRaceRepository.UpdateRacerWithSameId(ChangedRacer);
 
-            // return Created(racer);
-            return StatusCode(HttpStatusCode.NotImplemented);
+            return StatusCode(HttpStatusCode.OK);
         }
 
         // PATCH: odata/Racers(5)

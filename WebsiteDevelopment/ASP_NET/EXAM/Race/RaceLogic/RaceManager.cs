@@ -63,9 +63,11 @@ namespace RaceLogic
 
         private void BackgroundRaceManagement()
         {
+            List<Racer> CurrentListOfRacers;
             while (Winner == null)
             {
-                foreach (Racer CurrentRacer in CurrentRaceRepository.AllRacers)
+                CurrentListOfRacers = CurrentRaceRepository.AllRacers.ToList();
+                foreach (Racer CurrentRacer in CurrentListOfRacers)
                 {
                     CurrentRacer.DistanceCoveredInKm += CurrentRacer.CarSpeedKph;
                 }
@@ -82,8 +84,9 @@ namespace RaceLogic
             NewRaceCanBeCreated = false;
             Winner = null;
             CurrentFinishDistance = NewFinishDistance;
-
-            foreach (Racer CurrentRacer in CurrentRaceRepository.AllRacers)
+            List<Racer> CurrentListOfRacers;
+            CurrentListOfRacers = CurrentRaceRepository.AllRacers.ToList();
+            foreach (Racer CurrentRacer in CurrentListOfRacers)
             {
                 CurrentRacer.DistanceCoveredInKm = 0;
             }

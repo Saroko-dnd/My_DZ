@@ -10,6 +10,7 @@ namespace RaceInfrastructure
     {
         IQueryable<Racer> AllRacers { get; }
         void AddNewRacer(Racer NewRacer);
+        void UpdateRacerWithSameId(Racer UpdatedRacer);
         void SaveAllChanges();
     }
 }

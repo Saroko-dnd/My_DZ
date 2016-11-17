@@ -117,8 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ButtonSaveChanges" xml:space="preserve">
+    <value>Save changes</value>
+  </data>
   <data name="ButtonStartRace" xml:space="preserve">
     <value>Start  race</value>
+  </data>
+  <data name="DetailsButton" xml:space="preserve">
+    <value>More details</value>
+  </data>
+  <data name="EditButton" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="PDistanceCovered" xml:space="preserve">
+    <value>Distance covered</value>
+  </data>
+  <data name="PEnterFinishDistance" xml:space="preserve">
+    <value>Distance from start to finish (Km)</value>
+  </data>
+  <data name="PKilometers" xml:space="preserve">
+    <value>Km</value>
+  </data>
+  <data name="PSaveChangesFail" xml:space="preserve">
+    <value>Failed to save changes!</value>
+  </data>
+  <data name="PSaveChangesSuccess" xml:space="preserve">
+    <value>Changes have been successfully saved!</value>
   </data>
   <data name="SpanBiography" xml:space="preserve">
     <value>Biography</value>
