@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IBackgroundRaceManager.cs" />
     <Compile Include="IRaceRepository.cs" />
     <Compile Include="IRaceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

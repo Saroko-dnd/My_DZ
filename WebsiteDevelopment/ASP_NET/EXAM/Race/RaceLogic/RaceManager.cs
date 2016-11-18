@@ -13,6 +13,7 @@ namespace RaceLogic
 
         private IRaceRepository CurrentRaceRepository;
         private IAccessorToRaceInfo CurrentAccessorToRaceInfo;
+        private IBackgroundRaceManager CurrentBackgroundRaceManager;
 
         public Racer Winner
         {
@@ -61,44 +62,25 @@ namespace RaceLogic
             }
         }
 
-        private void BackgroundRaceManagement()
-        {
-            List<Racer> CurrentListOfRacers;
-            while (Winner == null)
-            {
-                CurrentListOfRacers = CurrentRaceRepository.AllRacers.ToList();
-                foreach (Racer CurrentRacer in CurrentListOfRacers)
-                {
-                    CurrentRacer.DistanceCoveredInKm += CurrentRacer.CarSpeedKph;
-                }
-                CurrentRaceRepository.SaveAllChanges();
-                Thread.Sleep(1000);
-                Winner = CurrentRaceRepository.AllRacers.Where(FoundRacer => FoundRacer.DistanceCoveredInKm >= CurrentFinishDistance).FirstOrDefault();
-            }
-
-            NewRaceCanBeCreated = true;
-        }
-
         public void StartRaceManagementAsync(long NewFinishDistance)
         {
             NewRaceCanBeCreated = false;
             Winner = null;
             CurrentFinishDistance = NewFinishDistance;
-            List<Racer> CurrentListOfRacers;
-            CurrentListOfRacers = CurrentRaceRepository.AllRacers.ToList();
-            foreach (Racer CurrentRacer in CurrentListOfRacers)
+            foreach (Racer CurrentRacer in CurrentRaceRepository.AllRacers)
             {
                 CurrentRacer.DistanceCoveredInKm = 0;
             }
             CurrentRaceRepository.SaveAllChanges();
 
-            ThreadPool.QueueUserWorkItem(o => this.BackgroundRaceManagement());
+            ThreadPool.QueueUserWorkItem(o => CurrentBackgroundRaceManager.StartBackgroundRaceManagement());
         }
 
-        public RaceManager(IRaceRepository NewRaceRepository, IAccessorToRaceInfo NewAccessorToRaceInfo)
+        public RaceManager(IRaceRepository NewRaceRepository, IAccessorToRaceInfo NewAccessorToRaceInfo, IBackgroundRaceManager NewBackgroundRaceManager)
         {
             CurrentRaceRepository = NewRaceRepository;
             CurrentAccessorToRaceInfo = NewAccessorToRaceInfo;
+            CurrentBackgroundRaceManager = NewBackgroundRaceManager;
         }
     }
 }

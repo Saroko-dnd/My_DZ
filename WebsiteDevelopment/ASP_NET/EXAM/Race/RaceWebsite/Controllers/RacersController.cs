@@ -30,6 +30,7 @@ namespace RaceWebsite.Controllers
         private static ODataValidationSettings _validationSettings = new ODataValidationSettings();
 
         // GET: RaceApi/Racers
+        [EnableQuery]
         public IQueryable<Racer> GetRacers(ODataQueryOptions<Racer> queryOptions)
         {
             // validate the query.

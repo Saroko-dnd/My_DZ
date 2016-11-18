@@ -37,6 +37,7 @@ namespace RaceWebsite.ClassesForRaceWebsite
             kernel.Bind<IRaceRepository>().To<RaceWebsiteDbContext>().InRequestScope().WithConstructorArgument("ConnectionStringName", ApplicationConstants.ConnectionStringName);
             kernel.Bind<IRaceManager>().To<RaceManager>();
             kernel.Bind<IAccessorToRaceInfo>().To<AccessorToRaceInfo>().InSingletonScope();
+            kernel.Bind<IBackgroundRaceManager>().To<BackgroundRaceManager>();
         }
     }
 }

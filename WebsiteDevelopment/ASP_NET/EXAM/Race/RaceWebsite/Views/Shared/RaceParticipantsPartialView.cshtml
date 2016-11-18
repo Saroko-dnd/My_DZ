@@ -1,6 +1,8 @@
 ﻿
 @using RaceInfrastructure
 @using RaceWebsite.ClassesForRaceWebsite
+@using System.Web.Optimization
+@using RaceWebsite.App_Start
 
 @model RaceWebsite.Models.RaceParticipantsModel
 
@@ -24,16 +26,20 @@
         }
     }
     else
-    {
+    {       
         foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
         {
             using (Html.BeginForm("RacerInfo", "Home", new { area = "" }, FormMethod.Post, new { id = "RacerID_" + CurrentRacer.RacerID.ToString() }))
             {
-                <p>@CurrentRacer.FirstName @CurrentRacer.SecondName @Resources.Texts.PDistanceCovered: @CurrentRacer.DistanceCoveredInKm/@Model.CurrentRaceManager.CurrentFinishDistance.ToString() 
+                <p class="Title" style="color:#@CurrentRacer.ColorCode.ToString()">@CurrentRacer.FirstName @CurrentRacer.SecondName | @Resources.Texts.PDistanceCovered: 
+                    <span class="SpanWithRacerDistanceCoveredValue">@CurrentRacer.DistanceCoveredInKm</span>/@Model.CurrentRaceManager.CurrentFinishDistance.ToString() 
                     @Resources.Texts.PKilometers
                 </p>
+                <div class="ColorVisualizationOfDistanceCoveredByRacer">
+                    <div style="width:0px; background-color:#@CurrentRacer.ColorCode.ToString()"></div>
+                </div>
                 <input type="hidden" name="SelectedRacerID" value="@CurrentRacer.RacerID.ToString()" />
-                <input type="submit" value="@Resources.Texts.DetailsButton" />
+                <input style="color:#@CurrentRacer.ColorCode.ToString()" type="submit" value="@Resources.Texts.DetailsButton" />
             }
         }
     }
