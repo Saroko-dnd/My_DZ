@@ -1,4 +1,5 @@
 ﻿using RaceInfrastructure;
+using RaceWebsite.ClassesForRaceWebsite;
 using RaceWebsite.Filters;
 using RaceWebsite.Models;
 using System;
@@ -15,7 +16,7 @@ namespace RaceWebsite.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            return View();
+            return View(new RaceParticipantsModel(false, CurrentRaceManager));
         }
 
         public ActionResult RacerInfo(long SelectedRacerID)
@@ -23,6 +24,33 @@ namespace RaceWebsite.Controllers
             Racer SelectedRacer = CurrentRaceManager.RaceRepository.AllRacers.Where(FoundRacer => FoundRacer.RacerID == SelectedRacerID).FirstOrDefault();
             RacerInfo CurrentRacerInfo = new RacerInfo(false, SelectedRacer);
             return View(CurrentRacerInfo);
+        }
+
+        public JsonResult RaceAlreadyExist()
+        {
+            if (CurrentRaceManager.NewRaceCanBeCreated)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult CurrentRaceFinishDistance()
+        {
+            return Json(CurrentRaceManager.CurrentFinishDistance, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult RaceEnded()
+        {
+            return PartialView(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, new RaceParticipantsModel(false, CurrentRaceManager));
+        }
+
+        public ActionResult MainPage()
+        {
+            return View();
         }
 
         [DisableGlobalFilterForIEUsers]

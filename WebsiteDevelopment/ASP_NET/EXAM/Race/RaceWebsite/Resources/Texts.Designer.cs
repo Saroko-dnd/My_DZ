@@ -97,6 +97,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Main page for admin.
+        /// </summary>
+        public static string LinkToMainPageForAdmin {
+            get {
+                return ResourceManager.GetString("LinkToMainPageForAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Main page for users.
+        /// </summary>
+        public static string LinkToMainPageForUsers {
+            get {
+                return ResourceManager.GetString("LinkToMainPageForUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Distance covered.
         /// </summary>
         public static string PDistanceCovered {
@@ -138,6 +156,15 @@ namespace Resources {
         public static string PSaveChangesSuccess {
             get {
                 return ResourceManager.GetString("PSaveChangesSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Main page.
+        /// </summary>
+        public static string RaceWebsiteMainPage {
+            get {
+                return ResourceManager.GetString("RaceWebsiteMainPage", resourceCulture);
             }
         }
         

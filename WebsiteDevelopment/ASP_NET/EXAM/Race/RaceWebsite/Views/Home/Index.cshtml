@@ -1,4 +1,10 @@
 ﻿
+@using System.Web.Optimization
+@using RaceWebsite.App_Start
+@using RaceWebsite.ClassesForRaceWebsite
+
+@model RaceWebsite.Models.RaceParticipantsModel
+
 @{
     Layout = null;
 }
@@ -9,10 +15,20 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="~/CSS/Main.css" rel="stylesheet"/>
+    @Scripts.Render(BundleConfig.VirtualPathForJqueryBundle)
+    @Scripts.Render(BundleConfig.VirtualPathForUpdatingRaceParticipantsInfoBundle)
 </head>
 <body>
-    <div>
-        ЗАГЛУШКА ДЛЯ ГЛАВНОЙ СТРАНИЦЫ САЙТА ГОНОК  
+    <div class="FlexColumnCenter">
+        @Html.ActionLink(Resources.Texts.LinkToMainPageForAdmin, "Index", new { controller = "Admin", area = "Admin" });
+        <h1>@Resources.Texts.RaceWebsiteMainPage</h1>
+        <input type="hidden" id="HiddenFieldNewRaceCanBeCreated" value="@Model.CurrentRaceManager.NewRaceCanBeCreated.ToString()" /> 
+        <input type="hidden" id="HiddenFieldThisIsAdminPage" value="False" />
+        <input type="hidden" id="HiddenFieldCurrentFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()"/>
+        <div id="DivWithRaceParticipants">
+            @Html.Partial(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, Model)
+        </div>
     </div>
 </body>
 </html>

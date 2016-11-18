@@ -43,5 +43,38 @@
             }
         }
     }
-
+}
+else
+{
+    if (Model.CurrentRaceManager.NewRaceCanBeCreated)
+    {
+        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
+        {
+            using (Html.BeginForm("RacerInfo", "Home", new { area = "" }))
+            {
+                <span>@CurrentRacer.FirstName @CurrentRacer.SecondName</span>
+                <input type="hidden" name="SelectedRacerID" value="@CurrentRacer.RacerID.ToString()" />
+                <input type="submit" value="@Resources.Texts.DetailsButton" />
+            }
+        }
+    }
+    else
+    {
+        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
+        {
+            using (Html.BeginForm("RacerInfo", "Home", new { area = "" }, FormMethod.Post, new { id = "RacerID_" + CurrentRacer.RacerID.ToString() }))
+            {
+                <p class="Title" style="color:#@CurrentRacer.ColorCode.ToString()">
+                    @CurrentRacer.FirstName @CurrentRacer.SecondName | @Resources.Texts.PDistanceCovered:
+                    <span class="SpanWithRacerDistanceCoveredValue">@CurrentRacer.DistanceCoveredInKm</span>/@Model.CurrentRaceManager.CurrentFinishDistance.ToString()
+                    @Resources.Texts.PKilometers
+                </p>
+                <div class="ColorVisualizationOfDistanceCoveredByRacer">
+                    <div style="width:0px; background-color:#@CurrentRacer.ColorCode.ToString()"></div>
+                </div>
+                <input type="hidden" name="SelectedRacerID" value="@CurrentRacer.RacerID.ToString()" />
+                <input style="color:#@CurrentRacer.ColorCode.ToString()" type="submit" value="@Resources.Texts.DetailsButton" />
+            }
+        }
+    }
 }

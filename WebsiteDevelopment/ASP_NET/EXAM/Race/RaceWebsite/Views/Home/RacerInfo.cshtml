@@ -26,7 +26,8 @@
 </head>
 <body>
     <div class="FlexColumnCenter DivWithRacerInfo"> 
-        @Html.ActionLink("Admin main page", "Index", new { controller = "Admin", area = "Admin" });
+        @Html.ActionLink(Resources.Texts.LinkToMainPageForAdmin, "Index", new { controller = "Admin", area = "Admin" });
+        @Html.ActionLink(Resources.Texts.LinkToMainPageForUsers, "Index", new { controller = "Home", area = "" });
         @if (Model.EditingAllowed)
         {
             @Html.EditorFor(m => m.SelectedRacer)

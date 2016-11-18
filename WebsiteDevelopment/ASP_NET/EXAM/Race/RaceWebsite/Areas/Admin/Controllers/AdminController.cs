@@ -22,8 +22,16 @@ namespace RaceWebsite.Areas.Admin.Controllers
 
         public ActionResult StartNewRace(long NewFinishDistance)
         {
-            CurrentRaceManager.StartRaceManagementAsync(NewFinishDistance);
-            return PartialView(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, new RaceParticipantsModel(true, CurrentRaceManager));
+            if (CurrentRaceManager.NewRaceCanBeCreated)
+            {
+                CurrentRaceManager.StartRaceManagementAsync(NewFinishDistance);
+                return PartialView(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, new RaceParticipantsModel(true, CurrentRaceManager));
+            }
+            else
+            {
+                Response.StatusCode = 400;
+                return null;
+            }
         }
 
         public ActionResult RaceEnded()

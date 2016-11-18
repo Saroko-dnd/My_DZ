@@ -206,6 +206,7 @@
     <Content Include="Views\Shared\DisplayTemplates\Racer.cshtml" />
     <Content Include="Views\Home\RacerInfo.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Racer.cshtml" />
+    <Content Include="Views\Home\MainPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

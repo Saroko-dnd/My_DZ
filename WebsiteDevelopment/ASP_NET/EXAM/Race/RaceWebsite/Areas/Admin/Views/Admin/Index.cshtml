@@ -22,10 +22,10 @@
 </head>
 <body>
     <div class="FlexColumnCenter">
+        @Html.ActionLink(Resources.Texts.LinkToMainPageForUsers, "Index", new { controller = "Home", area = "" });
         @using (Ajax.BeginForm("StartNewRace", new { controller = "Admin", area = "Admin" }, new AjaxOptions
         {
             UpdateTargetId = "DivWithRaceParticipants",
-            OnSuccess = "UpdatingRaceParticipantsInfo.StartUpdate()",
             OnBegin = "UpdatingRaceParticipantsInfo.PreparePageForUpdating()"
         }, new { id = "AjaxFormForChangingOfRaceParticipantsView" }))
         {
@@ -34,7 +34,8 @@
             <input type="number" id="InputForNewFinishDistance" name="NewFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()" disabled />
         }
         <span class="ShowOnlyWhenRaceAlreadyStarted">@Resources.Texts.SpanRaceHasAlreadyStartedYouMustWait</span>
-        <input type="hidden" id="HiddenFieldNewRaceCanBeCreated" value="@Model.CurrentRaceManager.NewRaceCanBeCreated.ToString()" />  
+        <input type="hidden" id="HiddenFieldNewRaceCanBeCreated" value="@Model.CurrentRaceManager.NewRaceCanBeCreated.ToString()" /> 
+        <input type="hidden" id="HiddenFieldThisIsAdminPage" value="True"/> 
         <div id="DivWithRaceParticipants">
             @Html.Partial(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, Model)
         </div>
