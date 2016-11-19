@@ -129,6 +129,9 @@
   <data name="EditButton" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="ErrorMessageForIEUsers" xml:space="preserve">
+    <value>Мы не поддерживаем Internet Explorer!</value>
+  </data>
   <data name="LinkToMainPageForAdmin" xml:space="preserve">
     <value>Main page for admin</value>
   </data>

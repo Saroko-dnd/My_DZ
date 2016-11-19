@@ -1,65 +1,75 @@
 ﻿
-var UrlToOdataController;
+var SystemForUpdatingInfoAboutRacer = (function () {
 
-var InputForRacerId;
-var InputForRacerFirstName;
-var InputForRacerSecondName;
-var InputForRacerBiography;
-var InputForRacerCarName;
-var InputForRacerCarSpeed;
-var InputForRacerColor;
+    var PublicMembers = {};
 
-var ParagraphForSuccessMessage;
-var ParagraphForErrorMessage;
+    var UrlToOdataController;
 
-var ButtonForSavingChanges;
+    var InputForRacerId;
+    var InputForRacerFirstName;
+    var InputForRacerSecondName;
+    var InputForRacerBiography;
+    var InputForRacerCarName;
+    var InputForRacerCarSpeed;
+    var InputForRacerColor;
 
-function PostChangerRacerToOdataController()
-{
-    $(ParagraphForSuccessMessage).css("display", "none");
-    $(ParagraphForErrorMessage).css("display", "none");
-    $(ButtonForSavingChanges).prop("disabled", true);
+    var ParagraphForSuccessMessage;
+    var ParagraphForErrorMessage;
 
-    $.ajax({
-        url: UrlToOdataController,
-        type: "POST",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({
-            RacerID: $(InputForRacerId).val(),
-            FirstName: $(InputForRacerFirstName).val(),
-            SecondName: $(InputForRacerSecondName).val(),
-            Biography: $(InputForRacerBiography).val(),
-            CarName: $(InputForRacerCarName).val(),
-            CarSpeedKph: $(InputForRacerCarSpeed).val(),
-            ColorCode: $(InputForRacerColor).val().replace("#", ""),
-            DistanceCoveredInKm: "0"
-        }),
-        success: function () {
-            $(ParagraphForSuccessMessage).css("display", "block");
-            $(ButtonForSavingChanges).prop("disabled", false);
-        },
-        error: function () {
-            $(ParagraphForErrorMessage).css("display", "block");
-            $(ButtonForSavingChanges).prop("disabled", false);
-        }
-    })
-}
+    var ButtonForSavingChanges;
+
+    PublicMembers.GetInfoAboutDomElements = function()
+    {
+        UrlToOdataController = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + "/RaceApi/Racers";
+        InputForRacerId = $("[name='RacerID']");
+        InputForRacerFirstName = $("[name='FirstName']");
+        InputForRacerSecondName = $("[name='SecondName']");
+        InputForRacerBiography = $("[name='Biography']");
+        InputForRacerCarName = $("[name='CarName']");
+        InputForRacerCarSpeed = $("[name='CarSpeedKph']");
+        InputForRacerColor = $("[name='ColorCode']");
+
+        ParagraphForSuccessMessage = $("#PForSaveChangesButtonSuccessMessage");
+        ParagraphForErrorMessage = $("#PForSaveChangesButtonFailMessage");
+        ButtonForSavingChanges = $("#SaveChangesInRacerButton");
+        $(ParagraphForSuccessMessage).css("color", "green");
+        $(ParagraphForErrorMessage).css("color", "red");
+    }
+
+    PublicMembers.PostChangedRacerToOdataController = function()
+    {
+        $(ParagraphForSuccessMessage).css("display", "none");
+        $(ParagraphForErrorMessage).css("display", "none");
+        $(ButtonForSavingChanges).prop("disabled", true);
+
+        $.ajax({
+            url: UrlToOdataController,
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                RacerID: $(InputForRacerId).val(),
+                FirstName: $(InputForRacerFirstName).val(),
+                SecondName: $(InputForRacerSecondName).val(),
+                Biography: $(InputForRacerBiography).val(),
+                CarName: $(InputForRacerCarName).val(),
+                CarSpeedKph: $(InputForRacerCarSpeed).val(),
+                ColorCode: $(InputForRacerColor).val().replace("#", ""),
+                DistanceCoveredInKm: "0"
+            }),
+            success: function () {
+                $(ParagraphForSuccessMessage).css("display", "block");
+                $(ButtonForSavingChanges).prop("disabled", false);
+            },
+            error: function () {
+                $(ParagraphForErrorMessage).css("display", "block");
+                $(ButtonForSavingChanges).prop("disabled", false);
+            }
+        })
+    }
+
+    return PublicMembers;
+}());
 
 $(document).ready(function () {
-    UrlToOdataController = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + "/RaceApi/Racers";
-    InputForRacerId = $("[name='RacerID']");
-    InputForRacerFirstName = $("[name='FirstName']");
-    InputForRacerSecondName = $("[name='SecondName']"); 
-    InputForRacerBiography = $("[name='Biography']");
-    InputForRacerCarName = $("[name='CarName']");
-    InputForRacerCarSpeed = $("[name='CarSpeedKph']");
-    InputForRacerColor = $("[name='ColorCode']");
-
-    ParagraphForSuccessMessage = $("#PForSaveChangesButtonSuccessMessage");
-    ParagraphForErrorMessage = $("#PForSaveChangesButtonFailMessage");
-    ButtonForSavingChanges = $("#SaveChangesInRacerButton");
-    $(ParagraphForSuccessMessage).css("color", "green");
-    $(ParagraphForErrorMessage).css("color", "red");
-
+    SystemForUpdatingInfoAboutRacer.GetInfoAboutDomElements();
 });
-

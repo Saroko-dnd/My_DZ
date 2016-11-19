@@ -26,8 +26,9 @@
         }
     }
     else
-    {       
-        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
+    {
+        Html.RenderPartial(ApplicationConstants.PathFromRouteToRacerInfoDuringRacePartialView, Model);     
+        @*foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
         {
             using (Html.BeginForm("RacerInfo", "Home", new { area = "" }, FormMethod.Post, new { id = "RacerID_" + CurrentRacer.RacerID.ToString() }))
             {
@@ -41,7 +42,7 @@
                 <input type="hidden" name="SelectedRacerID" value="@CurrentRacer.RacerID.ToString()" />
                 <input style="color:#@CurrentRacer.ColorCode.ToString()" type="submit" value="@Resources.Texts.DetailsButton" />
             }
-        }
+        }*@
     }
 }
 else
@@ -60,7 +61,8 @@ else
     }
     else
     {
-        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
+        Html.RenderPartial(ApplicationConstants.PathFromRouteToRacerInfoDuringRacePartialView, Model);  
+        @*foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
         {
             using (Html.BeginForm("RacerInfo", "Home", new { area = "" }, FormMethod.Post, new { id = "RacerID_" + CurrentRacer.RacerID.ToString() }))
             {
@@ -75,6 +77,6 @@ else
                 <input type="hidden" name="SelectedRacerID" value="@CurrentRacer.RacerID.ToString()" />
                 <input style="color:#@CurrentRacer.ColorCode.ToString()" type="submit" value="@Resources.Texts.DetailsButton" />
             }
-        }
+        }*@
     }
 }

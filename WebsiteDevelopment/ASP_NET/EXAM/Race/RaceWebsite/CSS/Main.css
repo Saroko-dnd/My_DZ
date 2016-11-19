@@ -34,3 +34,8 @@ body {
     font-weight:bold;
 }
 
+.ErrorMessage
+{
+    color:red;
+}
+

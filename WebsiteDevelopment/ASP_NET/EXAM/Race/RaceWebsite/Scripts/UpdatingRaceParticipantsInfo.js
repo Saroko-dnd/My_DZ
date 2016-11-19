@@ -36,16 +36,12 @@ var UpdatingRaceParticipantsInfo = (function () {
             InputForNewFinishDistance = $("#InputForNewFinishDistance");
             CurrentRaceFinishDistance = Number($(InputForNewFinishDistance).val());
             if ($("#HiddenFieldNewRaceCanBeCreated").val() == "True") {
-                $(StartNewRaceButton).prop("disabled", false);
-                $(InputForNewFinishDistance).prop("disabled", false);
-                $("." + ClassOnlyVisibleDuringRace).css("display", "none");
+                EnableAbilityToCreateNewRace();
                 IntervalForCheckingRaceExistenceWasCleared = false;
                 IntervalForCheckingRaceExistence = setInterval(CheckRaceExistence, TimeForIntervalForCheckingRaceExistence);
             }
             else {
-                $(StartNewRaceButton).prop("disabled", true);
-                $(InputForNewFinishDistance).prop("disabled", true);
-                $("." + ClassOnlyVisibleDuringRace).css("display", "block");
+                DisableAbilityToCreateNewRace();
                 PublicMembers.StartUpdate();
             }
         }
@@ -67,9 +63,7 @@ var UpdatingRaceParticipantsInfo = (function () {
     PublicMembers.StartUpdate = function () {
         if (ThisIsAdminPage == "True")
         {
-            $(StartNewRaceButton).prop("disabled", true);
-            $(InputForNewFinishDistance).prop("disabled", true);
-            $("." + ClassOnlyVisibleDuringRace).css("display", "block");
+            DisableAbilityToCreateNewRace();
         }
         $("." + ClassForColorVisualizationOfDistanceCoveredByRacer).css("border", "2px solid black");
         $("." + ClassForColorVisualizationOfDistanceCoveredByRacer + " div").css("height", "25");
@@ -84,9 +78,7 @@ var UpdatingRaceParticipantsInfo = (function () {
     }
 
     PublicMembers.PreparePageForUpdating = function () {
-        $(StartNewRaceButton).prop("disabled", true);
-        $(InputForNewFinishDistance).prop("disabled", true);
-        $("." + ClassOnlyVisibleDuringRace).css("display", "block");
+        DisableAbilityToCreateNewRace();
     }
 
     function ReloadListOfRacers(StartUpdatingProcessOnSuccess)
@@ -101,9 +93,7 @@ var UpdatingRaceParticipantsInfo = (function () {
                 $(DivForUpdateAfterRaceIsEnded).empty().append(data);
                 if (ThisIsAdminPage == "True")
                 {
-                    $(StartNewRaceButton).prop("disabled", false);
-                    $(InputForNewFinishDistance).prop("disabled", false);
-                    $("." + ClassOnlyVisibleDuringRace).css("display", "none");
+                    EnableAbilityToCreateNewRace();
                 }
                 if (StartUpdatingProcessOnSuccess == true)
                 {
@@ -114,9 +104,7 @@ var UpdatingRaceParticipantsInfo = (function () {
                 alert("Error occurred during reloading racers data!");
                 if (ThisIsAdminPage == "True")
                 {
-                    $(StartNewRaceButton).prop("disabled", false);
-                    $(InputForNewFinishDistance).prop("disabled", false);
-                    $("." + ClassOnlyVisibleDuringRace).css("display", "none");
+                    EnableAbilityToCreateNewRace();
                 }
             }
         })
@@ -201,6 +189,20 @@ var UpdatingRaceParticipantsInfo = (function () {
                 alert("Error occurred during getting current race finish distance from server!");
             }
         })
+    }
+
+    function DisableAbilityToCreateNewRace()
+    {
+        $(StartNewRaceButton).prop("disabled", true);
+        $(InputForNewFinishDistance).prop("disabled", true);
+        $("." + ClassOnlyVisibleDuringRace).css("display", "block");
+    }
+
+    function EnableAbilityToCreateNewRace()
+    {
+        $(StartNewRaceButton).prop("disabled", false);
+        $(InputForNewFinishDistance).prop("disabled", false);
+        $("." + ClassOnlyVisibleDuringRace).css("display", "none");
     }
 
     return PublicMembers;

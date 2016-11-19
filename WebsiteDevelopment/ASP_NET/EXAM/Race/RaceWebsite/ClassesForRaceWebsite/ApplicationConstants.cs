@@ -7,8 +7,9 @@ namespace RaceWebsite.ClassesForRaceWebsite
 {
     public static class ApplicationConstants
     {
-        public static readonly string ConnectionStringName = "RaceWebsiteDB_NewVersion";
+        public static readonly string ConnectionStringName = "RaceWebsiteDB_OldVersion";
         public static readonly string PathFromRouteToRaceParticipantsPartialView = "~/Views/Shared/RaceParticipantsPartialView.cshtml";
         public static readonly string PathFromRouteToRacerInfoView = "~/Views/Home/RacerInfo.cshtml";
+        public static readonly string PathFromRouteToRacerInfoDuringRacePartialView = "~/Views/Shared/RacerInfoDuringRace.cshtml";
     }
 }

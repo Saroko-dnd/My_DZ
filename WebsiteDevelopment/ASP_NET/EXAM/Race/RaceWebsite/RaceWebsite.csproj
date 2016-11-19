@@ -180,7 +180,6 @@
     <Compile Include="Models\RaceParticipantsModel.cs" />
     <Compile Include="ClassesForRaceWebsite\ApplicationConstants.cs" />
     <Compile Include="ClassesForRaceWebsite\NinjectDependencyResolver .cs" />
-    <Compile Include="ClassesForRaceWebsite\RaceBackgroundWorker.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\DisableGlobalFilterForIEUsers.cs" />
     <Compile Include="Filters\FilterForIEUsers.cs" />
@@ -207,6 +206,7 @@
     <Content Include="Views\Home\RacerInfo.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Racer.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
+    <Content Include="Views\Shared\RacerInfoDuringRace.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

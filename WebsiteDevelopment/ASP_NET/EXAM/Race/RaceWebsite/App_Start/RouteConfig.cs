@@ -20,6 +20,12 @@ namespace RaceWebsite
             );
 
             routes.MapRoute(
+                name: "PageForRacerInfo",
+                url: "Member/{SelectedRacerID}",
+                defaults: new { controller = "Home", action = "RacerInfo", area = "", SelectedRacerID = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", area = "", id = UrlParameter.Optional }

@@ -31,7 +31,7 @@
         @if (Model.EditingAllowed)
         {
             @Html.EditorFor(m => m.SelectedRacer)
-            <input id="SaveChangesInRacerButton" type="button" value="@Resources.Texts.ButtonSaveChanges" onclick="PostChangerRacerToOdataController()"/>
+            <input id="SaveChangesInRacerButton" type="button" value="@Resources.Texts.ButtonSaveChanges" onclick="SystemForUpdatingInfoAboutRacer.PostChangedRacerToOdataController()"/>
             <p id="PForSaveChangesButtonSuccessMessage" style="display:none">@Resources.Texts.PSaveChangesSuccess</p>
             <p id="PForSaveChangesButtonFailMessage" style="display:none">@Resources.Texts.PSaveChangesFail</p>
         }

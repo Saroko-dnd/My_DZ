@@ -13,7 +13,7 @@ namespace RaceLogic
 
         private IRaceRepository CurrentRaceRepository;
         private IAccessorToRaceInfo CurrentAccessorToRaceInfo;
-        private IBackgroundRaceManager CurrentBackgroundRaceManager;
+        private IBackgroundRaceManager CurrentBackgroundRaceManager;       
 
         public Racer Winner
         {
