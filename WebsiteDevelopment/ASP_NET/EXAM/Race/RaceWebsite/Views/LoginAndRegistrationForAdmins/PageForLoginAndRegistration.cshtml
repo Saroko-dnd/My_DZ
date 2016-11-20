@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PageForLoginAndRegistration</title>
+    <link href="~/CSS/Main.css" rel="stylesheet"/>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm("AttemptToRegisterNewAdmin", "LoginAndRegistrationForAdmins", new { area = "" }, FormMethod.Post, new { @class = "FlexColumnCenter" }))
+        {
+            <h1>@Resources.TextsForLoginAndRegistration.HeaderRegistration</h1>
+            <div>
+                <p>@Resources.TextsForLoginAndRegistration.RegistrationPageNewAdminName</p>
+                <input class="InputForText" type="text" name="NewAdminName" />
+            </div>
+            <div>
+                <p>@Resources.TextsForLoginAndRegistration.RegistrationPageNewPassword</p>
+                <input class="InputForText" type="password" name="NewAdminPassword" />
+            </div>
+            <div>
+                <input type="submit" value="@Resources.TextsForLoginAndRegistration.RegistrationButton" />
+            </div>
+        }
+    </div>
+</body>
+</html>

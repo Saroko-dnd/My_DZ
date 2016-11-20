@@ -176,6 +176,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Controllers\LoginAndRegistrationForAdminsController.cs" />
     <Compile Include="Controllers\RacersController.cs" />
     <Compile Include="Models\RaceParticipantsModel.cs" />
     <Compile Include="ClassesForRaceWebsite\ApplicationConstants.cs" />
@@ -193,6 +194,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Texts.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\TextsForLoginAndRegistration.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextsForLoginAndRegistration.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -207,6 +213,7 @@
     <Content Include="Views\Shared\EditorTemplates\Racer.cshtml" />
     <Content Include="Views\Home\MainPage.cshtml" />
     <Content Include="Views\Shared\RacerInfoDuringRace.cshtml" />
+    <Content Include="Views\LoginAndRegistrationForAdmins\PageForLoginAndRegistration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -237,6 +244,11 @@
     <EmbeddedResource Include="Resources\Texts.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TextsForLoginAndRegistration.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextsForLoginAndRegistration.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>

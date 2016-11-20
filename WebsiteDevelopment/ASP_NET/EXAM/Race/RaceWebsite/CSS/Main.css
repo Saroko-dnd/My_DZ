@@ -24,6 +24,17 @@ body {
     margin-right:auto;
 }
 
+.MarginsLeftAndRightAuto
+{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.InputForText
+{
+    width:200px;
+}
+
 .DivWithRacerInfo > *
 {
     margin-top:25px;
