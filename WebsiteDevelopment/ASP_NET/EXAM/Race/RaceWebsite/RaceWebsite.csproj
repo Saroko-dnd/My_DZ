@@ -163,6 +163,7 @@
     <Content Include="CSS\Admin.css" />
     <Content Include="CSS\Main.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Waiting.gif" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Admin name.
+        /// </summary>
+        public static string AdminName {
+            get {
+                return ResourceManager.GetString("AdminName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Login.
+        /// </summary>
+        public static string HeaderLogin {
+            get {
+                return ResourceManager.GetString("HeaderLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Registration.
         /// </summary>
         public static string HeaderRegistration {
@@ -75,6 +93,24 @@ namespace Resources {
         public static string LinkToLoginAndRegistrationPage {
             get {
                 return ResourceManager.GetString("LinkToLoginAndRegistrationPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Sign in.
+        /// </summary>
+        public static string LoginButton {
+            get {
+                return ResourceManager.GetString("LoginButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
@@ -102,6 +138,15 @@ namespace Resources {
         public static string RegistrationPageNewPassword {
             get {
                 return ResourceManager.GetString("RegistrationPageNewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Repeat new password.
+        /// </summary>
+        public static string RepeatPassword {
+            get {
+                return ResourceManager.GetString("RepeatPassword", resourceCulture);
             }
         }
     }

@@ -26,14 +26,15 @@
 </head>
 <body>
     <div class="FlexColumnCenter DivWithRacerInfo"> 
-        @Html.ActionLink(Resources.Texts.LinkToMainPageForAdmin, "Index", new { controller = "Admin", area = "Admin" });
-        @Html.ActionLink(Resources.Texts.LinkToMainPageForUsers, "Index", new { controller = "Home", area = "" });
+        @Html.ActionLink(Resources.Texts.LinkToMainPageForAdmin, "Index", new { controller = "Admin", area = "Admin" })
+        @Html.ActionLink(Resources.Texts.LinkToMainPageForUsers, "Index", new { controller = "Home", area = "" })
         @if (Model.EditingAllowed)
         {
             @Html.EditorFor(m => m.SelectedRacer)
             <input id="SaveChangesInRacerButton" type="button" value="@Resources.Texts.ButtonSaveChanges" onclick="SystemForUpdatingInfoAboutRacer.PostChangedRacerToOdataController()"/>
             <p id="PForSaveChangesButtonSuccessMessage" style="display:none">@Resources.Texts.PSaveChangesSuccess</p>
             <p id="PForSaveChangesButtonFailMessage" style="display:none">@Resources.Texts.PSaveChangesFail</p>
+            <img id="GifForWaiting" style="display:none" src="~/Images/Waiting.gif" />
         }
         else
         {

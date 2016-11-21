@@ -17,6 +17,7 @@ var SystemForUpdatingInfoAboutRacer = (function () {
     var ParagraphForErrorMessage;
 
     var ButtonForSavingChanges;
+    var ImgWithGifForWaiting;
 
     PublicMembers.GetInfoAboutDomElements = function()
     {
@@ -32,6 +33,7 @@ var SystemForUpdatingInfoAboutRacer = (function () {
         ParagraphForSuccessMessage = $("#PForSaveChangesButtonSuccessMessage");
         ParagraphForErrorMessage = $("#PForSaveChangesButtonFailMessage");
         ButtonForSavingChanges = $("#SaveChangesInRacerButton");
+        ImgWithGifForWaiting = $("#GifForWaiting");
         $(ParagraphForSuccessMessage).css("color", "green");
         $(ParagraphForErrorMessage).css("color", "red");
     }
@@ -41,6 +43,7 @@ var SystemForUpdatingInfoAboutRacer = (function () {
         $(ParagraphForSuccessMessage).css("display", "none");
         $(ParagraphForErrorMessage).css("display", "none");
         $(ButtonForSavingChanges).prop("disabled", true);
+        $(ImgWithGifForWaiting).css("display", "block");
 
         $.ajax({
             url: UrlToOdataController,
@@ -59,10 +62,12 @@ var SystemForUpdatingInfoAboutRacer = (function () {
             success: function () {
                 $(ParagraphForSuccessMessage).css("display", "block");
                 $(ButtonForSavingChanges).prop("disabled", false);
+                $(ImgWithGifForWaiting).css("display", "none");
             },
             error: function () {
                 $(ParagraphForErrorMessage).css("display", "block");
                 $(ButtonForSavingChanges).prop("disabled", false);
+                $(ImgWithGifForWaiting).css("display", "none");
             }
         })
     }

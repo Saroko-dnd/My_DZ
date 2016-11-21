@@ -25,7 +25,26 @@
                 <input class="InputForText" type="password" name="NewAdminPassword" />
             </div>
             <div>
+                <p>@Resources.TextsForLoginAndRegistration.RepeatPassword</p>
+                <input class="InputForText" type="password"/>
+            </div>
+            <div>
                 <input type="submit" value="@Resources.TextsForLoginAndRegistration.RegistrationButton" />
+            </div>
+        }
+        @using (Html.BeginForm("Login", "LoginAndRegistrationForAdmins", new { area = "" }, FormMethod.Post, new { @class = "FlexColumnCenter" }))
+        {
+            <h1>@Resources.TextsForLoginAndRegistration.HeaderLogin</h1>
+            <div>
+                <p>@Resources.TextsForLoginAndRegistration.AdminName</p>
+                <input class="InputForText" type="text" name="AdminName" />
+            </div>
+            <div>
+                <p>@Resources.TextsForLoginAndRegistration.Password</p>
+                <input class="InputForText" type="password" name="AdminPassword" />
+            </div>
+            <div>
+                <input type="submit" value="@Resources.TextsForLoginAndRegistration.LoginButton" />
             </div>
         }
     </div>

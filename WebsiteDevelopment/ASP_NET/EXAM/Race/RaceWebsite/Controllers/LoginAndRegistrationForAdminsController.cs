@@ -18,5 +18,10 @@ namespace RaceWebsite.Controllers
         {
             return null;
         }
+
+        public JsonResult Login(string AdminName, string AdminPassword)
+        {
+            return null;
+        }
     }
 }

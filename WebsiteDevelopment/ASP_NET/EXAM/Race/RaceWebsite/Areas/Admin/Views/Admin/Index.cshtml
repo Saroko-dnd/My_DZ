@@ -33,7 +33,7 @@
             <p>@Resources.Texts.PEnterFinishDistance</p>
             <input type="number" id="InputForNewFinishDistance" name="NewFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()" disabled />
         }
-        <span class="ShowOnlyWhenRaceAlreadyStarted">@Resources.Texts.SpanRaceHasAlreadyStartedYouMustWait</span>
+        <span class="ShowOnlyWhenRaceAlreadyStarted" style="display:none">@Resources.Texts.SpanRaceHasAlreadyStartedYouMustWait</span>
         <input type="hidden" id="HiddenFieldNewRaceCanBeCreated" value="@Model.CurrentRaceManager.NewRaceCanBeCreated.ToString()" /> 
         <input type="hidden" id="HiddenFieldThisIsAdminPage" value="True"/> 
         <div id="DivWithRaceParticipants">

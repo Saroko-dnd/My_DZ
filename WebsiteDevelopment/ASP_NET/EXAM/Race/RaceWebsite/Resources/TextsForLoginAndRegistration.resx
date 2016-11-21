@@ -117,11 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdminName" xml:space="preserve">
+    <value>Admin name</value>
+  </data>
+  <data name="HeaderLogin" xml:space="preserve">
+    <value>Login</value>
+  </data>
   <data name="HeaderRegistration" xml:space="preserve">
     <value>Registration</value>
   </data>
   <data name="LinkToLoginAndRegistrationPage" xml:space="preserve">
     <value>Page for login and registration</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
   </data>
   <data name="RegistrationButton" xml:space="preserve">
     <value>Sign up as a new admin</value>
@@ -131,5 +143,8 @@
   </data>
   <data name="RegistrationPageNewPassword" xml:space="preserve">
     <value>New password</value>
+  </data>
+  <data name="RepeatPassword" xml:space="preserve">
+    <value>Repeat new password</value>
   </data>
 </root>
