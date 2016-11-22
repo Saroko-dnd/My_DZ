@@ -9,7 +9,6 @@ namespace RaceInfrastructure
 {
     public class Racer
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long RacerID { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }

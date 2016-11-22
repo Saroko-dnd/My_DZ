@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IAccessorToRaceInfo.cs" />
     <Compile Include="Racer.cs" />
+    <Compile Include="Admin.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

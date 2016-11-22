@@ -1,6 +1,7 @@
 ﻿using RaceInfrastructure;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -52,6 +53,11 @@ namespace RaceDataAccess
             Racers.Attach(UpdatedRacer);
             Entry(UpdatedRacer).State = EntityState.Modified;
             SaveChanges();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder ModelBuilder)
+        {
+            ModelBuilder.Entity<Racer>().Property(RacerEntity => RacerEntity.RacerID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
         }
 
         public RaceWebsiteDbContext(string ConnectionStringName): base(ConnectionStringName)
