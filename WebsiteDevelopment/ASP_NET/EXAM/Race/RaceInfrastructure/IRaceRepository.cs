@@ -9,6 +9,8 @@ namespace RaceInfrastructure
     public interface IRaceRepository
     {
         IQueryable<Racer> AllRacers { get; }
+        IQueryable<User> Users { get; }
+        IQueryable<Role> Roles { get; }
         void AddNewRacer(Racer NewRacer);
         void UpdateRacerWithSameId(Racer UpdatedRacer);
         void SaveAllChanges();

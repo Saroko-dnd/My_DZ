@@ -13,12 +13,30 @@ namespace RaceDataAccess
     public class RaceWebsiteDbContext : DbContext, IRaceRepository
     {
         public DbSet<Racer> Racers { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         public IQueryable<Racer> AllRacers
         {
             get
             {
                 return Racers;
+            }
+        }
+
+        IQueryable<User> IRaceRepository.Users
+        {
+            get
+            {
+                return Users;
+            }
+        }
+
+        IQueryable<Role> IRaceRepository.Roles
+        {
+            get
+            {
+                return Roles;
             }
         }
 
@@ -58,6 +76,10 @@ namespace RaceDataAccess
         protected override void OnModelCreating(DbModelBuilder ModelBuilder)
         {
             ModelBuilder.Entity<Racer>().Property(RacerEntity => RacerEntity.RacerID).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            ModelBuilder.Entity<User>().HasKey(x => x.UserID).Property(x => x.UserID).IsRequired(); 
+            ModelBuilder.Entity<User>().HasMany(x => x.Roles).WithMany(x => x.Users);
+            ModelBuilder.Entity<Role>().HasKey(x => x.RoleID).Property(x => x.RoleID).IsRequired();
+            ModelBuilder.Entity<Role>().HasMany(x => x.Users).WithMany(x => x.Roles);
         }
 
         public RaceWebsiteDbContext(string ConnectionStringName): base(ConnectionStringName)

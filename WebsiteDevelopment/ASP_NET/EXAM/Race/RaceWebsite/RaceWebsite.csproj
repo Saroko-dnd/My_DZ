@@ -215,6 +215,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="ClassesForRaceWebsite\Identity\IdentityRole.cs" />
+    <Compile Include="ClassesForRaceWebsite\Identity\IdentityUser .cs" />
+    <Compile Include="ClassesForRaceWebsite\Identity\UserStore.cs" />
     <Compile Include="Controllers\LoginAndRegistrationForAdminsController.cs" />
     <Compile Include="Controllers\RacersController.cs" />
     <Compile Include="Models\RaceParticipantsModel.cs" />
