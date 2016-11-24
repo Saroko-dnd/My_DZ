@@ -8,7 +8,7 @@
     Layout = null;
 }
 
-@foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
+@foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepositories.RacerRepository.GetAll())
 {
     using (Html.BeginForm("RacerInfo", "Home", new { area = "" }, FormMethod.Post, new { id = "RacerID_" + CurrentRacer.RacerID.ToString() }))
     {

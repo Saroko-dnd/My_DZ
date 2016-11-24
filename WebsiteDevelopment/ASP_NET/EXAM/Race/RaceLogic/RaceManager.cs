@@ -11,7 +11,7 @@ namespace RaceLogic
     public class RaceManager : IRaceManager
     {
 
-        private IRaceRepository CurrentRaceRepository;
+        private IRaceUnitOfWork CurrentRaceUnitOfWork;
         private IAccessorToRaceInfo CurrentAccessorToRaceInfo;
         private IBackgroundRaceManager CurrentBackgroundRaceManager;       
 
@@ -54,11 +54,11 @@ namespace RaceLogic
             }
         }
 
-        public IRaceRepository RaceRepository
+        public IRaceUnitOfWork RaceRepositories
         {
             get
             {
-                return CurrentRaceRepository;
+                return CurrentRaceUnitOfWork;
             }
         }
 
@@ -67,18 +67,18 @@ namespace RaceLogic
             NewRaceCanBeCreated = false;
             Winner = null;
             CurrentFinishDistance = NewFinishDistance;
-            foreach (Racer CurrentRacer in CurrentRaceRepository.AllRacers)
+            foreach (Racer CurrentRacer in CurrentRaceUnitOfWork.RacerRepository.GetAll())
             {
                 CurrentRacer.DistanceCoveredInKm = 0;
             }
-            CurrentRaceRepository.SaveAllChanges();
+            CurrentRaceUnitOfWork.SaveAllChanges();
 
             ThreadPool.QueueUserWorkItem(o => CurrentBackgroundRaceManager.StartBackgroundRaceManagement());
         }
 
-        public RaceManager(IRaceRepository NewRaceRepository, IAccessorToRaceInfo NewAccessorToRaceInfo, IBackgroundRaceManager NewBackgroundRaceManager)
+        public RaceManager(IRaceUnitOfWork NewRaceUnitOfWork, IAccessorToRaceInfo NewAccessorToRaceInfo, IBackgroundRaceManager NewBackgroundRaceManager)
         {
-            CurrentRaceRepository = NewRaceRepository;
+            CurrentRaceUnitOfWork = NewRaceUnitOfWork;
             CurrentAccessorToRaceInfo = NewAccessorToRaceInfo;
             CurrentBackgroundRaceManager = NewBackgroundRaceManager;
         }

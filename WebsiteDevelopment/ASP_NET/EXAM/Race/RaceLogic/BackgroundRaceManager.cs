@@ -10,28 +10,29 @@ namespace RaceLogic
 {
     public class BackgroundRaceManager : IBackgroundRaceManager
     {
-        private IRaceRepository CurrentRaceRepository;
+        private IRaceUnitOfWork CurrentRaceUnitOfWork;
         private IAccessorToRaceInfo CurrentAccessorToRaceInfo;
 
         public void StartBackgroundRaceManagement()
         {
             while (CurrentAccessorToRaceInfo.Winner == null)
             {
-                foreach (Racer CurrentRacer in CurrentRaceRepository.AllRacers)
+                foreach (Racer CurrentRacer in CurrentRaceUnitOfWork.RacerRepository.GetAll())
                 {
                     CurrentRacer.DistanceCoveredInKm += CurrentRacer.CarSpeedKph;
                 }
-                CurrentRaceRepository.SaveAllChanges();
+                CurrentRaceUnitOfWork.SaveAllChanges();
                 Thread.Sleep(3000);
-                CurrentAccessorToRaceInfo.Winner = CurrentRaceRepository.AllRacers.Where(FoundRacer => FoundRacer.DistanceCoveredInKm >= CurrentAccessorToRaceInfo.FinishDistance).FirstOrDefault();
+                CurrentAccessorToRaceInfo.Winner = CurrentRaceUnitOfWork.RacerRepository.GetAll().Where(FoundRacer => FoundRacer.DistanceCoveredInKm >= CurrentAccessorToRaceInfo.FinishDistance).
+                    FirstOrDefault();
             }
 
             CurrentAccessorToRaceInfo.NewRaceCanBeCreated = true;
         }
 
-        public BackgroundRaceManager(IRaceRepository NewRaceRepository, IAccessorToRaceInfo NewAccessorToRaceInfo)
+        public BackgroundRaceManager(IRaceUnitOfWork NewRaceUnitOfWork, IAccessorToRaceInfo NewAccessorToRaceInfo)
         {
-            CurrentRaceRepository = NewRaceRepository;
+            CurrentRaceUnitOfWork = NewRaceUnitOfWork;
             CurrentAccessorToRaceInfo = NewAccessorToRaceInfo;
         }
     }

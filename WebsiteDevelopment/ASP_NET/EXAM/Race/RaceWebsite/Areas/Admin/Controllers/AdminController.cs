@@ -41,7 +41,7 @@ namespace RaceWebsite.Areas.Admin.Controllers
 
         public ActionResult EditRacerInfo(long SelectedRacerID)
         {
-            Racer SelectedRacer = CurrentRaceManager.RaceRepository.AllRacers.Where(FoundRacer => FoundRacer.RacerID == SelectedRacerID).FirstOrDefault();
+            Racer SelectedRacer = CurrentRaceManager.RaceRepositories.RacerRepository.GetAll().Where(FoundRacer => FoundRacer.RacerID == SelectedRacerID).FirstOrDefault();
             RacerInfo SelectedRacerInfo = new RacerInfo(true, SelectedRacer);
             return View(ApplicationConstants.PathFromRouteToRacerInfoView, SelectedRacerInfo);
         }

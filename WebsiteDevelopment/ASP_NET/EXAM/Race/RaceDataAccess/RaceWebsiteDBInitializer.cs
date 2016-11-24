@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace RaceDataAccess
 {
-    class RaceWebsiteDBInitializer : CreateDatabaseIfNotExists<RaceWebsiteDbContext>
+    class RaceWebsiteDBInitializer : CreateDatabaseIfNotExists<RaceApplicationDataContext>
     {
-        protected override void Seed(RaceWebsiteDbContext Context)
+        protected override void Seed(RaceApplicationDataContext Context)
         {
             List<Racer> TestListOfRacers = new List<Racer>();
 

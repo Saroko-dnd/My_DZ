@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RaceInfrastructure
+namespace RaceInfrastructure.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {

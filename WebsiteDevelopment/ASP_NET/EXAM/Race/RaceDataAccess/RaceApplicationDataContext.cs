@@ -10,26 +10,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RaceDataAccess
 {
-    public class RaceApplicationDataContext : DbContext, IRaceApplicationDataContext
+    public class RaceApplicationDataContext : DbContext
     {
         public DbSet<Racer> Racers { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-
-        public int SaveAllChanges()
-        {
-            return this.SaveChanges();
-        }
-
-        public Task<int> SaveAllChangesAsync()
-        {
-            return this.SaveAllChangesAsync();
-        }
-
-        public Task<int> SaveAllChangesAsync(CancellationToken CurrentCancellationToken)
-        {
-            return this.SaveChangesAsync(CurrentCancellationToken);
-        }
 
         protected override void OnModelCreating(DbModelBuilder ModelBuilder)
         {

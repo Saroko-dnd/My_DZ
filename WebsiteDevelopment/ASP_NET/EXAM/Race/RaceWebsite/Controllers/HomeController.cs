@@ -21,7 +21,7 @@ namespace RaceWebsite.Controllers
 
         public ActionResult RacerInfo(long SelectedRacerID)
         {
-            Racer SelectedRacer = CurrentRaceManager.RaceRepository.AllRacers.Where(FoundRacer => FoundRacer.RacerID == SelectedRacerID).FirstOrDefault();
+            Racer SelectedRacer = CurrentRaceManager.RaceRepositories.RacerRepository.GetAll().Where(FoundRacer => FoundRacer.RacerID == SelectedRacerID).FirstOrDefault();
             RacerInfo CurrentRacerInfo = new RacerInfo(false, SelectedRacer);
             return View(CurrentRacerInfo);
         }

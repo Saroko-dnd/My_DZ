@@ -15,7 +15,7 @@
 {
     if (Model.CurrentRaceManager.NewRaceCanBeCreated)
     {
-        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
+        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepositories.RacerRepository.GetAll())
         {
             using (Html.BeginForm("EditRacerInfo","Admin", new { area = "Admin"}))
             {
@@ -49,7 +49,7 @@ else
 {
     if (Model.CurrentRaceManager.NewRaceCanBeCreated)
     {
-        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepository.AllRacers)
+        foreach (Racer CurrentRacer in Model.CurrentRaceManager.RaceRepositories.RacerRepository.GetAll())
         {
             using (Html.BeginForm("RacerInfo", "Home", new { area = "" }))
             {
