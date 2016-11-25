@@ -1,4 +1,5 @@
-﻿using RaceInfrastructure.Repositories;
+﻿using RaceInfrastructure.DomainObjects;
+using RaceInfrastructure.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

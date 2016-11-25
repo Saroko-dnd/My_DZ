@@ -7,6 +7,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using RaceWebsite.Models;
+using RaceInfrastructure.DomainObjects;
 
 namespace RaceWebsite.Areas.Admin.Controllers
 {

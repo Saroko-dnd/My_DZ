@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using RaceInfrastructure.Repositories;
 using System.Threading;
 using RaceDataAccess.Repositories;
+using RaceInfrastructure.DomainObjects;
 
 namespace RaceDataAccess
 {

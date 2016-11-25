@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace RaceDataAccess.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    internal class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         private RaceApplicationDataContext CurrentDataContext;
         private DbSet<TEntity> set;
 
-        public Repository(RaceApplicationDataContext NewDataContext)
+        internal Repository(RaceApplicationDataContext NewDataContext)
         {
             CurrentDataContext = NewDataContext;
         }

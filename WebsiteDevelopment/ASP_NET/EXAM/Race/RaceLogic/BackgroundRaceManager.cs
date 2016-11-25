@@ -1,4 +1,5 @@
 ﻿using RaceInfrastructure;
+using RaceInfrastructure.DomainObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,19 @@ namespace RaceLogic
     {
         private IRaceUnitOfWork CurrentRaceUnitOfWork;
         private IAccessorToRaceInfo CurrentAccessorToRaceInfo;
+        private Random RandomGenerator = new Random();
 
         public void StartBackgroundRaceManagement()
         {
+            long DistanceCoveredByRacer;
+            int HalfOfRacerSpeed; 
             while (CurrentAccessorToRaceInfo.Winner == null)
             {
                 foreach (Racer CurrentRacer in CurrentRaceUnitOfWork.RacerRepository.GetAll())
                 {
-                    CurrentRacer.DistanceCoveredInKm += CurrentRacer.CarSpeedKph;
+                    HalfOfRacerSpeed = CurrentRacer.CarSpeedKph/2;
+                    DistanceCoveredByRacer = RandomGenerator.Next(0, HalfOfRacerSpeed) + HalfOfRacerSpeed;
+                    CurrentRacer.DistanceCoveredInKm += DistanceCoveredByRacer;
                 }
                 CurrentRaceUnitOfWork.SaveAllChanges();
                 Thread.Sleep(3000);

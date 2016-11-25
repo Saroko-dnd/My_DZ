@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations.Schema;
+using RaceInfrastructure.DomainObjects;
 
 namespace RaceDataAccess
 {

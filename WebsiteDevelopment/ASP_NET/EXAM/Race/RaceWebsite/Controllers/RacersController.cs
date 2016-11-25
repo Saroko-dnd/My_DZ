@@ -11,6 +11,7 @@ using System.Web.Http.OData.Query;
 using System.Web.Http.OData.Routing;
 using RaceInfrastructure;
 using Microsoft.Data.OData;
+using RaceInfrastructure.DomainObjects;
 
 namespace RaceWebsite.Controllers
 {

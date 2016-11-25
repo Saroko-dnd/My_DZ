@@ -31,7 +31,7 @@
         {
             <input type="submit" id="StartNewRaceButton" value="@Resources.Texts.ButtonStartRace" disabled/>
             <p>@Resources.Texts.PEnterFinishDistance</p>
-            <input type="number" id="InputForNewFinishDistance" name="NewFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()" disabled />
+            <input type="number" id="InputForNewFinishDistance" name="NewFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()" disabled min="0" max="500"/>
         }
         <span class="ShowOnlyWhenRaceAlreadyStarted" style="display:none">@Resources.Texts.SpanRaceHasAlreadyStartedYouMustWait</span>
         <input type="hidden" id="HiddenFieldNewRaceCanBeCreated" value="@Model.CurrentRaceManager.NewRaceCanBeCreated.ToString()" /> 

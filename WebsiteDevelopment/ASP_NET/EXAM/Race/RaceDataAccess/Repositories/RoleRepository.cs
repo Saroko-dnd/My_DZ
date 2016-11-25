@@ -1,4 +1,5 @@
 ﻿using RaceInfrastructure;
+using RaceInfrastructure.DomainObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace RaceDataAccess.Repositories
 {
-    public class RoleRepository : Repository<Role>
+    internal class RoleRepository : Repository<Role>
     {
-        public RoleRepository(RaceApplicationDataContext NewDataContext)
+        internal RoleRepository(RaceApplicationDataContext NewDataContext)
             : base(NewDataContext)
         {
 

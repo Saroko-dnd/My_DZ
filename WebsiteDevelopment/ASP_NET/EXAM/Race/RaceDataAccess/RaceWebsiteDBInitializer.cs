@@ -1,4 +1,5 @@
 ﻿using RaceInfrastructure;
+using RaceInfrastructure.DomainObjects;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

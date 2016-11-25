@@ -1,4 +1,5 @@
 ﻿using RaceInfrastructure;
+using RaceInfrastructure.DomainObjects;
 using RaceWebsite.ClassesForRaceWebsite;
 using RaceWebsite.Filters;
 using RaceWebsite.Models;
