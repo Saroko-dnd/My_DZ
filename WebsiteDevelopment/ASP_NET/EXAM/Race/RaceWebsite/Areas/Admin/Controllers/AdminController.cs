@@ -50,7 +50,13 @@ namespace RaceWebsite.Areas.Admin.Controllers
         public AdminController(IRaceManager NewRaceManager)
         {
             CurrentRaceManager = NewRaceManager;
-        }       
+        }   
+    
+        public ActionResult  TestJSController()
+        {
+            string JScontent = "alert('Hello World');";
+            return JavaScript(JScontent);
+        }
 
     }
 }
