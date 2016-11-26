@@ -1,18 +1,21 @@
-﻿@model RaceInfrastructure.DomainObjects.Racer
+﻿
+@using RaceWebsite.ClassesForRaceWebsite
+
+@model RaceInfrastructure.DomainObjects.Racer
 
 @{
     Layout = null;
 }
 <span>@Resources.Texts.SpanFirstName</span>
-<input type="text" name="FirstName" value="@Model.FirstName" />
+<input type="text" class="InputForName" name="FirstName" value="@Model.FirstName" maxlength="@ApplicationConstants.MaxLengthOfNames" />
 <span>@Resources.Texts.SpanSecondName</span>
-<input type="text" name="SecondName" value="@Model.SecondName" />
+<input type="text" class="InputForName" name="SecondName" value="@Model.SecondName" maxlength="@ApplicationConstants.MaxLengthOfNames"/>
 <span>@Resources.Texts.SpanBiography</span>
-<textarea name="Biography" >@Model.Biography</textarea>
+<textarea name="Biography" maxlength="@ApplicationConstants.MaxLengthOfBigTexts" >@Model.Biography</textarea>
 <span>@Resources.Texts.SpanCarName</span>
-<input type="text" name="CarName" value="@Model.CarName" />
+<input type="text" class="InputForName" name="CarName" value="@Model.CarName" maxlength="@ApplicationConstants.MaxLengthOfNames"/>
 <span>@Resources.Texts.SpanCarSpeed</span>
-<input type="text" name="CarSpeedKph" value="@Model.CarSpeedKph" />
+<input type="text" name="CarSpeedKph" value="@Model.CarSpeedKph" min="@ApplicationConstants.MinCarSpeed" max="@ApplicationConstants.MaxCarSpeed" />
 <span>@Resources.Texts.SpanColor</span>
 <input type="color" name="ColorCode" value="#@Model.ColorCode"/>
 <input type="hidden" name="RacerID" value="@Model.RacerID.ToString()"/>

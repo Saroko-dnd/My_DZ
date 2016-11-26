@@ -27,7 +27,7 @@ namespace RaceWebsite.Controllers
     */
     public class RacersController : ODataController
     {
-        private IRaceUnitOfWork CurrentRaceUnitOfWork;
+        private IRaceManager CurrentRaceManager;
         private static ODataValidationSettings _validationSettings = new ODataValidationSettings();
 
         // GET: RaceApi/Racers
@@ -45,7 +45,7 @@ namespace RaceWebsite.Controllers
             }
 
             // return Ok<IEnumerable<Racer>>(racers);
-            return CurrentRaceUnitOfWork.RacerRepository.GetAll();
+            return CurrentRaceManager.RaceRepositories.RacerRepository.GetAll();
         }
 
         // GET: odata/Racers(5)
@@ -92,11 +92,16 @@ namespace RaceWebsite.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            CurrentRaceUnitOfWork.RacerRepository.Update(ChangedRacer);
-            CurrentRaceUnitOfWork.SaveAllChanges();
-
-            return StatusCode(HttpStatusCode.OK);
+            else if (CurrentRaceManager.NewRaceCanBeCreated)
+            {
+                CurrentRaceManager.RaceRepositories.RacerRepository.Update(ChangedRacer);
+                CurrentRaceManager.RaceRepositories.SaveAllChanges();
+                return StatusCode(HttpStatusCode.OK);
+            }
+            else
+            {
+                return BadRequest(Resources.Texts.ErrorMessageForUpdateRacerInfoOperation);
+            }
         }
 
         // PATCH: odata/Racers(5)
@@ -129,9 +134,9 @@ namespace RaceWebsite.Controllers
             return StatusCode(HttpStatusCode.NotImplemented);
         }
 
-        public RacersController(IRaceUnitOfWork NewRaceUnitOfWork)
+        public RacersController(IRaceManager NewRaceManager)
         {
-            CurrentRaceUnitOfWork = NewRaceUnitOfWork;
+            CurrentRaceManager = NewRaceManager;
         }
     }
 }

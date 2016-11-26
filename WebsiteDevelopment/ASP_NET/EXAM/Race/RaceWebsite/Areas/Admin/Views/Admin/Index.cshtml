@@ -2,6 +2,7 @@
 @using System.Web.Optimization
 @using RaceWebsite.App_Start
 @using RaceWebsite.ClassesForRaceWebsite
+@using RaceWebsite.ClassesForRaceWebsite.Helpers
 
 @model RaceWebsite.Models.RaceParticipantsModel
 
@@ -22,7 +23,7 @@
 </head>
 <body>
     <div class="FlexColumnCenter">
-        @Html.ActionLink(Resources.Texts.LinkToMainPageForUsers, "Index", new { controller = "Home", area = "" });
+        @Html.ActionLink(Resources.Texts.LinkToMainPageForUsers, "Index", new { controller = "Home", area = "" })
         @using (Ajax.BeginForm("StartNewRace", new { controller = "Admin", area = "Admin" }, new AjaxOptions
         {
             UpdateTargetId = "DivWithRaceParticipants",
@@ -31,7 +32,8 @@
         {
             <input type="submit" id="StartNewRaceButton" value="@Resources.Texts.ButtonStartRace" disabled/>
             <p>@Resources.Texts.PEnterFinishDistance</p>
-            <input type="number" id="InputForNewFinishDistance" name="NewFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()" disabled min="0" max="500"/>
+            <input type="number" class="InputForInt64" id="InputForNewFinishDistance" name="NewFinishDistance" value="@Model.CurrentRaceManager.CurrentFinishDistance.ToString()" disabled 
+                   min="@ApplicationConstants.MinValueForFinishDistance" max="@ApplicationConstants.MaxValueForFinishDistance"/>
         }
         <span class="ShowOnlyWhenRaceAlreadyStarted" style="display:none">@Resources.Texts.SpanRaceHasAlreadyStartedYouMustWait</span>
         <input type="hidden" id="HiddenFieldNewRaceCanBeCreated" value="@Model.CurrentRaceManager.NewRaceCanBeCreated.ToString()" /> 
@@ -40,5 +42,8 @@
             @Html.Partial(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, Model)
         </div>
     </div>
+    <script>
+        @JSGenerator.JSResourcesObject(Resources.JSFile_UpdatingRaceParticipantsInfo.ResourceManager)
+    </script>
 </body>
 </html>

@@ -1,6 +1,7 @@
 ﻿
 @using System.Web.Optimization
 @using RaceWebsite.App_Start
+@using RaceWebsite.ClassesForRaceWebsite
 
 @model RaceWebsite.Models.RacerInfo
 
@@ -31,10 +32,17 @@
         @if (Model.EditingAllowed)
         {
             @Html.EditorFor(m => m.SelectedRacer)
-            <input id="SaveChangesInRacerButton" type="button" value="@Resources.Texts.ButtonSaveChanges" onclick="SystemForUpdatingInfoAboutRacer.PostChangedRacerToOdataController()"/>
-            <p id="PForSaveChangesButtonSuccessMessage" style="display:none">@Resources.Texts.PSaveChangesSuccess</p>
-            <p id="PForSaveChangesButtonFailMessage" style="display:none">@Resources.Texts.PSaveChangesFail</p>
+            <input id="SaveChangesInRacerButton" type="submit" value="@Resources.Texts.ButtonSaveChanges" onclick="SystemForUpdatingInfoAboutRacer.PostChangedRacerToOdataController()" />
+            <p class="SuccessMessage" id="PForSaveChangesButtonSuccessMessage" style="display:none">@Resources.Texts.PSaveChangesSuccess</p>
+            <p class="ErrorMessage" id="PForSaveChangesButtonFailMessage" style="display:none">@Resources.Texts.PSaveChangesFail</p>
             <img id="GifForWaiting" style="display:none" src="~/Images/Waiting.gif" />
+            <script>
+                var Resources = {
+                        JS_StandartErrorMessageForSaveChangesOperation: '@Resources.Texts.JS_StandartErrorMessageForSaveChangesOperation',
+                        JS_ErrorMessageIllegalCarSpeed: '@string.Format(Resources.Texts.JS_ErrorMessageIllegalCarSpeed, ApplicationConstants.MinCarSpeed, 
+                                                                       ApplicationConstants.MaxCarSpeed)'
+                    };
+            </script>
         }
         else
         {

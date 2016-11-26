@@ -24,6 +24,7 @@ var UpdatingRaceParticipantsInfo = (function () {
     var ThisIsAdminPage;
 
     PublicMembers.GetInfoNeededForUpdatingRaceParticipantsInfo = function () {
+        var TestOfResourcesObject = Resources;
         UrlToOdataController = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + "/RaceApi/Racers?$select=RacerID,DistanceCoveredInKm";
         UrlForCheckingRaceExistence = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + "/Home/RaceAlreadyExist";
         UrlForGettingCurrentRaceFinishDistance = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + "/Home/CurrentRaceFinishDistance";
@@ -101,7 +102,7 @@ var UpdatingRaceParticipantsInfo = (function () {
                 }
             },
             error: function (xhr, textStatus, errorMessage) {
-                alert("Error occurred during reloading racers data!");
+                alert(Resources.ErrorMessageForReloadingRacersData);
                 if (ThisIsAdminPage == "True")
                 {
                     EnableAbilityToCreateNewRace();
@@ -122,7 +123,7 @@ var UpdatingRaceParticipantsInfo = (function () {
                 UpdateAllInfoAboutRacersOnClientSide(data);
             },
             error: function (xhr, textStatus, errorMessage) {
-                alert("Error occurred during getting latest info about racers!");
+                alert(Resources.ErrorMessageForGettingLatestInfoAboutRacers);
             }
         })
     }
@@ -169,7 +170,7 @@ var UpdatingRaceParticipantsInfo = (function () {
                 }
             },
             error: function (xhr, textStatus, errorMessage) {
-                alert("Error occurred during checking race existence!");
+                alert(Resources.ErrorMessageForCheckingRaceExistence);
             }
         })
     }
@@ -186,7 +187,7 @@ var UpdatingRaceParticipantsInfo = (function () {
                 PublicMembers.StartUpdate();
             },
             error: function (xhr, textStatus, errorMessage) {
-                alert("Error occurred during getting current race finish distance from server!");
+                alert(Resources.ErrorMessageForGettingCurrentRaceFinishDistance);
             }
         })
     }

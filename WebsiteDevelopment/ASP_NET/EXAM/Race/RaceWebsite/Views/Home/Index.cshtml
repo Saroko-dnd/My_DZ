@@ -2,6 +2,7 @@
 @using System.Web.Optimization
 @using RaceWebsite.App_Start
 @using RaceWebsite.ClassesForRaceWebsite
+@using RaceWebsite.ClassesForRaceWebsite.Helpers
 
 @model RaceWebsite.Models.RaceParticipantsModel
 
@@ -21,8 +22,8 @@
 </head>
 <body>
     <div class="FlexColumnCenter">
-        @Html.ActionLink(Resources.Texts.LinkToMainPageForAdmin, "Index", new { controller = "Admin", area = "Admin" });
-        @Html.ActionLink(Resources.TextsForLoginAndRegistration.LinkToLoginAndRegistrationPage, "PageForLoginAndRegistration", new { controller = "LoginAndRegistrationForAdmins", area = "" });
+        @Html.ActionLink(Resources.Texts.LinkToMainPageForAdmin, "Index", new { controller = "Admin", area = "Admin" })
+        @Html.ActionLink(Resources.TextsForLoginAndRegistration.LinkToLoginAndRegistrationPage, "PageForLoginAndRegistration", new { controller = "LoginAndRegistrationForAdmins", area = "" })
         <h1>@Resources.Texts.RaceWebsiteMainPage</h1>
         <input type="hidden" id="HiddenFieldNewRaceCanBeCreated" value="@Model.CurrentRaceManager.NewRaceCanBeCreated.ToString()" /> 
         <input type="hidden" id="HiddenFieldThisIsAdminPage" value="False" />
@@ -31,5 +32,8 @@
             @Html.Partial(ApplicationConstants.PathFromRouteToRaceParticipantsPartialView, Model)
         </div>
     </div>
+    <script>      
+        @JSGenerator.JSResourcesObject(Resources.JSFile_UpdatingRaceParticipantsInfo.ResourceManager)
+    </script>
 </body>
 </html>

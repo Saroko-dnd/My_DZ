@@ -215,6 +215,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="ClassesForRaceWebsite\Helpers\JSGenerator.cs" />
     <Compile Include="ClassesForRaceWebsite\Identity\IdentityRole.cs" />
     <Compile Include="ClassesForRaceWebsite\Identity\IdentityUser .cs" />
     <Compile Include="ClassesForRaceWebsite\Identity\UserStore.cs" />
@@ -240,6 +241,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TextsForLoginAndRegistration.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\JSFile_UpdatingRaceParticipantsInfo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JSFile_UpdatingRaceParticipantsInfo.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -291,6 +297,11 @@
     <EmbeddedResource Include="Resources\TextsForLoginAndRegistration.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TextsForLoginAndRegistration.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\JSFile_UpdatingRaceParticipantsInfo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>JSFile_UpdatingRaceParticipantsInfo.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>

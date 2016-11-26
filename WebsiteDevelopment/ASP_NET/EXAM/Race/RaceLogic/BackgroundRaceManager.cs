@@ -17,14 +17,12 @@ namespace RaceLogic
 
         public void StartBackgroundRaceManagement()
         {
-            long DistanceCoveredByRacer;
-            int HalfOfRacerSpeed; 
+            int DistanceCoveredByRacer;
             while (CurrentAccessorToRaceInfo.Winner == null)
             {
                 foreach (Racer CurrentRacer in CurrentRaceUnitOfWork.RacerRepository.GetAll())
                 {
-                    HalfOfRacerSpeed = CurrentRacer.CarSpeedKph/2;
-                    DistanceCoveredByRacer = RandomGenerator.Next(0, HalfOfRacerSpeed) + HalfOfRacerSpeed;
+                    DistanceCoveredByRacer = RandomGenerator.Next(0, CurrentRacer.CarSpeedKph + 1);                   
                     CurrentRacer.DistanceCoveredInKm += DistanceCoveredByRacer;
                 }
                 CurrentRaceUnitOfWork.SaveAllChanges();

@@ -30,7 +30,12 @@ body {
     margin-right:auto;
 }
 
-.InputForText
+.InputForName
+{
+    width:200px;
+}
+
+.InputForInt64
 {
     width:200px;
 }
@@ -48,5 +53,10 @@ body {
 .ErrorMessage
 {
     color:red;
+}
+
+.SuccessMessage
+{
+    color:green;
 }
 
