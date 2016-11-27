@@ -32,6 +32,11 @@ namespace RaceDataAccess.Repositories
             Set.Add(NewEntity);
         }
 
+        public void Delete(TEntity EntityToBeDeleted)
+        {
+            Set.Remove(EntityToBeDeleted);
+        }
+
         public IQueryable<TEntity> GetAll()
         {
             return Set;

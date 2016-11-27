@@ -22,6 +22,8 @@ var SystemForUpdatingInfoAboutRacer = (function () {
     var MaxCarSpeed;
     var MinCarSpeed;
 
+    var ErrorMessageForIllegalCarSpeed;
+
     PublicMembers.GetInfoAboutDomElements = function()
     {
         UrlToOdataController = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + "/RaceApi/Racers";
@@ -40,16 +42,20 @@ var SystemForUpdatingInfoAboutRacer = (function () {
         ParagraphForErrorMessage = $("#PForSaveChangesButtonFailMessage");
         ButtonForSavingChanges = $("#SaveChangesInRacerButton");
         ImgWithGifForWaiting = $("#GifForWaiting");
+
+        ErrorMessageForIllegalCarSpeed = String.format(Resources.ErrorMessageIllegalCarSpeed, MinCarSpeed, MaxCarSpeed);
     }
 
     PublicMembers.PostChangedRacerToOdataController = function()
     {
+        var TestString = "This is test string {0} this is test string {1} this is test string {0}";
+        var FormattedString = String.format(TestString, 100, 200);
         $(ParagraphForSuccessMessage).css("display", "none");
 
         var NewCarSpeed = Number($(InputForRacerCarSpeed).val());
         if (NewCarSpeed > MaxCarSpeed || NewCarSpeed < MinCarSpeed)
         {
-            $(ParagraphForErrorMessage).css("display", "block").text(Resources.JS_ErrorMessageIllegalCarSpeed);
+            $(ParagraphForErrorMessage).css("display", "block").text(ErrorMessageForIllegalCarSpeed);
         }
         else
         {
@@ -85,7 +91,7 @@ var SystemForUpdatingInfoAboutRacer = (function () {
                     }
                     catch (exception)
                     {
-                        $(ParagraphForErrorMessage).css("display", "block").text(Resources.JS_StandartErrorMessageForSaveChangesOperation);
+                        $(ParagraphForErrorMessage).css("display", "block").text(Resources.StandartErrorMessageForSaveChangesOperation);
                     }
                     $(ButtonForSavingChanges).prop("disabled", false);
                     $(ImgWithGifForWaiting).css("display", "none");

@@ -115,24 +115,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Car speed must be in range between {0} and {1} kph!.
-        /// </summary>
-        public static string JS_ErrorMessageIllegalCarSpeed {
-            get {
-                return ResourceManager.GetString("JS_ErrorMessageIllegalCarSpeed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на An error occurred on the server during attempt to save your changes!.
-        /// </summary>
-        public static string JS_StandartErrorMessageForSaveChangesOperation {
-            get {
-                return ResourceManager.GetString("JS_StandartErrorMessageForSaveChangesOperation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Ищет локализованную строку, похожую на Main page for admin.
         /// </summary>
         public static string LinkToMainPageForAdmin {

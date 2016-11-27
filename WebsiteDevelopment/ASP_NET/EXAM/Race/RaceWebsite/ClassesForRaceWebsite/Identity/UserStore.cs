@@ -5,19 +5,40 @@ using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using RaceInfrastructure.DomainObjects;
+using RaceInfrastructure;
 
 namespace RaceWebsite.ClassesForRaceWebsite.Identity
 {
     public class UserStore : IUserStore<IdentityUser, Guid>, IDisposable
     {
-        public Task CreateAsync(IdentityUser user)
+        private readonly IRaceUnitOfWork CurrentRaceUnitOfWork;
+
+        public UserStore(IRaceUnitOfWork NewRaceUnitOfWork)
         {
-            throw new NotImplementedException();
+            CurrentRaceUnitOfWork = NewRaceUnitOfWork;
         }
 
-        public Task DeleteAsync(IdentityUser user)
+        public Task CreateAsync(IdentityUser NewIdentityUser)
         {
-            throw new NotImplementedException();
+            if (NewIdentityUser == null)
+                throw new ArgumentNullException("NewIdentityUser");
+
+            User NewUser = GetUser(NewIdentityUser);
+
+            CurrentRaceUnitOfWork.UserRepository.Add(NewUser);
+            return CurrentRaceUnitOfWork.SaveAllChangesAsync();
+        }
+
+        public Task DeleteAsync(IdentityUser IdentityUserToBeDeleted)
+        {
+            if (IdentityUserToBeDeleted == null)
+                throw new ArgumentNullException("user");
+
+            User NewUser = GetUser(IdentityUserToBeDeleted);
+
+            CurrentRaceUnitOfWork.UserRepository.Delete(NewUser);
+            return CurrentRaceUnitOfWork.SaveAllChangesAsync();
         }
 
         public void Dispose()
@@ -25,19 +46,64 @@ namespace RaceWebsite.ClassesForRaceWebsite.Identity
 
         }
 
-        public Task<IdentityUser> FindByIdAsync(Guid userId)
+        public Task<IdentityUser> FindByIdAsync(Guid UserId)
         {
-            throw new NotImplementedException();
+            User FoundUser = CurrentRaceUnitOfWork.UserRepository.GetAll().Where(ResUser => ResUser.UserID == UserId).FirstOrDefault();
+            return Task.FromResult<IdentityUser>(GetIdentityUser(FoundUser));
         }
 
-        public Task<IdentityUser> FindByNameAsync(string userName)
+        public Task<IdentityUser> FindByNameAsync(string UserName)
         {
-            throw new NotImplementedException();
+            User FoundUser = CurrentRaceUnitOfWork.UserRepository.GetAll().FirstOrDefault(ResUser => ResUser.Name == UserName);
+            return Task.FromResult<IdentityUser>(GetIdentityUser(FoundUser));
         }
 
-        public Task UpdateAsync(IdentityUser user)
+        public Task UpdateAsync(IdentityUser ModifiedIdentityUser)
         {
-            throw new NotImplementedException();
+            if (ModifiedIdentityUser == null)
+                throw new ArgumentException("ModifiedIdentityUser");
+
+            User FoundUser = CurrentRaceUnitOfWork.UserRepository.GetAll().FirstOrDefault(ResUser => ResUser.UserID == ModifiedIdentityUser.Id);
+            PopulateUser(FoundUser, ModifiedIdentityUser);
+
+            CurrentRaceUnitOfWork.UserRepository.Update(FoundUser);
+            return CurrentRaceUnitOfWork.SaveAllChangesAsync();
+        }
+
+        private void PopulateIdentityUser(IdentityUser CurrentIdentityUser, User CurrentUser)
+        {
+            CurrentIdentityUser.Id = CurrentUser.UserID;
+            CurrentIdentityUser.UserName = CurrentUser.Name;
+            CurrentIdentityUser.PasswordHash = CurrentUser.PasswordHash;
+        }
+
+        private void PopulateUser(User CurrentUser, IdentityUser CurrentIdentityUser)
+        {
+            CurrentUser.UserID = CurrentIdentityUser.Id;
+            CurrentUser.PasswordHash = CurrentIdentityUser.PasswordHash;
+            CurrentUser.Name = CurrentIdentityUser.UserName;
+        }
+
+        private User GetUser(IdentityUser NewIdentityUser)
+        {
+            if (NewIdentityUser == null)
+                return null;
+
+            User NewUser = new User();
+            PopulateUser(NewUser, NewIdentityUser);
+
+            return NewUser;
+        }
+
+        private IdentityUser GetIdentityUser(User CurrentUser)
+        {
+            if (CurrentUser == null)
+                return null;
+
+            IdentityUser NewIdentityUser = new IdentityUser();
+            PopulateIdentityUser(NewIdentityUser, CurrentUser);
+
+            return NewIdentityUser;
         }
     }
 }

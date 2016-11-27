@@ -203,6 +203,7 @@
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\ExtensionMethods.js" />
     <Content Include="Scripts\UpdatingRaceParticipantsInfo.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -232,6 +233,11 @@
     </Compile>
     <Compile Include="Models\RacerInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\JSFile_ChangingRacerInfo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>JSFile_ChangingRacerInfo.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Texts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -289,6 +295,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\JSFile_ChangingRacerInfo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>JSFile_ChangingRacerInfo.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Texts.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>

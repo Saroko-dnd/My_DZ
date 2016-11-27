@@ -12,7 +12,7 @@ namespace RaceWebsite.ClassesForRaceWebsite.Helpers
 {
     public static class JSGenerator
     {
-        public static MvcHtmlString JSResourcesObject(ResourceManager CurrentResourceManager)
+        public static MvcHtmlString ResourcesObject(ResourceManager CurrentResourceManager)
         {
             StringBuilder JSStringBuilder = new StringBuilder();
             JSStringBuilder.Append("var Resources ={");

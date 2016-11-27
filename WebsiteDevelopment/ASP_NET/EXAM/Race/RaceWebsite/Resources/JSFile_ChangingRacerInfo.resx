@@ -117,73 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ButtonSaveChanges" xml:space="preserve">
-    <value>Save changes</value>
+  <data name="ErrorMessageIllegalCarSpeed" xml:space="preserve">
+    <value>Car speed must be in range between {0} and {1} kph!</value>
   </data>
-  <data name="ButtonStartRace" xml:space="preserve">
-    <value>Start  race</value>
-  </data>
-  <data name="DetailsButton" xml:space="preserve">
-    <value>More details</value>
-  </data>
-  <data name="EditButton" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="ErrorMessageForIEUsers" xml:space="preserve">
-    <value>We do not support Internet Explorer!</value>
-  </data>
-  <data name="ErrorMessageForUpdateRacerInfoOperation" xml:space="preserve">
-    <value>Race already started! You must wait until race ends, to be able to update info about racer.</value>
-  </data>
-  <data name="LinkToMainPageForAdmin" xml:space="preserve">
-    <value>Main page for admin</value>
-  </data>
-  <data name="LinkToMainPageForUsers" xml:space="preserve">
-    <value>Main page for users</value>
-  </data>
-  <data name="PDistanceCovered" xml:space="preserve">
-    <value>Distance covered</value>
-  </data>
-  <data name="PEnterFinishDistance" xml:space="preserve">
-    <value>Distance from start to finish (Km)</value>
-  </data>
-  <data name="PKilometers" xml:space="preserve">
-    <value>Km</value>
-  </data>
-  <data name="PSaveChangesFail" xml:space="preserve">
-    <value>Failed to save changes!</value>
-  </data>
-  <data name="PSaveChangesSuccess" xml:space="preserve">
-    <value>Changes have been successfully saved!</value>
-  </data>
-  <data name="RaceWebsiteMainPage" xml:space="preserve">
-    <value>Main page</value>
-  </data>
-  <data name="SpanBiography" xml:space="preserve">
-    <value>Biography</value>
-  </data>
-  <data name="SpanCarName" xml:space="preserve">
-    <value>Car</value>
-  </data>
-  <data name="SpanCarSpeed" xml:space="preserve">
-    <value>Car speed (kph)</value>
-  </data>
-  <data name="SpanColor" xml:space="preserve">
-    <value>Color</value>
-  </data>
-  <data name="SpanFirstName" xml:space="preserve">
-    <value>First name</value>
-  </data>
-  <data name="SpanKph" xml:space="preserve">
-    <value>Kph</value>
-  </data>
-  <data name="SpanParticipants" xml:space="preserve">
-    <value>Participants</value>
-  </data>
-  <data name="SpanRaceHasAlreadyStartedYouMustWait" xml:space="preserve">
-    <value>The race has already started. You must wait until the end of the current race, to start a new one.</value>
-  </data>
-  <data name="SpanSecondName" xml:space="preserve">
-    <value>Second name</value>
+  <data name="StandartErrorMessageForSaveChangesOperation" xml:space="preserve">
+    <value>An error occurred on the server during attempt to save your changes!</value>
   </data>
 </root>

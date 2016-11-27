@@ -11,5 +11,6 @@ namespace RaceInfrastructure.Repositories
         IQueryable<TEntity> GetAll();
         void Add(TEntity NewEntity);
         void Update(TEntity ModifiedEntity);
+        void Delete(TEntity EntityToBeDeleted);
     }
 }

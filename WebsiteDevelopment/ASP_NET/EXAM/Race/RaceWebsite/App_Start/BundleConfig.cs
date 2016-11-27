@@ -12,6 +12,7 @@ namespace RaceWebsite.App_Start
         public static readonly string VirtualPathForChangingRacerInfoBundle = "~/bundles/ChangingRacerInfo";
         public static readonly string VirtualPathForUnobtrusiveAjaxBundle = "~/bundles/jquery.unobtrusive-ajax";
         public static readonly string VirtualPathForUpdatingRaceParticipantsInfoBundle = "~/bundles/UpdatingRaceParticipantsInfo";
+        public static readonly string VirtualPathForExtensionMethodsBundle = "~/bundles/ExtensionMethods";
 
         public static void RegisterBundles(BundleCollection bundles)
         {
@@ -21,6 +22,7 @@ namespace RaceWebsite.App_Start
             bundles.Add(new ScriptBundle(VirtualPathForChangingRacerInfoBundle).Include("~/Areas/Admin/Scripts/ChangingRacerInfo.js"));
             bundles.Add(new ScriptBundle(VirtualPathForUnobtrusiveAjaxBundle).Include("~/Scripts/jquery.unobtrusive-ajax.js"));
             bundles.Add(new ScriptBundle(VirtualPathForUpdatingRaceParticipantsInfoBundle).Include("~/Scripts/UpdatingRaceParticipantsInfo.js"));
+            bundles.Add(new ScriptBundle(VirtualPathForExtensionMethodsBundle).Include("~/Scripts/ExtensionMethods.js"));
             //BundleTable.EnableOptimizations = true;
         }
     }

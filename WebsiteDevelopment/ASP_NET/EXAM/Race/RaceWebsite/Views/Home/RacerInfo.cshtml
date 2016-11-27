@@ -2,6 +2,7 @@
 @using System.Web.Optimization
 @using RaceWebsite.App_Start
 @using RaceWebsite.ClassesForRaceWebsite
+@using RaceWebsite.ClassesForRaceWebsite.Helpers
 
 @model RaceWebsite.Models.RacerInfo
 
@@ -22,6 +23,7 @@
         <text>
             @Scripts.Render(BundleConfig.VirtualPathForJqueryBundle)
             @Scripts.Render(BundleConfig.VirtualPathForChangingRacerInfoBundle)
+            @Scripts.Render(BundleConfig.VirtualPathForExtensionMethodsBundle)
         </text>
     }
 </head>
@@ -37,11 +39,7 @@
             <p class="ErrorMessage" id="PForSaveChangesButtonFailMessage" style="display:none">@Resources.Texts.PSaveChangesFail</p>
             <img id="GifForWaiting" style="display:none" src="~/Images/Waiting.gif" />
             <script>
-                var Resources = {
-                        JS_StandartErrorMessageForSaveChangesOperation: '@Resources.Texts.JS_StandartErrorMessageForSaveChangesOperation',
-                        JS_ErrorMessageIllegalCarSpeed: '@string.Format(Resources.Texts.JS_ErrorMessageIllegalCarSpeed, ApplicationConstants.MinCarSpeed, 
-                                                                       ApplicationConstants.MaxCarSpeed)'
-                    };
+                @JSGenerator.ResourcesObject(Resources.JSFile_ChangingRacerInfo.ResourceManager)
             </script>
         }
         else
@@ -49,6 +47,5 @@
             @Html.DisplayFor(m => m.SelectedRacer)
         }
     </div>
-    <script type="text/javascript" src="Admin/Admin/TestJSController"></script>
 </body>
 </html>
