@@ -8,25 +8,6 @@ $TestHtmlReference = htmlspecialchars("This is reference after htmlspecialchars(
 $PureHtmlReference = "This is usual reference <a href='test'>Test reference</a>";
 echo $PureHtmlReference, "<br>";
 echo $TestHtmlReference, "<br>";
-
-/*$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "dbfortestproject";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-$sql = "INSERT INTO product (Cost, Name, Weight)
-VALUES (200, 'TestProduct', 50),(100, 'SecondTestProduct', 10),(1500, 'ThirdTestProduct', 110)";
-
-if ($conn->query($sql)) {
-    echo "<p style='color: green'>New record created successfully</p>";
-} else {
-    echo "<p style='color: red'>", "Error: " . $sql . "<br>" . $conn->error, "</p>";
-}
-
-$conn->close();*/
-
 ?> 
 
  <form action="">
@@ -38,48 +19,68 @@ $conn->close();*/
   <input type="checkbox" name="TestCheckBox" value="Checkbox value">
  </form>
 
+ <form action="">
+     <p>Enter manufacturer name to get info about all his products:</p>
+     <input type="text" name="SelectedProductManufacturer">      
+     <input type="submit" value="Найти">
+ </form>
+
+ <?php
+ //SELECT EXAMPLE with binding
+  if(isset($_GET['SelectedProductManufacturer'])) {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "firsttrydb";
+
+        $conn = new mysqli($servername, $username, $password, $dbname);  
+
+        $stmt = $conn->prepare("SELECT * FROM products WHERE Manufacturer=?");
+        $stmt->bind_param('s', $SelectedProductManufacturer);
+        $SelectedProductManufacturer = $_GET['SelectedProductManufacturer'];
+
+        $stmt->execute();
+        $stmt->bind_result($ProductID, $ProductName, $ManufacturerOfProduct, $ProductCost);
+        while ($stmt->fetch()) {
+            printf("ID: %d Name: %s Manufacturer: %s Cost: %d<br>", $ProductID, $ProductName, $ManufacturerOfProduct, $ProductCost);
+        }
+        $stmt->close();
+        $conn->close();
+    }
+ ?>
+
+<h1>Addition of new products to database</h1>
 <form action="">
-    <p> Введите ID продукта:</p>
-    <input type='number' name='SelectedProductID' id='InputForProductID'/>
-    <input type='submit' value='Найти'/>
+    <p>Name of new product</p>
+    <input type="text" name="NewProductName"> 
+    <p>Manufacturer of new product</p>
+    <input type="text" name="NewProductManufacturer"> 
+    <p>Cost of new product</p>
+    <input type="number" name="NewProductCost"> 
+    <input type="submit" value="Add new product to database">
 </form>
- 
 
 <?php
-
-        function GetProductById($SelectedId)
-        {
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $dbname = "dbfortestproject";
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-            $sql = "SELECT * FROM products WHERE ProductID='".$SelectedId."'";
-            $stmt = $conn->prepare("SELECT * FROM products WHERE ProductID=?");
-            $stmt->bind_param("d", $SelectedId);//bind_result after execute
-            $stmt->execute();
-            $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-            //$result = $conn->query($sql);
-            $ResultText = "";
-            if ($result->num_rows > 0) {
-    // output data of each row
-                while($row = $result->fetch_assoc()) {
-                    $ResultText = $ResultText ."<p>id: " .$row["ProductID"] ." Name: " .$row["Name"] . " Cost: " .$row["Cost"] . "</p>";
-                }
-            } else {
-                $ResultText = "0 results";
-            }
-
-            $conn->close();
-
-            return $ResultText;
-        }
  //print_r($_GET);
+//INSERT EXAMPLE with binding
+ if(isset($_GET['NewProductName']) && isset($_GET['NewProductManufacturer']) && isset($_GET['NewProductCost'])) {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "firsttrydb";
 
- //If value with name 'TestCheckBox' exists then echo
- if(isset($_GET['SelectedProductID'])) {
-        echo GetProductById($_GET['SelectedProductID']);
+        $conn = new mysqli($servername, $username, $password, $dbname);  
+
+        $stmt = $conn->prepare("INSERT INTO products (Name, Manufacturer, Cost) VALUES (?, ?, ?)");
+        $stmt->bind_param('ssd', $NewProductName, $NewProductManufacturer, $NewProductCost);
+        $NewProductName = $_GET['NewProductName'];
+        $NewProductManufacturer = $_GET['NewProductManufacturer'];        
+        $NewProductCost = $_GET['NewProductCost'];
+
+        $stmt->execute();
+        $stmt->close();
+
+        $conn->close();
     }
 ?>
 
