@@ -18,13 +18,13 @@ namespace AzureFirstTry
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Sea>()
-                 .HasMany(u => u.Fishes)
-                 .WithMany(l => l.Seas)
-                 .Map(ul =>
+                 .HasMany(SeaEntity => SeaEntity.Fishes)
+                 .WithMany(FishEntity => FishEntity.Seas)
+                 .Map(ManyToManyConfig =>
                  {
-                     ul.MapLeftKey("FishId");
-                     ul.MapRightKey("SeaId");
-                     ul.ToTable("FishesAndSeas");
+                     ManyToManyConfig.MapLeftKey("FishId");
+                     ManyToManyConfig.MapRightKey("SeaId");
+                     ManyToManyConfig.ToTable("FishesAndSeas");
                  });
         }
     }

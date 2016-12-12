@@ -50,14 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbClasses\Customer.cs" />
-    <Compile Include="DbClasses\Product.cs" />
-    <Compile Include="DbClasses\ProductCategory.cs" />
-    <Compile Include="Fishes.cs" />
-    <Compile Include="SarokoDBModel.cs" />
+    <Compile Include="AzureSqlDbClasses\Fishes.cs" />
+    <Compile Include="AzureSqlDbClasses\SarokoDBModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Seas.cs" />
+    <Compile Include="AzureSqlDbClasses\Seas.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
