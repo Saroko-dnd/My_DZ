@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Azure; // Namespace for CloudConfigurationManager
+using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
+using Microsoft.WindowsAzure.Storage.Table; // Namespace for Table storage types
 
 namespace AzureFirstTry
 {
@@ -10,6 +13,7 @@ namespace AzureFirstTry
     {
         static void Main(string[] args)
         {
+            //Test of Azure SQL database usage
             using (SarokoDBModel AzureSQLDatabase = new SarokoDBModel())
             {
                 if (AzureSQLDatabase.Seas.Count() == 0)
@@ -32,6 +36,14 @@ namespace AzureFirstTry
                     Console.WriteLine(AzureSQLDatabase.Fishes.First().MaxWeightInGrams.ToString());
                 }
             }
+
+            //Test of Azure data storage (TABLES)
+            CloudStorageAccount MyStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("AzureStorageConnectionString"));         
+            CloudTableClient TableClientForMyStorageAccount = MyStorageAccount.CreateCloudTableClient();
+            CloudTable MyAzureTable = TableClientForMyStorageAccount.GetTableReference("TestTable");
+            MyAzureTable.CreateIfNotExists();
+            Console.WriteLine("TestTable was created in azure storage.");
+
             Console.ReadKey();
         }
     }
