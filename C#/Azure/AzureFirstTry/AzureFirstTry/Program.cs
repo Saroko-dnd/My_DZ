@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.Azure; // Namespace for CloudConfigurationManager
 using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
 using Microsoft.WindowsAzure.Storage.Table; // Namespace for Table storage types
+using Microsoft.WindowsAzure.Storage.Queue;
+using AzureFirstTry.AzureTableClasses;
 
 namespace AzureFirstTry
 {
@@ -42,7 +44,39 @@ namespace AzureFirstTry
             CloudTableClient TableClientForMyStorageAccount = MyStorageAccount.CreateCloudTableClient();
             CloudTable MyAzureTable = TableClientForMyStorageAccount.GetTableReference("TestTable");
             MyAzureTable.CreateIfNotExists();
-            Console.WriteLine("TestTable was created in azure storage.");
+            TableQuery<City> QueryToTestTable = new TableQuery<City>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Belarus"));
+            IEnumerable<City> ListOfCitiesFoundInAzureTable = MyAzureTable.ExecuteQuery(QueryToTestTable);
+            if (ListOfCitiesFoundInAzureTable.Count() > 0)
+            {
+                Console.WriteLine("Cities found in azure table:");
+                foreach (City FoundCity in ListOfCitiesFoundInAzureTable)
+                {
+                    Console.WriteLine("Country: {0} City: {1} Population: {2} Dialing code: {3}", FoundCity.PartitionKey, FoundCity.RowKey,
+                        FoundCity.Population, FoundCity.DialingCode);
+                }
+            }
+            else
+            {
+                //INSERTION
+                List<City> ListOfCities = new List<City>();
+                ListOfCities.Add(new City("Belarus", "Minsk") { Population = 1959781, DialingCode = "+37517" });
+                ListOfCities.Add(new City("Belarus", "Brest") { Population = 340141, DialingCode = "+375162" });
+                ListOfCities.Add(new City("Belarus", "Grodno") { Population = 365610, DialingCode = "+375152" });
+                //Bath operation accepts only entities with same partition key
+                TableBatchOperation BatchOperation = new TableBatchOperation();
+                foreach (City FoundCity in ListOfCities)
+                {
+                    BatchOperation.Insert(FoundCity);
+                }
+                MyAzureTable.ExecuteBatch(BatchOperation);
+                Console.WriteLine("Some cities were added to azure table.");
+            }
+
+            //Test of Azure data storage (QUEUE)
+            CloudQueueClient QueueClientForMyStorageAccount = MyStorageAccount.CreateCloudQueueClient();
+            CloudQueue MyAzureQueue = QueueClientForMyStorageAccount.GetQueueReference("test-queue");
+            MyAzureQueue.CreateIfNotExists();
+            Console.WriteLine("Test queue was created successfully.");
 
             Console.ReadKey();
         }
