@@ -16,6 +16,7 @@ namespace AzureFirstTry
         static void Main(string[] args)
         {
             //Test of Azure SQL database usage
+            Console.WriteLine("--AZURE SQL TEST--");
             using (SarokoDBModel AzureSQLDatabase = new SarokoDBModel())
             {
                 if (AzureSQLDatabase.Seas.Count() == 0)
@@ -32,30 +33,27 @@ namespace AzureFirstTry
                         AzureSQLDatabase.Seas.Add(FoundSea);
                     }
                     AzureSQLDatabase.SaveChanges();
+                    Console.WriteLine("Seas and fishes were added to Azure SQL database.");
                 }
-                else
+            }
+            using (SarokoDBModel AzureSQLDatabase = new SarokoDBModel())
+            {
+                Console.WriteLine("Seas found in Azure SQL database:");
+                foreach (Sea FoundSea in AzureSQLDatabase.Seas.ToList())
                 {
-                    Console.WriteLine(AzureSQLDatabase.Fishes.First().MaxWeightInGrams.ToString());
+                    Console.WriteLine("Name: {0} Max depth in meters: {1} Pirates: {2}", FoundSea.Name, FoundSea.MaxDepthInMeters.ToString(), FoundSea.Pirates.ToString());
                 }
             }
 
             //Test of Azure data storage (TABLES)
+            Console.WriteLine("--AZURE TABLE TEST--");
             CloudStorageAccount MyStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("AzureStorageConnectionString"));         
             CloudTableClient TableClientForMyStorageAccount = MyStorageAccount.CreateCloudTableClient();
             CloudTable MyAzureTable = TableClientForMyStorageAccount.GetTableReference("TestTable");
             MyAzureTable.CreateIfNotExists();
             TableQuery<City> QueryToTestTable = new TableQuery<City>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "Belarus"));
             IEnumerable<City> ListOfCitiesFoundInAzureTable = MyAzureTable.ExecuteQuery(QueryToTestTable);
-            if (ListOfCitiesFoundInAzureTable.Count() > 0)
-            {
-                Console.WriteLine("Cities found in azure table:");
-                foreach (City FoundCity in ListOfCitiesFoundInAzureTable)
-                {
-                    Console.WriteLine("Country: {0} City: {1} Population: {2} Dialing code: {3}", FoundCity.PartitionKey, FoundCity.RowKey,
-                        FoundCity.Population, FoundCity.DialingCode);
-                }
-            }
-            else
+            if (ListOfCitiesFoundInAzureTable.Count() == 0)
             {
                 //INSERTION
                 List<City> ListOfCities = new List<City>();
@@ -70,13 +68,46 @@ namespace AzureFirstTry
                 }
                 MyAzureTable.ExecuteBatch(BatchOperation);
                 Console.WriteLine("Some cities were added to azure table.");
+                ListOfCitiesFoundInAzureTable = MyAzureTable.ExecuteQuery(QueryToTestTable);
+                Console.WriteLine("Cities found in azure table:");
+                foreach (City FoundCity in ListOfCitiesFoundInAzureTable)
+                {
+                    Console.WriteLine("Country: {0} City: {1} Population: {2} Dialing code: {3}", FoundCity.PartitionKey, FoundCity.RowKey,
+                        FoundCity.Population, FoundCity.DialingCode);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Cities found in azure table:");
+                foreach (City FoundCity in ListOfCitiesFoundInAzureTable)
+                {
+                    Console.WriteLine("Country: {0} City: {1} Population: {2} Dialing code: {3}", FoundCity.PartitionKey, FoundCity.RowKey,
+                        FoundCity.Population, FoundCity.DialingCode);
+                }
             }
 
             //Test of Azure data storage (QUEUE)
+            Console.WriteLine("--AZURE QUEUE TEST--");
             CloudQueueClient QueueClientForMyStorageAccount = MyStorageAccount.CreateCloudQueueClient();
             CloudQueue MyAzureQueue = QueueClientForMyStorageAccount.GetQueueReference("test-queue");
             MyAzureQueue.CreateIfNotExists();
-            Console.WriteLine("Test queue was created successfully.");
+            List<CloudQueueMessage> ListOfMessagesForQueue = new List<CloudQueueMessage>();
+            ListOfMessagesForQueue.Add(new CloudQueueMessage("First message"));
+            ListOfMessagesForQueue.Add(new CloudQueueMessage("Second message"));
+            ListOfMessagesForQueue.Add(new CloudQueueMessage("Third message"));
+            foreach (CloudQueueMessage FoundMessage in ListOfMessagesForQueue)
+            {
+                MyAzureQueue.AddMessage(FoundMessage);
+            }  
+            Console.WriteLine("Messages were added to queue.");
+            CloudQueueMessage RetrievedMessage;
+            for (int CounterOfMessages = 0; CounterOfMessages < 3; ++CounterOfMessages)
+            {
+                RetrievedMessage = MyAzureQueue.GetMessage();
+                Console.WriteLine(RetrievedMessage.AsString);
+                MyAzureQueue.DeleteMessage(RetrievedMessage);
+            }
+            Console.WriteLine("All messages were retrieved from queue.");
 
             Console.ReadKey();
         }
