@@ -16,6 +16,7 @@ namespace AzureFirstTry
         static void Main(string[] args)
         {
             //Test of Azure SQL database usage
+            #region AzureSqlTest
             Console.WriteLine("--AZURE SQL TEST--");
             using (SarokoDBModel AzureSQLDatabase = new SarokoDBModel())
             {
@@ -44,10 +45,12 @@ namespace AzureFirstTry
                     Console.WriteLine("Name: {0} Max depth in meters: {1} Pirates: {2}", FoundSea.Name, FoundSea.MaxDepthInMeters.ToString(), FoundSea.Pirates.ToString());
                 }
             }
+            #endregion
 
             //Test of Azure data storage (TABLES)
+            #region AzureTableTest
             Console.WriteLine("--AZURE TABLE TEST--");
-            CloudStorageAccount MyStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("AzureStorageConnectionString"));         
+            CloudStorageAccount MyStorageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("AzureStorageConnectionString"));
             CloudTableClient TableClientForMyStorageAccount = MyStorageAccount.CreateCloudTableClient();
             CloudTable MyAzureTable = TableClientForMyStorageAccount.GetTableReference("TestTable");
             MyAzureTable.CreateIfNotExists();
@@ -85,8 +88,10 @@ namespace AzureFirstTry
                         FoundCity.Population, FoundCity.DialingCode);
                 }
             }
+            #endregion
 
             //Test of Azure data storage (QUEUE)
+            #region AzureQueueTest
             Console.WriteLine("--AZURE QUEUE TEST--");
             CloudQueueClient QueueClientForMyStorageAccount = MyStorageAccount.CreateCloudQueueClient();
             CloudQueue MyAzureQueue = QueueClientForMyStorageAccount.GetQueueReference("test-queue");
@@ -98,7 +103,7 @@ namespace AzureFirstTry
             foreach (CloudQueueMessage FoundMessage in ListOfMessagesForQueue)
             {
                 MyAzureQueue.AddMessage(FoundMessage);
-            }  
+            }
             Console.WriteLine("Messages were added to queue.");
             CloudQueueMessage RetrievedMessage;
             for (int CounterOfMessages = 0; CounterOfMessages < 3; ++CounterOfMessages)
@@ -108,7 +113,8 @@ namespace AzureFirstTry
                 MyAzureQueue.DeleteMessage(RetrievedMessage);
             }
             Console.WriteLine("All messages were retrieved from queue.");
-
+            #endregion
+            Console.WriteLine("\n--All tests successfully completed--");
             Console.ReadKey();
         }
     }
