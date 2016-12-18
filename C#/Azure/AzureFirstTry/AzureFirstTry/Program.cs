@@ -8,6 +8,7 @@ using Microsoft.WindowsAzure.Storage; // Namespace for CloudStorageAccount
 using Microsoft.WindowsAzure.Storage.Table; // Namespace for Table storage types
 using Microsoft.WindowsAzure.Storage.Queue;
 using AzureFirstTry.AzureTableClasses;
+using Microsoft.ServiceBus.Messaging;
 
 namespace AzureFirstTry
 {
