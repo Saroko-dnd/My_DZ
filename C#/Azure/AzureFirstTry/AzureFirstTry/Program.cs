@@ -9,6 +9,7 @@ using Microsoft.WindowsAzure.Storage.Table; // Namespace for Table storage types
 using Microsoft.WindowsAzure.Storage.Queue;
 using AzureFirstTry.AzureTableClasses;
 using Microsoft.ServiceBus.Messaging;
+using System.Configuration;
 
 namespace AzureFirstTry
 {
@@ -115,6 +116,17 @@ namespace AzureFirstTry
             }
             Console.WriteLine("All messages were retrieved from queue.");
             #endregion
+            //
+            Console.WriteLine("-AZURE SERVICE BUS QUEUE TEST--");
+            string ServiceBusConnectionString = ConfigurationManager.AppSettings["AzureServiceBusConnectionString"];
+            string ServiceBusTestQueue = "test-queue";
+            QueueClient ClientForServiceBusQueue = QueueClient.CreateFromConnectionString(ServiceBusConnectionString, ServiceBusTestQueue);
+            List<BrokeredMessage> ListOfMessagesForServiceBusQueue = new List<BrokeredMessage>();
+            ListOfMessagesForServiceBusQueue.Add(new BrokeredMessage("First test message for service bus queue."));
+            ListOfMessagesForServiceBusQueue.Add(new BrokeredMessage("Second test message for service bus queue."));
+            ListOfMessagesForServiceBusQueue.Add(new BrokeredMessage("Third test message for service bus queue."));      
+            ClientForServiceBusQueue.SendBatch(ListOfMessagesForServiceBusQueue);
+            Console.WriteLine("Test messages were added to service bus queue.");
             Console.WriteLine("\n--All tests successfully completed--");
             Console.ReadKey();
         }
