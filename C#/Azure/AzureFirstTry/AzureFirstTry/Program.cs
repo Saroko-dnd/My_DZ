@@ -116,18 +116,32 @@ namespace AzureFirstTry
             }
             Console.WriteLine("All messages were retrieved from queue.");
             #endregion
-            //
+
+            //Test of Azure service bus (QUEUE)
+            #region AzureServiceBusQueueTest
             Console.WriteLine("-AZURE SERVICE BUS QUEUE TEST--");
             string ServiceBusConnectionString = ConfigurationManager.AppSettings["AzureServiceBusConnectionString"];
             string ServiceBusTestQueue = "test-queue";
             QueueClient ClientForServiceBusQueue = QueueClient.CreateFromConnectionString(ServiceBusConnectionString, ServiceBusTestQueue);
+            string LastMessageInQueue = "Third test message for service bus queue.";
             List<BrokeredMessage> ListOfMessagesForServiceBusQueue = new List<BrokeredMessage>();
             ListOfMessagesForServiceBusQueue.Add(new BrokeredMessage("First test message for service bus queue."));
             ListOfMessagesForServiceBusQueue.Add(new BrokeredMessage("Second test message for service bus queue."));
-            ListOfMessagesForServiceBusQueue.Add(new BrokeredMessage("Third test message for service bus queue."));      
+            ListOfMessagesForServiceBusQueue.Add(new BrokeredMessage(LastMessageInQueue));
             ClientForServiceBusQueue.SendBatch(ListOfMessagesForServiceBusQueue);
             Console.WriteLine("Test messages were added to service bus queue.");
-            Console.WriteLine("\n--All tests successfully completed--");
+            ClientForServiceBusQueue.OnMessage(FoundMessage =>
+            {
+                string MessageBody = FoundMessage.GetBody<String>();
+                Console.WriteLine(String.Format("Message body: {0}", MessageBody));
+                if (MessageBody == LastMessageInQueue)
+                {
+                    Console.WriteLine("All messages were retrieved from service bus queue.");
+                    Console.WriteLine("\n--All tests successfully completed--");
+                }
+            }); 
+            #endregion
+
             Console.ReadKey();
         }
     }
