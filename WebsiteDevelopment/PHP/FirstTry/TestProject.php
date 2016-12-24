@@ -122,4 +122,73 @@ echo $TestHtmlReference, "<br>";
     echo $TestObject->TestVar;
 ?>
 
+<hr>
 
+<h1>AJAX and PHP test!</h1>
+<p>Start type somesthing:</p>     
+<input type="text" id="InputForAjaxRequest" onkeyup="AskForHintFromPHP(this.value)">
+<p>String length from php:<span id="SpanForSuggestions"></span></p>
+
+<script>
+    var InputElement;
+    var ElementForSuggestions;
+    window.onload = GetInfoAbotElements;
+
+    function GetInfoAbotElements()
+    {
+        ElementForSuggestions = document.getElementById("SpanForSuggestions");
+        InputElement = document.getElementById("InputForAjaxRequest");
+    }
+
+    function AskForHintFromPHP(UserString)
+    {
+        if (InputElement.value == "")
+        {
+            ElementForSuggestions.innerHTML = "";
+        }
+        else
+        {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    ElementForSuggestions.innerHTML = this.responseText;
+                }
+            };
+            xmlhttp.open("GET", "AjaxTest.php?UserString=" + UserString, true);
+            xmlhttp.send();
+        }
+    }
+</script>
+
+<hr>
+<h1>Cookies and Session PHP test!</h1>
+<form> 
+    Enter yor username (for session):<input type="text" name="UserNameForSession">
+    <input type="submit">
+</form>     
+
+<?php
+    if(isset($_COOKIE['counter']))
+    {
+        ++$_COOKIE['counter'];
+        setcookie("counter",$_COOKIE['counter']);
+    }
+    else
+    {
+        setcookie("counter",1);
+    }
+    echo "You have visited this page " . $_COOKIE['counter'] . " times","<br/>";
+
+    session_start();
+    if (!isset($_SESSION['CurrentUserName']))
+    {
+        if (isset($_GET['UserNameForSession']))
+        {
+            $_SESSION['CurrentUserName'] = $_GET['UserNameForSession'];
+        }
+    }
+    if (isset($_SESSION['CurrentUserName']))
+    {
+        echo "Your username is " . $_SESSION['CurrentUserName'];
+    }  
+?>

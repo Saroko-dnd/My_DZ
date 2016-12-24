@@ -142,6 +142,7 @@ namespace AzureFirstTry
             }); 
             #endregion
 
+            //Docker authorization: thaos-admin , password: 123TheGodsAreReal321
             Console.ReadKey();
         }
     }
