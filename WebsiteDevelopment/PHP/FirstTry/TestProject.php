@@ -161,7 +161,7 @@ echo $TestHtmlReference, "<br>";
 </script>
 
 <hr>
-<h1>Cookies and Session PHP test!</h1>
+<h1>Cookies and Session PHP test! (Session will last only one minute!)</h1>
 <form> 
     Enter yor username (for session):<input type="text" name="UserNameForSession">
     <input type="submit">
@@ -172,23 +172,37 @@ echo $TestHtmlReference, "<br>";
     {
         ++$_COOKIE['counter'];
         setcookie("counter",$_COOKIE['counter']);
+        echo "You have visited this page " . $_COOKIE['counter'] . " times (from Cookies)","<br/>";
     }
     else
     {
         setcookie("counter",1);
     }
-    echo "You have visited this page " . $_COOKIE['counter'] . " times","<br/>";
+
 
     session_start();
     if (!isset($_SESSION['CurrentUserName']))
     {
         if (isset($_GET['UserNameForSession']))
         {
-            $_SESSION['CurrentUserName'] = $_GET['UserNameForSession'];
+            $_SESSION['CurrentUserName'] = $_GET['UserNameForSession'];  
+            $_SESSION['StartTime'] = time();  
         }
     }
     if (isset($_SESSION['CurrentUserName']))
     {
-        echo "Your username is " . $_SESSION['CurrentUserName'];
+        if ($_SESSION['StartTime'] + 60 < time()) 
+        {
+            session_unset();           
+            session_destroy();
+            /*session_write_close();
+            setcookie(session_name(),'',0,'/');
+            session_regenerate_id(true);*/
+            echo "Your username is unknown because session was destroyed!";
+        }
+        else
+        {
+            echo "Your username is " . $_SESSION['CurrentUserName'];
+        }
     }  
 ?>

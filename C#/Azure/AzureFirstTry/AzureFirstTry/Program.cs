@@ -10,6 +10,7 @@ using Microsoft.WindowsAzure.Storage.Queue;
 using AzureFirstTry.AzureTableClasses;
 using Microsoft.ServiceBus.Messaging;
 using System.Configuration;
+using System.Net.Mail;
 
 namespace AzureFirstTry
 {
@@ -139,9 +140,9 @@ namespace AzureFirstTry
                     Console.WriteLine("All messages were retrieved from service bus queue.");
                     Console.WriteLine("\n--All tests successfully completed--");
                 }
-            }); 
+            });
             #endregion
-
+        
             //Docker authorization: thaos-admin , password: 123TheGodsAreReal321
             Console.ReadKey();
         }
