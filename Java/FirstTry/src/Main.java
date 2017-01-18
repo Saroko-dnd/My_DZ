@@ -44,5 +44,8 @@ public class Main {
             System.out.println("Key : " + key + " Value : " + value);
         });
 
+        //Prints integer as binary
+        System.out.println(Integer.toString(-2147483647,2));
+
     }
 }
