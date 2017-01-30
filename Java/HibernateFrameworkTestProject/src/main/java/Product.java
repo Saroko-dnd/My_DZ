@@ -11,51 +11,56 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    public int Id;
+    private int _id;
     @Column(name = "Cost")
-    public int Cost;
+    private int _cost;
     @Column(name = "Name")
-    public String Name;
+    private String _name;
     @Column(name = "ManufacturerName")
-    public String ManufacturerName;
+    private String _manufacturerName;
 
-    public int getId() {
-        return Id;
+    public int get_id() {
+        return _id;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public void set_id(int _id) {
+        this._id = _id;
     }
 
-    public int getCost() {
-        return Cost;
+    public int get_cost() {
+        return _cost;
     }
 
-    public void setCost(int cost) {
-        Cost = cost;
+    public void set_cost(int _cost) {
+        this._cost = _cost;
     }
 
-    public String getName() {
-        return Name;
+    public String get_name() {
+        return _name;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void set_name(String _name) {
+        this._name = _name;
     }
 
-    public String getManufacturerName() {
-        return ManufacturerName;
+    public String get_manufacturerName() {
+        return _manufacturerName;
     }
 
-    public void setManufacturerName(String manufacturerName) {
-        ManufacturerName = manufacturerName;
+    public void set_manufacturerName(String _manufacturerName) {
+        this._manufacturerName = _manufacturerName;
+    }
+
+    @Override
+    public String toString() {
+        return "Id: " + _id + " Name: " +_name + " Manufacturer: " + _manufacturerName + " Cost: " +  _cost;
     }
 
     public Product(int cost, String name, String manufacturerName)
     {
-        Cost = cost;
-        Name = name;
-        ManufacturerName = manufacturerName;
+        _cost = cost;
+        _name = name;
+        _manufacturerName = manufacturerName;
     }
 
     public Product()
