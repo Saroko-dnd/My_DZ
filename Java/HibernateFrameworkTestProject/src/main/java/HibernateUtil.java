@@ -14,7 +14,7 @@ public class HibernateUtil {
 
     static {
         Configuration conf = new Configuration();
-        conf.addAnnotatedClass(Product.class);
+        conf.addAnnotatedClass(Product.class).addAnnotatedClass(Producer.class);
         conf.configure("hibernate.cfg.xml");
         serviceRegistry = new StandardServiceRegistryBuilder().applySettings(conf.getProperties()).build();
 

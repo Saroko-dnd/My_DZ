@@ -1,18 +1,36 @@
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by master on 2017/01/28.
  */
+//SET GLOBAL time_zone = '+8:00'; way of setting timezone for mysql
 public class Main {
     public static void main(String[] args) {
         System.out.println("Start");
 
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         Session session = sessionFactory.openSession();
+
+        session.beginTransaction();
+
+        Producer TestProducer = new Producer(1980, "TestProducerName",
+                "www.SuperProducer.com" );
+        session.save(TestProducer);
+
+        Product TestProduct = new Product(1000, "TestProductName" , TestProducer);
+        TestProducer.get_setOfProducts().add(TestProduct);
+
+        session.save(TestProduct);
+
+        session.getTransaction().commit();
 
         //Adding new entities to db
         /*session.beginTransaction();
@@ -34,16 +52,28 @@ public class Main {
             System.out.println(FoundProduct);
         }*/
 
-        session.beginTransaction();
+        //Criteria example (new version) select all products with _cost == 500
+        /*CriteriaBuilder TestCriteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> TestCriteriaQuery = TestCriteriaBuilder.createQuery( Product.class );
+        Root<Product> TestRoot = TestCriteriaQuery.from( Product.class );
+        TestCriteriaQuery.select( TestRoot );
+        TestCriteriaQuery.where( TestCriteriaBuilder.equal( TestRoot.get( "_cost" ), 500 ) );
+        List<Product> ListOfCheapProductsInDB = session.createQuery(TestCriteriaQuery).getResultList();
 
-        Product FoundProduct = (Product) session.get(Product.class, 2);
+        for (Product FoundProduct : ListOfCheapProductsInDB) {
+            System.out.println(FoundProduct);
+        }*/
+
+        /*session.beginTransaction();
+
+        Product FoundProduct = (Product) session.get(Product.class, 2);*/
         //Updating entity selected by Id
-        FoundProduct.set_name("_UpdatedName");
-        session.update(FoundProduct);
+        /*FoundProduct.set_name("_UpdatedName");
+        session.update(FoundProduct);*/
 
         //Deleting entity selected by Id from db
         //session.delete(FoundProduct);
-        session.getTransaction().commit();
+        //session.getTransaction().commit();
 
         session.close();
 

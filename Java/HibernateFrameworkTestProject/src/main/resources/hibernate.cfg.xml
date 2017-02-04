@@ -8,9 +8,14 @@
         <property name="connection.url">jdbc:mysql://localhost/hebirnate_test?createDatabaseIfNotExist=true</property>
         <property name="connection.username">root</property>
         <property name="connection.password"></property>
-        <property name= "cache.provider_class">
-            org.hibernate.cache.NoCacheProvider
+
+        <!-- config for cache (second level) -->
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+        <property name="hibernate.cache.region.factory_class">
+            org.hibernate.cache.ehcache.EhCacheRegionFactory
         </property>
+
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
