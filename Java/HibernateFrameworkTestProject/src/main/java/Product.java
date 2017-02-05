@@ -23,6 +23,8 @@ public class Product {
     private int _cost;
     @Column(name = "Name")
     private String _name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Producer_Id", nullable = false)
     private Producer _producer;
 
     public int get_id() {
@@ -49,8 +51,6 @@ public class Product {
         this._name = _name;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Producer_Id", nullable = false)
     public Producer get_producer() {
         return _producer;
     }

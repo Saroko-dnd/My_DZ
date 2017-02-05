@@ -22,7 +22,7 @@ public class Producer {
     private String _siteLink;
     @Column(name = "FoundationYear")
     private int _foundationYear;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Producers")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "_producer")
     private Set<Product> _setOfProducts = new HashSet<Product>(0);
 
     public Set<Product> get_setOfProducts() {
