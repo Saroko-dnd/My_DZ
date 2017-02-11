@@ -20,18 +20,22 @@ public class Main {
         Session session = sessionFactory.openSession();
 
         session.beginTransaction();
-
-        Producer TestProducer = new Producer(1980, "TestProducerName",
+        //ONE TO MANY EXAMPLE
+        Producer FoundProducer = (Producer) session.get(Producer.class, 1);
+        /*Producer TestProducer = new Producer(1980, "TestProducerName",
                 "www.SuperProducer.com" );
-        session.save(TestProducer);
+        session.save(TestProducer);*/
+        System.out.println(FoundProducer.get_setOfProducts().size());
+        /*Product TestProduct_1 = new Product(1500, "TestProductName_2" , FoundProducer);
+        Product TestProduct_2 = new Product(1250, "TestProductName_3" , FoundProducer);
+        FoundProducer.get_setOfProducts().add(TestProduct_1);
+        FoundProducer.get_setOfProducts().add(TestProduct_2);
 
-        Product TestProduct = new Product(1000, "TestProductName" , TestProducer);
-        TestProducer.get_setOfProducts().add(TestProduct);
-
-        session.save(TestProduct);
+        session.save(TestProduct_1);
+        session.save(TestProduct_2);*/
 
         session.getTransaction().commit();
-
+        //-----------------------------------------------------------
         //Adding new entities to db
         /*session.beginTransaction();
 
