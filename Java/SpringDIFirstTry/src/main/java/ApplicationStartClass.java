@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class ApplicationStartClass {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DIConfiguration.class);
-        DIConsumerGameDice CurrentCalculator = context.getBean(DIConsumerGameDice.class);
+        DIConsumerGameDice CurrentGameDice = context.getBean(DIConsumerGameDice.class);
         SuperCasino CurrentCasino = new SuperCasino(context.getBean(DIConsumerGameDice.class),
                 context.getBean(DIConsumerGameDice.class));
 
