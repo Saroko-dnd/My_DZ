@@ -6,7 +6,8 @@ import bsh.EvalError;
  */
 public class Main {
     public static void main(String[] args) throws EvalError {
-        System.out.println(Calculator.EvalExpression("10 + 7 - 5"));
+        String TestString = Calculator.EvalExpression("10+7");
+        System.out.println(TestString);
         System.exit(0);
     };
 }

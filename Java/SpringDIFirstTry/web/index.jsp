@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Title</title>
+    <link href="/WEB-INF/Pages/TestCss.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <h1>Spring web MVC main page.</h1>
