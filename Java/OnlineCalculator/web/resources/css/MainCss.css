@@ -1,0 +1,14 @@
+*{
+    color: red;
+}
+
+section{
+    margin: 0 auto;
+    width: 500px;
+    text-align: center;
+}
+
+.input-field-for-math-expression{
+    width: 100%;
+}
+
