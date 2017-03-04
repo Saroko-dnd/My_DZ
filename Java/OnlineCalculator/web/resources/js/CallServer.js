@@ -8,6 +8,14 @@ $( document ).ready(function() {
             traditional: true,
             contentType : 'text/plain',
             success: function(result){
+                if(isNaN(result))
+                {
+                    $("#ResultSpan").css('color', 'red');
+                }
+                else
+                {
+                    $("#ResultSpan").css('color', 'green');
+                }
                 $("#ResultSpan").html(result);
             }});
     });

@@ -1,18 +1,21 @@
 package WebPackage.JustClassesForWeb;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 /**
  * Created by admin on 25.02.2017.
  */
+/*@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY, getterVisibility = Visibility.NONE,
+        setterVisibility = Visibility.NONE)*/
 public class Student {
-    public int Age;
-    public String Name;
-    public String SecondName;
+    private int Age;
+    private String Name;
+    private String SecondName;
 
-    public String toString()
+   /* public String toString()
     {
         return  "Age: " + Age + " Name: " +  Name + " Second name: " + SecondName;
-    }
-
+    }*/
 
     public int getAge() {
         return Age;

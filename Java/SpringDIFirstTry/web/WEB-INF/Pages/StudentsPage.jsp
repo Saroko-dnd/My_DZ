@@ -20,9 +20,12 @@
     <input type="text" name="SecondName">
     <input type="submit" value="CreateNewStudent" />
 </form>
+<input type="button" value="Get object from server as json string" id="ButtonForCallingJsonObject">
+<div id="DivForJsonString">
+
+</div>
 ${Students}
 <script>
-
 
 
     function TestAjaxFunction(){
@@ -30,6 +33,24 @@ ${Students}
             $( "#temperatureParagraph" ).html( data );
         });
     }
+
+    $(document).ready(function() {
+        $( "#ButtonForCallingJsonObject" ).click(function() {
+            /*$.get( "/getObjectAsJson","SUPER DATA", function( data ) {
+                $( "#DivForJsonString" ).html( data );
+            });*/
+
+            $.ajax({url: "/getObjectAsJson", method : 'POST',dataType : 'text',
+                data : "SUPER DATA",
+                traditional: true,
+                contentType : 'text/plain',
+                success: function(result){
+                    $("#DivForJsonString").html(result);
+                }});
+        });
+
+
+    });
 
     setTimeout(TestAjaxFunction, 5000);
 

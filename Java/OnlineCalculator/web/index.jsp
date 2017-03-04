@@ -21,6 +21,7 @@
             Result: <span id="ResultSpan"></span>
         </p>
         <input type="button" value="Evaluate" id="EvaluateButton">
+        <p>Evailable operations: <a href="https://github.com/uklimaschewski/EvalEx"></a></p>
     </section>
 </body>
 </html>
