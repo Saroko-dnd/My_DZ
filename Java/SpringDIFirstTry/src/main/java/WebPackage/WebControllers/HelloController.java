@@ -1,9 +1,14 @@
 package WebPackage.WebControllers;
 
+import DBPackage.DBWorker;
+import DBPackage.HibernateUtil;
 import WebPackage.JustClassesForWeb.Student;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.ModelMap;
@@ -22,7 +27,33 @@ public class HelloController {
 
     static List<Student> Students = new ArrayList<Student>();
 
-    @RequestMapping(value = "/temperature", method = RequestMethod.GET)
+    @RequestMapping(value = "/addNewStudentToDb", method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void AddNewStudentToDb(@RequestParam(value = "Age") int newAge,
+                                    @RequestParam(value = "Name") String newName,
+                                    @RequestParam(value = "SecondName") String newSecondName) {
+        DBWorker.SaveNewStudentToDB(new Student(newAge, newName, newSecondName));
+
+    }
+
+    @RequestMapping(value = "/studentsInfo", method = RequestMethod.GET)
+    @ResponseBody
+    public String AddNewStudentToDb() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.writeValueAsString(DBWorker.GetAllStudents());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    @RequestMapping(value = "/students", method = RequestMethod.GET)
+    public String ReturnBasePage() {
+        return "StudentsPage";
+    }
+
+    /*@RequestMapping(value = "/temperature", method = RequestMethod.GET)
     @ResponseBody
     public Student returnTemperature(ModelMap model) {
         Student TestStudent = new Student();
@@ -65,5 +96,5 @@ public class HelloController {
             e.printStackTrace();
         }
         return "";
-    }
+    }*/
 }

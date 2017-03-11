@@ -14,14 +14,15 @@
 <body>
 <h1>List of students</h1>
 <p id="temperatureParagraph"></p>
-<form action="/createNewObject" name="Student" method="post">
-    <input type="number" name="Age">
-    <input type="text" name="Name">
-    <input type="text" name="SecondName">
-    <input type="submit" value="CreateNewStudent" />
-</form>
+
+<input type="number" name="Age" id="AgeInput">
+<input type="text" name="Name" id="NameInput">
+<input type="text" name="SecondName" id="SecondNameInput">
+<input type="submit" value="CreateNewStudent" id="CreateNewStudentButton"/>
+
 <input type="button" value="Get object from server as json string" id="ButtonForCallingJsonObject">
-<div id="DivForJsonString">
+<input type="button" value="Refresh students info" id="RefreshButton">
+<div id="StudentsDataContainer">
 
 </div>
 ${Students}
@@ -40,7 +41,7 @@ ${Students}
                 $( "#DivForJsonString" ).html( data );
             });*/
 
-            $.ajax({url: "/getObjectAsJson", method : 'POST',dataType : 'text',
+            $.ajax({url: "/addNewStudentToDb", method : 'POST',dataType : 'text',
                 data : "SUPER DATA",
                 traditional: true,
                 contentType : 'text/plain',
@@ -49,8 +50,24 @@ ${Students}
                 }});
         });
 
+        $( "#RefreshButton" ).click(function() {
+            GetAllInfoAboutStudents();
+        });
 
+        $("#CreateNewStudentButton").click(function() {
+            let age = $("#AgeInput").val();
+            let name = $("#NameInput").val();
+            let SecondName = $("#SecondNameInput").val();
+            $.ajax({url: "/addNewStudentToDb?Age=" + age + '&Name=' + name + '&SecondName=' + SecondName,
+                method : 'POST'});
+        });
     });
+
+    function GetAllInfoAboutStudents(){
+        $.get( "/studentsInfo", function( data ) {
+            $( "#StudentsDataContainer" ).html( data );
+        });
+    }
 
     setTimeout(TestAjaxFunction, 5000);
 

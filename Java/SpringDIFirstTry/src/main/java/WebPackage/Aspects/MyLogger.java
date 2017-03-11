@@ -1,11 +1,9 @@
 package WebPackage.Aspects;
 
 import org.apache.log4j.Logger;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
 /**
@@ -27,7 +25,7 @@ public class MyLogger {
     }*/
 
     @Around("execution(* WebPackage.WebControllers.HelloController.ReturnStudent(..))")
-    public void logAround(ProceedingJoinPoint proceedingJoinPoint){
+    public Object logAround(ProceedingJoinPoint proceedingJoinPoint){
         logger.info("Argument of getObjectAsJson() : " + proceedingJoinPoint.getArgs()[0].toString());
         Object value = null;
         long startTime = System.currentTimeMillis();
@@ -39,5 +37,6 @@ public class MyLogger {
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
         logger.info("After invoking getObjectAsJson() return value : "+ value + ". Execution time: " + elapsedTime);
+        return value;
     }
 }
