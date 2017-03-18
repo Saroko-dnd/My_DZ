@@ -12,12 +12,9 @@ import org.springframework.context.annotation.Configuration;
  * Created by admin on 11.03.2017.
  */
 @Configuration
-@ComponentScan(value={"DBPackage"})
+@ComponentScan(value = {"DBPackage"})
 public class DBDIConfiguration {
-    @Bean
-    public IDBWorker getDBWorkerService(){
-        return new DBWorker();
-    }
+    
 }
 
 

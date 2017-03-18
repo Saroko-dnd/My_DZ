@@ -3,12 +3,14 @@ package DBPackage;
 import WebPackage.JustClassesForWeb.Student;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by admin on 11.03.2017.
  */
+@Component
 public class DBWorker implements IDBWorker {
     public void  SaveNewStudentToDB(Student NewStudent)
     {

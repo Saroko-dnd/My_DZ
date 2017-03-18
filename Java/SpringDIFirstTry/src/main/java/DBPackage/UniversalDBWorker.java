@@ -1,5 +1,6 @@
 package DBPackage;
 
+import DBPackage.IDBWorker;
 import DIUsers.ICalculator;
 import WebPackage.JustClassesForWeb.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,20 +13,17 @@ import java.util.List;
 /**
  * Created by admin on 11.03.2017.
  */
-@Component
-@Scope("singleton")
+
 public class UniversalDBWorker {
     private IDBWorker DBWorkerService;
 
     @Autowired
-    @Qualifier("Simple")
     public void setService(IDBWorker svc){
         this.DBWorkerService = svc;
     }
 
-    public void AddNewStudentToDB(Student newStudent){
-        //some magic like validation, logging etc
-        this.DBWorkerService.SaveNewStudentToDB(newStudent);
+    public void SaveNewStudentToDB(Student NewStudent) {
+        this.DBWorkerService.SaveNewStudentToDB(NewStudent);
     }
 
     public List<Student> GetAllStudents(){

@@ -1,12 +1,18 @@
 package WebPackage.WebControllers;
 
 import DBPackage.DBWorker;
+import DBPackage.DB_DI_Providers.DBDIConfiguration;
 import DBPackage.HibernateUtil;
+import DBPackage.IDBWorker;
+import DBPackage.UniversalDBWorker;
+import DIProviders.DIConfiguration;
 import WebPackage.JustClassesForWeb.Student;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -27,12 +33,18 @@ public class HelloController {
 
     static List<Student> Students = new ArrayList<Student>();
 
+    @Autowired
+    IDBWorker idbWorker;
+
+
     @RequestMapping(value = "/addNewStudentToDb", method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public void AddNewStudentToDb(@RequestParam(value = "Age") int newAge,
-                                    @RequestParam(value = "Name") String newName,
-                                    @RequestParam(value = "SecondName") String newSecondName) {
-        DBWorker.SaveNewStudentToDB(new Student(newAge, newName, newSecondName));
+                                  @RequestParam(value = "Name") String newName,
+                                  @RequestParam(value = "SecondName") String newSecondName) {
+        /*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DBDIConfiguration.class);
+        UniversalDBWorker CurrentDBWorker = context.getBean(UniversalDBWorker.class);*/
+        idbWorker.SaveNewStudentToDB(new Student(newAge, newName, newSecondName));
 
     }
 
@@ -41,7 +53,9 @@ public class HelloController {
     public String AddNewStudentToDb() {
         ObjectMapper mapper = new ObjectMapper();
         try {
-            return mapper.writeValueAsString(DBWorker.GetAllStudents());
+            /*AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(DBDIConfiguration.class);
+            UniversalDBWorker CurrentDBWorker = context.getBean(UniversalDBWorker.class);*/
+            return mapper.writeValueAsString(idbWorker.GetAllStudents());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

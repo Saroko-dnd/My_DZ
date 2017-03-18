@@ -14,10 +14,18 @@
 <body>
 <h1>List of students</h1>
 <p id="temperatureParagraph"></p>
-
-<input type="number" name="Age" id="AgeInput">
-<input type="text" name="Name" id="NameInput">
-<input type="text" name="SecondName" id="SecondNameInput">
+<div>
+    <p>Age</p>
+    <input type="number" name="Age" id="AgeInput">
+</div>
+<div>
+    <p>First name</p>
+    <input type="text" name="Name" id="NameInput">
+</div>
+<div>
+    <p>Second name:</p>
+    <input type="text" name="SecondName" id="SecondNameInput">
+</div>
 <input type="submit" value="CreateNewStudent" id="CreateNewStudentButton"/>
 
 <input type="button" value="Get object from server as json string" id="ButtonForCallingJsonObject">
