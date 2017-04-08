@@ -9,10 +9,10 @@ import java.util.List;
  * Created by admin on 01.04.2017.
  */
 public interface IDataBaseWorker {
-    void SaveNewProductToDB(Product newProduct);
+    void SaveNewProductToDB(Product newProduct, int ProducerId);
     void SaveNewProducerToDB(Producer newProducer);
     void UpdateProduct(Product productToUpdate);
-    void UpdateProducук(Producer producerToUpdate);
+    void UpdateProducer(Producer producerToUpdate);
     List<Product> GetAllProducts();
     List<Producer> GetAllProducers();
     void RemoveProductFromDB(Product currentProduct);

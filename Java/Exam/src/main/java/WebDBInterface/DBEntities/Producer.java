@@ -1,5 +1,9 @@
 package WebDBInterface.DBEntities;
 
+//import org.codehaus.jackson.annotate.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +24,8 @@ public class Producer {
     private String _country;
     @Column(name = "AnnualProfit")
     private int _annualProfit;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Producer")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "_producer")
+    @JsonBackReference("ggg")
     private Set<Product> SetOfProducts = new HashSet<Product>(0);
 
     public int getId() {

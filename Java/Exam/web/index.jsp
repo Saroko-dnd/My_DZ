@@ -13,12 +13,18 @@
 </head>
 <body>
     <article>
-        <h1>DB interface</h1>
+        <h1>DB WEB interface</h1>
     </article>
+    <p id="ParagraphForTextFromServer"></p>
     <script>
         $(document).ready(function() {
-            $.ajax({url: "/addNewProducerToDb?Name=TestProduct&Country=TestCountry&AnnualProfit=1500", method : 'POST',dataType : 'text',
-                traditional: true});
+            /*$.ajax({url: "/addNewProducerToDb?Name=SuperProducer&Country=SuperCountry&AnnualProfit=2000", method : 'POST',dataType : 'text',
+                traditional: true});*/
+            /*$.ajax({url: "/addNewProductToDb?Name=SuperProduct&Price=123&Quantity=50&Color=red&ProducerId=1", method : 'POST',dataType : 'text',
+                traditional: true});*/
+            $.get( "/getAllProducts", function( data ) {
+                $("#ParagraphForTextFromServer" ).text( data );
+            });
         });
     </script>
 </body>

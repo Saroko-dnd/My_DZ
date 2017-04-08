@@ -1,5 +1,7 @@
 package WebDBInterface.DBEntities;
 
+//import org.codehaus.jackson.annotate.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 
 /**
@@ -20,8 +22,9 @@ public class Product {
     private int _quantity;
     @Column(name = "Color")
     private String _color;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Producer_Id", nullable = false)
+    @JsonManagedReference("ggg")
     private Producer _producer;
 
     public int getId() {
@@ -76,12 +79,11 @@ public class Product {
 
     }
 
-    public Product(int newPrice, String newName, int newQuantity, String newColor, Producer newProducer){
+    public Product(int newPrice, String newName, int newQuantity, String newColor){
         _price = newPrice;
         _name = newName;
         _quantity = newQuantity;
         _color = newColor;
-        _producer = newProducer;
     }
 
 }
