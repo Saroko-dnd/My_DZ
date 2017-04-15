@@ -4,46 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.admin.firstapplication.MainActivity">
+    tools:context="com.example.admin.firstapplication.SecondActivity">
 
     <TextView
-        android:id="@+id/HelloWorldTextView"
+        android:id="@+id/secondActivityTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:textSize="64px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <AnalogClock
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@id/HelloWorldTextView"
+    <EditText
+        android:id="@+id/editorSecondActivity"
+        android:layout_weight="1.0"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.818" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.247" />
     <Button
-        android:id="@+id/StartSecondActivityButton"
-        android:layout_width="600px"
+        android:id="@+id/createResultButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Send message to second activity"
+        android:text="Create result from input for first activity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/HelloWorldTextView"
-        app:layout_constraintVertical_bias="0.141" />
-    <EditText
-        android:id="@+id/editorMessageForSecondActivity"
-        android:layout_weight="1.0"
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:text="Test message"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/StartSecondActivityButton" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.393" />
 
 </android.support.constraint.ConstraintLayout>
