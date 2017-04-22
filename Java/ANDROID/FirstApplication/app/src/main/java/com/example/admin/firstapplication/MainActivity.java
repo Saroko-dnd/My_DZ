@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BlankFragment1.OnButtonClickEventListener {
 
     static final int GET_NAME_SECOND_NAME_REQUEST = 1;
+    private final BlankFragment firstFragment = new BlankFragment();
+    private final BlankFragment1 secondFragment = new BlankFragment1();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, GET_NAME_SECOND_NAME_REQUEST);
             }
         });
+        getFragmentManager().beginTransaction().add(R.id.placeholderForFragment, firstFragment).commit();
+        getFragmentManager().beginTransaction().add(R.id.placeholderForFragment, secondFragment).commit();
     }
 
     @Override
@@ -43,5 +47,10 @@ public class MainActivity extends AppCompatActivity {
                 textViewForHelloWorld.setText("RESULT CANCELED");
             }
         }
+    }
+
+    @Override
+    public void OnFragmentButtonClick(String newText) {
+        firstFragment.SetText("!!!!!");
     }
 }
