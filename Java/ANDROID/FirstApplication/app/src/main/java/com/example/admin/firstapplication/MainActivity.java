@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment1.On
             }
         });
         getFragmentManager().beginTransaction().add(R.id.placeholderForFragment, firstFragment).commit();
-        getFragmentManager().beginTransaction().add(R.id.placeholderForFragment, secondFragment).commit();
+        getFragmentManager().beginTransaction().add(R.id.placeholderForFragment_2, secondFragment).commit();
     }
 
     @Override
@@ -51,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment1.On
 
     @Override
     public void OnFragmentButtonClick(String newText) {
-        firstFragment.SetText("!!!!!");
+        Button buttonFromFragment = (Button) findViewById(R.id.sendMessageToAnotherFragmentButton);
+        Animation clockWiseRotationAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.clockwise);
+        buttonFromFragment.startAnimation(clockWiseRotationAnimation);
+        secondFragment.SetText("!!!!!");
     }
 }

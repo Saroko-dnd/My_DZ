@@ -9,11 +9,18 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 
-public class BlankFragment1 extends Fragment {
+public class BlankFragment1 extends Fragment implements View.OnClickListener {
 
     OnButtonClickEventListener mCallback;
+
+    @Override
+    public void onClick(View v) {
+        mCallback.OnFragmentButtonClick("!!!!!!!!");
+    }
 
     // Container Activity must implement this interface
     public interface OnButtonClickEventListener {
@@ -26,12 +33,9 @@ public class BlankFragment1 extends Fragment {
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
-        try {
-            mCallback = (OnButtonClickEventListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
+        mCallback = (OnButtonClickEventListener) activity;
+        Button button = (Button) activity.findViewById(R.id.sendMessageToAnotherFragmentButton);
+        button.setOnClickListener(this);
     }
 
     @Override
@@ -41,5 +45,8 @@ public class BlankFragment1 extends Fragment {
         return inflater.inflate(R.layout.fragment_blank_fragment1, container, false);
     }
 
-
+    public void SetText(String newText){
+        TextView TextViewInThisActivity = (TextView)getView().findViewById(R.id.TextViewB);
+        TextViewInThisActivity.setText(newText);
+    }
 }

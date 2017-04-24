@@ -1,14 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.admin.firstapplication.BlankFragment">
+    android:layout_width="500px"
+    android:layout_height="150px"
+    tools:context="com.example.admin.firstapplication.BlankFragment"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/TextViewA"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/fragment_A" />
+    <Button
+        android:id="@+id/sendMessageToAnotherFragmentButton"
+        android:layout_width="450px"
+        android:layout_height="100px"
+        android:text="Send text to fragment B"
+        android:textSize="40px"
+        android:paddingBottom="0px"
+        android:paddingLeft="5px"
+        android:paddingRight="5px"
+        android:paddingTop="0px"/>
 
-</FrameLayout>
+</LinearLayout>
